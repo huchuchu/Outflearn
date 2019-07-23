@@ -36,4 +36,7 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping("LectureList")
+	public void LectureList() {
+	}
 }
