@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
   <meta charset="UTF-8">
@@ -11,13 +11,6 @@
   <meta name="author" content="">
 
   <title>Outflearn</title>
-
-  <!-- Favicons
-    ================================================== -->
-  <link rel="shortcut icon" href="resources/img/favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="resources/img/apple-touch-icon.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="resources/img/apple-touch-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="resources/img/apple-touch-icon-114x114.png">
 
   <!-- Bootstrap -->
   <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
@@ -33,9 +26,6 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
 
   <!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
-  <link href="/your-path-to-fontawesome/css/fontawesome.css" rel="stylesheet">
-  <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
-  <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 
 </head>
@@ -191,79 +181,89 @@
     </div>
   </div>
 
-  <!-- Contact Section -->
-  <div id="contact">
-    <div class="container">
-      <div class="col-md-8">
-        <div class="row">
-          <div class="section-title">
-            <h2>Get In Touch</h2>
-            <p>Please fill out the form below to send us an email and we will get back to you as soon as possible.</p>
+  <<<<<<< HEAD <!-- Contact Section -->
+    <div id="contact">
+      <div class="container">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="section-title">
+              <h2>Get In Touch</h2>
+              <p>Please fill out the form below to send us an email and we will get back to you as soon as possible.</p>
+            </div>
+            <form name="sentMessage" id="contactForm" novalidate>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" id="name" class="form-control" placeholder="Name" required="required">
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="email" id="email" class="form-control" placeholder="Email" required="required">
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <textarea name="message" id="message" class="form-control" rows="4" placeholder="Message"
+                  required></textarea>
+                <p class="help-block text-danger"></p>
+              </div>
+              <div id="success"></div>
+              <button type="submit" class="btn btn-custom btn-lg">Send Message</button>
+            </form>
           </div>
-          <form name="sentMessage" id="contactForm" novalidate>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <input type="text" id="name" class="form-control" placeholder="Name" required="required">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <input type="email" id="email" class="form-control" placeholder="Email" required="required">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
+        </div>
+        <div class="col-md-3 col-md-offset-1 contact-info">
+          <div class="contact-item">
+            <h3>Contact Info</h3>
+            <p><span><i class="fa fa-map-marker"></i> Address</span>4321 California St,<br>
+              San Francisco, CA 12345</p>
+          </div>
+          <div class="contact-item">
+            <p><span><i class="fa fa-phone"></i> Phone</span> +1 123 456 1234</p>
+          </div>
+          <div class="contact-item">
+            <p><span><i class="fa fa-envelope-o"></i> Email</span> info@company.com</p>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="social">
+              <ul>
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+              </ul>
             </div>
-            <div class="form-group">
-              <textarea name="message" id="message" class="form-control" rows="4" placeholder="Message"
-                required></textarea>
-              <p class="help-block text-danger"></p>
-            </div>
-            <div id="success"></div>
-            <button type="submit" class="btn btn-custom btn-lg">Send Message</button>
-          </form>
-        </div>
-      </div>
-      <div class="col-md-3 col-md-offset-1 contact-info">
-        <div class="contact-item">
-          <h3>Contact Info</h3>
-          <p><span><i class="fa fa-map-marker"></i> Address</span>4321 California St,<br>
-            San Francisco, CA 12345</p>
-        </div>
-        <div class="contact-item">
-          <p><span><i class="fa fa-phone"></i> Phone</span> +1 123 456 1234</p>
-        </div>
-        <div class="contact-item">
-          <p><span><i class="fa fa-envelope-o"></i> Email</span> info@company.com</p>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="row">
-          <div class="social">
-            <ul>
-              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-              <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-            </ul>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Footer Section -->
-  <div id="footer">
-    <div class="container text-center">
-      <p>Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></p>
+    <!-- Footer Section -->
+    <div id="footer">
+      <div class="container text-center">
+        <p>Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></p>
+      </div>
     </div>
-  </div>
-  <script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
-  <script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
-  <script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
-  <script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
-  <script type="text/javascript" src="resources/js/template/contact_me.js"></script>
-  <script type="text/javascript" src="resources/js/template/main.js"></script>
+    <script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
+    <script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
+    <script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
+    <script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
+    <script type="text/javascript" src="resources/js/template/contact_me.js"></script>
+    <script type="text/javascript" src="resources/js/template/main.js"></script>
+    =======
+    <jsp:include page="footer/Footer.jsp"></jsp:include>
+
+    <script type="text/javascript" src="resources/js/jquery.1.11.1.js"></script>
+    <script type="text/javascript" src="resources/js/bootstrap.js"></script>
+    <script type="text/javascript" src="resources/js/nivo-lightbox.js"></script>
+    <script type="text/javascript" src="resources/js/jqBootstrapValidation.js"></script>
+    <script type="text/javascript" src="resources/js/contact_me.js"></script>
+    <script type="text/javascript" src="resources/js/main.js"></script>
+    >>>>>>> mhs
 </body>
 
 </html>
