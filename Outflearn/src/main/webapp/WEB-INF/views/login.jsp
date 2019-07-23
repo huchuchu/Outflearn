@@ -79,117 +79,16 @@
         <div class="container">
           <div class="row">
             <div class="col-md-8 col-md-offset-2 intro-text">
-              <h2>아웃프런에서 당신의 지식을 쌓으세요.</h2>
-              <h2>${UserInfo.user_nickname}</h2>
-              <p>배우고 싶은 지식 또는 기술을 경험하세요</p>
-              <div class="input-group input-group-lg col-md-12">
-                <input type="text" class="form-control" placeholder="배우고 싶은 기술을 입력하세요.">
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default btn-lg"><i class="fas fa-search"
-                      style="color: #3366FF"></i></button>
-                </span>
-              </div>
+              <input type="text" id="loginId">
+              <input type="text" id="loginPw">
+              <input type="button" value="로그인" id="login" onclick="loginProcess()">
             </div>
           </div>
         </div>
       </div>
+    </div>
   </header>
 
-  <!-- Live Section -->
-  <div id="live">
-    <div class="container">
-      <h2 class="page-header" style="text-align:center">Live 강의</h2>
-
-      <div class="slideshow-container">
-        <div class="mySlides1">
-          <img src="images/img_1.jpg" style="width:100%">
-        </div>
-
-        <div class="mySlides1">
-          <img src="images/img_2.jpg" style="width:100%">
-        </div>
-
-        <div class="mySlides1">
-          <img src="images/img_3.jpg" style="width:100%">
-        </div>
-
-        <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- 신규 강좌 -->
-  <div id="recent">
-    <div class="container">
-      <h2 class="page-header" style="text-align:center">최근에 개설된 신규 강좌</h2>
-
-      <div class="slideshow-container">
-        <div class="mySlides2">
-          <img src="images/img_1.jpg" style="width:100%">
-        </div>
-
-        <div class="mySlides2">
-          <img src="images/img_2.jpg" style="width:100%">
-        </div>
-
-        <div class="mySlides2">
-          <img src="images/img_3.jpg" style="width:100%">
-        </div>
-
-        <a class="prev" onclick="plusSlides(-1, 1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- 좋은 평가를 받고 있는 강좌 -->
-  <div id="best_review">
-    <div class="container">
-      <h2 class="page-header" style="text-align:center">좋은 평가를 받고 있는 강좌</h2>
-
-      <div class="slideshow-container">
-        <div class="mySlides3">
-          <img src="images/img_1.jpg" style="width:100%">
-        </div>
-
-        <div class="mySlides3">
-          <img src="images/img_2.jpg" style="width:100%">
-        </div>
-
-        <div class="mySlides3">
-          <img src="images/img_3.jpg" style="width:100%">
-        </div>
-
-        <a class="prev" onclick="plusSlides(-1, 2)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1, 2)">&#10095;</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- 인기 강좌 -->
-  <div id="popular">
-    <div class="container">
-      <h2 class="page-header" style="text-align:center">인기있는 강좌</h2>
-
-      <div class="slideshow-container">
-        <div class="mySlides4">
-          <img src="images/img_1.jpg" style="width:100%">
-        </div>
-
-        <div class="mySlides4">
-          <img src="images/img_2.jpg" style="width:100%">
-        </div>
-
-        <div class="mySlides4">
-          <img src="images/img_3.jpg" style="width:100%">
-        </div>
-
-        <a class="prev" onclick="plusSlides(-1, 3)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1, 3)">&#10095;</a>
-      </div>
-    </div>
-  </div>
 
   <!-- Contact Section -->
   <div id="contact">
@@ -264,6 +163,7 @@
   <script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
   <script type="text/javascript" src="resources/js/template/contact_me.js"></script>
   <script type="text/javascript" src="resources/js/template/main.js"></script>
+  <script type="text/javascript" src="resources/js/utils/login.js?ver=1"></script>
 </body>
 
 </html>
