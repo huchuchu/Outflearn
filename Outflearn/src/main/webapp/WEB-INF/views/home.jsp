@@ -63,7 +63,7 @@
             <li class="dropdown"><a href="void:0" class="dropdown-toggle" data-toggle="dropdown"><i class="far fa-user" style="color: #6372ff "></i><div class="dropdown-menu" role="menu" aria-expanded="navbarDropdown">
               <a href="void:0">로그아웃</a>
             </div></a></li>
-          <li><a href="void:0">로그인</a></li>
+          <li><a href="/login">로그인</a></li>
           <li><a href="void:0">회원가입</a></li>
         </ul>
       </div>
