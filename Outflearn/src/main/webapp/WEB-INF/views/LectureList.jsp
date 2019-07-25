@@ -12,21 +12,29 @@
 
 <title>Outflearn</title>
 
-  <!-- Bootstrap -->
-  <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="resources/fonts/font-awesome/css/font-awesome.css">
+<!-- Bootstrap -->
+<link rel="stylesheet" type="text/css"
+	href="resources/css/bootstrap.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/fonts/font-awesome/css/font-awesome.css">
 
-  <!-- Stylesheet
-    ================================================== -->
-  <link rel="stylesheet" type="text/css" href="resources/css/style.css">
-  <link rel="stylesheet" type="text/css" href="resources/css/nivo-lightbox/nivo-lightbox.css">
-  <link rel="stylesheet" type="text/css" href="resources/css/nivo-lightbox/default.css">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
+<!-- Stylesheet ================================================== -->
+<link rel="stylesheet" type="text/css" href="resources/css/style.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/nivo-lightbox/nivo-lightbox.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/nivo-lightbox/default.css">
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900"
+	rel="stylesheet">
 
-  <!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
-  <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
+<!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
+<script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 
 <!-- css -->
 <link rel="stylesheet" href="resources/css/LectureList.css">
@@ -36,7 +44,7 @@
 
 	<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
 
-	<div class="container">
+	<div id="body" class="container">
 		<div class="row">
 			<ul id="side_border" class="nav flex-column col-sm-2 text-center">
 				<li class="nav-item"><a href="void:0" class="nav-link active"
@@ -84,7 +92,6 @@
 					</ul>
 				</ul>
 			</ul>
-
 			<main>
 			<div class="page-header col-sm-10">
 				<h1 id="page-header-content">전체 카테고리</h1>
@@ -118,7 +125,7 @@
 					<div>
 						<span class="label label-default">Python</span>
 					</div>
-					<a href="detail.html">
+					<a href="LectureDetail">
 						<div class="card" style="width: 28.8rem">
 							<img class="card-img-top" src="resources/img/cardpx.svg"
 								alt="Card image cap">
@@ -127,26 +134,24 @@
 								<p class="card-text">JPA를 처음 접하거나, 실무에서 JPA를 사용하지만 기본 이론이
 									부족하신 분들이 JPA의 기본 이론을 탄탄하게 학습해서 초보자도 실무에서 자신있게 JPA를 사용할 수 있습니다.</p>
 							</div>
+
 						</div>
 					</a>
-				</div>
 			</article>
 			</main>
 		</div>
 	</div>
-
-	<!-- ==================== FOOTER ==================== -->
-	<!-- ==================== FOOTER ==================== -->
 	<!-- ==================== FOOTER ==================== -->
 
 	<jsp:include page="footer/Footer.jsp"></jsp:include>
 
-  <script type="text/javascript" src="resources/js/jquery.1.11.1.js"></script>
-  <script type="text/javascript" src="resources/js/bootstrap.js"></script>
-  <script type="text/javascript" src="resources/js/nivo-lightbox.js"></script>
-  <script type="text/javascript" src="resources/js/jqBootstrapValidation.js"></script>
-  <script type="text/javascript" src="resources/js/contact_me.js"></script>
-  <script type="text/javascript" src="resources/js/main.js"></script>
+	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
+	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
+	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
+	<script type="text/javascript"
+		src="resources/js/template/jqBootstrapValidation.js"></script>
+	<script type="text/javascript" src="resources/js/template/contact_me.js"></script>
+	<script type="text/javascript" src="resources/js/template/main.js"></script>
 </body>
 
 </html>
