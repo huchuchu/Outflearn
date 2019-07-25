@@ -34,4 +34,9 @@ public class HomeController {
 	@RequestMapping("Livepage")
 	public void Livepage() {
 	}
+	
+	@RequestMapping("Broadcast")
+	public void Broardcast() {
+		
+	}
 }
