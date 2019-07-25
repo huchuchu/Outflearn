@@ -35,7 +35,7 @@
 
 	<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
 
-	<div class="container">
+	<div id="body" class="container">
 		<div class="row">
 			<ul id="side_border" class="nav flex-column col-sm-2 text-center">
 				<li class="nav-item"><a href="void:0" class="nav-link active" data-toggle="dropdown">카테고리</a></li>
@@ -83,7 +83,6 @@
 					</ul>
 				</ul>
 			</ul>
-
 			<main>
 				<div class="page-header col-sm-10">
 					<h1 id="page-header-content">전체 카테고리</h1>
@@ -93,68 +92,31 @@
 							<button class="btn btn-default" type="button">검색</button>
 						</span>
 					</div>
-				</div>
-				<article>
-					<div class="page-body">
-						<span>
-							<h2>
-								지식 카테고리
-								<div class="btn-group pull-right">
-									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-										aria-expanded="false">
-										<span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="#">Action</a></li>
-										<li><a href="#">Another action</a></li>
-										<li><a href="#">Something else here</a></li>
-										<li class="divider"></li>
-										<li><a href="#">Separated link</a></li>
-									</ul>
-								</div>
-							</h2>
-						</span>
-						<div>
-							<span class="label label-default">Python</span>
-						</div>
-						<div class="card" style="width: 28.8rem;">
-							<img class="card-img-top" src="images/cardpx.svg" alt="Card image cap">
+					<a href="LectureDetail">
+						<div class="card" style="width: 28.8rem">
+							<img class="card-img-top" src="resources/img/cardpx.svg" alt="Card image cap">
 							<div class="card-body">
 								<h5 class="card-title">Java</h5>
 								<p class="card-text">JPA를 처음 접하거나, 실무에서 JPA를 사용하지만 기본 이론이
 									부족하신 분들이 JPA의 기본 이론을 탄탄하게 학습해서 초보자도 실무에서 자신있게 JPA를 사용할 수 있습니다.</p>
 							</div>
-							</h2>
-							</span>
-							<div>
-								<span class="label label-default">Python</span>
-							</div>
-							<a href="detail.html">
-								<div class="card" style="width: 28.8rem">
-									<img class="card-img-top" src="resources/img/cardpx.svg" alt="Card image cap">
-									<div class="card-body">
-										<h5 class="card-title">Java</h5>
-										<p class="card-text">JPA를 처음 접하거나, 실무에서 JPA를 사용하지만 기본 이론이
-											부족하신 분들이 JPA의 기본 이론을 탄탄하게 학습해서 초보자도 실무에서 자신있게 JPA를 사용할 수 있습니다.</p>
-									</div>
-								</div>
-							</a>
+
 						</div>
-				</article>
+					</a>
+					</article>
 			</main>
 		</div>
 	</div>
-
 	<!-- ==================== FOOTER ==================== -->
 
 	<jsp:include page="footer/Footer.jsp"></jsp:include>
 
-	<script type="text/javascript" src="resources/js/jquery.1.11.1.js"></script>
-	<script type="text/javascript" src="resources/js/bootstrap.js"></script>
-	<script type="text/javascript" src="resources/js/nivo-lightbox.js"></script>
-	<script type="text/javascript" src="resources/js/jqBootstrapValidation.js"></script>
-	<script type="text/javascript" src="resources/js/contact_me.js"></script>
-	<script type="text/javascript" src="resources/js/main.js"></script>
+	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
+	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
+	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
+	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
+	<script type="text/javascript" src="resources/js/template/contact_me.js"></script>
+	<script type="text/javascript" src="resources/js/template/main.js"></script>
 </body>
 
 </html>

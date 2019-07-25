@@ -85,26 +85,26 @@
       </div>
   </header>
 
+
   <!-- Live Section -->
   <div id="live">
     <div class="container">
-      <h2 class="page-header" style="text-align:center">Live 강의</h2>
+      <h2 class="page-header" style="text-align: center">Live 강의</h2>
 
       <div class="slideshow-container">
         <div class="mySlides1">
-          <img src="images/img_1.jpg" style="width:100%">
+          <img src="images/img_1.jpg" style="width: 100%">
         </div>
 
         <div class="mySlides1">
-          <img src="images/img_2.jpg" style="width:100%">
+          <img src="images/img_2.jpg" style="width: 100%">
         </div>
 
         <div class="mySlides1">
-          <img src="images/img_3.jpg" style="width:100%">
+          <img src="images/img_3.jpg" style="width: 100%">
         </div>
 
-        <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
+        <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a> <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
       </div>
     </div>
   </div>
@@ -112,23 +112,22 @@
   <!-- 신규 강좌 -->
   <div id="recent">
     <div class="container">
-      <h2 class="page-header" style="text-align:center">최근에 개설된 신규 강좌</h2>
+      <h2 class="page-header" style="text-align: center">최근에 개설된 신규 강좌</h2>
 
       <div class="slideshow-container">
         <div class="mySlides2">
-          <img src="images/img_1.jpg" style="width:100%">
+          <img src="images/img_1.jpg" style="width: 100%">
         </div>
 
         <div class="mySlides2">
-          <img src="images/img_2.jpg" style="width:100%">
+          <img src="images/img_2.jpg" style="width: 100%">
         </div>
 
         <div class="mySlides2">
-          <img src="images/img_3.jpg" style="width:100%">
+          <img src="images/img_3.jpg" style="width: 100%">
         </div>
 
-        <a class="prev" onclick="plusSlides(-1, 1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
+        <a class="prev" onclick="plusSlides(-1, 1)">&#10094;</a> <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
       </div>
     </div>
   </div>
@@ -136,23 +135,23 @@
   <!-- 좋은 평가를 받고 있는 강좌 -->
   <div id="best_review">
     <div class="container">
-      <h2 class="page-header" style="text-align:center">좋은 평가를 받고 있는 강좌</h2>
+      <h2 class="page-header" style="text-align: center">좋은 평가를 받고 있는
+        강좌</h2>
 
       <div class="slideshow-container">
         <div class="mySlides3">
-          <img src="images/img_1.jpg" style="width:100%">
+          <img src="images/img_1.jpg" style="width: 100%">
         </div>
 
         <div class="mySlides3">
-          <img src="images/img_2.jpg" style="width:100%">
+          <img src="images/img_2.jpg" style="width: 100%">
         </div>
 
         <div class="mySlides3">
-          <img src="images/img_3.jpg" style="width:100%">
+          <img src="images/img_3.jpg" style="width: 100%">
         </div>
 
-        <a class="prev" onclick="plusSlides(-1, 2)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1, 2)">&#10095;</a>
+        <a class="prev" onclick="plusSlides(-1, 2)">&#10094;</a> <a class="next" onclick="plusSlides(1, 2)">&#10095;</a>
       </div>
     </div>
   </div>
@@ -160,110 +159,34 @@
   <!-- 인기 강좌 -->
   <div id="popular">
     <div class="container">
-      <h2 class="page-header" style="text-align:center">인기있는 강좌</h2>
+      <h2 class="page-header" style="text-align: center">인기있는 강좌</h2>
 
       <div class="slideshow-container">
         <div class="mySlides4">
-          <img src="images/img_1.jpg" style="width:100%">
+          <img src="images/img_1.jpg" style="width: 100%">
         </div>
 
         <div class="mySlides4">
-          <img src="images/img_2.jpg" style="width:100%">
+          <img src="images/img_2.jpg" style="width: 100%">
         </div>
 
         <div class="mySlides4">
-          <img src="images/img_3.jpg" style="width:100%">
+          <img src="images/img_3.jpg" style="width: 100%">
         </div>
 
-        <a class="prev" onclick="plusSlides(-1, 3)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1, 3)">&#10095;</a>
+        <a class="prev" onclick="plusSlides(-1, 3)">&#10094;</a> <a class="next" onclick="plusSlides(1, 3)">&#10095;</a>
       </div>
     </div>
   </div>
 
-  <<<<<<< HEAD <!-- Contact Section -->
-    <div id="contact">
-      <div class="container">
-        <div class="col-md-8">
-          <div class="row">
-            <div class="section-title">
-              <h2>Get In Touch</h2>
-              <p>Please fill out the form below to send us an email and we will get back to you as soon as possible.</p>
-            </div>
-            <form name="sentMessage" id="contactForm" novalidate>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <input type="text" id="name" class="form-control" placeholder="Name" required="required">
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <input type="email" id="email" class="form-control" placeholder="Email" required="required">
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <textarea name="message" id="message" class="form-control" rows="4" placeholder="Message"
-                  required></textarea>
-                <p class="help-block text-danger"></p>
-              </div>
-              <div id="success"></div>
-              <button type="submit" class="btn btn-custom btn-lg">Send Message</button>
-            </form>
-          </div>
-        </div>
-        <div class="col-md-3 col-md-offset-1 contact-info">
-          <div class="contact-item">
-            <h3>Contact Info</h3>
-            <p><span><i class="fa fa-map-marker"></i> Address</span>4321 California St,<br>
-              San Francisco, CA 12345</p>
-          </div>
-          <div class="contact-item">
-            <p><span><i class="fa fa-phone"></i> Phone</span> +1 123 456 1234</p>
-          </div>
-          <div class="contact-item">
-            <p><span><i class="fa fa-envelope-o"></i> Email</span> info@company.com</p>
-          </div>
-        </div>
-        <div class="col-md-12">
-          <div class="row">
-            <div class="social">
-              <ul>
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Footer Section -->
-    <div id="footer">
-      <div class="container text-center">
-        <p>Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></p>
-      </div>
-    </div>
-    <script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
-    <script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
-    <script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
-    <script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
-    <script type="text/javascript" src="resources/js/template/contact_me.js"></script>
-    <script type="text/javascript" src="resources/js/template/main.js"></script>
-    =======
-    <jsp:include page="footer/Footer.jsp"></jsp:include>
+  <jsp:include page="footer/Footer.jsp"></jsp:include>
 
-    <script type="text/javascript" src="resources/js/jquery.1.11.1.js"></script>
-    <script type="text/javascript" src="resources/js/bootstrap.js"></script>
-    <script type="text/javascript" src="resources/js/nivo-lightbox.js"></script>
-    <script type="text/javascript" src="resources/js/jqBootstrapValidation.js"></script>
-    <script type="text/javascript" src="resources/js/contact_me.js"></script>
-    <script type="text/javascript" src="resources/js/main.js"></script>
-    >>>>>>> mhs
+  <script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
+  <script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
+  <script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
+  <script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
+  <script type="text/javascript" src="resources/js/template/contact_me.js"></script>
+  <script type="text/javascript" src="resources/js/template/main.js"></script>
 </body>
 
 </html>
