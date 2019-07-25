@@ -15,19 +15,27 @@
 <link rel="stylesheet" type="text/css"
 	href="resources/fonts/font-awesome/css/font-awesome.css">
 
+<!-- Favicons
+          ================================================== -->
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72"
+	href="img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114"
+	href="img/apple-touch-icon-114x114.png">
+
 <!-- Bootstrap -->
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css"
-	href="resources/css/bootstrap.css">
-<link rel="stylesheet" type="text/css"
-	href="resources/fonts/font-awesome/css/font-awesome.css">
+	href="fonts/font-awesome/css/font-awesome.css">
 
 <!-- Stylesheet
-    ================================================== -->
-<link rel="stylesheet" type="text/css" href="resources/css/style.css">
+          ================================================== -->
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css"
-	href="resources/css/nivo-lightbox/nivo-lightbox.css">
+	href="css/nivo-lightbox/nivo-lightbox.css">
 <link rel="stylesheet" type="text/css"
-	href="resources/css/nivo-lightbox/default.css">
+	href="css/nivo-lightbox/default.css">
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
 	rel="stylesheet">
@@ -38,10 +46,14 @@
 	rel="stylesheet">
 
 <!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
+<link href="/your-path-to-fontawesome/css/fontawesome.css"
+	rel="stylesheet">
+<link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
+<link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 
 <!-- css -->
-<link rel="stylesheet" href="resources/css/LectureList.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/LectureList.css">
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 	<!-- ==========================================Navigation==========================================-->
@@ -113,16 +125,5 @@
 			</div>
 		</div>
 	</nav>
-
-	<script type="text/javascript"
-		src="resources/js/template/jquery.1.11.1.js"></script>
-	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
-	<script type="text/javascript"
-		src="resources/js/template/nivo-lightbox.js"></script>
-	<script type="text/javascript"
-		src="resources/js/template/jqBootstrapValidation.js"></script>
-	<script type="text/javascript"
-		src="resources/js/template/contact_me.js"></script>
-	<script type="text/javascript" src="resources/js/template/main.js"></script>
 </body>
 </html>

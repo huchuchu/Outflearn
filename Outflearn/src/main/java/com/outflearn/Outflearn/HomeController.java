@@ -26,12 +26,4 @@ public class HomeController {
 	@RequestMapping("LectureList")
 	public void LectureList() {
 	}
-	
-	@RequestMapping("LectureDetail")
-	public void LectureDetail() {
-	}
-	
-	@RequestMapping("Livepage")
-	public void Livepage() {
-	}
 }
