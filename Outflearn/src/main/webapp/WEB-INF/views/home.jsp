@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="utf-8">
 
 <head>
   <meta charset="UTF-8">
@@ -54,7 +54,7 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-center">
-          <li><a href="LectureList.html">강좌 둘러보기</a></li>
+          <li><a href="LectureList">강좌 둘러보기</a></li>
           <li><a href="void:0">로드맵 학습</a></li>
           <li><a href="void:0">아웃프런 소개</a></li>
           <li><a href="void:0">라이브</a></li>
