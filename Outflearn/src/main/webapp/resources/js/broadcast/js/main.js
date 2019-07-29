@@ -157,6 +157,8 @@ function createPeerConnection() {
   }
 }
 
+// CREATEPEERCONNECTION
+
 function handleIceCandidate(event) {
   console.log('icecandidate event: ', event);
   if (event.candidate) {
@@ -170,6 +172,18 @@ function handleIceCandidate(event) {
     console.log('End of candidates.');
   }
 }
+
+function handleRemoteStreamAdded(event) {
+  console.log('Remote stream added.');
+  remoteStream = event.stream;
+  remoteVideo.srcObject = remoteStream;
+}
+
+function handleRemoteStreamRemoved(event) {
+  console.log('Remote stream removed. Event: ', event);
+}
+
+//
 
 function handleCreateOfferError(event) {
   console.log('createOffer() error: ', event);
@@ -227,15 +241,8 @@ function requestTurn(turnURL) {
   }
 }
 
-function handleRemoteStreamAdded(event) {
-  console.log('Remote stream added.');
-  remoteStream = event.stream;
-  remoteVideo.srcObject = remoteStream;
-}
 
-function handleRemoteStreamRemoved(event) {
-  console.log('Remote stream removed. Event: ', event);
-}
+
 
 function hangup() {
   console.log('Hanging up.');
