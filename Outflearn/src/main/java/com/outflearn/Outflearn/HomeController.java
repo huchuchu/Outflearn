@@ -17,10 +17,26 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping("/")
 	public String home() {
 		
 		return "home";
 	}
 	
+	@RequestMapping("LectureList")
+	public void LectureList() {
+	}
+	
+	@RequestMapping("LectureDetail")
+	public void LectureDetail() {
+	}
+	
+	@RequestMapping("Livepage")
+	public void Livepage() {
+	}
+	
+	@RequestMapping("Broadcast")
+	public void Broardcast() {
+		
+	}
 }

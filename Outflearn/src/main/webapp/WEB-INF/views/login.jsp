@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +66,7 @@
                 <a href="void:0">로그아웃</a>
               </div>
             </a></li>
-          <li><a href="/Outflearn/login">로그인</a></li>
+          <li><a href="/Outflearn/loginfrom">로그인</a></li>
           <li><a href="void:0">회원가입</a></li>
         </ul>
       </div>
@@ -79,9 +79,18 @@
         <div class="container">
           <div class="row">
             <div class="col-md-8 col-md-offset-2 intro-text">
-              <input type="text" id="loginId">
-              <input type="text" id="loginPw">
-              <input type="button" value="로그인" id="login" onclick="loginProcess()">
+
+<!-- 로그인 폼 영역 -->            
+              
+              <form action="/Outflearn/login" method="post" id="test">
+              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
+              <input type="text" name="id" placeholder="ID">
+              <input type="password" name="passwd" placeholder="PASSWORD">
+              <input type="submit" value="Sign in">
+              </form>     
+              
+<!-- 로그인 폼 끝 -->           
+              
             </div>
           </div>
         </div>

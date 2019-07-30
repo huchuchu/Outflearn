@@ -1,20 +1,30 @@
 package com.outflearn.Outflearn.model.biz;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Map;
+
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Service;
 
-import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.dao.LoginDao;
 
 @Service
-public class LoginBizImpl implements LoginBiz{
-
-	@Autowired
-	private LoginDao dao;
+public class LoginBizImpl implements LoginBiz {
 	
+	
+	@Inject
+	private LoginDao dao;
+
 	@Override
-	public UserInfoDto loginDo(String id, String pw) {
-		return dao.loginDo(id, pw);
+	public int insertUser(Map<String, String> map) {
+		
+		return dao.insertUser(map);
+	}
+
+	@Override
+	public Map<String, Object> selectUSer(String user_id) {
+		
+		return dao.selectUSer(user_id);
 	}
 
 }
