@@ -12,13 +12,6 @@
 
   <title>Outflearn</title>
 
-  <!-- Favicons
-    ================================================== -->
-  <link rel="shortcut icon" href="resources/img/favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="resources/img/apple-touch-icon.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="resources/img/apple-touch-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="resources/img/apple-touch-icon-114x114.png">
-
   <!-- Bootstrap -->
   <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="resources/fonts/font-awesome/css/font-awesome.css">
@@ -33,9 +26,6 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
 
   <!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
-  <link href="/your-path-to-fontawesome/css/fontawesome.css" rel="stylesheet">
-  <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
-  <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 
 </head>

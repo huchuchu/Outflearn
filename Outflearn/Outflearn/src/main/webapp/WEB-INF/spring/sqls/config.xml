@@ -4,6 +4,8 @@
 	
 	<typeAliases>
 		<typeAlias type="com.outflearn.Outflearn.dto.UserInfoDto" alias="UserInfoDto"/>
+		<typeAlias type="com.outflearn.Outflearn.dto.ClassInfoDto" alias="ClassInfoDto"/>
+		<typeAlias type="com.outflearn.Outflearn.dto.ClassDataDto" alias="ClassDataDto"/>
 	</typeAliases>
 
 	<!-- resource : src/main/resources -->
