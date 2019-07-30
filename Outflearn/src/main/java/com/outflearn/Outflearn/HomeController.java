@@ -2,6 +2,7 @@ package com.outflearn.Outflearn;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 import javax.servlet.http.HttpSession;
 import java.sql.Clob;
 
@@ -83,7 +84,7 @@ public class HomeController {
    @RequestMapping("/DataVideoUploadForm")
    public String DataVideoUploadForm(@ModelAttribute ClassInfoDto dto) {
       
-      int res = biz.ClassInfoinsert(dto);
+      int res = biz.ClassInfoInsert(dto);
       
       if(res > 0) {
          return "DataVideoUploadForm";
@@ -107,7 +108,7 @@ public class HomeController {
       dto.setData_data(b);
       
       
-      int res = biz.ClassDatainsert(dto);
+      int res = biz.ClassDataInsert(dto);
       System.out.println("hello " + res);
       
       if(res > 0) {
