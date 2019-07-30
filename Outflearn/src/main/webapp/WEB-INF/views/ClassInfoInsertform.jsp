@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<!-- Favicons ================================================== -->
+<!-- Favicons
+    ================================================== -->
 <link rel="shortcut icon" href="resources/img/favicon.ico"
 	type="image/x-icon">
 <link rel="apple-touch-icon" href="resources/img/apple-touch-icon.png">
@@ -21,7 +21,8 @@
 <link rel="stylesheet" type="text/css"
 	href="resources/fonts/font-awesome/css/font-awesome.css">
 
-<!-- Stylesheet ================================================== -->
+<!-- Stylesheet
+    ================================================== -->
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 <link rel="stylesheet" type="text/css"
 	href="resources/css/nivo-lightbox/nivo-lightbox.css">
@@ -42,8 +43,10 @@
 <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
 <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
+
 </head>
-<body>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 	<!-- ==========================================Navigation==========================================-->
 	<nav id="menu" class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -82,8 +85,9 @@
 			</div>
 		</div>
 	</nav>
+	
+		
 
-<br/><br/><br/><br/><br/>
 	<article>
 	
 		<div class="row">
@@ -97,38 +101,68 @@
 						<li class="nav-link active"><h3>영상 소개</h3></li>
 					</ul></li>
 				</ul>
-		<form action="DataVideoUpload" method="post">
-		
-		
+				<div class="col-sm-6 col-el-8">
+		<form action="DataVideoUploadForm" method="post">
+
 		<div class="input-group">
-			<h3>소제목</h3>
-			<input type="text" name="data_subhead" class="form-control">
+			<h1>강의 주제</h1>
 		</div>
 
 		<div class="input-group">
-			<h3>과정 순서</h3> 
-			<input type="text" name="data_sq" class="form-control">
+			<h3>강의 제목을 입력해주세요</h3>
+			<input type="text" class="form-control" name="class_title" placeholder="제목을 입력해주세요.">
 		</div>
 
 		<div class="input-group">
-			<h3>과정제목</h3> 
-			<input type="text" name="data_title" class="form-control">	
-		</div>
-
-		<div class="input-group">
-			<h3>영상 링크</h3> 
-			<input type="text" name="data_data">
+			<h3>강사명</h3>
+			<input type="text" class="form-control" name="class_author" >
 		</div>
 		
 		<div class="input-group">
-			<input type="submit" value="완료" />
-			<input type="button" value="직접 영상 올리기" onclick="location.href='SelfDataVideoUpload'" />
+			<h3>실시간 여부</h3>
+			<input type="text" class="form-control" name="class_live" placeholder="Y or N 입력해주세요.">
+		</div>
+		
+		<div class="input-group">
+			<h3>가격</h3>
+			<input type="text" class="form-control" name="class_price" placeholder="0">
+		</div>
+		
+		<div class="input-group col-xs-4">
+			<h3>수강 대상</h3>
+			<select name="class_studentlevel" class="alert alert-success">
+				<option value="초급자">초급자</option>
+				<option value="중급자">중급자</option>
+				<option value="상급자">상급자</option>
+			</select>
+		</div>
+		
+		<div class="input-group col-xs-4">
+			<h3>카테고리</h3>
+			<select name="class_category" class="alert alert-success ">
+				<option value="JAVA">JAVA</option>
+				<option value="JSP/Servlet">JSP/Servlet</option>
+				<option value="Spring Framework">Spring Framework</option>
+				<option value="DB">DB</option>
+				<option value="UI">UI</option>
+			</select>
+		</div>
+		
+		<div class="input-group col-sm-5">
+			<h3>강좌 소개</h3>
+			<textarea name="class_intro" class="form-control" rows="5" placeholder="강좌에 대해서 짧게 설명해주세요."></textarea>
+		</div>
+		
+		<div class="input-group">
+			<input type="submit" value="다음"> 
+			<input type="button" onclick="location.href='insert.do'" value="취소">
 		</div>
 	</form>
-	</div>
+		</div></div>
+   
+		
 	</article>
-	
-	
+
 	<!-- Footer Section -->
 	<div id="footer">
 		<div class="container text-center">
@@ -138,17 +172,22 @@
 			</p>
 		</div>
 	</div>
-	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
+	
+
+	<script type="text/javascript"
+		src="resources/js/template/jquery.1.11.1.js"></script>
 	<!-- 라이브러리 충돌해결 -->
 	<script>
 		var jb = jQuery.noConflict();
 	</script>
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
-	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
-	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
-	<script type="text/javascript" src="resources/js/template/contact_me.js"></script>
+	<script type="text/javascript"
+		src="resources/js/template/nivo-lightbox.js"></script>
+	<script type="text/javascript"
+		src="resources/js/template/jqBootstrapValidation.js"></script>
+	<script type="text/javascript"
+		src="resources/js/template/contact_me.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
 </body>
 
-</body>
 </html>
