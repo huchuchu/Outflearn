@@ -1,5 +1,7 @@
 package com.outflearn.Outflearn;
 
+import java.sql.Clob;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,7 @@ public class HomeController {
 	@RequestMapping("/LectureList")
 	public String LectureList(Model model) {
 
-		model.addAttribute("list", biz.ClassInfoSelectList());
+		model.addAttribute("ClassInfolist", biz.ClassInfoSelectList());
 
 		return "LectureList";
 	}
@@ -63,6 +65,7 @@ public class HomeController {
 		}
 	}
 	
+//	유튜브영상 링크를 받아와서 DB넣어준다.
 	@RequestMapping("DataVideoUpload")
 	public String DataVideoUpload(@ModelAttribute ClassDataDto dto) {
 		
@@ -85,6 +88,11 @@ public class HomeController {
 
 	}
 	
+//  유튜브 링크영상말고 직접 영상 업로드
+	@RequestMapping("SelfDataVideoUpload")
+	public void SelfDataVideoUpload() {
+		
+	}
 	
 	
 

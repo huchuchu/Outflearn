@@ -1,4 +1,4 @@
-navbar-left<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -6,9 +6,6 @@ navbar-left<%@ page language="java" contentType="text/html; charset=UTF-8"
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Outflearn</title>
-<meta name="description" content="">
-<meta name="author" content="">
 <title>Outflearn</title>
 
 <!-- Favicons
@@ -209,11 +206,12 @@ navbar-left<%@ page language="java" contentType="text/html; charset=UTF-8"
 					<!-- table 부분 -강선웅- -->
 
 					<c:choose>
-						<c:when test="${empty list }">
+						<c:when test="${empty ClassInfolist }">
 							<h3>강좌 정보가 없습니다...</h3>
 						</c:when>
 						<c:otherwise>
 							<table border="1">
+								<col width="100px" />
 								<col width="100px" />
 								<col width="100px" />
 								<col width="100px" />
@@ -228,18 +226,20 @@ navbar-left<%@ page language="java" contentType="text/html; charset=UTF-8"
 									<th>제목</th>
 									<th>강의명</th>
 									<th>과정소개</th>
+									<th>실시간 여부</th>
 									<th>과정평가</th>
 									<th>가격</th>
 									<th>구독수</th>
 									<th>수강대상</th>
 									<th>카테고리</th>
 								</tr>
-								<c:forEach items="${list }" var="dto">
+								<c:forEach items="${ClassInfolist }" var="dto">
 									<tr>
 										<td>${dto.class_num }</td>
 										<td><a href="classinfoSelectone.do?title=${dto.class_title } ">${dto.class_title }</a></td>
 										<td>${dto.class_author }</td>
 										<td>${dto.class_intro }</td>
+										<td>${dto.class_live }</td>
 										<td>${dto.class_rating }</td>
 										<td>${dto.class_price }</td>
 										<td>${dto.class_subcount }</td>

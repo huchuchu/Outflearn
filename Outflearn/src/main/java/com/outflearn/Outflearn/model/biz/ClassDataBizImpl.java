@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.ClassUploadDto;
 import com.outflearn.Outflearn.model.dao.ClassDataDao;
+
 
 @Service
 public class ClassDataBizImpl implements ClassDataBiz {
@@ -23,27 +25,27 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 
 	@Override
-	public ClassDataDto ClassDataSelectOne(String data_data) {
+	public ClassDataDto ClassDataSelectOne(int class_num) {
 		// TODO Auto-generated method stub
-		return dao.ClassDataSelectOne(data_data);
+		return dao.ClassDataSelectOne(class_num);
 	}
 
 	@Override
 	public int ClassDataInsert(ClassDataDto dto) {
 		
-		return dao.ClassDatainsert(dto);
+		return dao.ClassDataInsert(dto);
 	}
 
 	@Override
 	public int ClassDataUpdate(ClassDataDto dto) {
 		// TODO Auto-generated method stub
-		return dao.ClassDataupdate(dto);
+		return dao.ClassDataUpdate(dto);
 	}
 
 	@Override
 	public int ClassDataDelete(String data_subhead) {
 		// TODO Auto-generated method stub
-		return dao.ClassDatadelete(data_subhead);
+		return dao.ClassDataDelete(data_subhead);
 	}
 
 //	--------------------------------------------------- 강좌 정보
@@ -54,29 +56,61 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 
 	@Override
-	public ClassInfoDto ClassInfoSelectOne(String class_title) {
+	public ClassInfoDto ClassInfoSelectOne(int class_num) {
 		// TODO Auto-generated method stub
-		return dao.ClassInfoSelectOne(class_title);
+		return dao.ClassInfoSelectOne(class_num);
 	}
 
 	@Override
 	public int ClassInfoInsert(ClassInfoDto dto) {
 		
-		return dao.ClassInfoinsert(dto);
+		return dao.ClassInfoInsert(dto);
 	}
 
 	@Override
 	public int ClassInfoUpdate(ClassInfoDto dto) {
 		// TODO Auto-generated method stub
-		return dao.ClassInfoupdate(dto);
+		return dao.ClassInfoUpdate(dto);
 	}
 
 	@Override
 	public int ClassInfoDelete(String class_title) {
 		// TODO Auto-generated method stub
-		return dao.ClassInfodelete(class_title);
+		return dao.ClassInfoDelete(class_title);
 	}
 
+//	--------------------------------------------------- 강좌 영상올리기
+	
+	@Override
+	public List<ClassUploadDto> ClassUploadSelectList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ClassInfoDto ClassUploadSelectOne(int class_num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int ClassUploadInsert(ClassUploadDto dto) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int ClassUploadUpdate(ClassUploadDto dto) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int ClassUploadDelete(int class_num) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	
 
 }

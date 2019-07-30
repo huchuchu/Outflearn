@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.ClassUploadDto;
 
 @Repository
 public class ClassDataDaoImpl implements ClassDataDao {
@@ -33,9 +34,9 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 
 	@Override
-	public ClassDataDto ClassDataSelectOne(String data_data) {
+	public ClassDataDto ClassDataSelectOne(int class_num) {
 
-		ClassDataDto dto = sqlSession.selectOne(namespace + "ClassDataSelectone", data_data);
+		ClassDataDto dto = sqlSession.selectOne(namespace + "ClassDataSelectone", class_num);
 
 		return dto;
 	}
@@ -80,9 +81,9 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 
 	@Override
-	public ClassInfoDto ClassInfoSelectOne(String class_title) {
+	public ClassInfoDto ClassInfoSelectOne(int class_num) {
 		
-		ClassInfoDto dto = sqlSession.selectOne(namespace + "ClassInfoSelectone", class_title);
+		ClassInfoDto dto = sqlSession.selectOne(namespace + "ClassInfoSelectone", class_num);
 
 		return dto;
 	}
@@ -107,6 +108,37 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 	@Override
 	public int ClassInfoDelete(String class_title) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+//	--------------------------------------------------- 강좌 영상올리기
+	@Override
+	public List<ClassUploadDto> ClassUploadSelectList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ClassInfoDto ClassUploadSelectOne(int class_num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int ClassUploadInsert(ClassUploadDto dto) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int ClassUploadUpdate(ClassUploadDto dto) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int ClassUploadDelete(int class_num) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

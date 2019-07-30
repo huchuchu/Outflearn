@@ -12,6 +12,9 @@
 	<!-- resource : src/main/resources -->
 	<mappers>
 		<mapper resource="/sqls/AuthMapper.xml"/>
+		<mapper resource="/sqls/ClassDataMaaper.xml"/>
 	</mappers>
+	
+	
 
 </configuration>

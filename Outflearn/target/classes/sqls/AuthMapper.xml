@@ -6,17 +6,4 @@
 		SELECT * FROM USER_INFO WHERE USER_ID=#{id} AND USER_PW=#{pw}
 	</select>
 	
-	<select id="ClassInfoSelectlist" resultType="ClassInfoDto">
-		SELECT * FROM CLASS_INFO
-	</select>
-	
-	<insert id="ClassDataInsert" parameterType="ClassDataDto">
-		INSERT INTO CLASS_DATA VALUES(CLASS_DATA_SQ.NEXTVAL, #{data_subhead }, #{data_sq }, #{data_title }, #{data_data })
-	</insert>
-	
-	<insert id="ClassInfoDtoInsert" parameterType="ClassInfoDto">
-		INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL, #{class_title }, #{class_author }, #{class_intro }, #{class_rating }, #{class_price }, 0, #{class_studentlevel }, #{class_category })
-	</insert>
-	
-	
 </mapper>
