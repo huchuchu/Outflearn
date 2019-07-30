@@ -1,7 +1,10 @@
 package com.outflearn.Outflearn;
 
 import javax.servlet.http.HttpServletRequest;
+
+
 import javax.servlet.http.HttpSession;
+import java.sql.Clob;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,12 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
+
 
 /**
  * Handles requests for the application home page.
@@ -31,7 +34,7 @@ public class HomeController {
    /**
     * Simply selects the home view to render by returning its name.
     */
-   @RequestMapping(value = "/", method = RequestMethod.GET)
+   @RequestMapping(value = "/")
    public String home() {
 
       return "home";
@@ -81,7 +84,7 @@ public class HomeController {
    @RequestMapping("/DataVideoUploadForm")
    public String DataVideoUploadForm(@ModelAttribute ClassInfoDto dto) {
       
-      int res = biz.ClassInfoinsert(dto);
+      int res = biz.ClassInfoInsert(dto);
       
       if(res > 0) {
          return "DataVideoUploadForm";
@@ -105,7 +108,7 @@ public class HomeController {
       dto.setData_data(b);
       
       
-      int res = biz.ClassDatainsert(dto);
+      int res = biz.ClassDataInsert(dto);
       System.out.println("hello " + res);
       
       if(res > 0) {
@@ -116,8 +119,11 @@ public class HomeController {
       
 
    }
-   
-   
-   
+	
+//  유튜브 링크영상말고 직접 영상 업로드
+	@RequestMapping("SelfDataVideoUpload")
+	public void SelfDataVideoUpload() {
+		
+	}
 
 }
