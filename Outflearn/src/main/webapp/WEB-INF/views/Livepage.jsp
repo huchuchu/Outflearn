@@ -64,19 +64,16 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-	
-
 	<!--Slide Show-->
 	<div class="container">
 		<div class="page-header">
 			<h1 class="float-left">방송</h1>
 			<h3 class="m-0">
 				<span class="label bg-danger">LIVE</span>
+				<a href="Broadcast"><span class="label bg-danger">TESTLIVE</span></a>
 			</h3>
 		</div>
 		<div id="demo" class="carousel slide" data-ride="carousel">
-
-
 
 			<!-- The slideshow -->
 			<div class="carousel-inner">

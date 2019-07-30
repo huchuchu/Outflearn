@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
-
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -53,11 +52,11 @@
           <li class="dropdown"><a href="void:0" class="dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"
                 style="color: #6372ff "></i>
               <div class="dropdown-menu" role="menu" aria-expanded="navbarDropdown">
-                <a href="void:0">로그아웃</a>
+                <a href="/Outflearn/logout">로그아웃</a>
               </div>
             </a></li>
-          <li><a href="/Outflearn/login">로그인</a></li>
-          <li><a href="void:0">회원가입</a></li>
+          <li><a href="/Outflearn/loginform">로그인</a></li>
+          <li><a href="/Outflearn/joinform">회원가입</a></li>
         </ul>
       </div>
     </div>
