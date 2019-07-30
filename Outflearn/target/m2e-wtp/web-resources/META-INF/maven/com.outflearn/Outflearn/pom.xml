@@ -115,6 +115,7 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
+<<<<<<< Updated upstream
 		</dependency>
 		
 		<!-- EXTRA -->
@@ -168,6 +169,9 @@
 			<version>2.9.9</version>
 		</dependency>
 		
+=======
+		</dependency>        
+>>>>>>> Stashed changes
 	</dependencies>
     <build>
         <plugins>
