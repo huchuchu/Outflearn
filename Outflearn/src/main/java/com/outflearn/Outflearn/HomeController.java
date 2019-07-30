@@ -3,6 +3,7 @@ package com.outflearn.Outflearn;
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Clob;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
+
 
 /**
  * Handles requests for the application home page.
@@ -116,5 +118,11 @@ public class HomeController {
       
 
    }
+	
+//  유튜브 링크영상말고 직접 영상 업로드
+	@RequestMapping("SelfDataVideoUpload")
+	public void SelfDataVideoUpload() {
+		
+	}
 
 }

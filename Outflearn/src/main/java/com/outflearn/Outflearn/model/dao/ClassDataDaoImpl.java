@@ -11,113 +11,138 @@ import org.springframework.stereotype.Repository;
 
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.ClassUploadDto;
 
 @Repository
 public class ClassDataDaoImpl implements ClassDataDao {
 
-   @Autowired
-   public SqlSessionTemplate sqlSession;
+	@Autowired
+	public SqlSessionTemplate sqlSession;
 
-//   --------------------------------------------------- 강좌 데이터
-   @Override
-   public List<ClassDataDto> ClassDataSelectList() {
-      // TODO Auto-generated method stub
-      return null;
-   }
+//	--------------------------------------------------- 강좌 데이터
+	@Override
+	public List<ClassDataDto> ClassDataSelectList() {
 
-   @Override
-   public ClassDataDto ClassDataSelectOne(int class_num) {
+		List<ClassDataDto> list = new ArrayList<ClassDataDto>();
 
-      ClassDataDto dto = new ClassDataDto();
-      
-      Map<String, Integer> map = new HashMap<String, Integer>();
-      map.put("class_num", class_num);
-      System.out.println("daoImpl : " + class_num);
-      dto = sqlSession.selectOne(namespace + "classdataselectone", map);
+		try {
+			list = sqlSession.selectList(namespace + "ClassDateSelectlist");
+		} catch (Exception e) {
 
-      return dto;
-   }
+			e.printStackTrace();
+		}
 
-   @Override
-   public int ClassDatainsert(ClassDataDto dto) {
-      System.out.println("다오임플에 잘넘어왓을까?");
-      int res = 0;
-      
-      try {
-         res = sqlSession.insert(namespace + "classdatainsert", dto);
-         System.out.println("값이왜" + res);
-      } catch (Exception e) {
-         System.out.println("다시하자");
-         e.printStackTrace();
-      }
-      
-      return res;
-   }
+		return list;
+	}
 
-   @Override
-   public int ClassDataupdate(ClassDataDto dto) {
-      // TODO Auto-generated method stub
-      return 0;
-   }
+	@Override
+	public ClassDataDto ClassDataSelectOne(int class_num) {
 
-   @Override
-   public int ClassDatadelete(String data_subhead) {
-      // TODO Auto-generated method stub
-      return 0;
-   }
+		ClassDataDto dto = sqlSession.selectOne(namespace + "ClassDataSelectone", class_num);
 
-//   --------------------------------------------------- 강좌 정보
-   @Override
-   public List<ClassInfoDto> ClassInfoSelectList() {
+		return dto;
+	}
 
-      List<ClassInfoDto> list = new ArrayList<ClassInfoDto>();
+	@Override
+	public int ClassDataInsert(ClassDataDto dto) {
+		int res = 0;
 
-      try {
-         list = sqlSession.selectList(namespace + "classinfoselectlist");
-         System.out.println(list);
-      } catch (Exception e) {
-         System.out.println("다시하자");
-         e.printStackTrace();
-      }
+		res = sqlSession.insert(namespace + "ClassDataInsert", dto);
 
-      return list;
-   }
+		return res;
+	}
 
-   @Override
-   public ClassInfoDto ClassInfoSelectOne(int class_num) {
-      
-	  ClassInfoDto dto = new ClassInfoDto();
-	   
-	  Map<String, Integer> map = new HashMap<String, Integer>();
-	  map.put("class_num", class_num);
-	   
-	  dto = sqlSession.selectOne(namespace + "classinfoselectone", map);
-			  
-      return dto;
-   }
+	@Override
+	public int ClassDataUpdate(ClassDataDto dto) {
+		int res = 0;
 
-   @Override
-   public int ClassInfoinsert(ClassInfoDto dto) {
-      System.out.println("dao왔다.");
-      int res = 0;
-   
-      res = sqlSession.insert(namespace + "ClassInfoDtoInsert", dto);
-      System.out.println("값이 잘들어왔나?" + res);
-   
-      
-      return res;
-   }
+		res = sqlSession.update(namespace + "ClassDataUpdate", dto);
 
-   @Override
-   public int ClassInfoupdate(ClassInfoDto dto) {
-      // TODO Auto-generated method stub
-      return 0;
-   }
+		return res;
+	}
 
-   @Override
-   public int ClassInfodelete(String class_title) {
-      // TODO Auto-generated method stub
-      return 0;
-   }
+	@Override
+	public int ClassDataDelete(String data_subhead) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+//	--------------------------------------------------- 강좌 정보
+	@Override
+	public List<ClassInfoDto> ClassInfoSelectList() {
+
+		List<ClassInfoDto> list = new ArrayList<ClassInfoDto>();
+
+		try {
+			list = sqlSession.selectList(namespace + "ClassInfoSelectlist");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+	@Override
+	public ClassInfoDto ClassInfoSelectOne(int class_num) {
+		
+		ClassInfoDto dto = sqlSession.selectOne(namespace + "ClassInfoSelectone", class_num);
+
+		return dto;
+	}
+
+	@Override
+	public int ClassInfoInsert(ClassInfoDto dto) {
+		int res = 0;
+
+		res = sqlSession.insert(namespace + "ClassInfoDtoInsert", dto);
+
+		return res;
+	}
+
+	@Override
+	public int ClassInfoUpdate(ClassInfoDto dto) {
+		int res = 0;
+
+		res = sqlSession.update(namespace + "ClassInfoUpdate", dto);
+
+		return res;
+	}
+
+	@Override
+	public int ClassInfoDelete(String class_title) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+//	--------------------------------------------------- 강좌 영상올리기
+	@Override
+	public List<ClassUploadDto> ClassUploadSelectList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ClassInfoDto ClassUploadSelectOne(int class_num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int ClassUploadInsert(ClassUploadDto dto) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int ClassUploadUpdate(ClassUploadDto dto) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int ClassUploadDelete(int class_num) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

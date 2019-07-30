@@ -3,24 +3,28 @@ package com.outflearn.Outflearn.dto;
 import java.sql.Clob;
 
 public class ClassDataDto {
-
-//   강좌데이터
+	
+//	강좌데이터
 	private int class_num;
 	private String data_subhead;
 	private int data_sq;
 	private String data_title;
 	private String data_data;
-	
+	private Clob data_video;
+
 	public ClassDataDto() {
-
+		
 	}
+	
 
-	public ClassDataDto(int class_num, String data_subhead, int data_sq, String data_title, String data_data) {
+	public ClassDataDto(int class_num, String data_subhead, int data_sq, String data_title, String data_data, Clob data_video) {
+
 		this.class_num = class_num;
 		this.data_subhead = data_subhead;
 		this.data_sq = data_sq;
 		this.data_title = data_title;
 		this.data_data = data_data;
+		this.data_video = data_video;
 	}
 
 	public int getClass_num() {
@@ -63,4 +67,14 @@ public class ClassDataDto {
 		this.data_data = data_data;
 	}
 
+
+	public Clob getData_video() {
+		return data_video;
+	}
+
+
+	public void setData_video(Clob data_video) {
+		this.data_video = data_video;
+	}
+	
 }
