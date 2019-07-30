@@ -17,4 +17,4 @@ SELECT * FROM USER_INFO;
 
 INSERT INTO USER_INFO VALUES(USER_INFO_SQ.NEXTVAL, 'user','1234','testName','testNick','USER','sunwoong1995@naver.com');
 
-
+--enabled 휴면계정 여부 1이면 사용가능 0이면 사용 불가능

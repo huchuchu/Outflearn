@@ -95,5 +95,4 @@
 			this.class_live = class_live;
 		}
 		
-		
 	}

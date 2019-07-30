@@ -10,10 +10,11 @@
 	
 
 	<!-- resource : src/main/resources -->
-	<mappers>
-		<mapper resource="/sqls/AuthMapper.xml"/>
-		<mapper resource="/sqls/ClassDataMaaper.xml"/>
-	</mappers>
+<!-- 	<mappers> -->
+<!-- 		<mapper resource="/sqls/AuthMapper.xml"/> -->
+<!-- <mapper resource="/sqls/ClassDataMaaper.xml"/> -->
+<!-- 	</mappers> -->
+<!-- applicationContext.xml에 설정해놔서 따로 mapper추가 안해도 됩니당~! -->
 	
 	
 

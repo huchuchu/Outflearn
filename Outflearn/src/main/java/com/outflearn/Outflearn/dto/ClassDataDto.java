@@ -27,7 +27,6 @@ public class ClassDataDto {
 		this.data_video = data_video;
 	}
 
-
 	public int getClass_num() {
 		return class_num;
 	}
@@ -59,11 +58,10 @@ public class ClassDataDto {
 	public void setData_title(String data_title) {
 		this.data_title = data_title;
 	}
-	
+
 	public String getData_data() {
 		return data_data;
 	}
-
 
 	public void setData_data(String data_data) {
 		this.data_data = data_data;
@@ -78,9 +76,5 @@ public class ClassDataDto {
 	public void setData_video(Clob data_video) {
 		this.data_video = data_video;
 	}
-
-	
-	
-	
 	
 }
