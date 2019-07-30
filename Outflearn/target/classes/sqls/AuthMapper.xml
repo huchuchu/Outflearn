@@ -6,23 +6,6 @@
       SELECT * FROM USER_INFO WHERE USER_ID=#{id} AND USER_PW=#{pw}
    </select>
    
-   <!--SELECT * FROM CLASS_DATA, CLASS_INFO WHERE CLASS_INFO.CLASS_NUM = CLASS_DATA.CLASS_NUM; -->
-   
-   <!-- <resultMap type="ClassDataDto" id="ClassDataDto">
-   	  <result column="CLASS_NUM" property="class_num" />
-   	  <result column="DATA_DATA" property="data_data" />
-   </resultMap>
-   
-   <resultMap type="ClassInfoDto" id="ClassInfoDto">
-      <result column="CLASS_NUM" property="class_num" />
-      <result column="CLASS_TITLE" property="class_title" />
-      <result column="CLASS_AUTHOR" property="class_author" />
-      <result column="CLASS_INTRO" property="class_intro" />
-      <result column="CLASS_STUDENTLEVEL" property="class_studentlevel" />
-      <result column="CLASS_CATEGORY" property="class_category" />
-      <collection property="classdataDto" resultMap="ClassDataDto">
-   </resultMap> -->
-   
    <select id="classinfoselectlist" resultType="ClassInfoDto">
       SELECT * FROM CLASS_INFO
    </select>

@@ -59,8 +59,8 @@ public class HomeController {
    public String DetailDashBoard(Model model, HttpSession session) {
 	   
 	   int info_num = (int) session.getAttribute("info_num");
-	   System.out.println("변환하지 않은 거 :" + session.getAttribute("info_num"));
-	   System.out.println("변환한 것 : " + info_num);
+	   System.out.println("변환하기 전 :" + session.getAttribute("info_num"));
+	   System.out.println("변환 후  : " + info_num);
 	   
 	   ClassDataDto dto = biz.ClassDataSelectOne(info_num);
 	   System.out.println("controller : " + dto.toString());
