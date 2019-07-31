@@ -71,8 +71,8 @@ public class HomeController {
 	   return dto.getData_data();
    }
    
-   @RequestMapping("Live")
-   public void Live() {
+   @RequestMapping("Livepage")
+   public void Livepage() {
 	   
    }
    

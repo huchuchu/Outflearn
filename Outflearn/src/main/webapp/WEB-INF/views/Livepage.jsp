@@ -62,6 +62,85 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
+<!-- fullcalendar -->
+
+	<link href='resources/fullcalendar/core/main.css' rel='stylesheet' />
+    <link href='resources/fullcalendar/daygrid/main.css' rel='stylesheet' />
+    <link href='resources/fullcalendar/timegrid/main.css' rel='stylesheet' />
+
+    <script src='resources/fullcalendar/core/main.js'></script>
+    <script src='resources/fullcalendar/daygrid/main.js'></script>
+    <script src='resources/fullcalendar/timegrid/main.js'></script>
+    
+    <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+    	  var calendarEl = document.getElementById('calendar');
+
+    	  var calendar = new FullCalendar.Calendar(calendarEl, {
+    	    plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
+    	    defaultView: 'dayGridMonth',
+    	    defaultDate: '2019-07-07',
+    	    header: {
+    	      left: 'prev,next today',
+    	      center: 'title',
+    	      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    	    },
+    	    events: [
+    	      {
+    	        title: 'All Day Event',
+    	        start: '2019-07-01'
+    	      },
+    	      {
+    	        title: 'Long Event',
+    	        start: '2019-07-07',
+    	        end: '2019-07-10'
+    	      },
+    	      {
+    	        groupId: '999',
+    	        title: 'Repeating Event',
+    	        start: '2019-07-09T16:00:00'
+    	      },
+    	      {
+    	        groupId: '999',
+    	        title: 'Repeating Event',
+    	        start: '2019-07-16T16:00:00'
+    	      },
+    	      {
+    	        title: 'Conference',
+    	        start: '2019-07-11',
+    	        end: '2019-07-13'
+    	      },
+    	      {
+    	        title: 'Meeting',
+    	        start: '2019-07-12T10:30:00',
+    	        end: '2019-07-12T12:30:00'
+    	      },
+    	      {
+    	        title: 'Lunch',
+    	        start: '2019-07-12T12:00:00'
+    	      },
+    	      {
+    	        title: 'Meeting',
+    	        start: '2019-07-12T14:30:00'
+    	      },
+    	      {
+    	        title: 'Birthday Party',
+    	        start: '2019-07-13T07:00:00'
+    	      },
+    	      {
+    	        title: 'Click for Google',
+    	        url: 'http://google.com/',
+    	        start: '2019-07-28'
+    	      }
+    	    ]
+    	  });
+
+    	  calendar.render();
+    	});
+
+    </script>
+
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
 	<!--Slide Show-->
@@ -113,7 +192,9 @@
 			<h1>방송 스케줄</h1>
 		</div>
 
-		<div class="table-responsive-lg">
+		<div id='calendar'></div>
+
+		<!-- <div class="table-responsive-lg">
 			<table class="table">
 				<tr class="text-center">
 					<th>일요일</th>
@@ -131,7 +212,7 @@
 					<td>8</td>
 				</tr>
 			</table>
-		</div>
+		</div> -->
 	</div>
 
 
