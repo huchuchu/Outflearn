@@ -61,6 +61,7 @@ public class UserAuthenticationService implements UserDetailsService {
 							   user.get("USER_NICKNAME").toString(),
 							   user.get("USER_EMAIL").toString(),
 							   user.get("AUTHORITY").toString()
+
 				);
 		
 

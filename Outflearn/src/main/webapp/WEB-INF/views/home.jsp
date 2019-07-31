@@ -56,7 +56,7 @@
               </div>
             </a></li>
           <li><a href="/Outflearn/loginform">로그인</a></li>
-          <li><a href="/Outflearn/joinform">회원가입</a></li>
+          <li><a href="/Outflearn/registerform.do">회원가입</a></li>
         </ul>
       </div>
     </div>

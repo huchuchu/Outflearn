@@ -56,5 +56,37 @@
 	VALUES(USER_INFO_SQ.NEXTVAL, #{user_id}, #{user_pw}, #{user_name}, #{user_nickname}, 'ROLE_USER', #{user_email}, 1)
 </insert>
 
+<!-- 회원가입 및 체크 -->
+	<insert id="memberRegister" parameterType="UserInfoDto">
+		INSERT INTO USER_INFO 
+		VALUES(USER_INFO_SQ.NEXTVAL, #{user_id}, #{user_pw}, #{user_name}, #{user_nickname}, 'ROLE_USER', #{user_email},1)
+	</insert>
+	<select id="loginChk" parameterType="map" resultType="UserInfoDto">
+		SELECT * FROM USER_INFO WHERE USER_ID = #{id} AND USER_PW = #{pw}
+	</select>
+	<select id="idChk" parameterType="map" resultType="UserInfoDto">
+		SELECT * FROM USER_INFO WHERE USER_ID =#{userId}
+	</select>
+	<select id="nickChk" parameterType="map" resultType="UserInfoDto">
+		SELECT * FROM USER_INFO WHERE USER_NICKNAME = #{nickname}
+	</select>
+	<select id="loginChkSns" parameterType="map" resultType="UserInfoDto">
+		SELECT * FROM USER_INFO WHERE USER_ID = #{id}
+	</select>
+		
+	<!-- 이름으로 이메일 가져오기(아이디) -->
+	<select id="bringByname" parameterType="map" resultType="UserInfoDto">
+		SELECT * FROM USER_INFO WHERE USER_NAME = #{name} AND USER_NICKNAME = #{nickname}
+	</select>
+	<!-- 이름으로 이메일 가져오기(패스워드) -->
+	<select id="bringByid" parameterType="map" resultType="UserInfoDto">
+		SELECT * FROM USER_INFO WHERE USER_NAME = #{name} AND USER_ID = #{id}
+	</select>
+	<!-- 임시비밀번호로 바꾸기 -->
+	<update id="changePw" parameterType="UserInfoDto">
+		UPDATE USER_INFO SET USER_PW = #{pw} WHERE USER_ID = #{id}
+	</update>
+
+
 
 </mapper>
