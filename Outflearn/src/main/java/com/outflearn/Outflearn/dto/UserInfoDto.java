@@ -2,6 +2,7 @@ package com.outflearn.Outflearn.dto;
 
 import java.util.Collection;
 
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -15,6 +16,7 @@ public class UserInfoDto extends User {
 	private String user_nickname;
 	private String user_email;
 	private String user_autority;
+
 	
 
 	public UserInfoDto(String username, String password, boolean enabled, 
@@ -29,6 +31,7 @@ public class UserInfoDto extends User {
 		this.user_nickname = user_nickname;
 		this.user_email = user_email;
 		this.user_autority = user_authority;
+
 		
 	}
 
