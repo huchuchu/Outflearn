@@ -7,7 +7,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-		/WEB-INF/spring/ApplicationContext.xml
+		/WEB-INF/spring/appServlet/ApplicationContext.xml
 		/WEB-INF/spring/security-context.xml
 		</param-value>
 	</context-param>
@@ -15,7 +15,7 @@
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+    </listener>
 
 	<!-- Processes application requests -->
 	<servlet>
