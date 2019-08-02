@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	
+	<typeAliases>
+		<typeAlias type="com.outflearn.Outflearn.dto.UserInfoDto" alias="UserInfoDto"/>
+		<typeAlias type="com.outflearn.Outflearn.dto.ClassInfoDto" alias="ClassInfoDto"/>
+		<typeAlias type="com.outflearn.Outflearn.dto.ClassDataDto" alias="ClassDataDto"/>
+	</typeAliases>
+	
+
+	<!-- resource : src/main/resources -->
+<mappers>
+ <!--<mapper resource="/sqls/AuthMapper.xml"/> -->
+ <!-- <mapper resource="/sqls/ClassDataMaaper.xml"/> -->
+</mappers>
+<!-- applicationContext.xml에 설정해놔서 따로 mapper추가 안해도 됩니당~! -->
+	
+	
+
+</configuration>
