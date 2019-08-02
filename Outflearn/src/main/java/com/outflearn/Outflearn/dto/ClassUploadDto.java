@@ -1,16 +1,15 @@
 package com.outflearn.Outflearn.dto;
 
-
 public class ClassUploadDto {
-	
+
 	private int class_num;
 	private String upload_data;
-	
+
 	public ClassUploadDto() {
-		
+
 	}
-	
-	public ClassUploadDto(int class_num,  String upload_data) {
+
+	public ClassUploadDto(int class_num, String upload_data) {
 		super();
 		this.class_num = class_num;
 		this.upload_data = upload_data;
@@ -24,7 +23,6 @@ public class ClassUploadDto {
 		this.class_num = class_num;
 	}
 
-
 	public String getUpload_data() {
 		return upload_data;
 	}
@@ -32,8 +30,5 @@ public class ClassUploadDto {
 	public void setUpload_data(String upload_data) {
 		this.upload_data = upload_data;
 	}
-	
-	
 
 }
-

@@ -17,7 +17,6 @@
 			
 		}
 		
-		
 		public ClassInfoDto(int class_num, String class_title, String class_author, String class_intro,String class_live ,int class_rating,
 				int class_price, int class_subcount, String class_studentlevel ,String class_category) {
 			super();

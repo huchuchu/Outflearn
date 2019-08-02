@@ -7,22 +7,12 @@
 		SELECT * FROM CLASS_INFO
 	</select>
 	
-	<select id="ClassDateSelectlist" resultType="ClassDataDto">
-		SELECT * FROM CLASS_DATA
-	</select>
-	
 	<insert id="ClassDataInsert" parameterType="ClassDataDto">
-		INSERT INTO CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SUBHEAD, DATA_SQ, DATA_TITLE, DATA_DATA) VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.NEXTVAL ,#{data_subhead }, #{data_sq }, #{data_title } , #{data_data })
-	</insert>
-	
-	<insert id="ClassChapterDataInsert" parameterType="ClassDataDto">
-		INSERT INTO CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SQ, DATA_TITLE, DATA_DATA) VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.CURRVAL , #{data_sq }, #{data_title } , #{data_data })
+		INSERT INTO CLASS_DATA VALUES(CLASS_DATA_SQ.NEXTVAL, #{data_subhead }, #{data_sq }, #{data_title }, #{data_data })
 	</insert>
 	
 	<insert id="ClassInfoDtoInsert" parameterType="ClassInfoDto">
 		INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL, #{class_title }, #{class_author }, #{class_intro }, #{class_live } ,0, #{class_price }, 0, #{class_studentlevel }, #{class_category })
 	</insert>
 	
-
-
 </mapper>
