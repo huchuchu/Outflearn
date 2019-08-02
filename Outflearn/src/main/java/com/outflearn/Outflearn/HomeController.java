@@ -1,0 +1,148 @@
+package com.outflearn.Outflearn;
+
+import javax.servlet.http.HttpServletRequest;
+
+
+import javax.servlet.http.HttpSession;
+import java.sql.Clob;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.outflearn.Outflearn.dto.ClassDataDto;
+import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.model.biz.ClassDataBiz;
+
+
+/**
+ * Handles requests for the application home page.
+ */
+@Controller
+public class HomeController {
+
+   @Autowired
+   public ClassDataBiz biz;
+
+   private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+   /**
+    * Simply selects the home view to render by returning its name.
+    */
+   @RequestMapping(value = "/")
+   public String home() {
+
+      return "home";
+   }
+
+   @RequestMapping("/LectureList")
+   public String LectureList(Model model) {
+	   
+      model.addAttribute("classinfo", biz.ClassInfoSelectList());
+      
+      return "LectureList";
+   }
+
+   @RequestMapping("/LectureDetail")
+   public String LectureDetail(@ModelAttribute ClassInfoDto dto, Model model, HttpSession session) {
+	   
+	   model.addAttribute("classinfo", biz.ClassInfoSelectOne(dto.getClass_num()));
+	   session.setMaxInactiveInterval(-1);
+	   session.setAttribute("info_num", dto.getClass_num());
+	   
+	   return "LectureDetail";
+   }
+   
+   @RequestMapping("DetailDashBoard")
+   @ResponseBody
+   public String DetailDashBoard(HttpSession session) {
+	   
+	   int info_num = (int) session.getAttribute("info_num");
+	   
+	   ClassDataDto dto = biz.ClassDataSelectOne(info_num);
+	   session.setAttribute("data_data", dto.getData_data());
+	   
+	   return dto.getData_data();
+   }
+   
+   @RequestMapping("Live")
+   public void Live() {
+	   
+   }
+   
+   @RequestMapping("ClassInfoInsertForm")
+   public void ClassInfoInsertForm() {
+      
+   }
+   
+   @RequestMapping("DataVideoUploadForm")
+   public String DataVideoUploadForm(@ModelAttribute ClassInfoDto dto) {
+      
+      int res = biz.ClassInfoInsert(dto);
+      System.out.println(res);
+      if(res > 0) {
+         return "DataVideoUploadForm";
+      }else {
+         return "redirect:ClassInfoInsertForm";
+      }
+   }
+   
+   @RequestMapping("DataVideoUpload")
+   public String DataVideoUpload(@ModelAttribute ClassDataDto dto) {
+      
+      String a = dto.getData_data();
+      String b = "";
+      if(a.contains("v=")) {
+    	  b = a.split("v=")[1];
+      } else if(a.contains("list=")) {
+    	  b = a.split("list=")[1];
+      }
+//      String b = a.substring(32, 42);   
+      System.out.println(b);
+      dto.setData_data(b);
+      
+      
+      int res = biz.ClassDataInsert(dto);
+      System.out.println("hello " + res);
+      
+      if(res > 0) {
+         return "redirect: LectureList";
+      } else {
+         return "redirect: DataVideoUploadForm";
+      }
+      
+
+   }
+	
+//  유튜브 링크영상말고 직접 영상 업로드
+	@RequestMapping("SelfDataVideoUpload")
+	public void SelfDataVideoUpload() {
+		
+	}
+	
+	@RequestMapping("LectureDetailView")
+	public String LectureDetailView(String DATA_DATA, Model model) {
+		
+		model.addAttribute("DATA_DATA", DATA_DATA);
+		
+		return "LectureDetailView";
+	}
+	
+	@RequestMapping("LecturePlayList")
+	@ResponseBody
+	public String LecturePlayList(Model model, HttpSession session) {
+		
+	   int info_num = (int) session.getAttribute("info_num");
+	   
+	   ClassDataDto data_dto = biz.ClassDataSelectOne(info_num);
+	   model.addAttribute("info_dto", biz.ClassInfoSelectOne(info_num));
+		
+		return data_dto.getData_data();
+	}
+
+}
