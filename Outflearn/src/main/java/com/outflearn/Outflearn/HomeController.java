@@ -1,10 +1,10 @@
-package com.outflearn.Outflearn;
+ package com.outflearn.Outflearn;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import java.sql.Clob;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,12 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
-
 
 /**
  * Handles requests for the application home page.
@@ -80,9 +80,13 @@ public class HomeController {
       
    }
    
+
+   	// ClassInfoInsertForm.jsp - > DataVideoUploadForm.jsp CLASS_DATA DB 저장
    @RequestMapping("DataVideoUploadForm")
    public String DataVideoUploadForm(@ModelAttribute ClassInfoDto dto) {
-      
+	  
+		logger.info("DataVideoUploadForm");
+
       int res = biz.ClassInfoInsert(dto);
       System.out.println(res);
       if(res > 0) {
@@ -91,37 +95,25 @@ public class HomeController {
          return "redirect:ClassInfoInsertForm";
       }
    }
-   
-   @RequestMapping("DataVideoUpload")
-   public String DataVideoUpload(@ModelAttribute ClassDataDto dto) {
-      
-      String a = dto.getData_data();
-      String b = "";
-      if(a.contains("v=")) {
-    	  b = a.split("v=")[1];
-      } else if(a.contains("list=")) {
-    	  b = a.split("list=")[1];
-      }
-//      String b = a.substring(32, 42);   
-      System.out.println(b);
-      dto.setData_data(b);
-      
-      
-      int res = biz.ClassDataInsert(dto);
-      System.out.println("hello " + res);
-      
-      if(res > 0) {
-         return "redirect: LectureList";
-      } else {
-         return "redirect: DataVideoUploadForm";
-      }
-      
 
-   }
-	
-//  유튜브 링크영상말고 직접 영상 업로드
+//  유튜브 링크영상말고 직접 영상 업로드 팝업창 이동
 	@RequestMapping("SelfDataVideoUpload")
 	public void SelfDataVideoUpload() {
+
+	}
+	
+//	직접 영상 업로드 팝업창 파일 받아옴
+	@RequestMapping("ClassUpload")
+	public String ClassUpload(@ModelAttribute ClassDataDto dto) {
+	
+		int res = biz.ClassDataInsert(dto);
+		
+		return "home";
+	}
+	
+//	챕터 추가
+	@RequestMapping("DataVideoUploadFormPlus")
+	public void DataVideoUploadFormPlus() {
 		
 	}
 	
@@ -144,5 +136,43 @@ public class HomeController {
 		
 		return data_dto.getData_data();
 	}
+	@RequestMapping("DataVideoUploadPlus")
+	public String DataVideoUploadPlus(@ModelAttribute ClassDataDto dto ,HttpSession session, Model model) {
+		
+		int res = 0;
+		
+		String a = dto.getData_data();
+		String b = "";
+		if (a.contains("v=")) {
+			b = a.split("v=")[1];
+		} else if (a.contains("list=")) {
+			b = a.split("list=")[1];
+		}
+
+		dto.setData_data(b);
+		
+		
+		res = biz.ClassChapterDataInsert(dto);
+
+		
+		model.addAttribute("classdata", biz.ClassDataSelectList());
+
+		
+		if (res > 0) {
+			return "redirect: DataVideoUploadFormPlus";
+		} else {
+			return "redirect: DataVideoUploadForm";
+		}
+		
+	}
+	
+	@RequestMapping("BackDataVideoUploadForm")
+	public String BackDataVideoUploadForm(@ModelAttribute ClassDataDto dto, Model model) {
+		
+
+		
+		return "BackDataVideoUploadForm";
+	}
+
 
 }

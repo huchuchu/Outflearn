@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
@@ -34,7 +32,6 @@
 	<script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 <!-- ======================================================jQuery -->
 <script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
-<script type="text/javascript" src="https://jquery.com/download/https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
       
 // 직접 파일 업로드 
@@ -46,13 +43,13 @@
 
           }
 
-// 작성 버튼 눌렀을시 추가 사항이 있는지 알람
+//		    작성 버튼 눌렀을시 추가 사항이 있는지 알람
           function clearalert(){
         		alert("추가 작성 없을시 '게시판 넘기기' 클릭");
         	}
        
            
-</script>
+</script>>
 </head>
 <body>
 	<!-- ==========================================Navigation==========================================-->
@@ -99,36 +96,27 @@
 	<div class="row">
 			<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">
 				<li class="nav-link active"><h3>강의 소개</h3></li>
-				<li class="list-group-item-success"><h3>영상 소개</h3></li>
+				<li class="nav-link active"><h3>영상 소개</h3></li>
+				<li class="list-group-item-success"><h3>영상 추가</h3></li>
 			</ul>
 	<div class="col-sm-6 col-el-8">
-		<form:form action="DataVideoUpload" method="post" onsubmit="return clearalert();">
-	
-	
-		<div class="form-group">	
-			<h3>소제목</h3>
-			<input type="text" name="data_subhead" class="form-control" placeholder="소제목을 입력해주세요.">
+		<form:form action="DataVideoUploadPlus" method="post" onsubmit="return clearalert();" >
+		 
+		
+		<div class="form-group">
+			<h3>과정 제목</h3>
+			<input type="text" name="data_title" class="form-control" placeholder="${classdata.data_title }">
 		</div>
 		
 		<div class="form-group">
 			<h3>과정 순서</h3>
 			<input type="text" name="data_sq" class="form-control">
 		</div>
-		
-		<div class="form-group">
-			<h3>과정 제목</h3>
-			<input type="text" name="data_title" class="form-control">
-		</div>
 	
 		<div class="form-group">	
 			<h3>영상 링크 </h3>         
-            <input type="text" name="data_data" class="form-control"/> 
+            <input type="text" name="data_data" class="form-control" placeholder="${classdata.data_data }"/>
        	</div>
-		
-		<div class="form-group">
-			<h3>내용 소개</h3>
-			<textarea name="class_intro" class="form-control" rows="5" cols="10" placeholder="내용을 설명해주세요.">test</textarea>
-		</div>
 		
 		
 		<div class="form-group">
@@ -136,6 +124,7 @@
 			<input type="submit" value="작성 후 클릭" />
 			<input type="button" value="추가" onclick="location.href='DataVideoUploadFormPlus'" />
 			<input type="button" value="직접 영상 올리기" onclick="SelfDataVideoUpload()" />
+			<input type="button" value="뒤로" onclick="location.href='BackDataVideoUploadForm'" />
 		</div>
 
 	</form:form>

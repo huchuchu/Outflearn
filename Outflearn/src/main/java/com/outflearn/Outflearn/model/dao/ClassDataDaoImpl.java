@@ -1,6 +1,7 @@
 package com.outflearn.Outflearn.model.dao;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
-import com.outflearn.Outflearn.dto.ClassUploadDto;
 
 @Repository
 public class ClassDataDaoImpl implements ClassDataDao {
@@ -19,7 +19,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	@Autowired
 	public SqlSessionTemplate sqlSession;
 
-//	--------------------------------------------------- 강좌 데이터
+	// --------------------------------------------------- 강좌 데이터
 	@Override
 	public List<ClassDataDto> ClassDataSelectList() {
 
@@ -36,7 +36,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 
 	@Override
-	public ClassDataDto ClassDataSelectOne(int class_num) {
+	public ClassDataDto ClassDataSelectOne(int data_chapter) {
 
 		ClassDataDto dto = new ClassDataDto();
 
@@ -45,7 +45,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		System.out.println("daoImpl : " + class_num);
 		dto = sqlSession.selectOne(namespace + "classdataselectone", map);
 
-		return dto;
+		return null;
 	}
 
 	@Override
@@ -53,6 +53,16 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		int res = 0;
 
 		res = sqlSession.insert(namespace + "ClassDataInsert", dto);
+
+		return res;
+	}
+
+	// 챕터 추가
+	@Override
+	public int ClassChapterDataInsert(ClassDataDto dto) {
+		int res = 0;
+
+		res = sqlSession.insert(namespace + "ClassChapterDataInsert", dto);
 
 		return res;
 	}
@@ -68,11 +78,11 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 	@Override
 	public int ClassDataDelete(String data_subhead) {
-		// TODO Auto-generated method stub
+
 		return 0;
 	}
 
-//	--------------------------------------------------- 강좌 정보
+	// --------------------------------------------------- 강좌 정보
 	@Override
 	public List<ClassInfoDto> ClassInfoSelectList() {
 
@@ -120,38 +130,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 	@Override
 	public int ClassInfoDelete(String class_title) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
-//	--------------------------------------------------- 강좌 영상올리기
-	@Override
-	public List<ClassUploadDto> ClassUploadSelectList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ClassInfoDto ClassUploadSelectOne(int class_num) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int ClassUploadInsert(ClassUploadDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int ClassUploadUpdate(ClassUploadDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int ClassUploadDelete(int class_num) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
