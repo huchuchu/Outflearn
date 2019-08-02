@@ -1,21 +1,17 @@
 package com.outflearn.Outflearn.dto;
 
-import java.sql.Clob;
-
 public class ClassUploadDto {
-	
+
 	private int class_num;
-	private Clob upload_text;
-	private Clob upload_data;
-	
+	private String upload_data;
+
 	public ClassUploadDto() {
-		
+
 	}
-	
-	public ClassUploadDto(int class_num, Clob upload_text, Clob upload_data) {
+
+	public ClassUploadDto(int class_num, String upload_data) {
 		super();
 		this.class_num = class_num;
-		this.upload_text = upload_text;
 		this.upload_data = upload_data;
 	}
 
@@ -27,23 +23,12 @@ public class ClassUploadDto {
 		this.class_num = class_num;
 	}
 
-	public Clob getUpload_text() {
-		return upload_text;
-	}
-
-	public void setUpload_text(Clob upload_text) {
-		this.upload_text = upload_text;
-	}
-
-	public Clob getUpload_data() {
+	public String getUpload_data() {
 		return upload_data;
 	}
 
-	public void setUpload_data(Clob upload_data) {
+	public void setUpload_data(String upload_data) {
 		this.upload_data = upload_data;
 	}
-	
-	
 
 }
-
