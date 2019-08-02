@@ -114,7 +114,6 @@
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
 	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
-	<script type="text/javascript" src="resources/js/template/contact_me.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
 </body>
 

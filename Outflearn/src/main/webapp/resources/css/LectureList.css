@@ -22,3 +22,7 @@
 .card-body {
     padding: 1.25rem;
 }
+
+#server_side_menu {
+	transition: bottom 0.5s ease
+}

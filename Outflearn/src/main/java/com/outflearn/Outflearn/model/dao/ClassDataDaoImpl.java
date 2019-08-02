@@ -38,7 +38,12 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	@Override
 	public ClassDataDto ClassDataSelectOne(int class_num) {
 
-		ClassDataDto dto = sqlSession.selectOne(namespace + "ClassDataSelectone", class_num);
+		ClassDataDto dto = new ClassDataDto();
+
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("class_num", class_num);
+		System.out.println("daoImpl : " + class_num);
+		dto = sqlSession.selectOne(namespace + "classdataselectone", map);
 
 		return dto;
 	}
@@ -84,8 +89,13 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 	@Override
 	public ClassInfoDto ClassInfoSelectOne(int class_num) {
-		
-		ClassInfoDto dto = sqlSession.selectOne(namespace + "ClassInfoSelectone", class_num);
+
+		ClassInfoDto dto = new ClassInfoDto();
+
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("class_num", class_num);
+
+		dto = sqlSession.selectOne(namespace + "classinfoselectone", map);
 
 		return dto;
 	}
@@ -94,7 +104,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	public int ClassInfoInsert(ClassInfoDto dto) {
 		int res = 0;
 
-		res = sqlSession.insert(namespace + "ClassInfoDtoInsert", dto);
+		res = sqlSession.insert(namespace + "classinfodtoinsert", dto);
 
 		return res;
 	}

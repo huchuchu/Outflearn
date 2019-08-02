@@ -1,9 +1,14 @@
+.jumbotron {
+	background-color: #2c2e37;
+	width: 100%;
+}
+
 #jumbo_row {
     padding-left: 4em;
 }
 
-.jumbotron, .jumbotron h3 {
-    background: #2c2e37;
+.jumbotron h3 {
+    background-color: #2c2e37;
     color: #eeeeee;
 }
 

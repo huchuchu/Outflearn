@@ -52,6 +52,7 @@ public class HomeController {
    public String LectureDetail(@ModelAttribute ClassInfoDto dto, Model model, HttpSession session) {
 	   
 	   model.addAttribute("classinfo", biz.ClassInfoSelectOne(dto.getClass_num()));
+	   session.setMaxInactiveInterval(-1);
 	   session.setAttribute("info_num", dto.getClass_num());
 	   
 	   return "LectureDetail";
@@ -59,14 +60,12 @@ public class HomeController {
    
    @RequestMapping("DetailDashBoard")
    @ResponseBody
-   public String DetailDashBoard(Model model, HttpSession session) {
+   public String DetailDashBoard(HttpSession session) {
 	   
 	   int info_num = (int) session.getAttribute("info_num");
-	   System.out.println("변환하지 않은 거 :" + session.getAttribute("info_num"));
-	   System.out.println("변환한 것 : " + info_num);
 	   
 	   ClassDataDto dto = biz.ClassDataSelectOne(info_num);
-	   System.out.println("controller : " + dto.toString());
+	   session.setAttribute("data_data", dto.getData_data());
 	   
 	   return dto.getData_data();
    }
@@ -81,15 +80,15 @@ public class HomeController {
       
    }
    
-   @RequestMapping("/DataVideoUploadForm")
+   @RequestMapping("DataVideoUploadForm")
    public String DataVideoUploadForm(@ModelAttribute ClassInfoDto dto) {
       
       int res = biz.ClassInfoInsert(dto);
-      
+      System.out.println(res);
       if(res > 0) {
          return "DataVideoUploadForm";
       }else {
-         return "redirect: ClassInfoInsertForm";
+         return "redirect:ClassInfoInsertForm";
       }
    }
    
@@ -124,6 +123,26 @@ public class HomeController {
 	@RequestMapping("SelfDataVideoUpload")
 	public void SelfDataVideoUpload() {
 		
+	}
+	
+	@RequestMapping("LectureDetailView")
+	public String LectureDetailView(String DATA_DATA, Model model) {
+		
+		model.addAttribute("DATA_DATA", DATA_DATA);
+		
+		return "LectureDetailView";
+	}
+	
+	@RequestMapping("LecturePlayList")
+	@ResponseBody
+	public String LecturePlayList(Model model, HttpSession session) {
+		
+	   int info_num = (int) session.getAttribute("info_num");
+	   
+	   ClassDataDto data_dto = biz.ClassDataSelectOne(info_num);
+	   model.addAttribute("info_dto", biz.ClassInfoSelectOne(info_num));
+		
+		return data_dto.getData_data();
 	}
 
 }

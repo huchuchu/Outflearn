@@ -20,18 +20,6 @@
 
 <!-- Stylesheet ================================================== -->
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
-<link rel="stylesheet" type="text/css"
-	href="resources/css/nivo-lightbox/nivo-lightbox.css">
-<link rel="stylesheet" type="text/css"
-	href="resources/css/nivo-lightbox/default.css">
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
-	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Lato:400,700"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900"
-	rel="stylesheet">
 
 <!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
 <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
@@ -50,7 +38,7 @@
 				<li class="nav-item"><a href="void:0" class="nav-link active"
 					data-toggle="dropdown">카테고리</a></li>
 				<li class="nav-item"><a href="void:0" id="side_server"
-					class="nav-link active">서버&nbsp;<i class="fas fa-chevron-down"></i></a>
+					class="nav-link active">서버&nbsp;<i class="fas fa-chevron-right"></i></a>
 					<ul id="side_server_menu" class="nav flex-column">
 						<li><a href="void:0" class="nav-link active">Back End</a></li>
 						<li><a href="void:0" class="nav-link active">Linux</a></li>
@@ -61,7 +49,7 @@
 					</ul></li>
 				<li class="nav-item"><a href="void:0" id="side_web"
 					class="nav-link active">웹 개발&nbsp;<i
-						class="fas fa-chevron-down"></i></a>
+						class="fas fa-chevron-right"></i></a>
 					<ul id="side_web_menu" class="nav flex-column">
 						<li><a href="void:0" class="nav-link active">html/css</a></li>
 						<li><a href="void:0" class="nav-link active">Javascript</a></li>
@@ -72,7 +60,7 @@
 					</ul></li>
 				<li class="nav-item"><a href="void:0" id="side_db"
 					class="nav-link active">데이터베이스&nbsp;<i
-						class="fas fa-chevron-down"></i></a>
+						class="fas fa-chevron-right"></i></a>
 					<ul id="side_db_menu" class="nav flex-column">
 						<li><a href="void:0" class="nav-link active">MYSQL</a></li>
 						<li><a href="void:0" class="nav-link active">MONGODB</a></li>
@@ -196,11 +184,10 @@
 	<jsp:include page="footer/Footer.jsp"></jsp:include>
 
 	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
+	<script type="text/javascript" src="resources/js/template/LectureList.js"></script>
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
-	<script type="text/javascript"
-		src="resources/js/template/jqBootstrapValidation.js"></script>
-	<script type="text/javascript" src="resources/js/template/contact_me.js"></script>
+	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
 </body>
 
