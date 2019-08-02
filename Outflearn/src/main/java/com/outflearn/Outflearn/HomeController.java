@@ -181,9 +181,27 @@ public class HomeController {
 	@RequestMapping("BackDataVideoUploadForm")
 	public String BackDataVideoUploadForm(@ModelAttribute ClassDataDto dto, Model model) {
 		
-
-		
 		return "BackDataVideoUploadForm";
+	}
+	
+	@RequestMapping("LectureDetailView")
+	public String LectureDetailView(String DATA_DATA, Model model) {
+		
+		model.addAttribute("DATA_DATA", DATA_DATA);
+		
+		return "LectureDetailView";
+	}
+	
+	@RequestMapping("LecturePlayList")
+	@ResponseBody
+	public String LecturePlayList(Model model, HttpSession session) {
+		
+	   int info_num = (int) session.getAttribute("info_num");
+	   
+	   ClassDataDto data_dto = biz.ClassDataSelectOne(info_num);
+	   model.addAttribute("info_dto", biz.ClassInfoSelectOne(info_num));
+		
+		return data_dto.getData_data();
 	}
 
 
