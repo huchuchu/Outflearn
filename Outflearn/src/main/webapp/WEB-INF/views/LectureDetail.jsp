@@ -8,7 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Outflearn</title>
 
-<title>Outflearn</title>
+<!-- css -->
+<link rel="stylesheet" href="resources/css/detail.css">
 
 <!-- Bootstrap -->
 <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
@@ -18,24 +19,9 @@
 <!-- Stylesheet
     ================================================== -->
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
-<link rel="stylesheet" type="text/css"
-	href="resources/css/nivo-lightbox/nivo-lightbox.css">
-<link rel="stylesheet" type="text/css"
-	href="resources/css/nivo-lightbox/default.css">
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
-	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Lato:400,700"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900"
-	rel="stylesheet">
 
 <!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
 <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
-
-<!-- css -->
-<link rel="stylesheet" href="resources/css/detail.css">
 
 </head>
 
@@ -43,7 +29,7 @@
 
 	<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
 
-	<div class="jumbotron" style="width: 100%">
+	<div class="jumbotron">
 		<div id="jumbo_row" class="row">
 			<img src="resources/img/cardpx.svg" alt="썸네일" class="col-md-3">
 			<div class="col-md-6">
@@ -67,17 +53,16 @@
 	<div class="container">
 		<nav class="nav">
 			<ul class="nav nav-tabs">
-				<li class="nav-item "><a class="nav-link" href="#">대쉬보드</a></li>
-				<li class="nav-item "><a class="nav-link" href="#">강좌소개</a></li>
-				<li class="nav-item "><a class="nav-link" href="#">질문&답변</a></li>
-				<li class="nav-item "><a class="nav-link" href="#">새소식</a>
+				<li class="nav-item "><a class="nav-link" href="void:0">대쉬보드</a></li>
+				<li class="nav-item "><a class="nav-link" href="void:0">강좌소개</a></li>
+				<li class="nav-item "><a class="nav-link" href="void:0">질문&답변</a></li>
+				<li class="nav-item "><a class="nav-link" href="void:0">새소식</a>
 				</li>
 			</ul>
 		</nav>
 	</div>
 	<div id="page-switch" class="container">
 		<input type="hidden" id="selectone" value="${classinfo.class_num }">
-            <p>${classinfo.class_num } // test</p>
     </div>
 	<jsp:include page="footer/Footer.jsp"></jsp:include>
 
@@ -85,7 +70,6 @@
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
 	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
-	<script type="text/javascript" src="resources/js/template/contact_me.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
 	<script type="text/javascript" src="resources/js/template/detail.js"></script>
 </body>
