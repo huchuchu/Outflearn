@@ -8,14 +8,14 @@
 		<typeAlias type="com.outflearn.Outflearn.dto.ClassDataDto" alias="ClassDataDto"/>
 	</typeAliases>
 	
+<!--  
+ 	resource : src/main/resources 
+	<mappers> 
+		 <mapper resource="/sqls/AuthMapper.xml"/>
+		 <mapper resource="/sqls/ClassDataMapper.xml"/>
+	</mappers>
+  applicationContext.xml에 설정해놔서 따로 mapper추가 안해도 됩니당~! -->
 
-	<!-- resource : src/main/resources -->
-<!-- 	<mappers> -->
-<!-- 		<mapper resource="/sqls/AuthMapper.xml"/> -->
-<!-- <mapper resource="/sqls/ClassDataMaaper.xml"/> -->
-<!-- 	</mappers> -->
-<!-- applicationContext.xml에 설정해놔서 따로 mapper추가 안해도 됩니당~! -->
-	
-	
+
 
 </configuration>

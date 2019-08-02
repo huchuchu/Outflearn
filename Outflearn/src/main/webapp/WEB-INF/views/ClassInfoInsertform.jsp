@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +48,8 @@
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+
 	<!-- ==========================================Navigation==========================================-->
 	<nav id="menu" class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -88,80 +91,74 @@
 	
 		
 
-	<article>
-	
+		<br/><br/><br/>
 		<div class="row">
 			<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">
-				<li class="nav-item"><a href="void:0" class="nav-link active"
-					data-toggle="dropdown">카테고리</a></li>
-				<li class="nav-item"><a href="void:0" id="side_server"
-					class="nav-link active">서버&nbsp;<i class="fas fa-chevron-down"></i></a>
-					<ul id="side_server_menu" class="nav flex-column">
 						<li class="list-group-item-success"><h3>강의 소개</h3></li>
 						<li class="nav-link active"><h3>영상 소개</h3></li>
-					</ul></li>
-				</ul>
+			</ul>
 				<div class="col-sm-6 col-el-8">
-		<form action="DataVideoUploadForm" method="post">
-
-		<div class="input-group">
-			<h1>강의 주제</h1>
-		</div>
-
-		<div class="input-group">
-			<h3>강의 제목을 입력해주세요</h3>
-			<input type="text" class="form-control" name="class_title" placeholder="제목을 입력해주세요.">
-		</div>
-
-		<div class="input-group">
-			<h3>강사명</h3>
-			<input type="text" class="form-control" name="class_author" >
-		</div>
-		
-		<div class="input-group">
-			<h3>실시간 여부</h3>
-			<input type="text" class="form-control" name="class_live" placeholder="Y or N 입력해주세요.">
-		</div>
-		
-		<div class="input-group">
-			<h3>가격</h3>
-			<input type="text" class="form-control" name="class_price" placeholder="0">
-		</div>
-		
-		<div class="input-group col-xs-4">
-			<h3>수강 대상</h3>
-			<select name="class_studentlevel" class="alert alert-success">
-				<option value="초급자">초급자</option>
-				<option value="중급자">중급자</option>
-				<option value="상급자">상급자</option>
-			</select>
-		</div>
-		
-		<div class="input-group col-xs-4">
-			<h3>카테고리</h3>
-			<select name="class_category" class="alert alert-success ">
-				<option value="JAVA">JAVA</option>
-				<option value="JSP/Servlet">JSP/Servlet</option>
-				<option value="Spring Framework">Spring Framework</option>
-				<option value="DB">DB</option>
-				<option value="UI">UI</option>
-			</select>
-		</div>
-		
-		<div class="input-group col-sm-5">
-			<h3>강좌 소개</h3>
-			<textarea name="class_intro" class="form-control" rows="5" placeholder="강좌에 대해서 짧게 설명해주세요."></textarea>
-		</div>
-		
-		<div class="input-group">
-			<input type="submit" value="다음"> 
-			<input type="button" onclick="location.href='insert.do'" value="취소">
-		</div>
-	</form>
-		</div></div>
+		<form:form action="DataVideoUploadForm" method="post">
+	
+	
+			<div class="input-group">
+				<h1>강의 소개 </h1>
+			</div>
+	
+			<div class="form-group">
+				<h3>강의 제목을 입력해주세요</h3>
+				<input type="text" class="form-control" name="class_title" placeholder="제목을 입력해주세요." value="test">
+			</div>
+	
+			<div class="form-group">
+				<h3>강사명</h3>
+				<input type="text" class="form-control" name="class_author" value="test">
+			</div>
+			
+			<div class="input-group">
+				<h3>실시간 여부</h3>
+				<input type="text" class="form-control" name="class_live" placeholder="Y or N 입력해주세요." value="N">
+			</div>
+			
+			<div class="form-group">
+				<h3>가격</h3>
+				<input type="text" class="form-control" name="class_price" placeholder="0" value="123">
+			</div>
+			
+			<div class="input-group col-xs-4">
+				<h3>수강 대상</h3>
+				<select name="class_studentlevel" class="alert alert-success">
+					<option value="초급자">초급자</option>
+					<option value="중급자">중급자</option>
+					<option value="상급자">상급자</option>
+				</select>
+			</div>
+			
+			<div class="input-group col-xs-4">
+				<h3>카테고리</h3>
+				<select name="class_category" class="alert alert-success ">
+					<option value="JAVA">JAVA</option>
+					<option value="JSP/Servlet">JSP/Servlet</option>
+					<option value="Spring Framework">Spring Framework</option>
+					<option value="DB">DB</option>
+					<option value="UI">UI</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<h3>강좌 소개</h3>
+				<textarea name="class_intro" class="form-control" rows="5" cols="10" placeholder="강좌에 대해서 설명해주세요.">test</textarea>
+			</div>
+			
+			<div class="form-group">
+				<input type="submit" value="다음"> 
+				<input type="button" onclick="location.href='insert.do'" value="취소">
+			</div>
+		</form:form>
+	</div>
+			</div>
    
 		
-	</article>
 
 	<!-- Footer Section -->
 	<div id="footer">
@@ -188,6 +185,7 @@
 	<script type="text/javascript"
 		src="resources/js/template/contact_me.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
+	
 </body>
 
 </html>
