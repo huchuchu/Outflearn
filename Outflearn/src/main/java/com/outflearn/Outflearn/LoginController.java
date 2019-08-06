@@ -1,9 +1,12 @@
 package com.outflearn.Outflearn;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.file.AccessDeniedException;
 
+import java.nio.file.AccessDeniedException;
+import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -11,16 +14,24 @@ import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
+import org.codehaus.jackson.JsonNode;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
@@ -32,17 +43,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.outflearn.Outflearn.dto.UserInfoDto;
+import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.LoginBiz;
 import com.outflearn.Outflearn.model.biz.LoginBizImpl;
+import com.outflearn.Outflearn.service.UserAuthenticationService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 @Controller
 public class LoginController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+
+	
 	@Inject
 	BCryptPasswordEncoder passwordEncoder; //비밀번호 암호화 객체
 	
@@ -50,8 +64,6 @@ public class LoginController {
 	private LoginBizImpl biz;
 	
 	private String randompassword;
-	
-	
 	
 	//로그인 페이지로 이동
 	@RequestMapping("loginform")
@@ -68,7 +80,7 @@ public class LoginController {
 		
 	//회원가입
 	@RequestMapping("register.do") 
-	public String userInsert(@RequestParam String user_id, @RequestParam String user_pw, @RequestParam String user_name,
+	public String userInsert(@RequestParam String user_id, @RequestParam String user_pw,
 					@RequestParam String user_nickname, @RequestParam String user_email	) {
 		
 		Map<String, String> map = new HashMap<String, String>();
@@ -77,7 +89,6 @@ public class LoginController {
 		String encryptPassword = passwordEncoder.encode(user_pw);
 		System.out.println("암호화 후 비번" + encryptPassword);
 		map.put("user_pw", encryptPassword);
-		map.put("user_name", user_name);
 		map.put("user_nickname", user_nickname);
 		map.put("user_email", user_email);
 		
@@ -86,24 +97,34 @@ public class LoginController {
 		return "login";
 	}
 	
-	//권한이 없는 사용자에게 안내 페이지 출력
-	@RequestMapping("denied")
-	public String denied(Model model, AuthenticateAction auth, HttpServletRequest req ) {
-		AccessDeniedException ade = (AccessDeniedException)req.getAttribute(WebAttributes.ACCESS_DENIED_403);
+	
+	@RequestMapping("kakaoUserinsert")
+	@ResponseBody
+	public void kakao_userInsert(@RequestParam String user_id, @RequestParam String user_pw,
+			@RequestParam String user_nickname, @RequestParam String user_email	) {
 		
-		model.addAttribute("errMSg", ade);
-		return "denied";
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_id", user_id);
+		System.out.println("암호화 전 비번" + user_pw);
+		String encryptPassword = passwordEncoder.encode(user_pw);
+		System.out.println("암호화 후 비번" + encryptPassword);
+		map.put("user_pw", encryptPassword);
+		map.put("user_nickname", user_nickname);
+		map.put("user_email", user_email);
+		
+		biz.insertUser(map);	
+		
 	}
 	
-	@RequestMapping("logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:loginform";
-	}
+
+
+	
+
 	
 	
-	
-	@RequestMapping(value="idChk.do", method=RequestMethod.GET)
+	@RequestMapping("idChk.do")
 	@ResponseBody
 	public Map<String, Boolean> idChk(String id) {
 		logger.info("아이디 중복체크");
@@ -140,6 +161,7 @@ public class LoginController {
 		return map;
 		
 	}
+	
 	
 	@RequestMapping(value="sendEmail.do", method=RequestMethod.GET)
 	@ResponseBody
@@ -198,6 +220,14 @@ public class LoginController {
 		return map;
 	}
 	
+
+
+	
+	
+	
+	
+	
+
 	
 	
 

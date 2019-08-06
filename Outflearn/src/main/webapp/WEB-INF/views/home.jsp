@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="utf-8">
 
@@ -52,11 +53,23 @@
           <li class="dropdown"><a href="void:0" class="dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"
                 style="color: #6372ff "></i>
               <div class="dropdown-menu" role="menu" aria-expanded="navbarDropdown">
+              <sec:authorize access="isAuthenticated()">
                 <a href="/Outflearn/logout">로그아웃</a>
+              </sec:authorize> 
               </div>
             </a></li>
-          <li><a href="/Outflearn/loginform">로그인</a></li>
+        
+          <li>
+          <sec:authorize access="isAnonymous()">
+          <a href="/Outflearn/loginform">로그인</a>
+          </sec:authorize>
+          </li>
+          <sec:authorize access="isAnonymous()">
           <li><a href="/Outflearn/registerform.do">회원가입</a></li>
+          </sec:authorize>          
+
+          <li><a href="/Outflearn/test.do">sulkiTestPage</a></li>
+
         </ul>
       </div>
     </div>

@@ -39,20 +39,11 @@
       INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL, #{class_title }, #{class_author }, #{class_intro }, #{class_rating }, #{class_price }, 0, #{class_studentlevel }, #{class_category })
    </insert>
    
-<select id="selectUser" resultType="java.util.Map">
-	SELECT
-		USER_ID as username,
-		USER_PW as password,
-		USER_ENABLED as enabled,
-		USER_AUTHORITY as authority,
-		USER_NUM, USER_NAME, USER_NICKNAME, USER_EMAIL 
-	FROM USER_INFO
-	WHERE USER_ID=#{user_id}	
-</select>
+
 
 <insert id="insertUser" parameterType="map">
 	INSERT INTO USER_INFO
-	VALUES(USER_INFO_SQ.NEXTVAL, #{user_id}, #{user_pw}, #{user_name}, #{user_nickname}, 'ROLE_USER', #{user_email}, 1)
+	VALUES(USER_INFO_SQ.NEXTVAL, #{user_id}, #{user_pw}, #{user_nickname}, 'ROLE_USER', #{user_email}, 1)
 </insert>
 
 <!-- 회원가입 및 체크 -->
@@ -63,9 +54,11 @@
 	<select id="loginChk" parameterType="map" resultType="UserInfoDto">
 		SELECT * FROM USER_INFO WHERE USER_ID = #{id} AND USER_PW = #{pw}
 	</select>
-	<select id="idChk" parameterType="map" resultType="UserInfoDto">
+	
+	<select id="idChk" parameterType="String" resultType="com.outflearn.Outflearn.dto.memberRegisterDto">
 		SELECT * FROM USER_INFO WHERE USER_ID =#{userId}
 	</select>
+	
 	<select id="nickChk" parameterType="map" resultType="UserInfoDto">
 		SELECT * FROM USER_INFO WHERE USER_NICKNAME = #{nickname}
 	</select>

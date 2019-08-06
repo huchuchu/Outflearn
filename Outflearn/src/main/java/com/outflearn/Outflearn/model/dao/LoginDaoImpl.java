@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.outflearn.Outflearn.dto.UserInfoDto;
+import com.outflearn.Outflearn.dto.memberRegisterDto;
 
 @Repository
 public class LoginDaoImpl implements LoginDao {
@@ -71,15 +72,13 @@ public class LoginDaoImpl implements LoginDao {
 	}
 
 	@Override
-	public UserInfoDto idCheck(String id) {
-		UserInfoDto dto = null;
+	public memberRegisterDto idCheck(String id) {
 		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("userId", id);
+		memberRegisterDto dto = null;
 		
 		System.out.println("아이디 유효성 검사중");
 		
-			dto = sqlSession.selectOne(NAMESPACE + "idChk", map);
+			dto = sqlSession.selectOne(NAMESPACE + "idChk", id);
 				
 		return dto;
 	}

@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.outflearn.Outflearn.dto.UserInfoDto;
+import com.outflearn.Outflearn.dto.memberRegisterDto;
 
 @Service
 public interface LoginBiz {
@@ -19,7 +20,7 @@ public interface LoginBiz {
 	
 	public int register(Map<String, String> map);
 	
-	public UserInfoDto idCheck(String id);
+	public memberRegisterDto idCheck(String id);
 	
 	public UserInfoDto nickCheck(String nickname);
 	

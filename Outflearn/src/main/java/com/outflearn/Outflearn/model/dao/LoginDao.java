@@ -3,6 +3,7 @@ package com.outflearn.Outflearn.model.dao;
 import java.util.Map;
 
 import com.outflearn.Outflearn.dto.UserInfoDto;
+import com.outflearn.Outflearn.dto.memberRegisterDto;
 
 public interface LoginDao {
 	
@@ -19,7 +20,7 @@ public interface LoginDao {
 	
 	public int register(Map<String, String> map);
 	
-	public UserInfoDto idCheck(String id);
+	public memberRegisterDto idCheck(String id);
 	
 	public UserInfoDto nickCheck(String nickname);
 	

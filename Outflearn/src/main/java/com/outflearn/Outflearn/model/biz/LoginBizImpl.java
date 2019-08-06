@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.outflearn.Outflearn.dto.UserInfoDto;
+import com.outflearn.Outflearn.dto.memberRegisterDto;
 import com.outflearn.Outflearn.model.dao.LoginDao;
 import com.outflearn.Outflearn.model.dao.LoginDaoImpl;
 
@@ -45,7 +46,7 @@ public class LoginBizImpl implements LoginBiz {
 	}
 
 	@Override
-	public UserInfoDto idCheck(String id) {
+	public memberRegisterDto idCheck(String id) {
 		
 		return dao.idCheck(id);
 	}

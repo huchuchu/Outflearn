@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +11,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
+  <sec:csrfMetaTags/>
+  
 
   <title>Outflearn</title>
 
@@ -27,8 +31,20 @@
 
   <!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
   <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
-
 </head>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	$(function () {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+		});
+	
+</script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
   <!-- ==========================================Navigation==========================================-->
@@ -69,22 +85,108 @@
         <div class="container">
           <div class="row">
             <div class="col-md-8 col-md-offset-2 intro-text">
-
-              <!-- 로그인 폼 영역 -->
-
+            
+            
+            
+            <!-- 로그인 폼 영역 시작  -->
+            <script type="text/javascript">
+            
+            $("#submit").submit(function(){
+            	if($("#id").val()==""){
+            		alert("아이디를 입력해주세요");
+            	}else if($("#passwd").val()==""){
+            		alert("비밀번호를 입력해 주세요");
+            	}
+            });
+            
+            </script>
+            
               <form action="/Outflearn/login" method="post" id="test">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
-                <input type="text" name="id" placeholder="ID">
-                <input type="password" name="passwd" placeholder="PASSWORD">
-                <input type="submit" value="Sign in">
+                <input type="text" name="loginId" id="loginId" placeholder="ID">
+                <input type="password" name="loginPw" id="loginPw" placeholder="PASSWORD">
+                <input type="submit" value="Sign in" id="submit"><br/><br/>
+				<label for="remember-me" style="padding-left: 60%;">
+				<input type="checkbox" id="remember-me" name="remember-me">
+				Rmember Me
+				</label>
+				<br/><br/>
+				<c:if test="${not empty ERRORMSG }">
+				<p>${ERRORMSG }	</p>	
+				</c:if>
               </form>
-              <br /><br />
+              <br />
 
               <a href="void:0">아이디 찾기</a>
-              <a href="void:0" style="padding-left: 2%;">비밀번호를 잊으셨나요?</a><br /><br />
-              <a href="void:0"><img alt=""
-                  src="${pageContext.request.contextPath}/resources/img/loginIMG/kakaoLogin.png"></a><br /><br />
-              <a href="void:0"><img alt=""
+              <a href="void:0" style="padding-left: 2%;">비밀번호를 잊으셨나요?</a><br/><br/>
+              
+              <a id="kakao-login-btn"></a>
+			  <a href="http://developers.kakao.com/logout"></a>
+				
+				<script type='text/javascript'>
+				  //<![CDATA[
+				    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+              	    Kakao.init('85e61dfa4e850de4478ab8c6df1a737a');
+				    // 카카오 로그인 버튼을 생성합니다.
+				    Kakao.Auth.createLoginButton({
+				      container: '#kakao-login-btn',
+				      success: function(authObj) {
+	 				        alert(JSON.stringify(authObj));	
+
+				    	  Kakao.API.request({
+				    		 url: '/v1/user/me',
+				    		 success: function(res){
+				    			 
+				    			 alert(res);				    			 
+				    			 res.id += "@k";	
+				    			alert(res.id);
+				    			
+				    			$.ajax({
+				    				url: "idChk.do",  //id체크
+				    				data: "id="+res.id,
+				    				
+				    				success: function(data){
+				    					alert(data.idChk);
+				    					if(data.idChk==true){ //아이디가 없다면 회원가입 
+				    						alert("회원가입");
+				    						
+				    						var param = 
+				    						{"user_id":res.id, "user_pw":res.id, "user_email":res.kaccount_email, "user_nickname":res.properties.nickname }
+				    						
+				    						$.ajax({
+				    							url: "kakaoUserinsert",
+				    							method: "POST",
+				    							data: param	,
+				    							success : function(){ //회원가입 성공, 가입 후 로그인ㄱㄱ
+				    								alert("회원가입 완료");
+				    								$("form").attr("method","post").attr("action","/Outflearn/login?id="+res.id+"&passwd="+res.id).submit();
+
+				    							}
+				    						});
+				    						
+				    					}else{ //아이디가 있다면 로그인 (시큐리티 로그인ㄱㄱ)
+				    						alert("로그인하러 갑니다~!");
+		    								$("form").attr("method","post").attr("action","/Outflearn/login?id="+res.id+"&passwd="+res.id).submit();
+				    					}
+				    				}
+				    			});
+				    		 },
+				    		 fail: function(error){
+				    			 alert(JSON.stringify(err));
+				    		 }
+				    	  });
+				      },
+				      fail: function(err) {
+				         alert(JSON.stringify(err));
+				      }
+				    });
+				  //]]>
+				</script>
+	
+              
+			
+			<br/><br/>	
+            <a href="void:0"><img alt=""
                   src="${pageContext.request.contextPath}/resources/img/loginIMG/naverLogin.png"></a>
 
               <!-- 로그인 폼 끝 -->

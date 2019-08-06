@@ -200,19 +200,7 @@
 	        <version>${spring.security.version}</version>
 	    </dependency>
 
-<!-- 		log4jdbc -->
-<!--         <dependency> -->
-<!--             <groupId>org.bgee.log4jdbc-log4j2</groupId> -->
-<!--             <artifactId>log4jdbc-log4j2-jdbc4</artifactId> -->
-<!--             <version>1.16</version> -->
-<!--         </dependency>   -->
 
-<!-- 	 logback 로깅 관련 -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>ch.qos.logback</groupId> -->
-<!-- 			<artifactId>logback-classic</artifactId> -->
-<!-- 			<version>1.2.3</version> -->
-<!-- 		</dependency>          -->
 
 		<!-- Mail -->
 		<dependency>
@@ -225,8 +213,8 @@
 			<artifactId>javax.mail</artifactId>
 			<version>1.6.1</version>
 		</dependency>
-
 		
+
 		
 	</dependencies>
     <build>

@@ -14,6 +14,7 @@
 	}
 	
 	function sendEmail(){
+
 		var user_email = $("input[name=user_email]").val();
 		if(user_email == null || user_email == ""){
 			alert("이메일을 입력해 주세요");								
@@ -22,6 +23,7 @@
 				url:"sendEmail.do",
 				type:"GET",
 				data:"email="+user_email,
+		
 				success:function(data){
 					alert("이메일 전송 완료")
 					$("input[name=code]").change(function(){
@@ -73,14 +75,17 @@
 	}
 	
 	function id_check(){
+		
 		var user_id = $("input[name=user_id]").val();
 		if(user_id == null || user_id == ""){
 			alert("아이디를 입력하세요");
 		}else{
+		
 			$.ajax({
 				url:"idChk.do",
-				type:"GET",
+				type:"POST",
 				data : "id="+user_id,
+
 				success:function(data){
 					if(data.idChk != true){
 						var idChk = false;
