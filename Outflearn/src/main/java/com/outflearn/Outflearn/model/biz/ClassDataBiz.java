@@ -10,7 +10,7 @@ public interface ClassDataBiz {
 	
 	// 강좌 데이터 -  CLASS_DATA TABLE
 		public List <ClassDataDto> ClassDataSelectList();
-		public ClassDataDto ClassDataSelectOne(int data_chapter);
+		public ClassDataDto ClassDataSelectOne(int class_num);
 		public int ClassDataInsert(ClassDataDto dto);
 		public int ClassChapterDataInsert(ClassDataDto dto);
 		public int ClassDataUpdate(ClassDataDto dto);

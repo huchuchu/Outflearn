@@ -39,6 +39,13 @@ public class HomeController {
 
 		return "home";
 	}
+	
+	@RequestMapping(value = "home")
+	public String tohome() {
+
+		return "home";
+	}
+
 
 	@RequestMapping("/LectureList")
 	public String LectureList(Model model) {
@@ -79,6 +86,7 @@ public class HomeController {
 	@RequestMapping("ClassInfoInsertForm")
 	public void ClassInfoInsertForm() {
 		logger.info("ClassInfoInsertForm");
+		System.out.print("여기는 왔어");
 	}
 
 //	ClassInfoInsertForm.jsp - > DataVideoUploadForm.jsp  CLASS_DATA DB 저장

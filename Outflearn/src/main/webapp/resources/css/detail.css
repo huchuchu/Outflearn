@@ -1,8 +1,22 @@
+
+.jumbotron .profile-border {
+	font-size: 1.7rem;
+	padding: 4px 0px;
+	border-bottom: 1px dashed #acacac;
+}
+
+.jumbotron > #jumbo_row > #study_btn h4 {
+	font-size: 2.5rem;
+	background-color: #ffffff;
+	color: #454545;
+	font-family: 'Nanum Gothic';
+}
+
 #jumbo_row {
     padding-left: 4em;
 }
 
-.jumbotron, .jumbotron h3 {
+.jumbotron, .jumbotron > #jumbo_row h3 {
     background: #2c2e37;
     color: #eeeeee;
 }
@@ -20,4 +34,44 @@
 
 .detail-nav-menu {
     border-bottom: 2px solid #6473ff;
+}
+
+#jumbo_row > div {
+	height: 180px;
+}
+
+#study_btn {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#box {
+	padding: 3.5rem;
+	position: fixed;
+	right: 4.5rem;
+	max-width: 240px;
+	z-index: 999;
+	background-color: white;
+	border: 1px solid #acacac
+}
+
+#box h2 {
+	background: white;
+	color: black;
+	font-family: 'Nanum Gothic';
+}
+
+.btns {
+	padding: 10px 2.5px;
+	font-size: 1.8rem;
+	width: 100%;
+	clear: both;
+	background: white;
+	border: solid 1px #acacac;
+	margin-bottom: 1rem;
+}
+
+.btns {
+	background: #6372ff;
+	color: #f2f3f7;
 }
