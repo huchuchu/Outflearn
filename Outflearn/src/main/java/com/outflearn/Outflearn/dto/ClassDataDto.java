@@ -1,5 +1,6 @@
 package com.outflearn.Outflearn.dto;
 
+
 public class ClassDataDto {
 	
 //	강좌데이터
@@ -8,8 +9,9 @@ public class ClassDataDto {
 	private String data_subhead;
 	private int data_sq;
 	private String data_title;
-	private String data_data;
 	private String data_youtube;
+	private String data_data;
+
 
 
 	public ClassDataDto() {
@@ -17,15 +19,15 @@ public class ClassDataDto {
 	}
 	
 	
-	public ClassDataDto(int class_num, int data_chapter ,String data_subhead, int data_sq, String data_title, String data_data, String data_youtube) {
+	public ClassDataDto(int class_num, int data_chapter ,String data_subhead, int data_sq, String data_title, String data_youtube ,String data_data) {
 		super();
 		this.class_num = class_num;
 		this.data_chapter = data_chapter;
 		this.data_subhead = data_subhead;
 		this.data_sq = data_sq;
 		this.data_title = data_title;
-		this.data_data = data_data;
 		this.data_youtube = data_youtube;
+		this.data_data = data_data;
 	}
 
 
@@ -78,7 +80,14 @@ public class ClassDataDto {
 		this.data_title = data_title;
 	}
 
+	public String getData_youtube() {
+		return data_youtube;
+	}
 
+	public void setData_youtube(String data_youtube) {
+		this.data_youtube = data_youtube;
+	}
+	
 	public String getData_data() {
 		return data_data;
 	}
@@ -86,14 +95,6 @@ public class ClassDataDto {
 
 	public void setData_data(String data_data) {
 		this.data_data = data_data;
-	}
-
-	public String getData_youtube() {
-		return data_youtube;
-	}
-
-	public void setData_youtube(String data_youtube) {
-		this.data_youtube = data_youtube;
 	}
 
 	

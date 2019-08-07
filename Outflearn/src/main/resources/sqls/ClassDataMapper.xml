@@ -11,18 +11,36 @@
 		SELECT * FROM CLASS_DATA
 	</select>
 	
-	<insert id="ClassDataInsert" parameterType="ClassDataDto">
-		INSERT INTO CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SUBHEAD, DATA_SQ, DATA_TITLE, DATA_DATA) VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.NEXTVAL ,#{data_subhead }, #{data_sq }, #{data_title } , #{data_data })
-	</insert>
+	<!-- 해당 강좌 조회 -->
+	<select id="ClassInfoSelectone" parameterType="int" resultType="ClassInfoDto">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num }
+	</select>
 	
-	<insert id="ClassChapterDataInsert" parameterType="ClassDataDto">
-		INSERT INTO CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SQ, DATA_TITLE, DATA_DATA) VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.CURRVAL , #{data_sq }, #{data_title } , #{data_data })
-	</insert>
-	
+	<!-- 강의 소개 페이지  -->
 	<insert id="ClassInfoDtoInsert" parameterType="ClassInfoDto">
 		INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL, #{class_title }, #{class_author }, #{class_intro }, #{class_live } ,0, #{class_price }, 0, #{class_studentlevel }, #{class_category })
 	</insert>
 	
-
+	<!-- 영상추가 첫번째 페이지-->
+	<insert id="ClassDataInsert" parameterType="ClassDataDto">
+		INSERT INTO CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SUBHEAD, DATA_SQ, DATA_TITLE, DATA_YOUTUBE) VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.NEXTVAL ,#{data_subhead }, #{data_sq }, #{data_title }, #{data_youtube })
+	</insert>
+	
+	<!-- 영상추가 두번째 페이지 챕터안에 내용 추가 -->
+	<insert id="ClassChapterDataInsert" parameterType="ClassDataDto">
+		INSERT INTO CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SQ, DATA_TITLE, DATA_YOUTUBE) VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.CURRVAL , #{data_sq }, #{data_title } , #{data_youtube })
+	</insert>
+	
+	<!-- 직접영상 클릭 -->
+	<update id="ClassDataUpdate" parameterType="ClassDataDto">		
+        UPDATE CLASS_DATA SET DATA_DATA = #{data_data } WHERE DATA_CHAPTER = DATA_CHAPTER_SQ.CURRVAL AND DATA_SQ IN 
+        (SELECT DATA_SQ	FROM (SELECT * FROM CLASS_DATA WHERE DATA_CHAPTER = DATA_CHAPTER_SQ.CURRVAL) WHERE ROWNUM = 1);
+	</update>
+	
+	<!-- 구독수 -->
+	<update id="">
+	
+	</update>
+	
 
 </mapper>

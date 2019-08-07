@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.model.dao.ClassDataDao;
 
 
@@ -84,6 +85,37 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int ClassInfoDelete(String class_title) {
 		
 		return dao.ClassInfoDelete(class_title);
+	}
+	
+//	---------------------------------------------------	강좌 소개
+	@Override
+	public List<ClassIntroduceDto> ClassIntroduceSelectList() {
+		
+		return null;
+	}
+
+	@Override
+	public ClassInfoDto ClassIntroduceSelectOne(int class_num) {
+
+		return null;
+	}
+
+	@Override
+	public int ClassIntroduceInsert(ClassIntroduceDto dto) {
+	
+		return 0;
+	}
+
+	@Override
+	public int ClassInfoUpdate(ClassIntroduceDto dto) {
+
+		return 0;
+	}
+
+	@Override
+	public int ClassIntroduceDelete(String class_content) {
+
+		return 0;
 	}
 
 	

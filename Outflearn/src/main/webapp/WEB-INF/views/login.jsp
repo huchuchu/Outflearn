@@ -72,12 +72,12 @@
 
 <!-- 로그인 폼 영역 -->            
               
-              <form action="/Outflearn/login" method="post" id="test">
+              <form:form action="/Outflearn/login" method="post" id="test">
               <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
               <input type="text" name="id" placeholder="ID">
               <input type="password" name="passwd" placeholder="PASSWORD">
               <input type="submit" value="Sign in">
-              </form>     
+              </form:form>     
               
 <!-- 로그인 폼 끝 -->           
               
