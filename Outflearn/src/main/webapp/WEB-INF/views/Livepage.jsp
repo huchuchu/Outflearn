@@ -60,9 +60,23 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</head>
 
+<!-- fullCalendar -->
+
+    <link href='resources/js/fullcalendar/core/main.css' rel='stylesheet' />
+    <link href='resources/js/fullcalendar/daygrid/main.css' rel='stylesheet' />
+    <link href='resources/js/fullcalendar/timegrid/main.css' rel='stylesheet' />
+
+    <script src='resources/js/fullcalendar/core/main.js'></script>
+    <script src='resources/js/fullcalendar/daygrid/main.js'></script>
+    <script src='resources/js/fullcalendar/interaction/main.js'></script>
+    <script src='resources/js/fullcalendar/timegrid/main.js'></script>
+    
+    <script type="text/javascript" src="resources/js/fullcalendar/liveCalendar.js"></script>
+    
+</head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
 
 	<!--Slide Show-->
 	<div class="container">
@@ -114,23 +128,7 @@
 		</div>
 
 		<div class="table-responsive-lg">
-			<table class="table">
-				<tr class="text-center">
-					<th>일요일</th>
-					<th>월요일</th>
-					<th>화요일</th>
-					<th>수요일</th>
-					<th>목요일</th>
-					<th>금요일</th>
-					<th>토요일</th>
-				</tr>
-				<tr>
-					<td>1</td>
-				</tr>
-				<tr>
-					<td>8</td>
-				</tr>
-			</table>
+			<div id='calendar'></div>
 		</div>
 	</div>
 

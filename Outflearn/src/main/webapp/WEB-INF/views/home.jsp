@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="utf-8">
 
@@ -45,18 +46,28 @@
         <ul class="nav navbar-nav navbar-center">
           <li><a href="LectureList">강좌 둘러보기</a></li>
           <li><a href="void:0">로드맵 학습</a></li>
-          <li><a href="void:0">아웃프런 소개</a></li>
+          <li><a href="introOutflearn">아웃프런 소개</a></li>
           <li><a href="Livepage">라이브</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown"><a href="void:0" class="dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"
                 style="color: #6372ff "></i>
               <div class="dropdown-menu" role="menu" aria-expanded="navbarDropdown">
+              <sec:authorize access="isAuthenticated()">
                 <a href="/Outflearn/logout">로그아웃</a>
+              </sec:authorize> 
               </div>
             </a></li>
-          <li><a href="/Outflearn/loginform">로그인</a></li>
-          <li><a href="/Outflearn/joinform">회원가입</a></li>
+          
+          <li>
+          <sec:authorize access="isAnonymous()">
+          <a href="/Outflearn/loginform">로그인</a></li>
+          <li><a href="/Outflearn/registerform.do">회원가입</a></li>
+          </sec:authorize>
+          <li>
+          <sec:authorize access="isAuthenticated()">
+          <a href="/Outflearn/MemberInfoUpdateForm.do">회원정보 수정</a></li>
+          </sec:authorize>
         </ul>
       </div>
     </div>
@@ -184,7 +195,7 @@
   <script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
   <script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
   <script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
-  <script type="text/javascript" src="resources/js/template/contact_me.js"></script>
+<!--   <script type="text/javascript" src="resources/js/template/contact_me.js"></script> -->
   <script type="text/javascript" src="resources/js/template/main.js"></script>
 </body>
 

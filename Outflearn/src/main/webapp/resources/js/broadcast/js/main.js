@@ -24,6 +24,10 @@ var room = 'foo';
 // Could prompt for room name:
 // room = prompt('Enter room name:');
 
+//const socket = io('http://localhost', {
+//  path: '/myownpath'
+//});
+
 var socket = io.connect('https://192.168.10.139:3000');
 
 if (room !== '') {

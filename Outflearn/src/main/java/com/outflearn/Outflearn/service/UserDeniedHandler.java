@@ -16,7 +16,7 @@ public class UserDeniedHandler implements AccessDeniedHandler {
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
 	
 		request.setAttribute("errMsg", "관리자만 사용할 수 있는 기능입니다.");		
-		request.getRequestDispatcher("").forward(request, response);
+		request.getRequestDispatcher("denied").forward(request, response);
 		
 	}
 

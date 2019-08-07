@@ -78,8 +78,8 @@ public class HomeController {
 		return dto.getData_data();
 	}
 
-	@RequestMapping("Live")
-	public void Live() {
+	@RequestMapping("Livepage")
+	public void Livepage() {
 
 	}
 
@@ -210,6 +210,11 @@ public class HomeController {
 	   model.addAttribute("info_dto", biz.ClassInfoSelectOne(info_num));
 		
 		return data_dto.getData_data();
+	}
+	
+	@RequestMapping("introOutflearn")
+	public void introOutflearn() {
+		
 	}
 
 
