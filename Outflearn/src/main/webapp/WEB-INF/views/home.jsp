@@ -53,7 +53,9 @@
           <li class="dropdown"><a href="void:0" class="dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"
                 style="color: #6372ff "></i>
               <div class="dropdown-menu" role="menu" aria-expanded="navbarDropdown">
+              <sec:authorize access="isAuthenticated()">
                 <a href="/Outflearn/logout">로그아웃</a>
+              </sec:authorize> 
               </div>
             </a></li>
           

@@ -6,6 +6,8 @@ import java.net.URLEncoder;
 import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -13,6 +15,7 @@ import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,6 +26,7 @@ import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -38,6 +42,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.LoginBiz;
 
@@ -87,21 +92,31 @@ public class LoginController {
 		return "login";
 	}
 	
-	//권한이 없는 사용자에게 안내 페이지 출력
-	@RequestMapping("denied")
-	public String denied(Model model, AuthenticateAction auth, HttpServletRequest req ) {
-		AccessDeniedException ade = (AccessDeniedException)req.getAttribute(WebAttributes.ACCESS_DENIED_403);
+	
+	@RequestMapping("kakaoUserinsert")
+	@ResponseBody
+	public void kakao_userInsert(@RequestParam String user_id, @RequestParam String user_pw,
+			@RequestParam String user_nickname, @RequestParam String user_email	) {
 		
-		model.addAttribute("errMSg", ade);
-		return "denied";
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_id", user_id);
+		System.out.println("암호화 전 비번" + user_pw);
+		String encryptPassword = passwordEncoder.encode(user_pw);
+		System.out.println("암호화 후 비번" + encryptPassword);
+		map.put("user_pw", encryptPassword);
+		map.put("user_nickname", user_nickname);
+		map.put("user_email", user_email);
+		
+		biz.insertUser(map);	
+		
 	}
 	
-	@RequestMapping("logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:loginform";
-	}
+
+
 	
+
 	
 	
 	@RequestMapping("idChk.do")
@@ -284,14 +299,6 @@ public class LoginController {
 		return "login";
 	}
 	
-	@RequestMapping("test01")
-	public String test012(@RequestParam String test) {
-		
-		System.out.println(test);
-		
-		return "login";
-	}
-	
 	@RequestMapping("MemberInfoUpdateForm.do")
 	public String memberInfoUpdateForm(Authentication auth, Model model) {
 		UserInfoDto dto = (UserInfoDto) auth.getPrincipal();
@@ -349,99 +356,5 @@ public class LoginController {
 		
 		return map;
 	}
-	@RequestMapping("test.do")
-	 public String testpage(Authentication auth ) {
-	      
-	      //this.auth = auth;
-	      //Locale locale, Model model, 
-	      logger.info("test.do 입장~!");      
-	      
-	      logger.info("auth test 1 : " + auth);
-	      
-	      UserInfoDto dto = (UserInfoDto)auth.getPrincipal();
-	      String email = dto.getUser_email();
-	      
-	      logger.info("□□□□□□□□□□□"+email);
-	      
-//	      logger.info("★★★★id★★★="+id);
-//	      UserInfoDto dto = (UserInfoDto)   auth.getPrincipal();
-	      logger.info("welcome checkAuth! Authentication is{}.", auth);
-//	      logger.info("UserAuthenticationService == {}", dto);
-	      
-//	      model.addAttribute("auth", auth);
-//	      model.addAttribute("dto", dto);   
-	      
-	      
-	      logger.info("★★★★★★★★"+auth.getName());
-	      logger.info(""+auth.getAuthorities());
-
-	      return "test01";
-	   }
-	
-	@RequestMapping(value="/oauth", produces="application/json")
-	public String kakaologin(@RequestParam("code") String code, Model model, HttpSession session) {
-		
-		
-		logger.info("로그인 할 때 임시 코드값");
-		//카카오 홈페이지에서 받은 결과 코드
-		logger.info(code);
-		logger.info("로그인 후 결과 값");		
-
-		KakaorestApi kr = new KakaorestApi();
-		JsonNode node = kr.getAccessToken(code);
-		System.out.println(node);
-		
-		//UserInfo 받아옴
-		JsonNode userInfo = kr.getKakaoUserInfo(node.get("access_token"));
-				
-		String id = userInfo.path("id").asText();
-		String nickName = null;
-		String email = null;
-		
-		JsonNode properties = userInfo.path("properties");
-		if(properties.isMissingNode()) {
-			logger.info("nickname properties 오류");
-		}else {
-			nickName = properties.path("nickname").asText();
-		}
-		
-		JsonNode kakao_account = userInfo.path("kakao_account");
-		if(kakao_account.isMissingNode()) {
-			logger.info("email kakao_account 오류");
-		}else {
-			email = kakao_account.path("email").asText();
-		}
-		
-		
-		logger.info(id);
-		logger.info(nickName);
-		logger.info(email);
-		
-		
-//		JsonNode userInfo = kr.getKakaoUserInfo(access_Token);
-		
-//		String id = userInfo.path("id").asText();
-//		String name = null;
-//		String email = null;
-//		
-//		logger.info(id);
-
-		
-//		//노드 안에 있는 access_token값을 꺼내 문자열로 변환
-//		String token = node.get("access_token").toString();
-//		session.setAttribute("token", token);		
-//		//사용자 정보 요청
-//		JsonNode userInfo = kr.getKakaoUserInfo(code);		
-//		logger.info(userInfo);
-//		
-//		String id = userInfo.get("id").toString();
-//		String email = userInfo.get("kaccount_email").toString();
-//		String nickname = userInfo.get("properties").get("nickname").toString();
-//		
-//		logger.info("유저인포 : "+id+","+email+","+nickname);		
-//		//logger.info(access_token);
-		return"test01";
-	}
-
 
 }

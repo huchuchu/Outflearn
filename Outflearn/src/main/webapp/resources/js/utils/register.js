@@ -120,11 +120,11 @@
 		if(user_id == null || user_id == ""){
 			alert("아이디를 입력하세요");
 		}else{
+		
 			$.ajax({
 				url:"idChk.do",
 				type:"POST",
 				data : "id="+user_id,
-				
 				success:function(data){
 					if(data.idChk != true){
 						idChk = false;
