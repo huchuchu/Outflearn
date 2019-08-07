@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,9 +25,11 @@
 
   <!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
   <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
+
 </head>
+
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-<!-- Contact Section -->
+  <!-- Contact Section -->
   <div id="contact">
     <div class="container">
       <div class="col-md-8">
@@ -35,29 +38,7 @@
             <h2>Get In Touch</h2>
             <p>Please fill out the form below to send us an email and we will get back to you as soon as possible.</p>
           </div>
-          <form name="sentMessage" id="contactForm" novalidate>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <input type="text" id="name" class="form-control" placeholder="Name" required="required">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <input type="email" id="email" class="form-control" placeholder="Email" required="required">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <textarea name="message" id="message" class="form-control" rows="4" placeholder="Message"
-                required></textarea>
-              <p class="help-block text-danger"></p>
-            </div>
-            <div id="success"></div>
-            <button type="submit" class="btn btn-custom btn-lg">Send Message</button>
-          </form>
+          Someting here
         </div>
       </div>
       <div class="col-md-3 col-md-offset-1 contact-info">
@@ -94,4 +75,5 @@
     </div>
   </div>
 </body>
+
 </html>

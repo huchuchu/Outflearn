@@ -1452,6 +1452,15 @@ dd {
   margin-left: 0;
 }
 @media (min-width: 768px) {
+	
+  .card {
+  	width: 30%
+  }
+  
+  .card-body, .card img {
+  	width: 100%
+  }
+  
   .dl-horizontal dt {
     float: left;
     width: 160px;
@@ -3988,7 +3997,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #eee;
 }
 .nav > li.disabled > a {
   color: #777;

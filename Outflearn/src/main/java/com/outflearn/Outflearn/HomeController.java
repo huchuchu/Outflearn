@@ -35,6 +35,13 @@ public class HomeController {
 
 		return "home";
 	}
+	
+	@RequestMapping(value = "home")
+	public String tohome() {
+
+		return "home";
+	}
+
 
 	@RequestMapping("/LectureList")
 	public String LectureList(Model model) {
@@ -67,14 +74,15 @@ public class HomeController {
 		return dto.getData_data();
 	}
 
-	@RequestMapping("Live")
-	public void Live() {
+	@RequestMapping("Livepage")
+	public void Livepage() {
 
 	}
 
 	@RequestMapping("ClassInfoInsertForm")
 	public void ClassInfoInsertForm() {
 		logger.info("ClassInfoInsertForm");
+		System.out.print("여기는 왔어");
 	}
 	
 	
@@ -194,6 +202,36 @@ public class HomeController {
 		
 	}
 	
+	@RequestMapping("BackDataVideoUploadForm")
+	public String BackDataVideoUploadForm(@ModelAttribute ClassDataDto dto, Model model) {
+		
+		return "BackDataVideoUploadForm";
+	}
+	
+	@RequestMapping("LectureDetailView")
+	public String LectureDetailView(String DATA_DATA, Model model) {
+		
+		model.addAttribute("DATA_DATA", DATA_DATA);
+		
+		return "LectureDetailView";
+	}
+	
+	@RequestMapping("LecturePlayList")
+	@ResponseBody
+	public String LecturePlayList(Model model, HttpSession session) {
+		
+	   int info_num = (int) session.getAttribute("info_num");
+	   
+	   ClassDataDto data_dto = biz.ClassDataSelectOne(info_num);
+	   model.addAttribute("info_dto", biz.ClassInfoSelectOne(info_num));
+		
+		return data_dto.getData_data();
+	}
+	
+	@RequestMapping("introOutflearn")
+	public void introOutflearn() {
+		
+	}
 
 
 }

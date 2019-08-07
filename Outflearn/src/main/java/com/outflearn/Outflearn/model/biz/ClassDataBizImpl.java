@@ -26,9 +26,9 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 
 	@Override
-	public ClassDataDto ClassDataSelectOne(int data_chapter) {
+	public ClassDataDto ClassDataSelectOne(int class_num) {
 		
-		return dao.ClassDataSelectOne(data_chapter);
+		return dao.ClassDataSelectOne(class_num);
 	}
 
 	@Override
