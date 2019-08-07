@@ -1,13 +1,10 @@
 package com.outflearn.Outflearn;
 
 import java.io.IOException;
+
+
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.file.AccessDeniedException;
-import java.security.Principal;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -15,38 +12,28 @@ import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.User;
-import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
-import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.LoginBiz;
 
 @Controller
+
 public class LoginController {
 
 
@@ -96,7 +83,7 @@ public class LoginController {
 	@RequestMapping("kakaoUserinsert")
 	@ResponseBody
 	public void kakao_userInsert(@RequestParam String user_id, @RequestParam String user_pw,
-			@RequestParam String user_nickname, @RequestParam String user_email	) {
+			@RequestParam String user_nickname, @RequestParam String user_email	, BindingResult result) {
 		
 		int res = 0;
 		

@@ -73,7 +73,7 @@
               </div>
             </a></li>
           <li><a href="/Outflearn/loginfrom">로그인</a></li>
-          <li><a href="void:0">회원가입</a></li>
+          <li><a href="/Outflearn/registerform.do">회원가입</a></li>
         </ul>
       </div>
     </div>
@@ -115,8 +115,8 @@
               </form>
               <br />
 
-              <a href="void:0">아이디 찾기</a>
-              <a href="void:0" style="padding-left: 2%;">비밀번호를 잊으셨나요?</a><br/><br/>
+              <a href="/Outflearn/findIdForm.do">아이디 찾기</a>
+              <a href="/Outflearn/findPwForm.do" style="padding-left: 2%;">비밀번호를 잊으셨나요?</a><br/><br/>
               
               <a id="kakao-login-btn"></a>
 			  <a href="http://developers.kakao.com/logout"></a>
@@ -149,7 +149,7 @@
 				    						alert("회원가입");
 				    						
 				    						var param = 
-				    						{"user_id":res.id, "user_pw":res.id, "user_email":res.kaccount_email, "user_nickname":res.properties.nickname }
+				    						{"user_id":res.id, "user_pw":res.id, "user_email":res.id, "user_nickname":res.id }
 				    						
 				    						$.ajax({
 				    							url: "kakaoUserinsert",

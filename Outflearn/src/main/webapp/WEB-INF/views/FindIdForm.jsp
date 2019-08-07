@@ -100,7 +100,7 @@
 		<div class="col-xs-6 col-sm-6">
 			
 			<form method="post" action="${pageContext.request.contextPath}/findId.do">
-         						
+         		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">	
 					<header>
 						<h3>아이디 찾기</h3>
 					</header>

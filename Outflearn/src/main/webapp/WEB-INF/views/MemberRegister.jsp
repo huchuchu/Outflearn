@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%-- <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> --%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,9 +54,19 @@
 <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 
-<!-- <sec:csrfMetaTags/> -->
+<sec:csrfMetaTags/>
 
-
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+   $(function () {
+      var token = $("meta[name='_csrf']").attr("content");
+      var header = $("meta[name='_csrf_header']").attr("content");
+      $(document).ajaxSend(function(e, xhr, options) {
+         xhr.setRequestHeader(header, token);
+      });
+      });
+   
+</script>
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -104,7 +114,7 @@
 		<div class="col-xs-6 col-sm-6">
 			
 			<form method="post" action="${pageContext.request.contextPath}/register.do" onsubmit="return formsubmit();">
-           <!--  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }"> -->			
+           	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">		
 					
 					<header>
 						<h3>회원가입</h3>
@@ -137,7 +147,6 @@
 							<td>
 								<input type="text" class="text" name="user_nickname" placeholder="닉네임" required />
 								<div id="nick_confirm"></div><br>
-<!-- 								<input type="button" class="nickChk" name="btn_nickcheck" value="중복확인" onclick="nick_check()"/><p></p> -->
 							</td>
 				
 						</tr>
