@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 
 public interface ClassDataDao {
 	
@@ -24,6 +25,13 @@ public interface ClassDataDao {
 	public int ClassInfoInsert(ClassInfoDto dto);
 	public int ClassInfoUpdate(ClassInfoDto dto);
 	public int ClassInfoDelete(String class_title);
+	
+	// 강좌 소개 - CLASS_INTRODUCE 테이블
+	public List <ClassIntroduceDto> ClassIntroduceSelectList();
+	public ClassInfoDto ClassIntroduceSelectOne(int class_num);
+	public int ClassIntroduceInsert(ClassIntroduceDto dto);
+	public int ClassInfoUpdate(ClassIntroduceDto dto);
+	public int ClassIntroduceDelete(String class_content);
 	
 	
 }

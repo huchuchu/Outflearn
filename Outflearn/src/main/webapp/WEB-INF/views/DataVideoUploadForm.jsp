@@ -50,6 +50,14 @@
           function clearalert(){
         		alert("추가 작성 없을시 '게시판 넘기기' 클릭");
         	}
+        	
+// 영상 소개에서 뒤로가기 눌렀을시 알림
+		  function backclassinfo(){
+	    		alert("강의 소개를 다시 작성해주세요.")
+		   }
+		   
+		   $('#a').submit(function(
+				   )
        
            
 </script>
@@ -92,6 +100,7 @@
 
 <br/><br/><br/>
 	
+	
 	<div class="form-group">
 		<h1>영상 소개</h1>
 	</div>
@@ -112,7 +121,7 @@
 		
 		<div class="form-group">
 			<h3>과정 순서</h3>
-			<input type="text" name="data_sq" class="form-control">
+			<input type="text" name="data_sq" class="form-control" placeholder="순서에 맞게 번호를 입력해주세요.	">
 		</div>
 		
 		<div class="form-group">
@@ -121,8 +130,12 @@
 		</div>
 	
 		<div class="form-group">	
-			<h3>영상 링크 </h3>         
-            <input type="text" name="data_data" class="form-control"/> 
+			<h3>유튜브영상 링크 </h3>
+            <input type="text" name="data_youtube" class="form-control" placeholder="아래 파일 업로드는 추가사항"/>
+        </div>
+        
+        <div class="form-group">	
+            <input type="button" value="파일 업로드" onclick="SelfDataVideoUpload()" />
        	</div>
 		
 		<div class="form-group">
@@ -132,10 +145,9 @@
 		
 		
 		<div class="form-group">
-			<input type="button" value="게시판 넘기기 " onclick="location.href='LectureList'"> 
-			<input type="submit" value="작성 후 클릭" />
-			<input type="button" value="추가" onclick="location.href='DataVideoUploadFormPlus'" />
-			<input type="button" value="직접 영상 올리기" onclick="SelfDataVideoUpload()" />
+			<input type="submit" class="add_field_button btn btn-success btn-md" value="작성 후 클릭" />
+			<input type="button" class="add_field_button btn btn-success btn-md" value="뒤로 가기" onclick="backclassinfo();" id="a"/>
+			<input type="button" class="add_field_button btn btn-success btn-md" value="게시판 넘기기 " onclick="location.href='LectureList'"> 
 		</div>
 
 	</form:form>
