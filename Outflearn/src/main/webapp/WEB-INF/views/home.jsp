@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="utf-8">
 
@@ -55,8 +56,16 @@
                 <a href="/Outflearn/logout">로그아웃</a>
               </div>
             </a></li>
-          <li><a href="/Outflearn/loginform">로그인</a></li>
-          <li><a href="/Outflearn/joinform">회원가입</a></li>
+          
+          <li>
+          <sec:authorize access="isAnonymous()">
+          <a href="/Outflearn/loginform">로그인</a></li>
+          <li><a href="/Outflearn/registerform.do">회원가입</a></li>
+          </sec:authorize>
+          <li>
+          <sec:authorize access="isAuthenticated()">
+          <a href="/Outflearn/MemberInfoUpdateForm.do">회원정보 수정</a></li>
+          </sec:authorize>
         </ul>
       </div>
     </div>
@@ -184,7 +193,7 @@
   <script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
   <script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
   <script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
-  <script type="text/javascript" src="resources/js/template/contact_me.js"></script>
+<!--   <script type="text/javascript" src="resources/js/template/contact_me.js"></script> -->
   <script type="text/javascript" src="resources/js/template/main.js"></script>
 </body>
 

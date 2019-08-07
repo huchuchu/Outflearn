@@ -57,7 +57,6 @@ public class UserAuthenticationService implements UserDetailsService {
 							   true, true, true, authority,
 							   (Integer)Integer.valueOf(user.get("USER_NUM").toString()),
 							   user.get("USERNAME").toString(),
-							   user.get("USER_NAME").toString(),
 							   user.get("USER_NICKNAME").toString(),
 							   user.get("USER_EMAIL").toString(),
 							   user.get("AUTHORITY").toString()

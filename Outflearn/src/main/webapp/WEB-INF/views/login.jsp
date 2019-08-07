@@ -73,14 +73,28 @@
 <!-- 로그인 폼 영역 -->            
               
               <form action="/Outflearn/login" method="post" id="test">
-              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
-              <input type="text" name="id" placeholder="ID">
-              <input type="password" name="passwd" placeholder="PASSWORD">
-              <input type="submit" value="Sign in">
-              </form>     
-              
-<!-- 로그인 폼 끝 -->           
-              
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
+                <input type="text" name="id" placeholder="ID">
+                <input type="password" name="passwd" placeholder="PASSWORD">
+                <input type="submit" value="Sign in">
+              </form>
+              <br /><br />
+
+              <a href="/Outflearn/findIdForm.do">아이디 찾기</a>
+              <a href="/Outflearn/findPwForm.do" style="padding-left: 2%;">비밀번호를 잊으셨나요?</a><br /><br />
+     		
+     		  <a href="https://kauth.kakao.com/oauth/authorize?client_id=9f6c1329ee4a39b9c5af5db66282c4ba&
+     		  			redirect_uri=https://kauth.kakao.com/oauth/authorize?client_id=9f6c1329ee4a39b9c5af5db66282c4ba
+						&redirect_uri=http://localhost:8787/Outflearn/oauth&response_type=code&response_type=code">
+				<img alt="" src="${pageContext.request.contextPath}/resources/img/loginIMG/kakaoLogin.png">				
+				</a>
+			<br /><br />	
+            
+              <a href="void:0"><img alt=""
+                  src="${pageContext.request.contextPath}/resources/img/loginIMG/naverLogin.png"></a>
+
+              <!-- 로그인 폼 끝 -->
+
             </div>
           </div>
         </div>

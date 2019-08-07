@@ -200,6 +200,35 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${spring.security.version}</version>
 		</dependency>
+		
+		<!-- Mail -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		
+		<!-- kakaologin -->
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
+		<dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpcore</artifactId>
+		    <version>4.4.11</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+		<dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpclient</artifactId>
+		    <version>4.5.8</version>
+		</dependency>
+		
+				
+		
 
 	
 
