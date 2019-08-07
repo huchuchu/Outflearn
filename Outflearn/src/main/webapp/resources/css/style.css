@@ -289,6 +289,7 @@ img {vertical-align: middle;}
 #contact {
 	padding: 100px 0 60px 0;
 	background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
+	clear: both;
 	color: rgba(255,255,255,.75);
 }
 #contact .section-title {
@@ -426,10 +427,9 @@ color: #777;
 #footer a:hover {
 	border-bottom: 2px solid #608dfd;
 }
-
-
-
-
+.jumbotron {
+	background: #2c2e37;
+}
 @media (max-width: 768px) {
 #about img {
 	margin: 50px 0;

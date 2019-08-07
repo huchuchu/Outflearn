@@ -1,4 +1,7 @@
 $(document).ready(function () {
+	
+    
+	
 	var _class_num = $('#selectone').val()
 	var playlist = '';
 	var playlist_id = '';
@@ -32,9 +35,10 @@ $(document).ready(function () {
         } else {
             $('#page-switch').html('ghi');
         }
-
-
     })
+    
+    $('#main, #page-switch').css({'width': '75%'})
+    $('#box').css({'top': $('#menu').height() * 2})
 
 })
 
@@ -45,6 +49,15 @@ function getPlayList(video_list, playlist_id) {
         url: video_list,
         success: function (vi_list) {
 
+        	console.log(vi_list.items[0].snippet.thumbnails.high.url)
+        	$('#jumbo_row > img').attr('src', vi_list.items[0].snippet.thumbnails.high.url)
+        	
+        	var count = 0;
+        	var timer = 0;
+        	var hour = 0;
+        	var min = 0;
+        	var sec = 0;
+        	
             $('#page-switch').empty()
             $('#page-switch').append(
                 "<div class='page-header'><h1>유튜브</h1></div>" + 
@@ -59,6 +72,8 @@ function getPlayList(video_list, playlist_id) {
             )
             for (var i = 0; i < vi_list.items.length; i++) {
 
+            	count++;
+            	
                 var video_title = vi_list.items[i].snippet.title;
                 var video_id = vi_list.items[i].snippet.resourceId.videoId;
                 var duration = getVideos(video_id);
@@ -70,8 +85,35 @@ function getPlayList(video_list, playlist_id) {
                     	<td>${duration}</td>
                     	<td>${duration}</td>`
                 );
+                
+                min += parseInt(duration.split(' : ')[0]);
+                sec += parseInt(duration.split(' : ')[1]);
+                
+                if(min > 59) {
+                	hour ++;
+                	min -= 60;
+                }
+                
+                if(sec > 59) {
+                	min ++;
+                	sec = sec - 60;
+                }
             }
-
+            
+            if(isNaN(sec) && isNaN(min)) {
+            	timer = "총 " + hour + "시간 ";
+            } else if(isNaN(sec) || isNaN(min)) {
+            	if(isNaN(sec)) {
+            		timer = "총 " + hour + "시간 " +  min + "분 ";
+            	} else {
+            		timer = "총 " + hour + "시간 " + sec + "초";
+            	}
+            } else {
+            	timer = "총 " + hour + "시간 " +  min + "분 " + sec + "초";
+            }
+            
+            $('#count').append(count);
+            $('#timer').append(timer);
             $('#page.switch').append("</table></div>")
 
         },
