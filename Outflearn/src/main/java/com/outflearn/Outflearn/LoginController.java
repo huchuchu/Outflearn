@@ -1,0 +1,459 @@
+package com.outflearn.Outflearn;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.file.AccessDeniedException;
+import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
+import javax.inject.Inject;
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.User;
+import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
+import org.codehaus.jackson.JsonNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.WebAttributes;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.outflearn.Outflearn.dto.UserInfoDto;
+import com.outflearn.Outflearn.model.biz.LoginBiz;
+import com.outflearn.Outflearn.model.biz.LoginBizImpl;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@Controller
+public class LoginController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
+
+	
+	@Inject
+	BCryptPasswordEncoder passwordEncoder; //비밀번호 암호화 객체
+	
+	@Inject
+	private LoginBizImpl biz;
+	
+	private String randompassword;
+	
+	
+	
+	//로그인 페이지로 이동
+	@RequestMapping("loginform")
+	public String loginform() {
+		return "login";
+	}
+	
+	//회원가입페이지로 이동 
+	@RequestMapping("registerform.do")
+	public String joinform() {
+		return "MemberRegister";
+	}
+	
+		
+	//회원가입
+	@RequestMapping("register.do") 
+	public String userInsert(@RequestParam String user_id, @RequestParam String user_pw,
+					@RequestParam String user_nickname, @RequestParam String user_email	) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_id", user_id);
+		logger.info("암호화 전 비번" + user_pw);
+		String encryptPassword = passwordEncoder.encode(user_pw);
+		logger.info("암호화 후 비번" + encryptPassword);
+		map.put("user_pw", encryptPassword);
+		map.put("user_nickname", user_nickname);
+		map.put("user_email", user_email);
+		
+		biz.insertUser(map);	
+		
+		return "login";
+	}
+	
+	//권한이 없는 사용자에게 안내 페이지 출력
+	@RequestMapping("denied")
+	public String denied(Model model, AuthenticateAction auth, HttpServletRequest req ) {
+		AccessDeniedException ade = (AccessDeniedException)req.getAttribute(WebAttributes.ACCESS_DENIED_403);
+		
+		model.addAttribute("errMSg", ade);
+		return "denied";
+	}
+	
+	@RequestMapping("logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:loginform";
+	}
+	
+	
+	
+	@RequestMapping("idChk.do")
+	@ResponseBody
+	public Map<String, Boolean> idChk(String id) {
+		logger.info("아이디 중복체크");
+		
+		logger.info(id);
+		boolean idChk = false;
+		
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		
+		if(biz.idCheck(id)== null) {
+			idChk = true;
+			map.put("idChk", idChk);
+		}else {
+			map.put("idChk", idChk);
+		}
+		
+		return map;
+	}
+
+	@RequestMapping(value="nickChk.do", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Boolean> nickChk(String nickname){
+		logger.info("닉네임 중복체크");
+		logger.info(nickname);
+		boolean nickChk = false;
+		
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		if(biz.nickCheck(nickname) ==null) {
+			nickChk = true;
+			map.put("nickChk", nickChk);
+		}else {
+			map.put("nickChk", nickChk);
+		}
+		return map;
+		
+	}
+	//이메일 인증번호
+	@RequestMapping(value="sendEmail.do", method=RequestMethod.POST)
+	@ResponseBody
+	public void sendEmail(String email) throws UnsupportedEncodingException, MessagingException {
+		randompassword = MakeRandom.GetRandomPassword();
+		logger.info(randompassword);
+		
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		
+		mailSender.setHost("smtp.gmail.com");
+		mailSender.setPassword("dkdntvmfjs1");
+		mailSender.setPort(587);
+		mailSender.setUsername("outflearn@gmail.com");
+		if(mailSender.getPort()==587) {
+			Properties javaMailProperties = new Properties();
+			javaMailProperties.setProperty("mail.smtp.starttls.enable", "true");
+			mailSender.setJavaMailProperties(javaMailProperties);
+		}
+		
+		MimeMessage msg = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(msg, false, "UTF-8");
+		helper.setFrom(new InternetAddress("outflearn@gmail.com", "아웃프런"));
+		helper.setTo(new InternetAddress(email,""));
+		logger.info("email:" + email);
+		helper.setSubject("[아웃프런]인증번호 test");
+		helper.setText("<a><b style='color:blue;'>인증번호 : " +randompassword+"<a>", true);
+		
+		try {
+			mailSender.send(msg);
+		} catch (MailException ex) {
+			logger.error("메일발송 실패", ex);
+		}
+		
+	}
+		
+	//이메일 인증번호체크
+	@RequestMapping(value="emailNumCheck.do", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Boolean> email_check(String ranNumPass) {
+		
+		
+		boolean ranChk = false;
+		
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		
+		logger.info(ranNumPass);
+		logger.info(randompassword);
+		
+		if(randompassword.equals(ranNumPass)) {
+			ranChk = true;
+			map.put("ranChk", ranChk);
+		}else {
+			map.put("ranchk", ranChk);
+		}
+		
+		return map;
+	}
+	//이메일 중복체크
+	@RequestMapping("emailChk.do")
+	@ResponseBody
+	public Map<String, Boolean> emailChk(String user_email){
+		logger.info("이메일 중복체크");
+		logger.info(user_email);
+		boolean emailChk = false;
+		
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		
+		if(biz.emailChk(user_email)== null) {
+			emailChk = true;
+			map.put("emailChk", emailChk);
+		}else {
+			map.put("emailChk", emailChk);
+		}
+		
+		return map;
+	}
+	//아이디 찾기 폼
+	@RequestMapping("findIdForm.do")
+	public String findIdForm() {
+		return "FindIdForm";
+	}
+	//아이디찾기
+	@RequestMapping("/findId.do")
+	public String findId(HttpServletResponse response, @RequestParam("user_email") String user_email, Model md) throws IOException {
+			md.addAttribute("id", biz.findId(response, user_email));
+	return "FindId";
+	
+	}
+	//비밀번호 찾기폼 
+	@RequestMapping("/findPwForm.do")
+	public String findPwForm() {
+		return "FindPw";
+	}
+	//비밀번호 찾기
+	@RequestMapping("/findPw.do")
+	public String findPw() {
+			return "login";
+		
+	}
+	
+	//임시비밀번호 보내기
+	@RequestMapping(value="sendEmailPw.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String sendEmailPw(String userEmail, String userId) throws MessagingException, IOException {
+		randompassword = MakeRandom.GetRandomPassword();
+		logger.info(randompassword);
+		
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		
+		mailSender.setHost("smtp.gmail.com");
+		mailSender.setPassword("dkdntvmfjs1");
+		mailSender.setPort(587);
+		mailSender.setUsername("outflearn@gmail.com");
+		if(mailSender.getPort()==587) {
+			Properties javaMailProperties = new Properties();
+			javaMailProperties.setProperty("mail.smtp.starttls.enable", "true");
+			mailSender.setJavaMailProperties(javaMailProperties);
+		}
+		
+		MimeMessage msg = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(msg, false, "UTF-8");
+		helper.setFrom(new InternetAddress("outflearn@gmail.com", "아웃프런"));
+		helper.setTo(new InternetAddress(userEmail,""));
+		logger.info("email:" + userEmail);
+		helper.setSubject("[아웃프런]임시 비밀번호 test");
+		helper.setText("<a><b style='color:blue;'>임시 비밀번호 : " +randompassword+"<a>", true);
+		
+		String encryptPassword = passwordEncoder.encode(randompassword);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_id", userId);
+		map.put("user_email", userEmail);
+		map.put("newPw", encryptPassword);
+		System.out.println(map);
+		biz.findPw(map);
+		
+		try {
+			mailSender.send(msg);
+		} catch (MailException ex) {
+			logger.error("메일발송 실패", ex);
+		}
+		return "login";
+	}
+	
+	@RequestMapping("test01")
+	public String test012(@RequestParam String test) {
+		
+		System.out.println(test);
+		
+		return "login";
+	}
+	
+	@RequestMapping("MemberInfoUpdateForm.do")
+	public String memberInfoUpdateForm(Authentication auth, Model model) {
+		UserInfoDto dto = (UserInfoDto) auth.getPrincipal();
+		String email = dto.getUser_email();
+		int idx = email.indexOf("@");
+		String email1 = email.substring(0, idx);
+		String email2 = email.substring(idx+1);
+		model.addAttribute("email1", email1);
+		model.addAttribute("email2", email2);
+		logger.info(email1);
+		logger.info(email2);
+		return "MemberInfoUpdate";
+	}
+
+	@RequestMapping("memberInfoUpdate.do")
+	public String memberInfoUpdate(String user_id, String user_nickname, @RequestParam("new_pw") String user_pw, @RequestParam("email1") String user_email1, @RequestParam("email2") String user_email2, Model model) throws UnsupportedEncodingException {
+		String encryptPassword = passwordEncoder.encode(user_pw);
+		Map<String, String> map = new HashMap<String, String>();
+			
+		map.put("user_id", user_id);
+		map.put("user_nickname", user_nickname);
+		map.put("user_email", user_email1+"@"+user_email2);
+		map.put("user_pw", encryptPassword);
+		System.out.println(map);
+		
+	
+		
+		int res = biz.updateUserInfo(map);
+		if(res>0) {
+						
+			return "home";
+		} else {
+			
+			return "MemberInfoUpdate";
+		}
+		
+	}
+	@RequestMapping("currentPwChk.do")
+	@ResponseBody
+	public Map<String, Boolean> pwChk(String user_pw){
+		logger.info("현재 비번 체크");
+		logger.info(user_pw);
+		boolean pwChk = false;
+		
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		String encryptPassword = passwordEncoder.encode(user_pw);
+		logger.info("암호화 후 비번" + encryptPassword);
+		
+		if(biz.pwChk(encryptPassword)== null) {
+			pwChk = true;
+			map.put("pwChk", pwChk);
+		}else {
+			map.put("pwChk", pwChk);
+		}
+		
+		return map;
+	}
+	@RequestMapping("test.do")
+	 public String testpage(Authentication auth ) {
+	      
+	      //this.auth = auth;
+	      //Locale locale, Model model, 
+	      logger.info("test.do 입장~!");      
+	      
+	      logger.info("auth test 1 : " + auth);
+	      
+	      UserInfoDto dto = (UserInfoDto)auth.getPrincipal();
+	      String email = dto.getUser_email();
+	      
+	      logger.info("□□□□□□□□□□□"+email);
+	      
+//	      logger.info("★★★★id★★★="+id);
+//	      UserInfoDto dto = (UserInfoDto)   auth.getPrincipal();
+	      logger.info("welcome checkAuth! Authentication is{}.", auth);
+//	      logger.info("UserAuthenticationService == {}", dto);
+	      
+//	      model.addAttribute("auth", auth);
+//	      model.addAttribute("dto", dto);   
+	      
+	      
+	      logger.info("★★★★★★★★"+auth.getName());
+	      logger.info(""+auth.getAuthorities());
+
+	      return "test01";
+	   }
+	
+	@RequestMapping(value="/oauth", produces="application/json")
+	public String kakaologin(@RequestParam("code") String code, Model model, HttpSession session) {
+		
+		
+		logger.info("로그인 할 때 임시 코드값");
+		//카카오 홈페이지에서 받은 결과 코드
+		logger.info(code);
+		logger.info("로그인 후 결과 값");		
+
+		KakaorestApi kr = new KakaorestApi();
+		JsonNode node = kr.getAccessToken(code);
+		System.out.println(node);
+		
+		//UserInfo 받아옴
+		JsonNode userInfo = kr.getKakaoUserInfo(node.get("access_token"));
+				
+		String id = userInfo.path("id").asText();
+		String nickName = null;
+		String email = null;
+		
+		JsonNode properties = userInfo.path("properties");
+		if(properties.isMissingNode()) {
+			logger.info("nickname properties 오류");
+		}else {
+			nickName = properties.path("nickname").asText();
+		}
+		
+		JsonNode kakao_account = userInfo.path("kakao_account");
+		if(kakao_account.isMissingNode()) {
+			logger.info("email kakao_account 오류");
+		}else {
+			email = kakao_account.path("email").asText();
+		}
+		
+		
+		logger.info(id);
+		logger.info(nickName);
+		logger.info(email);
+		
+		
+//		JsonNode userInfo = kr.getKakaoUserInfo(access_Token);
+		
+//		String id = userInfo.path("id").asText();
+//		String name = null;
+//		String email = null;
+//		
+//		logger.info(id);
+
+		
+//		//노드 안에 있는 access_token값을 꺼내 문자열로 변환
+//		String token = node.get("access_token").toString();
+//		session.setAttribute("token", token);		
+//		//사용자 정보 요청
+//		JsonNode userInfo = kr.getKakaoUserInfo(code);		
+//		logger.info(userInfo);
+//		
+//		String id = userInfo.get("id").toString();
+//		String email = userInfo.get("kaccount_email").toString();
+//		String nickname = userInfo.get("properties").get("nickname").toString();
+//		
+//		logger.info("유저인포 : "+id+","+email+","+nickname);		
+//		//logger.info(access_token);
+		return"test01";
+	}
+	
+
+	
+	
+	
+
+
+}
