@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
+import com.outflearn.Outflearn.dto.LiveDto;
 
 @Repository
 public class ClassDataDaoImpl implements ClassDataDao {
@@ -57,6 +58,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 		return res;
 	}
+
 //	챕터 추가
 	@Override
 	public int ClassChapterDataInsert(ClassDataDto dto) {
@@ -78,7 +80,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 	@Override
 	public int ClassDataDelete(String data_subhead) {
-		
+
 		return 0;
 	}
 
@@ -99,7 +101,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 	@Override
 	public ClassInfoDto ClassInfoSelectOne(int class_num) {
-		
+
 		ClassInfoDto dto = new ClassInfoDto();
 
 		Map<String, Integer> map = new HashMap<String, Integer>();
@@ -130,43 +132,49 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 	@Override
 	public int ClassInfoDelete(String class_title) {
-		
+
 		return 0;
 	}
 
 //	--------------------------------------------------- 강좌 데이터
 	@Override
 	public List<ClassIntroduceDto> ClassIntroduceSelectList() {
-	
+
 		return null;
 	}
 
 	@Override
 	public ClassInfoDto ClassIntroduceSelectOne(int class_num) {
-		
+
 		return null;
 	}
 
 	@Override
 	public int ClassIntroduceInsert(ClassIntroduceDto dto) {
-		
-	
-		
+
 		return 0;
 	}
 
 	@Override
 	public int ClassInfoUpdate(ClassIntroduceDto dto) {
-	
+
 		return 0;
 	}
 
 	@Override
 	public int ClassIntroduceDelete(String class_content) {
-	
+
 		return 0;
 	}
 
+// --------------------------------------------------- Live
 
+	@Override
+	public List<LiveDto> liveCalendar() {
+
+		List<LiveDto> list = sqlSession.selectList(namespace + "liveCalendar");
+
+		return list;
+	}
 
 }

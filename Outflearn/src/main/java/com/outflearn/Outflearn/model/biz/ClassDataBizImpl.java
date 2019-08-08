@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
+import com.outflearn.Outflearn.dto.LiveDto;
 import com.outflearn.Outflearn.model.dao.ClassDataDao;
 
 
@@ -118,7 +119,11 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return 0;
 	}
 
-	
-	
+
+// ---------------------------------------------------	Live
+	@Override
+	public List<LiveDto> liveCalendar() {
+		return dao.liveCalendar();
+	}
 	
 }

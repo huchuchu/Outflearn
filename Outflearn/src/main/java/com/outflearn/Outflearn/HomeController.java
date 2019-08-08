@@ -1,5 +1,7 @@
  package com.outflearn.Outflearn;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
+import com.outflearn.Outflearn.dto.LiveDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
 
 /**
@@ -232,6 +235,20 @@ public class HomeController {
 	public void introOutflearn() {
 		
 	}
-
+	
+// Live
+	@RequestMapping("liveCalendar")
+	@ResponseBody
+	public List<LiveDto> liveCalendar() {
+		
+		return biz.liveCalendar();
+	}
+	
+	@RequestMapping("livePopup")
+	@ResponseBody
+	public ClassInfoDto livePopup(int class_num) {
+		
+		return biz.ClassInfoSelectOne(class_num);
+	}
 
 }

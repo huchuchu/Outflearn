@@ -6,6 +6,7 @@ import java.util.List;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
+import com.outflearn.Outflearn.dto.LiveDto;
 
 public interface ClassDataDao {
 	
@@ -33,5 +34,7 @@ public interface ClassDataDao {
 	public int ClassInfoUpdate(ClassIntroduceDto dto);
 	public int ClassIntroduceDelete(String class_content);
 	
+	// Live
+			public List<LiveDto> liveCalendar();
 	
 }
