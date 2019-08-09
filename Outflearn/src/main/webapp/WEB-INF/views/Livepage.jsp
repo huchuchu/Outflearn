@@ -121,19 +121,9 @@
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
 	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
-	<script type="text/javascript" src="resources/js/template/contact_me.js"></script>
+	<!-- <script type="text/javascript" src="resources/js/template/contact_me.js"></script> -->
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
 	
-	
-		<script type="text/javascript">
-		$(function () {
-			var token = $("meta[name='_csrf']").attr("content");
-			var header = $("meta[name='_csrf_header']").attr("content");
-			$(document).ajaxSend(function (e, xhr, options) {
-				xhr.setRequestHeader(header, token);
-			});
-		});
-	</script>
 	
 </body>
 

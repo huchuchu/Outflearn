@@ -34,5 +34,6 @@ public interface ClassDataBiz {
 		
 		// Live
 		public List<LiveDto> liveCalendar();
+		public ClassInfoDto livePopup(int live_num);
 	
 }

@@ -246,9 +246,9 @@ public class HomeController {
 	
 	@RequestMapping("livePopup")
 	@ResponseBody
-	public ClassInfoDto livePopup(int class_num) {
+	public ClassInfoDto livePopup(int live_num) {
 		
-		return biz.ClassInfoSelectOne(class_num);
+		return biz.livePopup(live_num);
 	}
 
 }

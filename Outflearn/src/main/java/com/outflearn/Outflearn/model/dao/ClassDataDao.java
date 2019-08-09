@@ -35,6 +35,7 @@ public interface ClassDataDao {
 	public int ClassIntroduceDelete(String class_content);
 	
 	// Live
-			public List<LiveDto> liveCalendar();
+	public List<LiveDto> liveCalendar();
+	public ClassInfoDto livePopup(int live_num);
 	
 }

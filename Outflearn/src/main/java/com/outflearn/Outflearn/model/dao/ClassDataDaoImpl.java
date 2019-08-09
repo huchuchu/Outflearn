@@ -177,4 +177,10 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return list;
 	}
 
+	@Override
+	public ClassInfoDto livePopup(int live_num) {
+
+		return sqlSession.selectOne(namespace + "livePopup", live_num);
+	}
+
 }
