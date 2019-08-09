@@ -72,18 +72,18 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (data) {
                                 Swal.fire({
                                     title: data.class_title,
-                                    html: 
-                                    `
+                                    html:
+                                        `
                                     <p>강좌소개 : ${data.class_intro}</p>
                                     <p>가격 : ${data.class_price}</p>
-                                    <button>찜하기</button>
-                                    <button>구매하기</button>
+                                    <button onclick="wishClass(${data.class_num})">찜하기</button>
+                                    <button onclick="buyClass(${data.class_num})">구매하기</button>
                                     `
                                 })
                             } else {
                                 Swal.fire({
-                                	title: '<strong>Live Only</strong>',
-                                	type: 'info'
+                                    title: '<strong>Live Only</strong>',
+                                    type: 'info'
                                 })
                             }
                         },
@@ -108,3 +108,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 });
+
+function wishClass(class_num) {
+    $.ajax({
+        url: `addWishClass?class_num=${class_num}`,
+        method: 'get',
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    })
+}
+
+function buyClass() {
+
+}
