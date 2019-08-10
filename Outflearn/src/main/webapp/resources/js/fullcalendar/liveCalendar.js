@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-
+	
     var calendarEl = document.getElementById('calendar');
 
     // Array(1)
@@ -48,6 +48,22 @@ document.addEventListener('DOMContentLoaded', function () {
                         eventLimit: 5
                     }
                 },
+                eventClick: function (info) {
+
+                    $.ajax({
+                        url: `livePopup?class_num=${info.event.id}`,
+                        method: 'get',
+                        success: function (data) {
+                            console.log(data);
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    })
+                    
+                    
+
+                },
                 header: {
                     left: 'prev,next today',
                     center: 'title',
@@ -63,4 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
             alert(err)
         }
     })
+    
+    
+    
 });

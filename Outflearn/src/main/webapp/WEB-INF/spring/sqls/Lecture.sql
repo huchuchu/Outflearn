@@ -20,8 +20,8 @@ CLASS_CATEGORY VARCHAR2(100)
 
 SELECT * FROM CLASS_INFO;
 
-INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL,'제목', '강사명','강좌소개','Y',0,0,0,'상급자','카테고리')
-INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL,'제목2', '강사명2','강좌소개2','Y',0,0,0,'상급자2','카테고리2')
+INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL,'제목', '강사명','강좌소개','Y',0,0,0,'상급자','카테고리');
+INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL,'제목2', '강사명2','강좌소개2','Y',0,0,0,'상급자2','카테고리2');
 
 ------------------------------------------ 강좌 내용 - > DB추가
 DROP TABLE CLASS_INTRODUCE;
@@ -33,7 +33,7 @@ CLASS_CONTENT CLOB NOT NULL
 
 SELECT * FROM CLASS_INTRODUCE;
 
-INSERT INTO CLASS_INTRODUCE VALUES(1, '가나다라마바사아자차카타파하')
+INSERT INTO CLASS_INTRODUCE VALUES(1, '가나다라마바사아자차카타파하');
 ------------------------------------------ 강좌 데이터
 DROP TABLE CLASS_DATA;
 
