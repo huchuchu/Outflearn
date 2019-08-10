@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-	
+
     var calendarEl = document.getElementById('calendar');
 
     /*
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 },
                 /*
-                                class_author: "강사명"
+                    class_author: "강사명"
                     class_category: "카테고리"
                     class_intro: "강좌소개"
                     class_live: "Y"

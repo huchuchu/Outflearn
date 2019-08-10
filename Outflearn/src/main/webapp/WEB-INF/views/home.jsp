@@ -55,6 +55,7 @@
                 style="color: #6372ff "></i>
               <div class="dropdown-menu" role="menu" aria-expanded="navbarDropdown">
               <sec:authorize access="isAuthenticated()">
+                <a href="/Outflearn/myPage">마이페이지</a>
                 <a href="/Outflearn/logout">로그아웃</a>
               </sec:authorize> 
               </div>
