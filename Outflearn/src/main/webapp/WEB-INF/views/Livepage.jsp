@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 
@@ -9,9 +10,6 @@
 	<title>Outflearn</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
-
-	<title>Outflearn</title>
-	
 
 	<!-- Favicons
               ================================================== -->
@@ -114,14 +112,12 @@
 
 
 	<jsp:include page="footer/Footer.jsp"></jsp:include>
-	
 	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
 	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
-	<script type="text/javascript" src="resources/js/template/contact_me.js"></script>
+	<!-- <script type="text/javascript" src="resources/js/template/contact_me.js"></script> -->
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
-
 	
 </body>
 

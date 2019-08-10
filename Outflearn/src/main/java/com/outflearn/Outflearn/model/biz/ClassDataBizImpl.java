@@ -125,5 +125,12 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public List<LiveDto> liveCalendar() {
 		return dao.liveCalendar();
 	}
+
+	@Override
+	public ClassInfoDto livePopup(int live_num) {
+		return dao.livePopup(live_num);
+	}
+	
+	
 	
 }

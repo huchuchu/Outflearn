@@ -44,5 +44,9 @@
 	<select id="liveCalendar" resultType="LiveDto">
 		SELECT * FROM LIVE
 	</select>
+	
+	<select id="livePopup" resultType="ClassInfoDto">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM = (SELECT CLASS_NUM FROM LIVE WHERE LIVE_NUM = #{live_num})
+	</select>
 
 </mapper>
