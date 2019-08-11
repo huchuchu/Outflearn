@@ -15,7 +15,7 @@
 <body>
 
     <div id="videos">
-        <video id="remoteVideo" autoplay playsinline></video>
+        <video id="localVideo" autoplay muted playsinline></video>
     </div>
 
     <div id="chat">
@@ -26,16 +26,14 @@
             </form>
         </div>
     </div>
-    <div id="info">
-        <h1>Class Info Data</h1>
-    </div>
 
     <!-- This file is automatically added/served when running "node index.js". -->
-    <script src="/socket.io/socket.io.js"></script>
+  	<script src="https://192.168.10.139:3000/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-    <script id="userInfo" src="js/main.js" name="Test" room="foo"></script>
-
+    
+  	<script src="https://192.168.10.139:3000/js/main.js"></script>
+    
 </body>
 
 </html>

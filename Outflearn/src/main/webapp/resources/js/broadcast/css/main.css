@@ -37,18 +37,24 @@
             font-weight: bold;
         }
 
-        #videos{
-            position: absolute;
+        #content{
             display: block;
-            left: 0;
-            top: 0;
+        }
+
+        #videos{
+            background-color: azure;
+            float: left;
+            width: 78%
         }
 
         #chat{
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
+            float: right;
+            min-width: 22%;
+        }
+
+        #info{
+            background-color: #fff;
+            width: 78%;
         }
 
         #messages {
@@ -107,5 +113,15 @@
             height: 25px;
             left:50px;
         }
-        
 
+        @media ( max-width :1080px){
+            #videos{
+                width: 100%;
+            }
+            #info{
+                width: 60%;
+            }
+            #chat{
+                width: 40%;
+            }
+        }

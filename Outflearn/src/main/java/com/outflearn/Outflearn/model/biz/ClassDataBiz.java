@@ -7,6 +7,7 @@ import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.LiveDto;
+import com.outflearn.Outflearn.dto.connectUserClass;
 
 public interface ClassDataBiz {
 	
@@ -35,5 +36,10 @@ public interface ClassDataBiz {
 		// Live
 		public List<LiveDto> liveCalendar();
 		public ClassInfoDto livePopup(int live_num);
+		public List<ClassInfoDto> getMyClass(int user_num);
+		
+		// MyPage
+		public List<ClassInfoDto> getWishList(int user_num);
+		public List<ClassInfoDto> getSubscribe(int user_num);
 	
 }

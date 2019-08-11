@@ -92,7 +92,7 @@ socket.on('chatMsg', function (data) {
         appendMsg('server', 'Caster leave this Room')
     }
 });
-``
+
 socket.on('joinedRoom', function (data) {
     appendMsg('server', `${data.name}님이 ${data.room}에 입장하셨습니다.`)
 })

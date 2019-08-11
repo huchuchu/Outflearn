@@ -52,7 +52,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 },
                 /*
-                    class_author: "강사명"
+                 	user_num : 1
+                    class_author: user_num
                     class_category: "카테고리"
                     class_intro: "강좌소개"
                     class_live: "Y"

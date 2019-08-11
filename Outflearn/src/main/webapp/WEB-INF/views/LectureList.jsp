@@ -34,7 +34,7 @@
 			<aside class="col-sm-2">
 				<div id="side_category">
 					<ul class="nav flex-column text-center">
-						<li class="nav-item">
+						<li class="nav-item side_menu">
 							<a href="void:0" class="nav-link active"data-toggle="dropdown">카테고리</a>
 						</li>
 						<li class="nav-item all_category">

@@ -131,6 +131,7 @@ io.sockets.on('connection', function (socket) {
         socket.broadcast.to(room).emit('chatMsg', { type: 'msg', chatMessage: msg, name: socket.name });
         console.log('[' + socket.name + '] send >>' + msg);
     });
+
     socket.on('disconnect', function () {
         for (let i = 0; i < liveRooms.length; i++) {
             if (liveRooms[i].caster === socket.id) {

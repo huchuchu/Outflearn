@@ -10,6 +10,7 @@ import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.LiveDto;
+import com.outflearn.Outflearn.dto.connectUserClass;
 import com.outflearn.Outflearn.model.dao.ClassDataDao;
 
 
@@ -130,7 +131,21 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public ClassInfoDto livePopup(int live_num) {
 		return dao.livePopup(live_num);
 	}
-	
+
+	@Override
+	public List<ClassInfoDto> getMyClass(int user_num) {
+		return dao.getMyClass(user_num);
+	}
+
+	@Override
+	public List<ClassInfoDto> getWishList(int user_num) {
+		return dao.getWishList(user_num);
+	}
+
+	@Override
+	public List<ClassInfoDto> getSubscribe(int user_num) {
+		return dao.getSubscribe(user_num);
+	}
 	
 	
 }
