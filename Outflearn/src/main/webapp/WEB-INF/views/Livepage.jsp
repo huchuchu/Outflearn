@@ -41,6 +41,7 @@
 	<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
 	<script src='resources/js/sweetalert/sweetalert2.min.js'></script>
 	<!-- fullCalendar -->
+	
 
 	<link href='resources/js/fullcalendar/core/main.css' rel='stylesheet' />
 	<link href='resources/js/fullcalendar/daygrid/main.css' rel='stylesheet' />
@@ -50,8 +51,6 @@
 	<script src='resources/js/fullcalendar/daygrid/main.js'></script>
 	<script src='resources/js/fullcalendar/interaction/main.js'></script>
 	<script src='resources/js/fullcalendar/timegrid/main.js'></script>
-	
-	
 
 	<script type="text/javascript" src="resources/js/fullcalendar/liveCalendar.js"></script>
 
@@ -113,14 +112,12 @@
 
 
 	<jsp:include page="footer/Footer.jsp"></jsp:include>
-
 	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
 	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
 	<!-- <script type="text/javascript" src="resources/js/template/contact_me.js"></script> -->
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
-	
 	
 </body>
 

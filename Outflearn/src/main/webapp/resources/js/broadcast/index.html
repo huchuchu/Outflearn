@@ -3,25 +3,30 @@
 
 <head>
 
-  <title>Realtime communication with WebRTC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Outflearn</title>
 
-  <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/main.css" />
 
 </head>
 
 <body>
 
-  <h1>Realtime communication with WebRTC</h1>
+    <button>
+        <h1>새로고침</h1>
+    </button>
 
-  <div id="videos">
-    <video id="localVideo" autoplay muted playsinline></video>
-    <video id="remoteVideo" autoplay playsinline></video>
-  </div>
 
-  <!-- This file is automatically added/served when running "node index.js". -->
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-  <script src="js/main.js"></script>
+    <!-- This file is automatically added/served when running "node index.js". -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
+    
+
+    <script id="userInfo" src="js/roomList.js"></script>
 
 </body>
 

@@ -9,6 +9,7 @@ Docs & License: https://fullcalendar.io/
     (global = global || self, factory(global.FullCalendar = {}));
 }(this, function (exports) { 'use strict';
 
+
     // Creating
     // ----------------------------------------------------------------------------------------------------------------
     var elementPropHash = {

@@ -1,8 +1,127 @@
-body {
-  font-family: sans-serif;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-video {
-  max-width: 100%;
-  width: 320px;
-}
+        video {
+            max-width: 100%;
+            width: 100%
+       }
+
+        body {
+            font: 13px Helvetica, Arial;
+            background: sandybrown;
+        }
+
+        form {
+            padding: 3px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        form input {
+            border: 0;
+            padding: 10px;
+            width: 85%;
+            margin-right: .5%;
+        }
+
+        form button {
+            width: 13.5%;
+            background: rgb(255, 229, 52);
+            border: none;
+            border-radius: 0.2em;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        #content{
+            display: block;
+        }
+
+        #videos{
+            background-color: azure;
+            float: left;
+            width: 78%
+        }
+
+        #chat{
+            float: right;
+            min-width: 22%;
+        }
+
+        #info{
+            background-color: #fff;
+            width: 78%;
+        }
+
+        #messages {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        #messages li {
+            padding: 5px 10px;
+            background: rgb(255, 229, 52);
+            border-radius: 0.4em;
+            font-size: 15px;
+            display: block;
+            max-width: 350px;
+            margin: 5px;
+            clear: both;
+            word-break: break-all;
+        }
+
+        #messages p.nameSpace{
+            display: inline-block;
+            color: #999999;
+        }
+
+        #messages p.nameSpace:hover{
+            cursor: grab;
+        }
+
+        #messages p.nameSpace:active{
+            cursor: grabbing;
+        }
+
+        #messages li.other{
+            float: left;
+        }
+
+        #messages li.me{
+            background: white;
+            float: right;
+        }
+
+        #messages li.server{
+            text-align: center;
+            max-width: 100%;
+            background: green;
+        }
+
+        .div-chat-box {
+            overflow-y: auto;
+        }
+
+        .clickMenu{
+            position: absolute;
+            background-color: #fff;
+            width: 100px;
+            height: 25px;
+            left:50px;
+        }
+
+        @media ( max-width :1080px){
+            #videos{
+                width: 100%;
+            }
+            #info{
+                width: 60%;
+            }
+            #chat{
+                width: 40%;
+            }
+        }

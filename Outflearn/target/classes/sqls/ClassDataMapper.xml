@@ -48,5 +48,17 @@
 	<select id="livePopup" resultType="ClassInfoDto">
 		SELECT * FROM CLASS_INFO WHERE CLASS_NUM = (SELECT CLASS_NUM FROM LIVE WHERE LIVE_NUM = #{live_num})
 	</select>
+	
+	<select id="getMyClass" resultType="ClassInfoDto" parameterType="int">
+		SELECT * FROM CLASS_INFO WHERE USER_NUM = #{user_num}
+	</select>
+	
+	<select id="getWishList" resultType="ClassInfoDto" parameterType="int">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM = (SELECT CLASS_NUM FROM BASKET WHERE USER_NUM = #{user_num})
+	</select>
+	
+	<select id="getSubscribe" resultType="ClassInfoDto" parameterType="int">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM = (SELECT CLASS_NUM FROM SUBSCRIBE WHERE USER_NUM = #{user_num})
+	</select>
 
 </mapper>
