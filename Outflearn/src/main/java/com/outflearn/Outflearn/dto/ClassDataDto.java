@@ -1,5 +1,6 @@
 package com.outflearn.Outflearn.dto;
 
+import java.sql.Clob;
 
 public class ClassDataDto {
 	

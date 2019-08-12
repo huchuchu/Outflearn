@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
+import com.outflearn.Outflearn.dto.ClassReviewDto;
 import com.outflearn.Outflearn.model.dao.ClassDataDao;
 
 
@@ -35,6 +36,12 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int ClassDataInsert(ClassDataDto dto) {
 		
 		return dao.ClassDataInsert(dto);
+	}
+	
+	@Override
+	public int classDataSelfInsert(ClassDataDto dto) {
+		
+		return dao.classDataSelfInsert(dto);
 	}
 	
 	@Override
@@ -103,7 +110,7 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	@Override
 	public int ClassIntroduceInsert(ClassIntroduceDto dto) {
 	
-		return 0;
+		return dao.ClassIntroduceInsert(dto);
 	}
 
 	@Override
@@ -118,7 +125,49 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return 0;
 	}
 
+//	--------------------------------------------------- 댓글
+	@Override
+	public List<ClassReviewDto> ClassReviewSelectList(int class_num) {
 	
+		return dao.ClassReviewSelectList(class_num);
+	}
+
+	@Override
+	public ClassReviewDto ClassReviewSelectOne(int board_no) {
+
+		return dao.ClassReviewSelectOne(board_no);
+	}
+
+	@Override
+	public int ClassReviewInsert(ClassReviewDto dto) {
+		
+		return dao.ClassReviewInsert(dto);
+	}
+
+	@Override
+	public int ClassReviewUpdate(ClassReviewDto dto) {
 	
-	
+		return dao.ClassReviewUpdate(dto);
+	}
+
+	@Override
+	public int ClassReviewDelete(int board_no) {
+		
+		return dao.ClassReviewDelete(board_no);
+	}
+
+	@Override
+	public int ClassReviewAnswer(ClassReviewDto dto, int parentBoard_no) {
+		int parentboard_no = dto.getBoard_no();
+		
+		  // update
+	      int ClassReviewUpdateAnswer = dao.ClassReviewUpdateAnswer(parentboard_no);
+	      
+	      // insert
+	      int ClassReviewInsertAnswer = dao.ClassReviewInsertAnswer(dto);
+		
+		return (ClassReviewUpdateAnswer + ClassReviewInsertAnswer);
+	}
+
+		
 }
