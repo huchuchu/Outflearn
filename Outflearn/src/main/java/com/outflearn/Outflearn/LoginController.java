@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.LoginBiz;
+import com.outflearn.Outflearn.service.KakaoRestapi;
 
 @Controller
 
@@ -343,5 +345,6 @@ public class LoginController {
 		
 		return map;
 	}
-
+	
+	
 }

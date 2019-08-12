@@ -31,6 +31,8 @@
 
 </head>
 
+<sec:csrfMetaTags/>
+
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
   <!-- ==========================================Navigation==========================================-->
   <nav id="menu" class="navbar navbar-default navbar-fixed-top">
@@ -69,7 +71,7 @@
           <sec:authorize access="isAuthenticated()">
           <a href="/Outflearn/MemberInfoUpdateForm.do">회원정보 수정</a></li>
           </sec:authorize>
-        </ul>
+          </ul>
       </div>
     </div>
   </nav>
@@ -84,6 +86,10 @@
               <h2>${UserInfo.user_nickname}</h2>
               <p>배우고 싶은 지식 또는 기술을 경험하세요</p>
               <div class="input-group input-group-lg col-md-12">
+      		 <form method="post" action="${pageContext.request.contextPath}/oauth">
+      		 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">	
+    		<button>카카오페이로 결제하기</button>
+			</form>
                 <input type="text" class="form-control" placeholder="배우고 싶은 기술을 입력하세요.">
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-default btn-lg"><i class="fas fa-search"
