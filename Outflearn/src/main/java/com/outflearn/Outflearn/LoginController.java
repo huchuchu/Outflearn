@@ -113,12 +113,6 @@ public class LoginController {
 		
 	}
 	
-
-
-	
-
-	
-	
 	@RequestMapping("idChk.do")
 	@ResponseBody
 	public Map<String, Boolean> idChk(String id) {

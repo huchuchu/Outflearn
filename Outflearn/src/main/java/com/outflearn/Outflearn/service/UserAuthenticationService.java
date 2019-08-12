@@ -1,6 +1,7 @@
 package com.outflearn.Outflearn.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +39,7 @@ public class UserAuthenticationService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String user_id) throws UsernameNotFoundException {
 		 
-		Map<String, Object> user = sqlsession.selectOne("userAuth.selectUser", user_id);
+		Map<String, Object> user = sqlsession.selectOne("auth.selectUser", user_id);
 		//비밀번호 체크로직은 시큐리티안에 숨어있음 , 따라서 id만 보내도 id pw 모두 체크하여 일치하면 map으로 정보가 넘어옴 
 		
 		System.out.println("loadUserByUsername::::::::: 1");
@@ -49,8 +50,10 @@ public class UserAuthenticationService implements UserDetailsService {
 			throw new UsernameNotFoundException(user_id);
 		}
 		
-		List<GrantedAuthority> authority = new ArrayList<>();
+		List<GrantedAuthority> authority = new ArrayList<>();		
 		authority.add(new SimpleGrantedAuthority(user.get("AUTHORITY").toString()));
+		
+				
 				
 		return new UserInfoDto(user.get("USERNAME").toString(), 
 							   user.get("PASSWORD").toString(), 
@@ -64,5 +67,7 @@ public class UserAuthenticationService implements UserDetailsService {
 		
 
 	}
+
+
 
 }

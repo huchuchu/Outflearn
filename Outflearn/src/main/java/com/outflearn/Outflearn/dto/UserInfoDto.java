@@ -33,8 +33,25 @@ public class UserInfoDto extends User {
 		this.user_nickname = user_nickname;
 		this.user_email = user_email;
 	}
+	
+	
 
 	
+	@Override
+	public String getPassword() {
+	
+		return super.getPassword();
+	}
+	
+	@Override
+	public Collection<GrantedAuthority> getAuthorities() {
+		
+		return super.getAuthorities();
+	}
+
+
+
+
 	public int getUser_num() {
 		return user_num;
 	}

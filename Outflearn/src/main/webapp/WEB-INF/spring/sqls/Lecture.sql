@@ -21,8 +21,8 @@ CLASS_CATEGORY VARCHAR2(100)
 
 SELECT * FROM CLASS_INFO;
 
-INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL, 1,'제목', '강사명','강좌소개','Y',0,0,0,'상급자','카테고리');
-INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL, 1,'제목2', '강사명2','강좌소개2','Y',0,0,0,'상급자2','카테고리2');
+INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL, 2,'제목', '강사명','강좌소개','Y',0,0,0,'상급자','카테고리');
+INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL, 2,'제목2', '강사명2','강좌소개2','Y',0,0,0,'상급자2','카테고리2');
 
 ------------------------------------------ 강좌 내용 - > DB추가
 DROP TABLE CLASS_INTRODUCE;
