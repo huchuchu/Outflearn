@@ -1,6 +1,6 @@
 
 .jumbotron .profile-border {
-	font-size: 1.7rem;
+	font-size: 1.6rem;
 	padding: 4px 0px;
 	border-bottom: 1px dashed #acacac;
 }
@@ -74,4 +74,8 @@
 .btns {
 	background: #6372ff;
 	color: #f2f3f7;
+}
+
+.fa-star, .fa-star-half-alb {
+	color: #ffff66;
 }

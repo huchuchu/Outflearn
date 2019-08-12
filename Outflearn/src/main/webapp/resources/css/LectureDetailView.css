@@ -50,7 +50,6 @@ aside{
     width: 100%;
     padding-bottom: 54.25%;
     height: 0px;
-    overflow-y: scroll;
 }
 
 .fa-bars {
@@ -65,3 +64,13 @@ aside{
 }
 
 .list-group-item{ cursor: pointer; }
+
+#bookmark_group {
+	position: absolute;
+	right: 0;
+	width: 100%;
+}
+
+#bookmark_btn {
+	position: relative;
+}
