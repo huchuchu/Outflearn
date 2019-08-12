@@ -66,6 +66,7 @@ $(function () {
 	});
 
 </script>
+<link rel="stylesheet" type="text/css" href="resources/css/member.css">
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -117,37 +118,36 @@ $(function () {
 					<header>
 						<h3>비밀번호 찾기</h3>
 					</header>
-					<table>
-						<tr>
-							<th>아이디</th>
-							<td>
-								<input type="text" class="text" name="user_id" placeholder="아이디" required />
+					<div class="formgroup">
+                        <label class="memlabel" for="inputName">아이디</label>
+                        <input type="text" class="form-control"  name="user_id" id="" placeholder="아이디를 입력해 주세요" required />
 								<div id="id_confirm"></div>
-								<input type="button" class="idChk" id="btn_idcheck" value="아이디 확인" onclick="idChkPw()"/><p></p>
-								<p class="result">
-									<span class="msg">아이디를 확인해 주십시오.</span>
+								<div class="form-group text-center" >
+									<button type="button" id="btn_idcheck" class="btn-member" onclick="idChkPw()" >아이디 확인</button>
+									<p class="result">
+									<span class="msg"></span>
 								</p>
-							</td>
+								</div>
+					</div>
+					
+						<div class="formgroup">
+                        <label class="memlabel" for="inputEmail">이메일체크</label>
+                        <input type="text" class="form-control"  name="user_email" id="" placeholder="이메일을 입력해 주세요" required />
+							<button type="button" id="btn_sendemail" class="btn-member" onclick="emailChkPw()" >이메일 체크</button>
+							<div id="emailDupChk"></div>
+								<div class="form-group text-center" >
+									<button type="button" id="btn_sendPwEmail" class="btn-member" onclick="sendEmailPw()" >임시비밀번호발송</button>
+									<p class="result">
+									<span class="msg"></span>
+								</p>
+								</div>
+					</div>
+					
+					<div class="form-group text-center">
+						<button type="submit" id="findPwBtn" class="btn-member">로그인</button>
+						<button type="submit" id="findPwBtn" class="btn-member" onclick="history.go(-1);">취소</button>
+					</div>
 							
-						</tr>
-						<tr>
-							<th>이메일 체크</th>
-							<td>
-								<input type="email" class="text" name="user_email"  placeholder="이메일" required/>
-								<input type="button" id="btn_sendemail" value="이메일 체크" onclick="emailChkPw()"/>
-								<div id="emailDupChk"></div>
-								<input type="button" id="btn_sendPwEmail" value="임시비밀번호발송" onclick="sendEmailPw()"/>
-							</td>
-						</tr>
-											
-						<tr>
-							<td colspan="2" >
-								<br>
-								<input type="submit" value="로그인" id="findPwBtn" style="margin-left: 10em;"/>
-								<input type="button" value="취소" onclick="history.go(-1);">
-							</td>
-						</tr>
-					</table>
 				</form>
 
 		</div>

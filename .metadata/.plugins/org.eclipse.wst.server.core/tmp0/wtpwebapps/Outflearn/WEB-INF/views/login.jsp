@@ -1,185 +1,90 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
+
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <sec:csrfMetaTags/>
-  
 
   <title>Outflearn</title>
 
-  <!-- Bootstrap -->
-  <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="resources/fonts/font-awesome/css/font-awesome.css">
+<!-- loginform css -->
+<link rel="stylesheet" type="text/css" href="resources/css/loginForm.css">
 
-  <!-- Stylesheet
-    ================================================== -->
-  <link rel="stylesheet" type="text/css" href="resources/css/style.css">
-  <link rel="stylesheet" type="text/css" href="resources/css/nivo-lightbox/nivo-lightbox.css">
-  <link rel="stylesheet" type="text/css" href="resources/css/nivo-lightbox/default.css">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
-
-  <!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
-  <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
-</head>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
-	$(function () {
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-		$(document).ajaxSend(function(e, xhr, options) {
-			xhr.setRequestHeader(header, token);
-		});
-		});
-	
-</script>
+<!-- 카카오 네이버 -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 
-
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-  <!-- ==========================================Navigation==========================================-->
-  <nav id="menu" class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-          data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span
-            class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-        <a class="navbar-brand page-scroll" href="#page-top" style="color: #6372ff">Outflearn</a> </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-center">
-          <li><a href="LectureList.html">강좌 둘러보기</a></li>
-          <li><a href="void:0">로드맵 학습</a></li>
-          <li><a href="void:0">아웃프런 소개</a></li>
-          <li><a href="void:0">라이브</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown"><a href="void:0" class="dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"
-                style="color: #6372ff "></i>
-              <div class="dropdown-menu" role="menu" aria-expanded="navbarDropdown">
-                <a href="void:0">로그아웃</a>
-              </div>
-            </a></li>
-          <li><a href="/Outflearn/loginfrom">로그인</a></li>
-          <li><a href="/Outflearn/registerform.do">회원가입</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- Header -->
-  <header id="header">
-    <div class="intro">
-      <div class="overlay">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-8 col-md-offset-2 intro-text">
-            
-            <!-- 로그인 폼 영역 시작  -->
-            <script type="text/javascript">
-            
-            $("#submit").submit(function(){
-            	if($("#id").val()==""){
-            		alert("아이디를 입력해주세요");
-            	}else if($("#passwd").val()==""){
-            		alert("비밀번호를 입력해 주세요");
-            	}
-            });
-            
-            </script>
-            
-              <form action="/Outflearn/login" method="post" id="test">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
-                <input type="text" name="loginId" id="loginId" placeholder="ID">
-                <input type="password" name="loginPw" id="loginPw" placeholder="PASSWORD">
-                <input type="submit" value="Sign in" id="submit"><br/><br/>
-				<label for="remember-me" style="padding-left: 60%;">
-				<input type="checkbox" id="remember-me" name="remember-me">
-				Rmember Me
-				</label>
-				<br/><br/>
-				<c:if test="${not empty ERRORMSG }">
-				<p>${ERRORMSG }	</p>	
-				</c:if>
-              </form>
-              <br />
-
-              <a href="/Outflearn/findIdForm.do">아이디 찾기</a>
-              <a href="/Outflearn/findPwForm.do" style="padding-left: 2%;">비밀번호를 잊으셨나요?</a><br/><br/>
-              
-              <a id="kakao-login-btn"></a>
-			  <a href="http://developers.kakao.com/logout"></a>
+<!-- 제이쿼리 -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+ 
+</head>
+<body >
+	
+	<!-- Header  -->
+	<jsp:include page="header/MainHeader.jsp"></jsp:include>
+	<!-- Header  -->
+	
+	  <header id="header">
+	    <div class="intro">
+	      <div class="overlay">
+	        <div class="container">
+	          <div class="row">
+	            <div class="col-md-8 col-md-offset-2 intro-text">
+	            <div class="login-form">
+	            <!-- 로그인 폼 영역 시작  -->
+	            <div class="modal-header">
+		        <a id="login-logo" style="text-align: center;" >Outflearn</a> 
+	        	</div>
+	            <div class="modal-body">
+	            <br/><br/>
 				
-				<script type='text/javascript'>
-				  //<![CDATA[
-				    // 사용할 앱의 JavaScript 키를 설정해 주세요.
-              	    Kakao.init('85e61dfa4e850de4478ab8c6df1a737a');
-				    // 카카오 로그인 버튼을 생성합니다.
-				    Kakao.Auth.createLoginButton({
-				      container: '#kakao-login-btn',
-				      success: function(authObj) {
-	 				        alert(JSON.stringify(authObj));	
-
-				    	  Kakao.API.request({
-				    		 url: '/v1/user/me',
-				    		 success: function(res){
-				    			 
-				    			 alert(res);				    			 
-				    			 res.id += "@k";	
-				    			alert(res.id);
-				    			
-				    			$.ajax({
-				    				url: "idChk.do",  //id체크
-				    				data: "id="+res.id,
-				    				
-				    				success: function(data){
-				    					alert(data.idChk);
-				    					if(data.idChk==true){ //아이디가 없다면 회원가입 
-				    						alert("회원가입");
-				    						
-				    						var param = 
-				    						{"user_id":res.id, "user_pw":res.id, "user_email":res.id, "user_nickname":res.id }
-				    						
-				    						$.ajax({
-				    							url: "kakaoUserinsert",
-				    							method: "POST",
-				    							data: param	,
-				    							success : function(){ //회원가입 성공, 가입 후 로그인ㄱㄱ
-				    								alert("회원가입 완료");
-				    								$("form").attr("method","post").attr("action","/Outflearn/login?id="+res.id+"&passwd="+res.id).submit();
-
-				    							}
-				    						});
-				    						
-				    					}else{ //아이디가 있다면 로그인 (시큐리티 로그인ㄱㄱ)
-				    						alert("로그인하러 갑니다~!");
-		    								$("form").attr("method","post").attr("action","/Outflearn/login?id="+res.id+"&passwd="+res.id).submit();
-				    					}
-				    				}
-				    			});
-				    		 },
-				    		 fail: function(error){
-				    			 alert(JSON.stringify(err));
-				    		 }
-				    	  });
-				      },
-				      fail: function(err) {
-				         alert(JSON.stringify(err));
-				      }
-				    });
-				  //]]>
+	              <form action="/Outflearn/login" method="post" id="loginform" name="loginform">
+	                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
+	                <input type="text" name="loginId" id="loginId" placeholder="  아이디 입력" ><br/>
+	                <input type="password" name="loginPw" id="loginPw" placeholder="  비밀번호 입력" style="margin-top: 2%;"><br/><br/>
+					
+				
+	                <input type="submit" value="Sign in" id="submitBTN" >
+					<input type="checkbox" id="remember-me" name="remember-me" style="margin-left: 2%;">
+					<span>Rmember Me</span>
+	
+					
+					<br/><br/>
+					<c:if test="${not empty ERRORMSG }">				
+					<span id="errorMSG">${ERRORMSG }</span>	
+					</c:if>
+	              </form>
+				<br/>
+	              <a href="/Outflearn/findIdForm.do">아이디 찾기</a>
+	              <a href="/Outflearn/findPwForm.do" style="padding-left: 2%;">비밀번호를 잊으셨나요?</a><br/><br/>
+	              
+	              <!-- 카카오 로그인 시작 -->
+	              <a id="kakao-login-btn"></a>
+				  <a href="http://developers.kakao.com/logout"></a>
+				  <!-- 카카오로그인.js -->
+				  <script type="text/javascript" src="resources/js/utils/kakaologin.js"></script><br/><br/>	
+				  <!-- 카카오 로그인 끝 -->
+				  <!-- ============================================= -->
+	              <!-- 네이버 로그인  시작-->  
+	              <!-- callback.jsp와 함께 사용  -->   
+			      <div id="naverIdLogin"></div>
+				  <script type="text/javascript">
+					var naverLogin = new naver.LoginWithNaverId(
+						{
+							clientId: "xsVfuuGnIVuwdJhzN_0M",
+							callbackUrl: "http://localhost:8787/Outflearn/naverCallback",
+							isPopup: false, /* 팝업을 통한 연동처리 여부 */
+							loginButton: {color: "green", type: 3, height: 48} /* 로그인 버튼의 타입을 지정 */
+						}
+					);
+					
+					/* 설정정보를 초기화하고 연동을 준비 */
+					naverLogin.init();
 				</script>
+				</div>
 	
               
 			
