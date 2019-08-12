@@ -2,18 +2,21 @@ function main() {
 
 	(function () {
 
-		$(window).scroll(function (event) {
-			if ($(window).scrollTop() < 120) {
-				$('#menu').css({
-					'position': 'relative'
-				});
-			} else {
-				$('#menu').css({
-					'position': 'fixed',
-					'z-index': '9999'
-				});
-			}
-		});
+		$('#header').css({'position': 'relative', 'top':$('#menu').outerHeight()})
+	      $(window).scroll(function (event) {
+	         if ($(window).scrollTop() < 120) {
+	            $('#menu').css({
+	               'position': 'relative',
+	               'margin': '0'
+	            });
+	            $('#header').css({'position': 'relative', 'top': '0'})
+	         } else {
+	            $('#menu').css({
+	               'position': 'fixed',
+	               'z-index': '9999'
+	            });
+	         }
+	      });
 
 		'use strict';
 

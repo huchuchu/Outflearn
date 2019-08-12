@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="utf-8">
 
@@ -10,12 +11,10 @@
 
 </head>
 <body>
-
-	<!-- Header  -->
-	<jsp:include page="header/MainHeader.jsp"></jsp:include>
-	<!-- Header  -->
   
   <!-- Header -->
+  <jsp:include page="header/MainHeader.jsp"></jsp:include>
+  
   <header id="header">
     <div class="intro">
       <div class="overlay">
@@ -28,6 +27,10 @@
               </sec:authorize>
               <p>배우고 싶은 지식 또는 기술을 경험하세요</p>
               <div class="input-group input-group-lg col-md-12">
+      		 <form method="post" action="${pageContext.request.contextPath}/oauth">
+      		 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">	
+    		<button>카카오페이로 결제하기</button>
+			</form>
                 <input type="text" class="form-control" placeholder="배우고 싶은 기술을 입력하세요.">
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-default btn-lg"><i class="fas fa-search"

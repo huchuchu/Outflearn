@@ -2,9 +2,9 @@ package com.outflearn.Outflearn.model.dao;
 
 import java.util.Map;
 
+
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.dto.memberRegisterDto;
-
 public interface LoginDao {
 	
 	String NAMESPACE = "auth.";

@@ -2,9 +2,9 @@ package com.outflearn.Outflearn.dto;
 
 import java.util.Collection;
 
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-
 public class UserInfoDto extends User {
 	
 	//User class : 사용자의 상세 정보를 담는 역할

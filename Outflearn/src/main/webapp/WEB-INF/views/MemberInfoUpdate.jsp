@@ -7,6 +7,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 <!-- <meta name="description" content=""> -->
@@ -54,9 +55,19 @@
 <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 <!-- <script src="https://kit.fontawesome.com/27cb20e940.js"></script> -->
 
-<!-- <sec:csrfMetaTags/> -->
+<sec:csrfMetaTags/>
 
-
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+   $(function () {
+      var token = $("meta[name='_csrf']").attr("content");
+      var header = $("meta[name='_csrf_header']").attr("content");
+      $(document).ajaxSend(function(e, xhr, options) {
+         xhr.setRequestHeader(header, token);
+      });
+      });
+   
+</script>
 </head>
 
 <body>
@@ -77,15 +88,13 @@
 			<!-- Post -->
 			<section class="box search">
 				<form method="post" action="${pageContext.request.contextPath}/memberInfoUpdate.do" onsubmit="return formsubmit();">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">	
 					<header>
 						<h3>회원정보 설정</h3>
 					</header>
 					
 					<table id="user_info_table">
-						<tr>
-						<th>회원정보 수정</th>
-						<td><br></td>
-						</tr>
+						
 						<tr>
 							<th>아이디</th>
 							<td>
@@ -103,7 +112,7 @@
 								<ul>
 									<li>
 										<label for="now_pw">
-											<span>현재 비밀번호 : </span><input type="password" id="now_pw" name="now_pw" placeholder="현재 비밀번호를 입력해주세요." onchange="pwChk()" required >
+											<span>현재 비밀번호 : </span><input type="password" id="now_pw" name="now_pw" placeholder="현재 비밀번호를 입력해주세요."  required >
 											<span id="currentPwChk"></span>
 										</label>
 									</li>

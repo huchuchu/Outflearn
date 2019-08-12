@@ -1,5 +1,6 @@
 package com.outflearn.Outflearn.dto;
 
+import java.sql.Clob;
 
 public class ClassDataDto {
 	
@@ -11,8 +12,6 @@ public class ClassDataDto {
 	private String data_title;
 	private String data_youtube;
 	private String data_data;
-
-
 
 	public ClassDataDto() {
 

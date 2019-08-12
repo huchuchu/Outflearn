@@ -1,9 +1,5 @@
 package com.outflearn.Outflearn;
 
-import org.springframework.security.core.Authentication;
-
-import com.outflearn.Outflearn.dto.UserInfoDto;
-
 public class MakeRandom {
 	public static String GetRandomPassword() {
 		char[] charSet = new char[] {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z'};

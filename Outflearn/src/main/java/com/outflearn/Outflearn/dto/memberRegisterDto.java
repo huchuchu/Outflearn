@@ -1,5 +1,7 @@
 package com.outflearn.Outflearn.dto;
 
+
+
 public class memberRegisterDto {
 	
 	private String userid;
