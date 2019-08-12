@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
@@ -30,85 +31,98 @@
 	<link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
 	<link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/27cb20e940.js"></script>
-<!-- ======================================================jQuery -->
-<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script type="text/javascript">
-      
-// 직접 파일 업로드 
-          function SelfDataVideoUpload() {
-          	
-          	 	var url = "SelfDataVideoUpload"
+	<!-- ======================================================jQuery -->
+	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script type="text/javascript">
 
-          	 window.open(url, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+		// 직접 파일 업로드 
+		function SelfDataVideoUpload() {
 
-          }
+			var url = "SelfDataVideoUpload"
 
-       // 작성 버튼 눌렀을시 추가 사항이 있는지 알람
-          function clearalert(){
-        		alert("추가 작성 없을시 '게시판 넘기기' 클릭");
-        	}
-       
-           
-</script>
+			window.open(url, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+
+		}
+
+		// 작성 버튼 눌렀을시 추가 사항이 있는지 알람
+		function clearalert() {
+			alert("추가 작성 없을시 '게시판 넘기기' 클릭");
+		}
+
+
+	</script>
 </head>
+
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-	
+
 	<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
-	
+
 	<div class="form-group">
 		<h1>영상 소개</h1>
 	</div>
-		
-	<div class="row">
-			<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">
-				<li class="nav-link active"><h3>강의 소개</h3></li>
-				<li class="nav-link active"><h3>강의 내용</h3></li>
-				<li class="nav-link active"><h3>영상 소개</h3></li>
-				<li class="list-group-item-success"><h3>영상 추가</h3></li>
-			</ul>
-	<div class="col-sm-6 col-el-8">
-		
-	<form:form action="DataVideoUploadPlus" method="post" onsubmit="return clearalert();" >
-		 
-		
-		<div class="form-group">
-			<h3>과정 제목</h3>
-			<input type="text" name="data_title" class="form-control" placeholder="${classdata.data_title }">
-		</div>
-		
-		<div class="form-group">
-			<h3>과정 순서</h3>
-			<input type="text" name="data_sq" class="form-control" placeholder="다음 순서를 입력해주세요.">
-		</div>
-	
-		<div class="form-group">	
-			<h3>유튜브영상 링크</h3>         
-            <input type="text" name="data_youtube" class="form-control" placeholder="${classdata.data_data }"/>
-       	</div>
-       	
-       	 <div class="form-group">	
-            <input type="button" value="파일 업로드" onclick="SelfDataVideoUpload()" />
-       	</div>
-		
-		
-		<div class="form-group">
-			<input type="submit" class="add_field_button btn btn-success btn-md" value="작성 후 클릭" />
-			<input type="button" class="add_field_button btn btn-success btn-md" value="뒤로" onclick="location.href='BackDataVideoUploadForm'" />
-			<input type="button" class="add_field_button btn btn-success btn-md" value="게시판 넘기기 " onclick="location.href='LectureList'"> 
-		</div>
 
-	</form:form>
-	</div></div>
-	
-		
+	<div class="row">
+		<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">
+			<li class="nav-link active">
+				<h3>강의 소개</h3>
+			</li>
+			<li class="nav-link active">
+				<h3>강의 내용</h3>
+			</li>
+			<li class="nav-link active">
+				<h3>영상 소개</h3>
+			</li>
+			<li class="list-group-item-success">
+				<h3>영상 추가</h3>
+			</li>
+		</ul>
+		<div class="col-sm-6 col-el-8">
+
+			<form:form action="DataVideoUploadPlus" method="post" onsubmit="return clearalert();">
+
+
+				<div class="form-group">
+					<h3>과정 제목</h3>
+					<input type="text" name="data_title" class="form-control" placeholder="${classdata.data_title }">
+				</div>
+
+				<div class="form-group">
+					<h3>과정 순서</h3>
+					<input type="text" name="data_sq" class="form-control" placeholder="다음 순서를 입력해주세요.">
+				</div>
+
+				<div class="form-group">
+					<h3>유튜브영상 링크</h3>
+					<input type="text" name="data_youtube" class="form-control" placeholder="${classdata.data_data }" />
+				</div>
+
+				<div class="form-group">
+					<input type="button" value="파일 업로드" onclick="SelfDataVideoUpload()" />
+				</div>
+
+
+				<div class="form-group">
+					<input type="submit" class="add_field_button btn btn-success btn-md" value="작성 후 클릭" />
+					<input type="button" class="add_field_button btn btn-success btn-md" value="뒤로"
+						onclick="location.href='BackDataVideoUploadForm'" />
+					<input type="button" class="add_field_button btn btn-success btn-md" value="게시판 넘기기 "
+						onclick="location.href='LectureList'">
+				</div>
+
+			</form:form>
+		</div>
+	</div>
+
+
 	<!-- Footer Section -->
 	<jsp:include page="footer/Footer.jsp"></jsp:include>
-	
+
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
 	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
-	
+
 </body>
+
 </html>

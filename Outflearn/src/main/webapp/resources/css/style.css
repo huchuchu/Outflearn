@@ -287,7 +287,7 @@ img {vertical-align: middle;}
 
 /* Contact Section */
 #contact {
-	padding: 100px 0 60px 0;
+	padding: 30px 0 60px 0;
 	background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
 	clear: both;
 	color: rgba(255,255,255,.75);
@@ -412,6 +412,24 @@ color: #777;
 	color: #608dfd;
 	background: #fff;
 }
+
+#contact .col-md-4 .sitemap-list,
+#contact #contact-category {
+	padding-left: 1em;
+}
+
+#contact #contact-category a {
+	color: #fff;
+}
+
+#contact #contact-category > .col-md-8 {
+	border-right: 1px solid #acacac;
+}
+
+#contact #contact-category > .col-md-3 li:not(:last-child) {
+	margin-bottom: 70px;
+}
+
 /* Footer Section*/
 #footer {
 	background: #f6f6f6;
@@ -430,6 +448,9 @@ color: #777;
 .jumbotron {
 	background: #2c2e37;
 }
+
+
+
 @media (max-width: 768px) {
 #about img {
 	margin: 50px 0;

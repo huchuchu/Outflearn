@@ -1,6 +1,7 @@
 package com.outflearn.Outflearn.model.dao;
 
 import java.sql.SQLWarning;
+
 import java.util.ArrayList;
 
 import java.util.HashMap;
@@ -109,6 +110,23 @@ public class ClassDataDaoImpl implements ClassDataDao {
 			e.printStackTrace();
 		}
 
+		return list;
+	}
+	
+	@Override
+	public List<ClassInfoDto> CategorySelectList(String class_category) {
+		
+		List<ClassInfoDto> list = new ArrayList<ClassInfoDto>();
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("class_category", class_category);
+		
+		try {
+			list = sqlSession.selectList(namespace + "CategorySelectList", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return list;
 	}
 

@@ -13,8 +13,6 @@ public class ClassDataDto {
 	private String data_youtube;
 	private String data_data;
 
-
-
 	public ClassDataDto() {
 
 	}

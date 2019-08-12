@@ -2,7 +2,6 @@ package com.outflearn.Outflearn.model.biz;
 
 import java.util.List;
 
-
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
@@ -14,6 +13,7 @@ public interface ClassDataBiz {
 	
 		// 강좌 데이터 -  CLASS_DATA TABLE
 		public List <ClassDataDto> ClassDataSelectList();
+		public List<ClassInfoDto> CategorySelectList(String class_category);
 		public ClassDataDto ClassDataSelectOne(int class_num);
 		public int ClassDataInsert(ClassDataDto dto);
 		public int classDataSelfInsert(ClassDataDto dto);		

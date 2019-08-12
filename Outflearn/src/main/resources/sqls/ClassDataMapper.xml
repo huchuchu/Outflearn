@@ -7,10 +7,18 @@
 		SELECT * FROM CLASS_INFO
 	</select>
 	
-	<select id="classinfoselectone" parameterType="map" resultType="ClassInfoDto">
+   <select id="classinfoselectone" parameterType="map" resultType="ClassInfoDto">
    	  SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
    </select>
-	
+   
+   <select id="classdataselectone" parameterType="map" resultType="ClassDataDto">
+	  SELECT DATA_DATA FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
+   </select>
+   
+   <select id="CategorySelectList" resultType="ClassInfoDto">
+   	  SELECT * FROM CLASS_INFO WHERE CLASS_CATEGORY = #{class_category}
+   </select>
+   
 	<select id="ClassDateSelectlist" resultType="ClassDataDto">
 		SELECT * FROM CLASS_DATA
 	</select>

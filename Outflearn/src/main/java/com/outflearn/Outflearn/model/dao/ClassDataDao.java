@@ -16,6 +16,7 @@ public interface ClassDataDao {
 	
 	// 강좌 데이터 -  CLASS_DATA TABLE
 	public List <ClassDataDto> ClassDataSelectList();
+	public List<ClassInfoDto> CategorySelectList(String class_category);
 	public ClassDataDto ClassDataSelectOne(int class_num);
 	public int ClassDataInsert(ClassDataDto dto);
 	public int classDataSelfInsert(ClassDataDto dto);

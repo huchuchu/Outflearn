@@ -6,27 +6,23 @@
 <html>
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Outflearn</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Outflearn</title>
 
-<!-- css -->
-<link rel="stylesheet" href="resources/css/detail.css">
+	<!-- css -->
+	<link rel="stylesheet" href="resources/css/detail.css">
 
-<!-- Bootstrap -->
-<link rel="stylesheet" type="text/css"
-	href="resources/css/bootstrap.css">
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
 
-<!-- Stylesheet
+	<!-- Stylesheet
     ================================================== -->
-<link rel="stylesheet" type="text/css" href="resources/css/style.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/style.css">
 
-<!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
-<link
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-	rel="stylesheet"
-	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-	crossorigin="anonymous">
+	<!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+		integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
 
 </head>
@@ -41,14 +37,11 @@
 			<div class="col-md-6">
 				<h3>${classinfo.class_title }</h3>
 				<div>
-					<p>
-						평점<input type="hidden" value="${classinfo.class_rating }">
-					</p>
-					<p>수강생</p>
+					<p id="rating-tag"><input type="hidden" id="rating" value="${classinfo.class_rating }">(수강평)</p>
+					<p id="count-tag">수강생 : ${classinfo.class_subcount }</p>
 					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="2"
-							aria-valuemin="0" aria-valuemax="100"
-							style="min-width: 2em; width: 2%;">2%</div>
+						<div class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0"
+							aria-valuemax="100" style="min-width: 2em; width: 2%;">2%</div>
 					</div>
 				</div>
 			</div>
@@ -68,18 +61,18 @@
 						<div id="instructor_profile" class="text-center">${classinfo.class_author }</div>
 						<div id="course_metas">
 							<p class="profile-border">
-								평생 <span class="pull-right"><i
-									class="far fa-calendar-alt"></i></span>
+								평생 <span class="pull-right"><i class="far fa-calendar-alt"></i></span>
 							</p>
 							<p class="profile-border">${classinfo.class_studentlevel }
 								<span><i class="fab fa-leanpub pull-right"></i></span>
 							</p>
 							<p class="profile-border">
-								<span id="count"></span>개 수업 <span><i
-									class="fas fa-book-open pull-right"></i></span>
+								<span id="count"></span>
+								<span><i class="fas fa-book-open pull-right"></i></span>
 							</p>
-							<p id="timer" class="profile-border">
-								<i class="fas fa-hourglass-half pull-right"></i>
+							<p class="profile-border">
+								<span id="timer"></span>
+								<span><i class="fas fa-hourglass-half pull-right"></i></span>
 							</p>
 						</div>
 					</div>
@@ -118,8 +111,8 @@
 
 							<tr>
 								<td>
-									<div class="form-group">${dto.user_star  }
-										${dto.user_nickname  }</div>
+									<div class="form-group">${dto.user_star }
+										${dto.user_nickname }</div>
 								</td>
 								<td>
 									<c:forEach begin="1" end="${dto.qa_titletab }">
@@ -127,19 +120,19 @@
 									</c:forEach>
 								</td>
 								<td id="c">
-									<div class="form-group" >${dto.review_content }</div>
+									<div class="form-group">${dto.review_content }</div>
 								</td>
 							</tr>
 							<tr align="right">
 								<td>
 									<form:form action="LectureDetailAnswerDelete" method="post">
 										<input type="hidden" name="class_num" value="${classinfo.class_num }">
-										<input type="hidden" name="board_no"  value="${dto.board_no }">
+										<input type="hidden" name="board_no" value="${dto.board_no }">
 										<input type="submit" value="삭제">
 									</form:form>
 								</td>
 								<td id="a">
-									<input type="hidden" name="review_contet" value="${dto.review_content }"> 
+									<input type="hidden" name="review_contet" value="${dto.review_content }">
 									<input type="hidden" name="board_no" value="${dto.board_no }">
 									<button type="button" id="b">수정</button>
 								</td>
@@ -161,8 +154,7 @@
 	<section>
 		<div class="form-group">
 			<form:form action="LectureDetailAnswerForm">
-				<input type="hidden" name="class_num"
-					value="${classinfo.class_num }">
+				<input type="hidden" name="class_num" value="${classinfo.class_num }">
 				<td><input type="submit" value="댓글쓰기" /></td>
 			</form:form>
 		</div>

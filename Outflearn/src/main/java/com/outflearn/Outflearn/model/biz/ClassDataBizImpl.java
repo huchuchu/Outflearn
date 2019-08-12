@@ -3,6 +3,7 @@ package com.outflearn.Outflearn.model.biz;
 import java.util.List;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,6 +71,11 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public List<ClassInfoDto> ClassInfoSelectList() {
 		
 		return dao.ClassInfoSelectList();
+	}
+	
+	@Override
+	public List<ClassInfoDto> CategorySelectList(String class_category) {
+		return dao.CategorySelectList(class_category);
 	}
 
 	@Override

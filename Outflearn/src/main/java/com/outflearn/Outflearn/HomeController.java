@@ -63,9 +63,13 @@ public class HomeController {
 	}
 
 	@RequestMapping("/LectureList")
-	public String LectureList(Model model) {
+	public String LectureList(String class_category, Model model) {
 
-		model.addAttribute("classinfo", biz.ClassInfoSelectList());
+		if(class_category != null) {
+			model.addAttribute("classinfo", biz.CategorySelectList(class_category));
+		} else {
+			model.addAttribute("classinfo", biz.ClassInfoSelectList());
+		}
 
 		return "LectureList";
 	}
@@ -90,11 +94,8 @@ public class HomeController {
 	public String DetailDashBoard(Model model, HttpSession session) {
 
 		int info_num = (int) session.getAttribute("info_num");
-		System.out.println("변환하지 않은 거 :" + session.getAttribute("info_num"));
-		System.out.println("변환한 것 : " + info_num);
 
 		ClassDataDto dto = biz.ClassDataSelectOne(info_num);
-		System.out.println("controller : " + dto.toString());
 
 		return dto.getData_youtube();
 	}
@@ -133,6 +134,7 @@ public class HomeController {
 			return "redirect: ClassIntroduceInsertForm";
 		}
 	}
+	
 
 //	ClassIntroduceInsertForm.jsp - > DataVideoUploadForm.jsp  CLASS_INTRODUCE DB 저장
 	@RequestMapping("DataVideoUploadForm")
@@ -140,7 +142,6 @@ public class HomeController {
 		logger.info("DataVideoUploadForm");
 
 		int res = biz.ClassIntroduceInsert(dto);
-	
 		if (res > 0) {
 			return "DataVideoUploadForm";
 		} else {
@@ -155,7 +156,6 @@ public class HomeController {
 		logger.info("DataVideoUpload");
 
 		int res = 0;
-
 		String a = dto.getData_youtube();
 		String b = "";
 
@@ -200,7 +200,6 @@ public class HomeController {
 	public String DataVideoUploadPlus(@ModelAttribute ClassDataDto dto, HttpSession session, Model model) {
 
 		int res = 0;
-
 		String a = dto.getData_youtube();
 		String b = "";
 		if (a.contains("v=")) {
@@ -261,6 +260,14 @@ public class HomeController {
 	public List<LiveDto> liveCalendar() {
 
 		return biz.liveCalendar();
+	}
+	
+	@RequestMapping("LectureList/LectureCategory")
+	public String LectureCategory(String class_category, Model model) {
+		
+		model.addAttribute("classinfo", biz.CategorySelectList(class_category));
+		
+		return "LectureList";
 	}
 
 	@RequestMapping("livePopup")

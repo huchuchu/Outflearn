@@ -54,4 +54,9 @@ $(document).ready(function() {
 			$('#charged').collapse('toggle')
 		}
 	})
+	
+	$('.sm_category').on('click', function() {
+		console.log($(this).siblings())
+		$(this).siblings().css({'content': ''})
+	})
 })
