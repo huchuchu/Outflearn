@@ -2,8 +2,6 @@ package com.outflearn.Outflearn.service;
 
 import java.io.IOException;
 
-
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +18,7 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 
-import com.outflearn.Outflearn.dto.UserInfoDto;
+
 
 
 
@@ -65,7 +63,7 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler{
 			Authentication authentication) throws IOException, ServletException {
 		
 		
-		System.out.println("UserLoginSuccessHandler: 2");
+		System.out.println("UserLoginSuccessHandler:::::::::::: 2");
 		
 		
 		//에러세션지우기

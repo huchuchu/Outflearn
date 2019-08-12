@@ -62,11 +62,13 @@ public class UserLoginFailureHandler implements AuthenticationFailureHandler {
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
 		
-		System.out.println("UserLoginFailureHandler : 3");		
+		System.out.println("UserLoginFailureHandler:::::::::::: 3");		
 		
 		String username = request.getParameter(idname);
 		String password = request.getParameter(passwdname);
 		String errormsg = exception.getMessage();
+		
+		System.out.println(exception.getLocalizedMessage()+":::::::::::");
 		
 		System.out.println(username);
 		System.out.println(password);
