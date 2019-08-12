@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.outflearn.Outflearn.dto.ClassDataDto;
@@ -21,6 +23,7 @@ import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.LiveDto;
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
+import com.outflearn.Outflearn.service.KakaoRestapi;
 
 /**
  * Handles requests for the application home page.
@@ -30,7 +33,8 @@ public class HomeController {
 
 	@Autowired
 	public ClassDataBiz biz;
-
+	
+	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	/**
@@ -253,6 +257,9 @@ public class HomeController {
 		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return biz.getMyClass(dto.getUser_num());
 	}
+	
+	
+	
 
 // myPage
 	@RequestMapping("myPage")

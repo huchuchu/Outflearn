@@ -54,21 +54,19 @@
 <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 <!-- <script src="https://kit.fontawesome.com/27cb20e940.js"></script> -->
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
-	$(function () {
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-		$(document).ajaxSend(function(e, xhr, options) {
-			xhr.setRequestHeader(header, token);
-		});
-		});
-</script>
-
-
 <sec:csrfMetaTags/>
 
-
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+   $(function () {
+      var token = $("meta[name='_csrf']").attr("content");
+      var header = $("meta[name='_csrf_header']").attr("content");
+      $(document).ajaxSend(function(e, xhr, options) {
+         xhr.setRequestHeader(header, token);
+      });
+      });
+   
+</script>
 </head>
 
 <body>
@@ -81,78 +79,67 @@
 	<div class="row">
 		<div class="col-xs-3 col-sm-3"></div>
 		<div class="col-xs-6 col-sm-6">
-			
+			<div class="col-sm-6 col-md-offset-3">
+
 			<form method="post" action="${pageContext.request.contextPath}/register.do" onsubmit="return formsubmit();">
-             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
-					
-					<header>
-						<h3>회원가입</h3>
-					</header>
-					<table>
-						
-						<tr>
-							<th>아이디</th>
-							<td>
-								<input type="text" class="text" name="user_id" placeholder="아이디" required />
+           	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">		
+					<div class="form-group">
+                        <label for="inputName">아이디</label>
+                        <input type="text" class="form-control"  name="user_id" id="inputName" placeholder="아이디를 입력해 주세요" required />
 								<div id="id_confirm"></div>
-								<input type="button" class="idChk" id="btn_idcheck" value="중복확인" onclick="id_check()"/><p></p>
-								<p class="result">
+								<div class="form-group text-center" >
+									<button type="button" id="btn_idcheck" class="btn btn-info" onclick="id_check()" >중복확인<i class="fa fa-check spaceLeft"></i></button>
+									<p class="result">
 									<span class="msg">아이디를 확인해 주십시오.</span>
 								</p>
-							</td>
+								</div>
+					</div>
+					<div class="form-group">
+                        <label for="inputPassword">비밀번호</label>
+                        <input type="password" class="form-control" name="user_pw" id="inputPassword" placeholder="비밀번호를 입력해 주세요" onchange="pass_check()" required />
+							<div id="pass_check"></div>
+						<input type="password" class="form-control" name="user_pw02" id="inputPassword" placeholder="비밀번호를 확인해 주세요" onchange="pass_confirm()" required />
+							<div id="pass_confirm"></div><br>
 							
-						</tr>
-						<tr>
-							<th>비밀번호</th>
-							<td>
-								<input type="password" class="text" name="user_pw" placeholder="비밀번호" onchange="pass_check()" required />
-								<div id="pass_check"></div>
-								<input type="password" class="text" name="user_pw02" placeholder="비밀번호 확인" onchange="pass_confirm()" required />
-								<div id="pass_confirm"></div><br>
-							</td>
-						</tr>
-						<tr>
-							<th>닉네임</th>
-							<td>
-								<input type="text" class="text" name="user_nickname" placeholder="닉네임" required />
-								<div id="nick_confirm"></div><br>
-<!-- 								<input type="button" class="nickChk" name="btn_nickcheck" value="중복확인" onclick="nick_check()"/><p></p> -->
-							</td>
-				
-						</tr>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="label-primary" for="InputNickname">닉네임</label>
+							<input type="text" class="form-control" name="user_nickname" placeholder="닉네임" required />
+                    </div>
+                    
+					<div class="form-group">
+                        <label for="InputEmail">이메일 주소</label>
+                        <input type="email" class="form-control" name="user_email" id="InputEmail" placeholder="이메일 주소를 입력해주세요" required/>
+						<div class="form-group text-center">
+						<button type="button" id="user_email" name="btn_emailChk" class="btn btn-info" onclick="email_Chk()">이메일 중복확인<i class="fa fa-check spaceLeft"></i></button>
+						</div>
+						<div class="form-group text-center">
+							<div id="emailDupChk"></div>
+                    	</div>
+                    </div>
+					<div class="form-group">
+						<label for="InputEmail">이메일 인증 번호</label>
+							<input type="text" class="form-control" name="ranNum" placeholder="인증번호발송을 먼저 누르시고 인증번호를 입력해주세요" required/>
+							<div class="form-group text-center">
+							<input type="button" class="btn btn-info" id="btn_sendemail" value="인증번호발송" onclick="sendEmail()"/>
+							<input type="button" class="btn btn-info" id="ranChk" value="인증번호확인" onclick="ranNumChk()"/>
+							<div id="confirm"></div>
+							<div id="emailChkConfirm"></div>
+                    		</div>
+					</div>
+					<div class="form-group text-center">
+						<div id="example1" ></div>
+						
+					</div>
+					<div class="form-group text-center">
+						<button type="submit" id="join-submit" class="btn btn-success">회원가입<i class="fa fa-check spaceLeft"></i></button>
+					</div>
 						
 						
-						<tr>
-							<th>이메일</th>
-							<td>
-								<input type="email" class="text" name="user_email"  placeholder="이메일" required/>
-								<input type="button" class="emailChk" name="btn_emailChk" id="user_email" value="이메일 중복확인" onclick="email_Chk()" /><br> 
-								<div id="emailDupChk"></div>
-							</td>
-						</tr>
-						<tr>
-							<th>이메일 인증번호</th>
-							<td>
-								<input type="text" class="text" name="ranNum" placeholder="인증번호" required/>
-								<input type="button" id="btn_sendemail" value="인증번호발송" onclick="sendEmail()"/>
-								<input type="button" id="ranChk" value="인증번호확인" onclick="ranNumChk()"/>
-								<div id="confirm"></div>
-								<div id="emailChkConfirm"></div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<div id="example1" style="margin-left: 0em;"></div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" >
-								<input type="submit" value="회원가입" style="margin-left: 10em;"/>
-							</td>
-						</tr>
-					</table>
+					
 				</form>
-
+			</div>
 		</div>
 	</div>
 	
