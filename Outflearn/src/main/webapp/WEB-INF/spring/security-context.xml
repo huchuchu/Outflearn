@@ -16,6 +16,7 @@
 	<!-- 근데 이거 적용이 안되고 있는 것 같다...ㅜㅜ -->
 	<http pattern="src/main/webapp/resources/**" security="none"></http>
 	
+	
 	<!-- 검사, 허가 url-->
 	<http auto-config="true" use-expressions="true" >
 		<intercept-url pattern="/loginform" access="isAnonymous()"/>
@@ -58,6 +59,8 @@
 		
 		<!-- csrf방지 무효화 -->
 		<csrf disabled="true"/>
+		
+		
 	</http>
 	
 	<authentication-manager>

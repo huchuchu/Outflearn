@@ -106,11 +106,11 @@
 	</select>
 	
 	<select id="getWishList" resultType="ClassInfoDto" parameterType="int">
-		SELECT * FROM CLASS_INFO WHERE CLASS_NUM = (SELECT CLASS_NUM FROM BASKET WHERE USER_NUM = #{user_num})
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM BASKET WHERE USER_NUM = #{user_num})
 	</select>
 	
 	<select id="getSubscribe" resultType="ClassInfoDto" parameterType="int">
-		SELECT * FROM CLASS_INFO WHERE CLASS_NUM = (SELECT CLASS_NUM FROM SUBSCRIBE WHERE USER_NUM = #{user_num})
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM SUBSCRIBE WHERE USER_NUM = #{user_num})
 	</select>
 
 </mapper>

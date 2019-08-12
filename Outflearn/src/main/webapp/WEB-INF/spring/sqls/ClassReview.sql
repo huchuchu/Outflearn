@@ -1,5 +1,5 @@
 ------------------------------------------ 강좌후기
-DROP TABLE CLASS_REVIEW
+DROP TABLE CLASS_REVIEW;
 --글 번호 시퀀스(일반적인 번호)
 DROP SEQUENCE BOARD_NO_SQ;
 --그룹번호 시퀀스(답글이 달렸을 때 )
