@@ -1,0 +1,20 @@
+.form-group{
+	
+}
+.button : hover {
+	color : rgba(255,255,255,0.85);
+	box-shadow: rgba(30, 22, 54, 0.7) 0 80px 0px 2px inset;
+}
+.btn-member {
+	color : #fff;
+    padding: 10px 16px;
+    font-size: 15px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    background-color: #6372ff;
+    margin: 5px 0;
+    background-repeat: repeat-x;
+    border-color: #6372ff;
+    background-image: linear-gradient(to bottom,#6372ff 0,#6372ff 100%);
+    
+}

@@ -1,0 +1,9 @@
+    
+spring.devtools.remote.secret=mysecret
+#for github
+security.oauth2.client.clientId=4ee016944dcdc504e6ce
+security.oauth2.client.clientSecret=905dd731746ff935e3c8902688269164b30b67e6
+security.oauth2.client.accessTokenUri=https://github.com/login/oauth/access_token
+security.oauth2.client.userAuthorizationUri=https://github.com/login/oauth/authorize
+security.oauth2.client.clientAuthenticationScheme=form
+security.oauth2.resource.user-info-uri=https://api.github.com/user

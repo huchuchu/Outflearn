@@ -1,0 +1,71 @@
+package com.outflearn.Outflearn.service;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+
+import com.outflearn.Outflearn.LoginController;
+@Service
+
+public class KakaoRestapi {
+	
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	private static final String HOST = "https://kapi.kakao.com";
+	
+	private KakaoPayReadyVo kakaoPayReadyVo;
+	
+		public String kakaoPayReady() {
+			
+		RestTemplate restTemplate = new RestTemplate();
+		
+		//서버로 요청할 header
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK" + "3f8ccf5c07036df3f48a4abce8130462");
+		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
+		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+		
+		
+		//서버로 요청할 body
+	
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("cid", "TC0ONETIME");
+		params.add("partner_order_id", "1001");
+		params.add("partner_user_id", "아웃프런");
+		params.add("item_name", "자바강좌");
+		params.add("quantity", "1");
+		params.add("total_abount", "2000");
+		params.add("tax_free_abount", "100");
+		params.add("approval_url", "http:localhost:8787/Outflearn/kakaoPaySuccess");
+		params.add("cancel_url", "http:localhost:8787/Outflearn/kakaoPayCancel");
+		params.add("fail_url", "http://localhost:8787/kakaoPaySuccessFail");
+	
+		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+	
+		try {
+			kakaoPayReadyVo = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyVo.class);
+			
+			logger.info(""+ kakaoPayReadyVo);
+			return kakaoPayReadyVo.getNext_redirect_pc_url();
+			
+			
+		} catch (RestClientException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		
+		return "/kakaopay";
+		
+		
+	}
+}

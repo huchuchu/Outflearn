@@ -1,0 +1,31 @@
+DROP TABLE USER_INFO;
+
+DROP SEQUENCE USER_INFO_SQ;
+
+CREATE SEQUENCE USER_INFO_SQ;
+
+CREATE TABLE USER_INFO(
+USER_NUM NUMBER PRIMARY KEY, 
+USER_ID VARCHAR2(1000) NOT NULL UNIQUE, -- idp �겕湲곕�寃�
+USER_PW VARCHAR2(1000) NOT NULL, -- pw �겕湲곕�寃�
+--USER_NAME VARCHAR2(1000) NOT NULL, -- �씠由� v �겕湲곕�寃� / 0802 �궘�젣 
+USER_NICKNAME VARCHAR2(1000) NOT NULL, -- �땳�꽕�엫 v �겕湲곕�寃� 
+USER_AUTHORITY VARCHAR2(10) DEFAULT 'ROLE_USER' NOT NULL, -- �벑湲� 而щ읆紐� 蹂�寃�, 而щ읆 媛� �씠由� 蹂�寃� 
+USER_EMAIL VARCHAR2(100) NOT NULL UNIQUE, --�씠硫붿씪 v
+USER_ENABLED NUMBER(1) DEFAULT 1, -- 怨꾩젙 �솢�꽦/鍮꾪솢�꽦 而щ읆 異붽�  �솢�꽦�솕: 1 鍮꾪솢�꽦�솕 : 0
+CONSTRAINT authority_chk CHECK (USER_AUTHORITY IN ('ROLE_USER','ROLE_ADMIN','ROLE_TUTOR')));
+
+SELECT * FROM USER_INFO;
+
+	SELECT
+		USER_ID as username,
+		USER_PW as password,
+		USER_ENABLED as enabled,
+		USER_AUTHORITY as authority,
+		USER_NUM, USER_NICKNAME, USER_EMAIL 
+	FROM USER_INFO
+	WHERE USER_ID='qwqw';
+
+--INSERT INTO USER_INFO VALUES(USER_INFO_SQ.NEXTVAL, 'user','1234','testName','testNick','USER','sunwoong1995@naver.com');
+
+--enabled �쑕硫닿퀎�젙 �뿬遺� 1�씠硫� �궗�슜媛��뒫 0�씠硫� �궗�슜 遺덇��뒫

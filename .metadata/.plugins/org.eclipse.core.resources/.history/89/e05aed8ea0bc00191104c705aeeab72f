@@ -1,0 +1,12 @@
+.form-group{
+	
+}
+
+.btn-member {
+    padding: 10px 16px;
+    font-size: 15px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    background-color: #6372ff;
+    
+}

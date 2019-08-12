@@ -1,0 +1,21 @@
+package com.outflearn.Outflearn.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+
+
+public class KakaoRestapi {
+	
+	public JsonNode getAccessToken(String autorize_code) {
+		
+		final String RequestUrl = "https://kauth.kakao.com/oauth/token";
+		
+		
+		
+		return null;
+		
+	}
+}

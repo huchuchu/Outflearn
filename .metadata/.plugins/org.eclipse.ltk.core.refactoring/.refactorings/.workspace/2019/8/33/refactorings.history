@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;Outflearn/src/main/webapp/resources/css/member&apos;" deleteContents="false" description="Delete resource &apos;Outflearn/src/main/webapp/resources/css/member&apos;" element1="/Outflearn/src/main/webapp/resources/css/member" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1565571341080"/>
+</session>
