@@ -35,12 +35,12 @@
 				<div id="side_category">
 					<ul class="nav flex-column text-center">
 						<li class="nav-item">
-							<a href="void:0" class="nav-link active"data-toggle="dropdown">카테고리</a>
+							<a href="LectureList" class="nav-link active"data-toggle="dropdown">카테고리</a>
 						</li>
 						<li class="nav-item all_category">
 							<a href="void:0" id="side_server"class="nav-link active">서버&nbsp;<i class="fas fa-chevron-right"></i></a>
 							<ul id="side_server_menu" class="nav flex-column collapse">
-								<li><a href="void:0" class="nav-link active">Back End</a></li>
+								<li><a href="void:0" class="nav-link active">BackEnd<input type="hidden" name="" value="backend"></a></li>
 								<li><a href="void:0" class="nav-link active">Linux</a></li>
 								<li><a href="void:0" class="nav-link active">Nodejs</a></li>
 								<li><a href="void:0" class="nav-link active">Express</a></li>
@@ -52,10 +52,10 @@
 							<a href="void:0" id="side_web" class="nav-link active">웹 개발&nbsp;<i class="fas fa-chevron-right"></i></a>
 							<ul id="side_web_menu" class="nav flex-column collapse">
 								<li><a href="void:0" class="nav-link active">html/css</a></li>
+								<li><a href="void:0" class="nav-link active">FrontEnd</a></li>
 								<li><a href="void:0" class="nav-link active">Javascript</a></li>
-								<li><a href="void:0" class="nav-link active">Front End</a></li>
 								<li><a href="void:0" class="nav-link active">Spring</a></li>
-								<li><a href="void:0" class="nav-link active">Java</a></li>
+								<li><a href="LectureList?class_category=카테고리2" class="nav-link active">Java</a></li>
 								<li><a href="void:0" class="nav-link active">Vuejs</a></li>
 							</ul>
 						</li>
@@ -107,7 +107,6 @@
 							<div class="list-group pull-right">
     							<select>
     								<option>추천순</option>
-    								<option>최신순</option>
     								<option>평점순</option>
     								<option>학생수순</option>
     							</select>
@@ -134,8 +133,7 @@
 										</a>
 									</div>
 								</c:forEach>
-								<input type="button" value="강의 추가"
-									onclick="location.href='ClassInfoInsertForm'" />
+								<input type="button" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" />
 							</c:otherwise>
 						</c:choose>
 				</article>

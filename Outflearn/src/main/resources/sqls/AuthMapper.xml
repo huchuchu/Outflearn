@@ -2,43 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="auth">
    
-   <!--SELECT * FROM CLASS_DATA, CLASS_INFO WHERE CLASS_INFO.CLASS_NUM = CLASS_DATA.CLASS_NUM; -->
-   
-   <!-- <resultMap type="ClassDataDto" id="ClassDataDto">
-   	  <result column="CLASS_NUM" property="class_num" />
-   	  <result column="DATA_DATA" property="data_data" />
-   </resultMap>
-   
-   <resultMap type="ClassInfoDto" id="ClassInfoDto">
-      <result column="CLASS_NUM" property="class_num" />
-      <result column="CLASS_TITLE" property="class_title" />
-      <result column="CLASS_AUTHOR" property="class_author" />
-      <result column="CLASS_INTRO" property="class_intro" />
-      <result column="CLASS_STUDENTLEVEL" property="class_studentlevel" />
-      <result column="CLASS_CATEGORY" property="class_category" />
-      <collection property="classdataDto" resultMap="ClassDataDto">
-   </resultMap> -->
-   
-   <select id="classinfoselectlist" resultType="ClassInfoDto">
-      SELECT * FROM CLASS_INFO
-   </select>
-   
-   <select id="classinfoselectone" parameterType="map" resultType="ClassInfoDto">
-   	  SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
-   </select>
-   
-   <select id="classdataselectone" parameterType="map" resultType="ClassDataDto">
-	  SELECT DATA_DATA FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
-   </select>
-   
-   <insert id="classdatainsert" parameterType="ClassDataDto">
-      INSERT INTO CLASS_DATA VALUES(CLASS_DATA_SQ.NEXTVAL, #{data_subhead }, #{data_sq }, #{data_title }, #{data_data })
-   </insert>
-   
-   <insert id="ClassInfoDtoInsert" parameterType="ClassInfoDto">
-      INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL, #{class_title }, #{class_author }, #{class_intro }, #{class_rating }, #{class_price }, 0, #{class_studentlevel }, #{class_category })
-   </insert>
-
 
 <!-- 회원가입 및 체크 -->
 	

@@ -35,10 +35,53 @@
       <div class="col-md-8">
         <div class="row">
           <div class="section-title">
-            <h2>Get In Touch</h2>
-            <p>Please fill out the form below to send us an email and we will get back to you as soon as possible.</p>
+            <h2>SiteMap</h2>
+            <div id="contact-category" class="row">
+            	<div class="col-md-8">
+            		<div class="row">
+            			<p>분야별 강좌</p>
+            			<div class="col-md-4">
+            				<p>서버</p>
+            				<ul class="sitemap-list">
+		            			<li><p>- <a href="">Back End</a></p></li>
+		            			<li><p>- <a href="">Linux</a></p></li>
+		            			<li><p>- <a href="">Nodejs</a></p></li>
+		            			<li><p>- <a href="">Expressjs</a></p></li>
+		            			<li><p>- <a href="">C#</a></p></li>
+		            			<li><p>- <a href="">MYSQL</a></p></li>
+		            		</ul>
+            			</div>
+            			<div class="col-md-4">
+            		 		<p>웹개발</p>
+		            		<ul class="sitemap-list">
+		            			<li><p>- <a href="">Front End</a></p></li>
+		            			<li><p>- <a href="">html/css</a></p></li>
+		            			<li><p>- <a href="">javascript</a></p></li>
+		            			<li><p>- <a href="">Angular</a></p></li>
+		            			<li><p>- <a href="">Reactjs</a></p></li>
+		            			<li><p>- <a href="">Vuejs</a></p></li>
+		            		</ul>
+            			</div>
+            			<div class="col-md-4">
+            				<p>데이터베이스</p>
+		            		<ul class="sitemap-list">
+		            			<li><p>- <a href="">Oracle</a></p></li>
+		            			<li><p>- <a href="">PL/SQL</a></p></li>
+		            			<li><p>- <a href="">MySQL</a></p></li>
+		            			<li><p>- <a href="">MongoDB</a></p></li>
+		            		</ul>
+            			</div>
+            		</div>
+				</div>
+            	<div class="col-md-3">
+            		<ul>
+            			<li class="contact-nav-menu"><p><a href="">로드맵 학습</a></p></li>
+            			<li class="contact-nav-menu"><p><a href="">아웃프런 소개</a></p></li>
+            			<li class="contact-nav-menu"><p><a href="">라이브</a></p></li>
+            		</ul>
+            	</div>
+            </div>
           </div>
-          Someting here
         </div>
       </div>
       <div class="col-md-3 col-md-offset-1 contact-info">
@@ -51,19 +94,7 @@
           <p><span><i class="fa fa-phone"></i> Phone</span> +1 123 456 1234</p>
         </div>
         <div class="contact-item">
-          <p><span><i class="fa fa-envelope-o"></i> Email</span> info@company.com</p>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="row">
-          <div class="social">
-            <ul>
-              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-              <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-            </ul>
-          </div>
+          <p><span><i class="fa fa-envelope"></i> Email</span> info@company.com</p>
         </div>
       </div>
     </div>

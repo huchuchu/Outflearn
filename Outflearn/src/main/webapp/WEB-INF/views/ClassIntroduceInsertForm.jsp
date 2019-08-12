@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+</head>
+<body>
 <!-- Favicons ================================================== -->
 <link rel="shortcut icon" href="resources/img/favicon.ico"
 	type="image/x-icon">
@@ -42,6 +44,27 @@
 <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
 <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
+
+<!-- 써머노트 -->
+<!-- include libraries(jQuery, bootstrap) --> 
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> 
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+
+<!-- include summernote css/js--> 
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet"> 
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
+
+<script type="text/javascript">
+$(function() {
+	  $('#summernote').summernote({
+		width: 70%,
+	    height: 300,
+	    lang: 'ko-KR' // 언어 세팅
+	  });
+	});
+</script>
 
 </head>
 
@@ -87,80 +110,30 @@
 		</div>
 	</nav>
 	
-		
-
-		<br/><br/><br/>
-		<div class="row">
+	<br/><br/><br/>
+	<div class="row">
 			<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">
-						<li class="list-group-item-success"><h3>강의 소개</h3></li>
-						<li class="nav-link active"><h3>강의 내용</h3></li>
+						<li class="nav-link active"><h3>강의 소개</h3></li>
+						<li class="list-group-item-success"><h3>강의 내용</h3></li>
 						<li class="nav-link active"><h3>영상 소개</h3></li>
 						<li class="nav-link active"><h3>영상 추가</h3></li>
 			</ul>
 				<div class="col-sm-6 col-el-8">
-		<form:form action="ClassIntroduceInsertForm" method="post">
-	
-	
-			<div class="input-group">
-				<h1>강의 소개 </h1>
-			</div>
-	
-			<div class="form-group">
-				<h3>강의 제목을 입력해주세요</h3>
-				<input type="text" class="form-control" name="class_title" placeholder="제목을 입력해주세요.">
-			</div>
-	
-			<div class="form-group">
-				<h3>강사명</h3>
-				<input type="text" class="form-control" name="class_author">
-			</div>
+	<form:form action="ClassIntroduceInsertForm" method="post">
 			
 			<div class="input-group">
-				<h3>실시간 여부</h3>
-				<input type="text" class="form-control" name="class_live" placeholder="Y or N 입력해주세요." >
+				<h1>강의 내용 </h1>
 			</div>
 			
-			<div class="form-group">
-				<h3>가격</h3>
-				<input type="text" class="form-control" name="class_price" placeholder="숫자만 입력해주세요." >
-			</div>
+			<div class="form-group" id="summernote"></div>
 			
-			<div class="input-group col-xs-4">
-				<h3>수강 대상</h3>
-				<select name="class_studentlevel" class="alert alert-success">
-					<option value="초급자">초급자</option>
-					<option value="중급자">중급자</option>
-					<option value="상급자">상급자</option>
-				</select>
-			</div>
-			
-			<div class="input-group col-xs-4">
-				<h3>카테고리</h3>
-				<select name="class_category" class="alert alert-success ">
-					<option value="JAVA">JAVA</option>
-					<option value="JSP/Servlet">JSP/Servlet</option>
-					<option value="Spring Framework">Spring Framework</option>
-					<option value="DB">DB</option>
-					<option value="UI">UI</option>
-				</select>
-			</div>
-			
-			<div class="form-group">
-				<h3>강좌 소개</h3>
-				<textarea name="class_intro" class="form-control" rows="5" cols="10" placeholder="강좌에 대해서 설명해주세요."></textarea>
-			</div>
-			
-			<div class="form-group">
-				<input type="submit" class="add_field_button btn btn-success btn-md" value="다음"> 
-				<input type="button" class="add_field_button btn btn-success btn-md" onclick="location.href='LectureList'" value="취소">
-			</div>
 		</form:form>
+		</div>
 	</div>
-			</div>
-   
-		
-
-	<!-- Footer Section -->
+	
+	
+			
+<!-- Footer Section -->
 	<div id="footer">
 		<div class="container text-center">
 			<p>

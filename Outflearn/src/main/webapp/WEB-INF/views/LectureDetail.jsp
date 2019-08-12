@@ -34,8 +34,8 @@
 			<div class="col-md-6">
 				<h3>${classinfo.class_title }</h3>
 				<div>
-					<p>평점<input type="hidden" value="${classinfo.class_rating }"></p>
-					<p>수강생</p>
+					<p id="rating-tag"><input type="hidden" id="rating" value="${classinfo.class_rating }">(수강평)</p>
+					<p id="count-tag">수강생  : ${classinfo.class_subcount }</p>
 					<div class="progress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="2"
 							aria-valuemin="0" aria-valuemax="100"
@@ -63,10 +63,13 @@
 								<span><i class="fab fa-leanpub pull-right"></i></span>
 							</p>
 							<p class="profile-border">
-								<span id="count"></span>개 수업
+								<span id="count"></span>
 								<span><i class="fas fa-book-open pull-right"></i></span>
 							</p>
-							<p id="timer" class="profile-border"><i class="fas fa-hourglass-half pull-right"></i></p>
+							<p class="profile-border">
+								<span id="timer"></span>
+								<span><i class="fas fa-hourglass-half pull-right"></i></span>
+							</p>
 						</div>
 					</div>
 				</div>

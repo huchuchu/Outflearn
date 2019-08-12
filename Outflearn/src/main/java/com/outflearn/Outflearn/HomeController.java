@@ -1,9 +1,5 @@
  package com.outflearn.Outflearn;
 
-import java.util.ArrayList;
-
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,11 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
 
 /**
@@ -48,9 +44,13 @@ public class HomeController {
 
 
 	@RequestMapping("/LectureList")
-	public String LectureList(Model model) {
+	public String LectureList(String class_category, Model model) {
 
-		model.addAttribute("classinfo", biz.ClassInfoSelectList());
+		if(class_category != null) {
+			model.addAttribute("classinfo", biz.CategorySelectList(class_category));
+		} else {
+			model.addAttribute("classinfo", biz.ClassInfoSelectList());
+		}
 
 		return "LectureList";
 	}
@@ -69,11 +69,8 @@ public class HomeController {
 	public String DetailDashBoard(Model model, HttpSession session) {
 
 		int info_num = (int) session.getAttribute("info_num");
-		System.out.println("변환하지 않은 거 :" + session.getAttribute("info_num"));
-		System.out.println("변환한 것 : " + info_num);
 
 		ClassDataDto dto = biz.ClassDataSelectOne(info_num);
-		System.out.println("controller : " + dto.toString());
 
 		return dto.getData_data();
 	}
@@ -84,17 +81,36 @@ public class HomeController {
 	}
 
 	@RequestMapping("ClassInfoInsertForm")
-	public void ClassInfoInsertForm() {
+	public String ClassInfoInsertForm() {
 		logger.info("ClassInfoInsertForm");
 		System.out.print("여기는 왔어");
+		
+		return "ClassInfoInsertForm";
 	}
-
-//	ClassInfoInsertForm.jsp - > DataVideoUploadForm.jsp  CLASS_DATA DB 저장
-	@RequestMapping("DataVideoUploadForm")
-	public String DataVideoUploadForm(@ModelAttribute ClassInfoDto dto) {
-		logger.info("DataVideoUploadForm");
+	
+	
+//	ClassInfoInsertForm.jsp - > ClassIntroduceInsertForm.jsp  CLASS_DATA DB 저장
+	@RequestMapping("ClassIntroduceInsertForm")
+	public String ClassIntroduceInsertForm(@ModelAttribute ClassInfoDto dto) {
+		logger.info("ClassIntroduceInsertForm");
 
 		int res = biz.ClassInfoInsert(dto);
+
+		if (res > 0) {
+			return "ClassIntroduceInsertForm";
+		} else {
+			
+			return "redirect: ClassIntroduceInsertForm";
+		}
+	}
+	
+
+//	ClassIntroduceInsertForm.jsp - > DataVideoUploadForm.jsp  CLASS_INTRODUCE DB 저장
+	@RequestMapping("DataVideoUploadForm")
+	public String DataVideoUploadForm(@ModelAttribute ClassIntroduceDto dto) {
+		logger.info("DataVideoUploadForm");
+
+		int res = biz.ClassIntroduceInsert(dto);
 
 		if (res > 0) {
 			return "DataVideoUploadForm";
@@ -111,7 +127,7 @@ public class HomeController {
 		
 		int res = 0;
 		
-		String a = dto.getData_data();
+		String a = dto.getData_youtube();
 		String b = "";
 		if (a.contains("v=")) {
 			b = a.split("v=")[1];
@@ -127,7 +143,7 @@ public class HomeController {
 	
 		 
 		if (res > 0) {
-			return "DataVideoUploadForm";
+			return "DataVideoUploadFormPlus";
 		} else {
 			return "redirect: DataVideoUploadForm";
 		}
@@ -143,10 +159,12 @@ public class HomeController {
 	
 //	직접 영상 업로드 팝업창 파일 받아옴
 	@RequestMapping("ClassUpload")
-	public String ClassUpload(@ModelAttribute ClassDataDto dto) {
-	
-		int res = biz.ClassDataInsert(dto);
+	public String ClassUpload(@ModelAttribute ClassDataDto dto, HttpSession session) {
 		
+		System.out.println("11111111111111 "+ dto.getData_chapter());
+		int res = biz.ClassDataUpdate(dto);
+		session.setAttribute("data_youtube", dto.getData_chapter());
+		System.out.println("2222222222222" + dto.getData_chapter());
 		return "home";
 	}
 	
@@ -155,13 +173,14 @@ public class HomeController {
 	public void DataVideoUploadFormPlus() {
 		
 	}
-	
+
+//	영상 소개페이지에서 
 	@RequestMapping("DataVideoUploadPlus")
 	public String DataVideoUploadPlus(@ModelAttribute ClassDataDto dto ,HttpSession session, Model model) {
 		
 		int res = 0;
 		
-		String a = dto.getData_data();
+		String a = dto.getData_youtube();
 		String b = "";
 		if (a.contains("v=")) {
 			b = a.split("v=")[1];
@@ -215,6 +234,14 @@ public class HomeController {
 	@RequestMapping("introOutflearn")
 	public void introOutflearn() {
 		
+	}
+	
+	@RequestMapping("LectureList/LectureCategory")
+	public String LectureCategory(String class_category, Model model) {
+		
+		model.addAttribute("classinfo", biz.CategorySelectList(class_category));
+		
+		return "LectureList";
 	}
 
 

@@ -1,7 +1,7 @@
 $(document).ready(function () {
 	
+    rating_star($('#rating').val())
     
-	
 	var _class_num = $('#selectone').val()
 	var playlist = '';
 	var playlist_id = '';
@@ -13,7 +13,7 @@ $(document).ready(function () {
 			success: function(play_id) {
 				playlist_id = play_id
 				playlist = "https://www.googleapis.com/youtube/v3/playlistItems?playlistId=" + play_id + "&part=contentDetails,snippet&maxResults=11&key=AIzaSyAKpVZhMIKzF0zAD17yeVygQWNfL7MCCzc";
-				getPlayList(playlist, playlist_id);
+				Dashboard(playlist, playlist_id);
 			},
 			error: function(err) {
 				console.log('실패!!')
@@ -27,9 +27,9 @@ $(document).ready(function () {
         $(this).css({ 'border-bottom': '2px solid #6473ff' });
         $(this).parents().siblings().children().css({ 'border-bottom': '' });
         if ($(this).text() == '대쉬보드') {
-            getPlayList(playlist, playlist_id);
+            Dashboard(playlist, playlist_id);
         } else if ($(this).text() == '강좌소개') {
-            $('#page-switch').html('abc');
+            LectureIntro(playlist);
         } else if ($(this).text() == '질문&답변') {
             $('#page-switch').html('def');
         } else {
@@ -42,15 +42,16 @@ $(document).ready(function () {
 
 })
 
-function getPlayList(video_list, playlist_id) {
+function Dashboard(video_list, playlist_id) {
 	$.ajax({
         type: 'GET',
         dataType: 'JSON',
         url: video_list,
         success: function (vi_list) {
 
-        	console.log(vi_list.items[0].snippet.thumbnails.high.url)
         	$('#jumbo_row > img').attr('src', vi_list.items[0].snippet.thumbnails.high.url)
+        	
+        	
         	
         	var count = 0;
         	var timer = 0;
@@ -112,10 +113,37 @@ function getPlayList(video_list, playlist_id) {
             	timer = "총 " + hour + "시간 " +  min + "분 " + sec + "초";
             }
             
-            $('#count').append(count);
-            $('#timer').append(timer);
-            $('#page.switch').append("</table></div>")
+            $('#count').html(`${count} 개 수업`)
+            $('#timer').html(`${timer}`)
+            $('#page-switch').append("</table></div>")
 
+        },
+        error: function (err) {
+            alert('callback hell!!!!!');
+        }
+    })
+}
+
+function LectureIntro(video_list) {
+	$.ajax({
+        type: 'GET',
+        dataType: 'JSON',
+        url: video_list,
+        success: function (vi_list) {
+
+        	$('#jumbo_row > img').attr('src', vi_list.items[0].snippet.thumbnails.high.url)
+        	
+        	
+            var video_id = vi_list.items[5].snippet.resourceId.videoId
+            console.log(vi_list.items[0].contentDetails.endAt)
+        	
+        	$('#page-switch').html(
+        			`<iframe id="player" type="text/html" style="width: 100%; height: 100%; max-width: 900px;"
+                    src="http://www.youtube.com/embed/${video_id}?end=61&enablejsapi=1&origin=http://example.com"
+                    frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" 
+                    msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>`
+        	)
+                
         },
         error: function (err) {
             alert('callback hell!!!!!');
@@ -158,4 +186,30 @@ function splitTime(duration) {
         splitDu = splitDu.replace('S', '')
         return splitDu;
     }
+}
+
+function rating_star(rating) {
+	if(rating >= 0 && rating < 0.5) {
+		return $('#rating-tag').prepend(`<span><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="fas fa-star-half-alt"></i></span>`)
+	} else if(rating >= 0.5 && rating < 1) {
+		return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
+	} else if(rating >= 1 && rating < 1.5) {
+		return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
+	} else if(rating >= 1.5 && rating < 2) {
+		return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
+	} else if(rating >= 2 && rating < 2.5) {
+		return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
+	} else if(rating >= 2.5 && rating < 3) {
+		return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
+	} else if(rating >= 3 && rating < 3.5) {
+		return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i></span>`)
+	} else if(rating >= 3.5 && rating < 4) {
+		return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span>`)
+	} else if(rating >= 4 && rating < 4.5) {
+		return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>`)
+	} else if(rating >= 4.5 && rating <= 5) {
+		return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>`)
+	} else {
+		return $('#rating-tag').prepend(`다시`)
+	}
 }

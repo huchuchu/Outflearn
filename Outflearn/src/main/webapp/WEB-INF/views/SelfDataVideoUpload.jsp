@@ -11,6 +11,7 @@
 	<br/><br/><br/>
 	<form action="ClassUpload" enctype="multipart/form-data" method="get">
 	<input type="hidden"  name="${_csrf.parameterName }" value="${_csrf.token }">
+	<input type="hidden"  name="data_chapter" />
 	
 		<div class="form-group">
 			<h3>업로드 할 파일 선택</h3>
@@ -18,7 +19,7 @@
 		</div>
 		
 		<div class="form-group">
-			<input type="submit" value="전송" onclick="alert('업로드가 완료되었습니다.');  window.close();" ">
+			<input type="submit" value="전송" onclick="alert('업로드가 완료되었습니다.');  window.close();" >
 		</div>
 	</form> 
 	

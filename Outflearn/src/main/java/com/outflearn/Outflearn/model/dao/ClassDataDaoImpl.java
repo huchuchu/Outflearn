@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 
 @Repository
 public class ClassDataDaoImpl implements ClassDataDao {
@@ -95,6 +96,23 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 		return list;
 	}
+	
+	@Override
+	public List<ClassInfoDto> CategorySelectList(String class_category) {
+		
+		List<ClassInfoDto> list = new ArrayList<ClassInfoDto>();
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("class_category", class_category);
+		
+		try {
+			list = sqlSession.selectList(namespace + "CategorySelectList", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 
 	@Override
 	public ClassInfoDto ClassInfoSelectOne(int class_num) {
@@ -130,6 +148,39 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	@Override
 	public int ClassInfoDelete(String class_title) {
 		
+		return 0;
+	}
+
+//	--------------------------------------------------- 강좌 데이터
+	@Override
+	public List<ClassIntroduceDto> ClassIntroduceSelectList() {
+	
+		return null;
+	}
+
+	@Override
+	public ClassInfoDto ClassIntroduceSelectOne(int class_num) {
+		
+		return null;
+	}
+
+	@Override
+	public int ClassIntroduceInsert(ClassIntroduceDto dto) {
+		
+	
+		
+		return 0;
+	}
+
+	@Override
+	public int ClassInfoUpdate(ClassIntroduceDto dto) {
+	
+		return 0;
+	}
+
+	@Override
+	public int ClassIntroduceDelete(String class_content) {
+	
 		return 0;
 	}
 

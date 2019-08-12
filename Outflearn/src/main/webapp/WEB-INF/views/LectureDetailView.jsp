@@ -53,12 +53,15 @@
                         <span><i class="far fa-times-circle"></i></span>
                         <span><i class="far fa-question-circle"></i></span>
                     </div>
-                </div>
             </nav>
             <div id="content">
             	<p align="center" id="content-media">
             		<input type="hidden" id="video_id" value="${DATA_DATA }">
             	</p>
+            </div>
+            <div id="bookmark_group" class="text-center">
+            	<button onclick="bookmark()" style="position: relative">책갈피</button>
+            	<div id="bookmark" style="width: 100%; height: 200px; overflow-y: scroll;"></div>
             </div>
         </div>
     </div>

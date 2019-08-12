@@ -69,8 +69,6 @@ function main() {
 			return false;
 		}
 	);
-	
-	$('#main-body').css({'position': 'relative','top': $('')})
 }
 
 main();
