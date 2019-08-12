@@ -38,9 +38,12 @@ margin-top: -20%;
     background: #fff;
     -webkit-appearance: none;
     background-color: white;
+    
+    padding-left: 2%;
 
 
 }
+
 
  #submitBTN{ 
  	background:#6372ff; 
@@ -59,6 +62,9 @@ margin-top: -20%;
  	background:#fff; 
  	color:#6372ff; 
  } 
+ 
+
+
  
 
 }
