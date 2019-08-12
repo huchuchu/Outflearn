@@ -59,8 +59,8 @@
 <script type="text/javascript">
 $(function() {
 	  $('#summernote').summernote({
-		width: 70%,
-	    height: 300,
+		width : 1000,
+	    height: 500,
 	    lang: 'ko-KR' // 언어 세팅
 	  });
 	});
@@ -70,47 +70,8 @@ $(function() {
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-
-	<!-- ==========================================Navigation==========================================-->
-	<nav id="menu" class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand page-scroll" href="#page-top"
-					style="color: #6372ff">Outflearn</a>
-			</div>
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-center">
-					<li><a href="LectureList">강좌 둘러보기</a></li>
-					<li><a href="void:0">로드맵 학습</a></li>
-					<li><a href="void:0">아웃프런 소개</a></li>
-					<li><a href="void:0">라이브</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="void:0" class="dropdown-toggle"
-						data-toggle="dropdown"><i class="far fa-user"
-							style="color: #6372ff"></i>
-							<div class="dropdown-menu" role="menu"
-								aria-expanded="navbarDropdown">
-								<a href="void:0">로그아웃</a>
-							</div> </a></li>
-					<li><a href="/Outflearn/login">로그인</a></li>
-					<li><a href="void:0">회원가입</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
 	
-	<br/><br/><br/>
 	<div class="row">
 			<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">
 						<li class="nav-link active"><h3>강의 소개</h3></li>
@@ -119,46 +80,37 @@ $(function() {
 						<li class="nav-link active"><h3>영상 추가</h3></li>
 			</ul>
 				<div class="col-sm-6 col-el-8">
-	<form:form action="ClassIntroduceInsertForm" method="post">
+	<form:form action="DataVideoUploadForm" method="post" >
 			
 			<div class="input-group">
 				<h1>강의 내용 </h1>
 			</div>
 			
-			<div class="form-group" id="summernote"></div>
+			<div class="form-group">
+				<textarea id="summernote" name="class_content"></textarea>
+			</div>
+	
 			
-		</form:form>
-		</div>
+			<div class="form-group">
+				<input type="submit" class="add_field_button btn btn-success btn-md" value="다음"> 
+				<input type="button" class="add_field_button btn btn-success btn-md" onclick="location.href='LectureList'" value="취소">
+			</div>
+	</form:form>
+			</div>
 	</div>
 	
 	
 			
 <!-- Footer Section -->
-	<div id="footer">
-		<div class="container text-center">
-			<p>
-				Shared by <i class="fa fa-love"></i><a
-					href="https://bootstrapthemes.co">BootstrapThemes</a>
-			</p>
-		</div>
-	</div>
+	<jsp:include page="footer/Footer.jsp"></jsp:include>
 	
-
-	<script type="text/javascript"
-		src="resources/js/template/jquery.1.11.1.js"></script>
-	<!-- 라이브러리 충돌해결 -->
 	<script>
-		var jb = jQuery.noConflict();
+		jQuery.noConflict();
 	</script>
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
-	<script type="text/javascript"
-		src="resources/js/template/nivo-lightbox.js"></script>
-	<script type="text/javascript"
-		src="resources/js/template/jqBootstrapValidation.js"></script>
-	<script type="text/javascript"
-		src="resources/js/template/contact_me.js"></script>
+	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
+	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
+	<script type="text/javascript" src="resources/js/template/contact_me.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
-	
 </body>
-
 </html>

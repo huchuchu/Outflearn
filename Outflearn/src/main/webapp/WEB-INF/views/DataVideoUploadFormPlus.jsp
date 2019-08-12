@@ -32,6 +32,7 @@
 	<script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 <!-- ======================================================jQuery -->
 <script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
       
 // 직접 파일 업로드 
@@ -43,7 +44,7 @@
 
           }
 
-//		    작성 버튼 눌렀을시 추가 사항이 있는지 알람
+       // 작성 버튼 눌렀을시 추가 사항이 있는지 알람
           function clearalert(){
         		alert("추가 작성 없을시 '게시판 넘기기' 클릭");
         	}
@@ -51,43 +52,9 @@
            
 </script>
 </head>
-<body>
-	<!-- ==========================================Navigation==========================================-->
-	<nav id="menu" class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-					data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand page-scroll" href="#page-top" style="color: #6372ff">Outflearn</a>
-			</div>
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-center">
-					<li><a href="LectureList">강좌 둘러보기</a></li>
-					<li><a href="void:0">로드맵 학습</a></li>
-					<li><a href="void:0">아웃프런 소개</a></li>
-					<li><a href="void:0">라이브</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="void:0" class="dropdown-toggle" data-toggle="dropdown"><i
-								class="far fa-user" style="color: #6372ff"></i>
-							<div class="dropdown-menu" role="menu" aria-expanded="navbarDropdown">
-								<a href="void:0">로그아웃</a>
-							</div>
-						</a></li>
-					<li><a href="/Outflearn/login">로그인</a></li>
-					<li><a href="void:0">회원가입</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-<br/><br/><br/>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+	
+	<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
 	
 	<div class="form-group">
 		<h1>영상 소개</h1>
@@ -96,11 +63,13 @@
 	<div class="row">
 			<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">
 				<li class="nav-link active"><h3>강의 소개</h3></li>
+				<li class="nav-link active"><h3>강의 내용</h3></li>
 				<li class="nav-link active"><h3>영상 소개</h3></li>
 				<li class="list-group-item-success"><h3>영상 추가</h3></li>
 			</ul>
 	<div class="col-sm-6 col-el-8">
-		<form:form action="DataVideoUploadPlus" method="post" onsubmit="return clearalert();" >
+		
+	<form:form action="DataVideoUploadPlus" method="post" onsubmit="return clearalert();" >
 		 
 		
 		<div class="form-group">
@@ -114,7 +83,7 @@
 		</div>
 	
 		<div class="form-group">	
-			<h3>영상 링크 </h3>         
+			<h3>유튜브영상 링크</h3>         
             <input type="text" name="data_youtube" class="form-control" placeholder="${classdata.data_data }"/>
        	</div>
        	
@@ -134,17 +103,12 @@
 	
 		
 	<!-- Footer Section -->
-	<div id="footer">
-		<div class="container text-center">
-			<p>
-				Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
-			</p>
-		</div>
-	</div>
+	<jsp:include page="footer/Footer.jsp"></jsp:include>
 	
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
 	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
+	
 </body>
 </html>

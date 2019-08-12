@@ -8,6 +8,7 @@ import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.LiveDto;
 import com.outflearn.Outflearn.dto.connectUserClass;
+import com.outflearn.Outflearn.dto.ClassReviewDto;
 
 public interface ClassDataDao {
 	
@@ -17,6 +18,7 @@ public interface ClassDataDao {
 	public List <ClassDataDto> ClassDataSelectList();
 	public ClassDataDto ClassDataSelectOne(int class_num);
 	public int ClassDataInsert(ClassDataDto dto);
+	public int classDataSelfInsert(ClassDataDto dto);
 	public int ClassChapterDataInsert(ClassDataDto dto);
 	public int ClassDataUpdate(ClassDataDto dto);
 	public int ClassDataDelete(String data_subhead);
@@ -43,5 +45,14 @@ public interface ClassDataDao {
 	// MyPage
 	public List<ClassInfoDto> getWishList(int user_num);
 	public List<ClassInfoDto> getSubscribe(int user_num);
+
+	// 댓글 - CLASS_REVIEW 테이블
+	public List <ClassReviewDto> ClassReviewSelectList(int class_num);
+	public ClassReviewDto ClassReviewSelectOne(int board_no);
+	public int ClassReviewInsert(ClassReviewDto dto);
+	public int ClassReviewUpdate(ClassReviewDto dto);
+	public int ClassReviewDelete(int board_no);
 	
+	public int ClassReviewUpdateAnswer(int board_no);
+	public int ClassReviewInsertAnswer(ClassReviewDto dto);
 }
