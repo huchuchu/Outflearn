@@ -53,16 +53,24 @@
 
 			<form method="post" action="${pageContext.request.contextPath}/register.do" onsubmit="return formsubmit();">
            	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">		
-					<div class="formgroup">
-                        <label class="memlabel" for="inputName">아이디</label>
-                        <input type="text" class="form-control"  name="user_id" id="inputName" placeholder="아이디를 입력해 주세요" required />
+					
+					<div class="form-group form-inline">
+                       <div class="form-group">
+                        	<div>
+                        		<label class="memlabel" for="inputName">아이디</label>
+							</div>
+							<div>
+                       			<input type="text" class="form-control"  name="user_id" id="inputName" placeholder="아이디를 입력해 주세요" required />
 								<div id="id_confirm"></div>
-								<div class="form-group text-center" >
-									<button type="button" id="btn_idcheck" class="btn-member" onclick="id_check()" >중복확인</button>
-									<p class="result">
-									<span class="msg"></span>
+							</div>
+						</div>
+							<div class="form-group text-center" >
+								<button type="button" id="btn_idcheck" class="btn-member" onclick="id_check()" >중복확인</button>
+								<p class="result">
+								<span class="msg"></span>
 								</p>
-								</div>
+							</div>
+					
 					</div>
 					<div class="form-group">
                         <label class="memlabel"for="inputPassword">비밀번호</label>

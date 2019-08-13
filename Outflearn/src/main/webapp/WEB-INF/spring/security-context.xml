@@ -57,7 +57,7 @@
 		<remember-me key="myAppKey"/>
 		
 		<!-- csrf방지 무효화 -->
-<!-- 		<csrf disabled="true"/> -->
+		<csrf disabled="true"/>
 	</http>
 	
 	<authentication-manager>
