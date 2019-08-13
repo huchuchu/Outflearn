@@ -112,5 +112,12 @@
 	<select id="getSubscribe" resultType="ClassInfoDto" parameterType="int">
 		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM SUBSCRIBE WHERE USER_NUM = #{user_num})
 	</select>
+	
+	<select id="liveRooms" resultType="ClassInfoDto" parameterType="map">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN
+		<foreach collection="liveRooms" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+	</select>
 
 </mapper>

@@ -2,6 +2,7 @@ package com.outflearn.Outflearn;
 
 import java.util.List;
 
+
 import java.util.Map;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,7 +38,6 @@ import com.outflearn.Outflearn.dto.ClassUploadDto;
 import com.outflearn.Outflearn.dto.FileUpload;
 import com.outflearn.Outflearn.dto.FileValidator;
 import com.outflearn.Outflearn.dto.UserInfoDto;
-import com.outflearn.Outflearn.dto.liveRoomsDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
 import com.outflearn.Outflearn.service.KakaoRestapi;
 
@@ -290,11 +290,9 @@ public class HomeController {
 	
 	@RequestMapping("liveRooms")
 	@ResponseBody
-	public List<ClassInfoDto> liveRooms(){
+	public List<ClassInfoDto> liveRooms(String[] liveRooms){
 		
-		System.out.println();
-		
-		return null;
+		return biz.liveRooms(liveRooms);
 	}
 	
 	

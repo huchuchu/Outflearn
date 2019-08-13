@@ -30,13 +30,18 @@
   <jsp:include page="header/LectureListHeader.jsp"></jsp:include>
 
   <div class="container">
+
     <div class="row">
+
       <aside class="col-sm-2">
-        <div id="side_category">
+
+        <div class="side_category">
           <ul class="nav flex-column text-center">
-            <li class="nav-item side_menu">
-              <a href="void:0">마이페이지</a>
+
+            <li class="nav-item side_menu select">
+              <a href="void:0" class="selectMenu">대시보드</a>
             </li>
+
             <li class="nav-item side_menu">
               <a href="void:0">내 강좌</a>
               <ul class="inner_menu">
@@ -44,15 +49,18 @@
                 <li><a href="void:0">위시리스트</a></li>
               </ul>
             </li>
+
             <li class="nav-item side_menu">
               <a href="void:0">로드맵</a>
               <ul class="inner_menu">
                 <li><a href="void:0">참여중인 로드맵</a></li>
               </ul>
             </li>
+
             <li class="nav-item side_menu">
               <a href="void:0">내 질문</a>
             </li>
+
             <li class="nav-item side_menu">
               <a href="void:0">설정</a>
               <ul class="inner_menu">
@@ -60,12 +68,24 @@
                 <li><a href="void:0">알림 설정</a></li>
               </ul>
             </li>
+
           </ul>
         </div>
+
+        <div class="side_category live">
+          <ul class="nav flex-column text-center">
+            <li class="nav-item side_menu">
+              <a href="casterRoom">방송하기</a>
+              <p>강사만 보이게</p>
+            </li>
+          </ul>
+        </div>
+
       </aside>
+
       <div class="col-sm-10">
         <div class="page-header">
-          <h1 id="page-header-content">마이 페이지</h1>
+          <h1 id="page-header-content">대시보드</h1>
         </div>
         <article>
           <div class="page-body">
@@ -79,7 +99,9 @@
                 </div>
               </div>
             </div>
+
             <div class="row">
+
               <div class="col-sm-6">
                 <div class="boardBox">
                   <h4 class="boxTitle">내 프로필</h4>
@@ -93,6 +115,7 @@
                   </p>
                 </div>
               </div>
+
               <div class="col-sm-6">
                 <div class="boardBox">
                   <h4 class="boxTitle">위시리스트</h4>
@@ -101,19 +124,25 @@
                   </c:forEach>
                 </div>
               </div>
+
             </div>
+
             <div class="row">
+
               <div class="col-sm-6">
                 <div class="boardBox">
                   <h4 class="boxTitle">참여중인 로드맵</h4>
                 </div>
               </div>
+
               <div class="col-sm-6">
                 <div class="boardBox">
                   <h4 class="boxTitle">최근 내 질문</h4>
                 </div>
               </div>
+
             </div>
+
           </div>
         </article>
       </div>

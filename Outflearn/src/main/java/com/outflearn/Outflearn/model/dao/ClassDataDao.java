@@ -42,6 +42,7 @@ public interface ClassDataDao {
 	public List<LiveDto> liveCalendar();
 	public ClassInfoDto livePopup(int live_num);
 	public List<ClassInfoDto> getMyClass(int user_num);
+	public List<ClassInfoDto> liveRooms(String[] liveRooms);
 	
 	// MyPage
 	public List<ClassInfoDto> getWishList(int user_num);

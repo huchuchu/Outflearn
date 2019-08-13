@@ -229,12 +229,14 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	public List<ClassInfoDto> getWishList(int user_num) {
 		return sqlSession.selectList(namespace + "getWishList", user_num);
 	}
-
-	public ClassReviewDto ClassReviewSelectOne(int board_no) {
-
-		ClassReviewDto dto = sqlSession.selectOne(namespace + "classReviewSelectOne", board_no);
-
-		return dto;
+	
+	@Override
+	public List<ClassInfoDto> liveRooms(String[] liveRooms) {
+		
+		Map<String, String[]> map =  new HashMap<String, String[]>();
+		map.put("liveRooms", liveRooms);
+		
+		return sqlSession.selectList(namespace + "liveRooms", map);
 	}
 	
 	// --------------------------------------------------- 댓글
@@ -252,9 +254,14 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 				return list;
 	}
+	
+	@Override
+	public ClassReviewDto ClassReviewSelectOne(int board_no) {
 
+		ClassReviewDto dto = sqlSession.selectOne(namespace + "classReviewSelectOne", board_no);
 
-
+		return dto;
+	}
 
 
 	@Override
@@ -306,8 +313,6 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		
 		return res;
 	}
-
-
 
 
 }

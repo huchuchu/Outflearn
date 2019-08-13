@@ -11,6 +11,8 @@
     <title>Outflearn</title>
     
     <link rel="stylesheet" href="resources/js/broadcast/css/main.css" />
+    <!-- Sweet Alert2 -->
+	<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
 	
 </head>
 
@@ -35,6 +37,10 @@
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     
   	<script src="resources/js/broadcast/js/main.js"></script>
+  	
+  	<!-- Sweet Alert2 -->
+	<script src='resources/js/sweetalert/sweetalert2.min.js'></script>
+  	
     
 </body>
 

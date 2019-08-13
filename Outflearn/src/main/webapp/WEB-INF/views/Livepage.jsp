@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 
@@ -40,6 +41,7 @@
 	<!-- Sweet Alert2 -->
 	<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
 	<script src='resources/js/sweetalert/sweetalert2.min.js'></script>
+	
 	<!-- fullCalendar -->
 
 
@@ -65,44 +67,28 @@
 		<div class="page-header">
 			<h1 class="float-left">방송</h1>
 			<h3 class="m-0">
-				<span class="label bg-danger">LIVE</span>
-				<a href="/Outflearn/casterRoom"><span class="label bg-danger">TESTLIVE</span></a>
+				<span class="label bg-danger">LIVE</span> <a href="/Outflearn/casterRoom"><span
+						class="label bg-danger">TESTLIVE</span></a>
 			</h3>
 		</div>
-		<div id="demo" class="carousel slide" data-ride="carousel">
 
+		<div id="myCarousel" class="carousel slide" data-ride="carousel">
+			<!-- Indicators -->
+			<ol class="carousel-indicators">
+			</ol>
 
-
-			<!-- The slideshow -->
-			<!-- 
+			<!-- Wrapper for slides -->
 			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<img src="resources/img/cardpx.svg" alt="trash" style="height: 200px;">
-				</div>
-				<div class="carousel-item">
-					<img src="resources/img/cardpx.svg" alt="trash" style="width: 50%; height: 200px;"
-						class="float-left"> <img src="resources/img/cardpx.svg" alt="trash"
-						style="width: 50%; height: 200px;" class="float-left">
-				</div>
-				<div class="carousel-item">
-					<img src="resources/img/cardpx.svg" alt="trash" style="height: 200px;">
-				</div>
-				<div class="carousel-item">
-					<img src="resources/img/cardpx.svg" alt="trash" style="height: 200px;">
-				</div>
 			</div>
-			 -->
 
 			<!-- Left and right controls -->
-			<!-- 
-			<a class="carousel-control-prev" href="#demo" data-slide="prev">
-				<span class="carousel-control-prev-icon"></span>
-			</a> <a class="carousel-control-next" href="#demo" data-slide="next">
-				<span class="carousel-control-next-icon"></span>
+			<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left"></span> <span class="sr-only">Previous</span>
+			</a> <a class="right carousel-control" href="#myCarousel" data-slide="next"> <span
+					class="glyphicon glyphicon-chevron-right"></span> <span class="sr-only">Next</span>
 			</a>
-		 -->
-
 		</div>
+
 		<!--End off row-->
 	</div>
 

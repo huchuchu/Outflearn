@@ -159,6 +159,12 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public List<ClassInfoDto> getSubscribe(int user_num) {
 		return dao.getSubscribe(user_num);
 	}
+	
+	@Override
+	public List<ClassInfoDto> liveRooms(String[] liveRooms) {
+		return dao.liveRooms(liveRooms);
+	}
+	
 //	--------------------------------------------------- 댓글
 	@Override
 	public List<ClassReviewDto> ClassReviewSelectList(int class_num) {
@@ -202,6 +208,8 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		
 		return (ClassReviewUpdateAnswer + ClassReviewInsertAnswer);
 	}
+
+	
 
 		
 }
