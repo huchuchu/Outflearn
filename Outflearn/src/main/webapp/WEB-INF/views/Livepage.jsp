@@ -41,7 +41,7 @@
 	<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
 	<script src='resources/js/sweetalert/sweetalert2.min.js'></script>
 	<!-- fullCalendar -->
-	
+
 
 	<link href='resources/js/fullcalendar/core/main.css' rel='stylesheet' />
 	<link href='resources/js/fullcalendar/daygrid/main.css' rel='stylesheet' />
@@ -66,12 +66,15 @@
 			<h1 class="float-left">방송</h1>
 			<h3 class="m-0">
 				<span class="label bg-danger">LIVE</span>
-				<a href="Broadcast"><span class="label bg-danger">TESTLIVE</span></a>
+				<a href="/Outflearn/casterRoom"><span class="label bg-danger">TESTLIVE</span></a>
 			</h3>
 		</div>
 		<div id="demo" class="carousel slide" data-ride="carousel">
 
+
+
 			<!-- The slideshow -->
+			<!-- 
 			<div class="carousel-inner">
 				<div class="carousel-item active">
 					<img src="resources/img/cardpx.svg" alt="trash" style="height: 200px;">
@@ -88,13 +91,16 @@
 					<img src="resources/img/cardpx.svg" alt="trash" style="height: 200px;">
 				</div>
 			</div>
+			 -->
 
 			<!-- Left and right controls -->
+			<!-- 
 			<a class="carousel-control-prev" href="#demo" data-slide="prev">
 				<span class="carousel-control-prev-icon"></span>
 			</a> <a class="carousel-control-next" href="#demo" data-slide="next">
 				<span class="carousel-control-next-icon"></span>
 			</a>
+		 -->
 
 		</div>
 		<!--End off row-->
@@ -112,13 +118,18 @@
 
 
 	<jsp:include page="footer/Footer.jsp"></jsp:include>
+
+	<!-- Script -->
 	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
 	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
-	<!-- <script type="text/javascript" src="resources/js/template/contact_me.js"></script> -->
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
-	
+
+	<script src="https://localhost:3000/socket.io/socket.io.js"></script>
+	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+	<script src="resources/js/broadcast/js/roomList.js"></script>
+
 </body>
 
 </html>

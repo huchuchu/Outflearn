@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -7,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Outflearn</title>
-
-    <link rel="stylesheet" href="/css/main.css" />
-
+    
+    <link rel="stylesheet" href="resources/js/broadcast/css/main.css" />
+	
 </head>
 
 <body>
@@ -28,11 +30,11 @@
     </div>
 
     <!-- This file is automatically added/served when running "node index.js". -->
-  	<script src="https://192.168.10.139:3000/socket.io/socket.io.js"></script>
+  	<script src="https://localhost:3000/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     
-  	<script src="https://192.168.10.139:3000/js/main.js"></script>
+  	<script src="resources/js/broadcast/js/main.js"></script>
     
 </body>
 

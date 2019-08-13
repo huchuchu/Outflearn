@@ -14,7 +14,7 @@ const options = {
     key: fs.readFileSync('./key/server.key'),
     cert: fs.readFileSync('./key/server.cert')
 }
-
+/*
 app.get('/', function (req, res) {
     fs.readFile('./index.html', function (err, data) {
         if (err) {
@@ -50,6 +50,7 @@ app.get('/user', function (req, res) {
         }
     })
 })
+*/
 
 const server = https.createServer(options, app)
 
@@ -86,7 +87,7 @@ io.sockets.on('connection', function (socket) {
         io.to(id).emit('message', msg, socket.id)
     })
 
-    socket.on('create or join', function (name, room) {
+    socket.on('create or join', function (name, room, class_num) {
         log('create or join 요청 받음')
 
         var clientsInRoom = io.sockets.adapter.rooms[room]
@@ -107,7 +108,8 @@ io.sockets.on('connection', function (socket) {
 
             liveRooms.push({
                 'roomName': room,
-                'caster': socket.id
+                'caster': socket.id,
+                'class_num': class_num
             })
 
             socket.emit('created', room, socket.id)
@@ -142,6 +144,11 @@ io.sockets.on('connection', function (socket) {
                 break;
             }
         }
+    })
+
+    // Room List
+    socket.on('getLive', function () {
+        socket.emit('liveList', liveRooms)
     })
 
 })

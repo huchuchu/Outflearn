@@ -30,11 +30,13 @@ var sdpConstraints = {
 var room = 'foo'
 // var name = $('#userInfo').attr("name")
 var name = 'test'
+var class_num = 1;
 
-var socket = io.connect();
+
+var socket = io.connect("https://localhost:3000");
 
 if (room !== "") {
-    socket.emit('create or join', name, room)
+    socket.emit('create or join', name, room, class_num)
     console.log('create or join 메세지 서버에 전송', room);
 }
 
