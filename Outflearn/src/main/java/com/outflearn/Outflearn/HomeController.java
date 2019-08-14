@@ -194,14 +194,6 @@ public class HomeController {
 	            dir.mkdirs();
 	         }
 
-		if (dto.getData_data() == null) {
-			List<MultipartFile> fileList = mtfRequest.getFiles("file");
-			String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
-			File dir = new File(path);
-			if (!dir.isDirectory()) {
-				dir.mkdirs();
-			}
-
 			for (MultipartFile mf : fileList) {
 				String originFileName = mf.getOriginalFilename(); // 원본 파일 명
 				long fileSize = mf.getSize(); // 파일 사이즈

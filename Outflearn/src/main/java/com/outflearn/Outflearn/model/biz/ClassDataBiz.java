@@ -49,5 +49,7 @@ public interface ClassDataBiz {
 		
 		public int ClassReviewAnswer(ClassReviewDto dto, int parentBoard_no);
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);
+		
+		public ClassIntroduceDto ClassIntroduceSelectOne(int class_num);
 	
 }

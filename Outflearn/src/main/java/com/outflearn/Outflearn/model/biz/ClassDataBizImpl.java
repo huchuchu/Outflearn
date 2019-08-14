@@ -165,5 +165,10 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int ClassReviewInsertAnswer(ClassReviewDto dto) {
 		return dao.ClassReviewInsertAnswer(dto);
 	}
+
+	@Override
+	public List<ClassDataDto> ClassDataSelectList() {
+		return dao.ClassDataSelectList();
+	}
 		
 }

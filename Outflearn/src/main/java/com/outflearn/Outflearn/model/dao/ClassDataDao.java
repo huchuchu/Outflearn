@@ -53,4 +53,5 @@ public interface ClassDataDao {
 		public int ClassReviewUpdateAnswer(int review_num);
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);
 		
+		public ClassIntroduceDto ClassIntroduceSelectOne(int class_num);
 }
