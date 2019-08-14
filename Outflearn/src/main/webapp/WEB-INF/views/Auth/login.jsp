@@ -24,7 +24,7 @@
 <body >
 	
 	<!-- Header  -->
-	<jsp:include page="header/MainHeader.jsp"></jsp:include>
+	<jsp:include page="../header/MainHeader.jsp"></jsp:include>
 	<!-- Header  -->
 	
 	  <header id="header">

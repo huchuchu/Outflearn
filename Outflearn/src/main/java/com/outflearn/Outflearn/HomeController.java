@@ -58,7 +58,7 @@ public class HomeController {
 			model.addAttribute("classinfo", biz.ClassInfoSelectList());
 		}
 
-		return "LectureList";
+		return "Class/LectureList";
 	}
 
 	@RequestMapping("/LectureDetail")
@@ -84,7 +84,7 @@ public class HomeController {
 		model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
 		System.out.println(biz.ClassIntroduceSelectList(class_num));
 
-		return "LectureDetail";
+		return "Class/LectureDetail";
 	}
 
 	@RequestMapping("DetailDashBoard")
@@ -115,7 +115,7 @@ public class HomeController {
 		model.addAttribute("user_nickname", user_nickname);
 		model.addAttribute("user_num", user_num);
 
-		return "ClassInfoInsertForm";
+		return "Class/ClassInfoInsertForm";
 	}
 
 //	ClassInfoInsertForm.jsp - > ClassIntroduceInsertForm.jsp  CLASS_DATA DB 저장
@@ -161,7 +161,7 @@ public class HomeController {
 			}
 		}
 
-		return "ClassIntroduceInsertForm";
+		return "Class/ClassIntroduceInsertForm";
 	}
 	
 
@@ -171,9 +171,9 @@ public class HomeController {
 
 		int res = biz.ClassIntroduceInsert(dto);
 		if (res > 0) {
-			return "DataVideoUploadForm";
+			return "Class/DataVideoUploadForm";
 		} else {
-			return "DataVideoUploadForm";
+			return "Class/DataVideoUploadForm";
 		}
 
 	}
@@ -236,9 +236,9 @@ public class HomeController {
 		int res = biz.ClassDataInsert(dto);
 
 		if (res > 0) {
-			return "DataVideoUploadFormPlus";
+			return "Class/DataVideoUploadFormPlus";
 		} else {
-			return "DataVideoUploadFormPlus";
+			return "Class/DataVideoUploadFormPlus";
 		}
 	}
 
@@ -301,9 +301,9 @@ public class HomeController {
 		int res = biz.ClassChapterDataInsert(dto);
 
 		if (res > 0) {
-			return "DataVideoUploadFormPlus";
+			return "Class/DataVideoUploadFormPlus";
 		} else {
-			return "DataVideoUploadFormPlus";
+			return "Class/DataVideoUploadFormPlus";
 		}
 	}
 
@@ -312,7 +312,7 @@ public class HomeController {
 
 		model.addAttribute("DATA_DATA", DATA_DATA);
 
-		return "LectureDetailView";
+		return "Class/LectureDetailView";
 	}
 
 	@RequestMapping("LecturePlayList")
@@ -345,7 +345,7 @@ public class HomeController {
 		
 		model.addAttribute("classinfo", biz.CategorySelectList(class_category));
 		
-		return "LectureList";
+		return "Class/LectureList";
 	}
 
 	@RequestMapping("livePopup")

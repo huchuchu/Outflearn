@@ -6,9 +6,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-</head>
-
-<body>
 	<!-- Favicons ================================================== -->
 	<link rel="shortcut icon" href="resources/img/favicon.ico" type="image/x-icon">
 	<link rel="apple-touch-icon" href="resources/img/apple-touch-icon.png">
@@ -37,6 +34,9 @@
 	<!-- 써머노트 -->
 	<!-- include libraries(jQuery, bootstrap) -->
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+</head>
+
+<body>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
@@ -83,7 +83,7 @@
 	
 			
 <!-- Footer Section -->
-	<jsp:include page="footer/Footer.jsp"></jsp:include>
+	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 	
 	<script>
 		jQuery.noConflict();

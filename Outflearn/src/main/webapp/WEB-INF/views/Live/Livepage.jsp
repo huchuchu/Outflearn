@@ -60,7 +60,7 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-	<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
+	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 
 	<!--Slide Show-->
 	<div class="container">
@@ -103,7 +103,7 @@
 	</div>
 
 
-	<jsp:include page="footer/Footer.jsp"></jsp:include>
+	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 
 	<!-- Script -->
 	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>

@@ -29,7 +29,7 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-	<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
+	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 
 	<div class="jumbotron">
 		<div id="jumbo_row" class="row">
@@ -168,7 +168,7 @@
 	</div>
 
 
-	<jsp:include page="footer/Footer.jsp"></jsp:include>
+	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 
 
 	<script type="text/javascript" src="resources/js/ClassReview.js"></script>

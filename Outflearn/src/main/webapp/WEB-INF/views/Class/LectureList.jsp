@@ -26,7 +26,7 @@
 
 <body>
 
-	<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
+	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 
 	<div class="container">
 		<div class="row">
@@ -151,7 +151,7 @@
 	</div>
 	<!-- ==================== FOOTER ==================== -->
 
-	<jsp:include page="footer/Footer.jsp"></jsp:include>
+	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 
 	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>

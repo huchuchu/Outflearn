@@ -55,7 +55,7 @@ public class UserAuthController {
 
 		System.out.println(test);
 				
-		return "login";
+		return "Auth/login";
 	}
 	
 	@RequestMapping("test.do")

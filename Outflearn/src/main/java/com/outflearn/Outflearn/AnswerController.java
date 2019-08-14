@@ -42,7 +42,7 @@ public class AnswerController {
 		model.addAttribute("user_nickname", user_nickname);
 		model.addAttribute("user_num", user_num);
 
-		return "LectureDetailAnswer";
+		return "Class/LectureDetailAnswer";
 	}
 	
 //  댓글 입력
@@ -131,7 +131,7 @@ public class AnswerController {
 		System.out.println(board_no + "FLEX");
 		model.addAttribute("classReview",biz.ClassReviewSelectOne(board_no));
 		
-		return "LectureDetailAnswerReply";
+		return "Class/LectureDetailAnswerReply";
 	}
 	
 //	대댓글

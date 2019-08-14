@@ -35,7 +35,7 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
+<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 	
 	
 		<div class="row">
@@ -107,7 +107,7 @@
 
 
 	<!-- Footer Section -->
-	<jsp:include page="footer/Footer.jsp"></jsp:include>
+	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 
 
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
