@@ -94,7 +94,8 @@
 	</div>
 	<hr />
 
-	<!-- BODY -->
+	
+	<!-- 댓글 -->
 	<div class="panel panel-default">
 		<h1>글 목록</h1>
 		<table>
@@ -111,34 +112,35 @@
 
 							<tr>
 								<td>
-									<div class="form-group">${dto.user_star }
-										${dto.user_nickname }</div>
+									<div class="form-group">${dto.user_star  }
+											${user_nickname }
+										</div>
 								</td>
 								<td>
 									<c:forEach begin="1" end="${dto.qa_titletab }">
 										&nbsp;
 									</c:forEach>
 								</td>
-								<td id="c">
-									<div class="form-group">${dto.review_content }</div>
-								</td>
 							</tr>
-							<tr align="right">
+							<tr align="right" id="answerOfAnswer${dto.review_num  }"  >
+							<td id="c${dto.review_num }">
+									${dto.review_content }
+								</td>
 								<td>
 									<form:form action="LectureDetailAnswerDelete" method="post">
 										<input type="hidden" name="class_num" value="${classinfo.class_num }">
-										<input type="hidden" name="board_no" value="${dto.board_no }">
+										<input type="hidden" name="review_num"  value="${dto.review_num }">
 										<input type="submit" value="삭제">
 									</form:form>
 								</td>
 								<td id="a">
-									<input type="hidden" name="review_contet" value="${dto.review_content }">
-									<input type="hidden" name="board_no" value="${dto.board_no }">
+									<input type="hidden" name="review_content" value="${dto.review_content }"> 
+									<input type="hidden" name="review_num" value="${dto.review_num }">
 									<button type="button" id="b">수정</button>
 								</td>
 								<td>
 									<form:form action="ReplyForm" method="post">
-										<input type="hidden" name="board_no" value="${dto.board_no }">
+										<input type="hidden" name="review_num" value="${dto.review_num }">
 										<input type="hidden" name="class_num" value="${classinfo.class_num }">
 										<input type="hidden" name="user_star" value="${dto.user_star }">
 										<input type="submit" value="답글" />

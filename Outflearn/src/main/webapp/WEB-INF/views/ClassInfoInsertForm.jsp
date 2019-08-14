@@ -35,107 +35,73 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-	<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
-
-
-	<div class="row">
-		<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">
-			<li class="list-group-item-success">
-				<h3>강의 소개</h3>
-			</li>
-			<li class="nav-link active">
-				<h3>강의 내용</h3>
-			</li>
-			<li class="nav-link active">
-				<h3>영상 소개</h3>
-			</li>
-			<li class="nav-link active">
-				<h3>영상 추가</h3>
-			</li>
-		</ul>
-		<div class="col-sm-6 col-el-8">
-			<form:form action="ClassIntroduceInsertForm" method="post">
-				<input type="hidden" name="class_author" value="${user_nickname }">
-
-				<div class="input-group">
-					<h1>강의 소개 </h1>
-				</div>
-
-				<div class="form-group">
-					<h3>강의 제목</h3>
-					<input type="text" class="form-control" name="class_title" placeholder="강의 제목을 입력해주세요.">
-				</div>
-
-				<div class="form-group">
-					<h3>강사명</h3>
-					${user_nickname }
-				</div>
-
-				<div class="input-group">
-					<h3>실시간 여부</h3>
-					<input type="text" class="form-control" name="class_live" placeholder="Y or N 입력해주세요.">
-				</div>
-
-				<div class="form-group">
-					<h3>가격</h3>
-					<input type="text" class="form-control" name="class_price" placeholder="숫자만 입력해주세요.">
-				</div>
-
-				<div class="input-group col-xs-4">
-					<h3>수강 대상</h3>
-					<select name="class_studentlevel" class="alert alert-success">
-						<option value="초급자">초급자</option>
-						<option value="중급자">중급자</option>
-						<option value="상급자">상급자</option>
-					</select>
-				</div>
-
-				<div class="input-group col-xs-4">
-					<h3>대분류</h3>
-					<select name="class_bcategory" class="alert alert-success ">
-						<option value="JAVA">JAVA</option>
-						<option value="JSP/Servlet">JSP/Servlet</option>
-						<option value="Spring Framework">Spring Framework</option>
-						<option value="DB">DB</option>
-						<option value="UI">UI</option>
-					</select>
-				</div>
-
-				<div class="input-group col-xs-4">
-					<h3>중분류</h3>
-					<select name="class_mcategory" class="alert alert-success">
-						<option value="JAVA">JAVA</option>
-						<option value="JSP/Servlet">JSP/Servlet</option>
-						<option value="Spring Framework">Spring Framework</option>
-						<option value="DB">DB</option>
-						<option value="UI">UI</option>
-					</select>
-				</div>
-
-				<div class="input-group col-xs-4">
-					<h3>소분류</h3>
-					<select name="class_scategory" class="alert alert-success ">
-						<option value="JAVA">JAVA</option>
-						<option value="JSP/Servlet">JSP/Servlet</option>
-						<option value="Spring Framework">Spring Framework</option>
-						<option value="DB">DB</option>
-						<option value="UI">UI</option>
-					</select>
-				</div>
-
-				<div class="form-group">
-					<h3>강좌 소개</h3>
-					<textarea name="class_intro" class="form-control" rows="5" cols="10"
-						placeholder="강좌에 대해서 설명해주세요."></textarea>
-				</div>
-
-				<div class="form-group">
-					<input type="submit" class="add_field_button btn btn-success btn-md" value="다음">
-					<input type="button" class="add_field_button btn btn-success btn-md"
-						onclick="location.href='LectureList'" value="취소">
-				</div>
-			</form:form>
-		</div>
+<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
+	
+	
+		<div class="row">
+			<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">
+						<li class="list-group-item-success"><h3>강의 소개</h3></li>
+						<li class="nav-link active"><h3>강의 내용</h3></li>
+						<li class="nav-link active"><h3>영상 소개</h3></li>
+						<li class="nav-link active"><h3>영상 추가</h3></li>
+			</ul>
+				<div class="col-sm-6 col-el-8">
+		<form:form action="ClassIntroduceInsertForm" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="class_author" value="${user_nickname }">
+		<input type="hidden" name="user_num" value="${user_num }">
+	
+			<div class="input-group">
+				<h1>강의 소개 </h1>
+			</div>
+	
+			<div class="form-group">
+				<h3>강의 제목</h3>
+				<input type="text" class="form-control" name="class_title" placeholder="강의 제목을 입력해주세요.">
+			</div>
+			
+	
+			<div class="form-group">
+				<h3>썸네일 이미지</h3>
+				파일 : <input type="file" name="file">
+			</div>		
+	
+	
+			<div class="form-group">
+				<h3>강사명</h3>
+				${user_nickname }
+			</div>
+			
+			<div class="form-group">
+				<h3>강좌 소개</h3>
+				<textarea name="class_intro" class="form-control" rows="5" cols="10" placeholder="강좌에 대해서 설명해주세요."></textarea>
+			</div>
+					
+			<div class="input-group">
+				<h3>실시간 여부</h3>
+				<input type="text" class="form-control" name="class_live" placeholder="Y or N 입력해주세요." >
+			</div>
+			
+			<div class="form-group">
+				<h3>가격</h3>
+				<input type="text" class="form-control" name="class_price" placeholder="숫자만 입력해주세요." >
+			</div>
+			
+			<div class="input-group col-xs-4">
+				<h3>수강 대상</h3>
+				<select name="class_studentlevel" class="alert alert-success">
+					<option value="초급자">초급자</option>
+					<option value="중급자">중급자</option>
+					<option value="상급자">상급자</option>
+				</select>
+			</div>
+			
+	
+			
+			<div class="form-group">
+				<input type="submit" class="add_field_button btn btn-success btn-md" value="다음"> 
+				<input type="button" class="add_field_button btn btn-success btn-md" onclick="location.href='LectureList'" value="취소">
+			</div>
+		</form:form>
 	</div>
 
 

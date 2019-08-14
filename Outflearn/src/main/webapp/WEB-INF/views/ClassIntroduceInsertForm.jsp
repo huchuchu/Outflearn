@@ -41,27 +41,10 @@
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
 
-	<!-- include summernote css/js-->
-	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
-
-	<script type="text/javascript">
-		$(function () {
-			$('#summernote').summernote({
-				width: 1000,
-				height: 500,
-				lang: 'ko-KR' // 언어 세팅
-			});
-		});
-	</script>
-
-	</head>
-
-	<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-
-		<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
-
-		<div class="row">
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+	
+	
+	<div class="row">
 			<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">
 				<li class="nav-link active">
 					<h3>강의 소개</h3>
@@ -76,40 +59,39 @@
 					<h3>영상 추가</h3>
 				</li>
 			</ul>
-			<div class="col-sm-6 col-el-8">
-				<form:form action="DataVideoUploadForm" method="post">
-
-					<div class="input-group">
-						<h1>강의 내용 </h1>
-					</div>
-
-					<div class="form-group">
-						<textarea id="summernote" name="class_content"></textarea>
-					</div>
-
-
-					<div class="form-group">
-						<input type="submit" class="add_field_button btn btn-success btn-md" value="다음">
-						<input type="button" class="add_field_button btn btn-success btn-md"
-							onclick="location.href='LectureList'" value="취소">
-					</div>
-				</form:form>
+				<div class="col-sm-6 col-el-8">
+			<form:form action="DataVideoUploadForm" method="post" enctype="multipart/form-data">
+			
+			<div class="input-group">
+				<h1>강의 내용 </h1>
 			</div>
-		</div>
-
-
-
-		<!-- Footer Section -->
-		<jsp:include page="footer/Footer.jsp"></jsp:include>
-
-		<script>
-			jQuery.noConflict();
-		</script>
-		<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
-		<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
-		<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
-		<script type="text/javascript" src="resources/js/template/contact_me.js"></script>
-		<script type="text/javascript" src="resources/js/template/main.js"></script>
-	</body>
-
+			
+			<div class="form-group">
+				<textarea id="summernote" name="class_content"></textarea>
+			</div>
+	
+			
+			<div class="form-group">
+				<input type="submit" class="add_field_button btn btn-success btn-md" value="다음"> 
+				<input type="button" class="add_field_button btn btn-success btn-md" onclick="location.href='LectureList'" value="취소">
+			</div>
+	</form:form>
+			</div>
+			</div>
+	
+	
+	
+			
+<!-- Footer Section -->
+	<jsp:include page="footer/Footer.jsp"></jsp:include>
+	
+	<script>
+		jQuery.noConflict();
+	</script>
+	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
+	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
+	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
+	<script type="text/javascript" src="resources/js/template/contact_me.js"></script>
+	<script type="text/javascript" src="resources/js/template/main.js"></script>
+</body>
 </html>
