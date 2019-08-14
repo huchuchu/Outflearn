@@ -22,27 +22,28 @@
 	
 	<!-- 강의 소개 페이지  -->
 	<insert id="ClassInfoDtoInsert" parameterType="ClassInfoDto">
-		INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL, #{class_title }, #{class_author }, #{class_intro }, #{class_img }, #{class_live } ,0, #{class_price }, 0, #{class_studentlevel }, #{class_bcategory }, #{class_mcategory }, #{class_scategory })
+		INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL, #{user_num } , #{class_title }, #{class_author }, #{class_intro }, #{class_img }, #{class_live } ,0, #{class_price }, 0, #{class_studentlevel })
 	</insert>
 	
 	<!-- ================== CLASS_DATA 테이블 ================== -->
 	
-	<!-- 영상추가 첫번째 페이지 : 유튜브 영상만 추가 -->
-	<insert id="ClassDataInsert" parameterType="ClassDataDto">
-		INSERT INTO CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SUBHEAD, DATA_SQ, DATA_TITLE, DATA_YOUTUBE) VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.NEXTVAL ,#{data_subhead }, #{data_sq }, #{data_title }, #{data_youtube })
-	</insert>
-	
-	<!-- 영상추가 첫번째 페이지 : 직접 영상만 추가 -->
-	<insert id="classDataSelfInsert" parameterType="ClassDataDto">
+	<!-- 영상추가 첫번째 페이지 -->
+	<insert id="ClassDataInsert" parameterType="ClassDataDto" >
 		INSERT INTO CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SUBHEAD, DATA_SQ, DATA_TITLE, DATA_DATA) VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.NEXTVAL ,#{data_subhead }, #{data_sq }, #{data_title }, #{data_data })
 	</insert>
-	
+
 	<!-- 영상추가 두번째 페이지 챕터안에 내용 추가 -->
 	<insert id="ClassChapterDataInsert" parameterType="ClassDataDto">
-		INSERT INTO CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SQ, DATA_TITLE, DATA_YOUTUBE) VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.CURRVAL , #{data_sq }, #{data_title } , #{data_youtube })
+		INSERT INTO CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SQ, DATA_TITLE, DATA_DATA) VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.CURRVAL , #{data_sq }, #{data_title } , #{data_data })
 	</insert>
 	
 	<!-- ================== CLASS_INTRODUCE 테이블 ================== -->
+	
+	<!-- 해당 클래스의 강좌 -->
+	<select id="classIntroduceSelectlist" parameterType="map" resultType="ClassIntroduceDto">
+		SELECT * FROM CLASS_INTRODUCE WHERE CLASS_NUM = (SELECT CLASS_NUM FROM CLASS_INTRODUCE WHERE CLASS_NUM = #{class_num })
+	</select>
+
 	
 	<!-- 강좌 내용 DB추가 -->
 	<insert id="ClassIntroduceInsert" parameterType="ClassIntroduceDto">
@@ -51,23 +52,23 @@
 	
 	<!-- ================== CLASS_REVIEW 테이블 ================== -->
 	<select id="classReviewSelectlist" resultType="classReviewDto" parameterType="map">
-		SELECT * FROM CLASS_REVIEW  WHERE ClASS_NUM = (SELECT CLASS_NUM FROM CLASS_INFO WHERE CLASS_NUM = #{class_num }) ORDER BY QA_GROUPNO DESC, QA_GROUPSQ 
+		SELECT * FROM CLASS_REVIEW  WHERE CLASS_NUM = (SELECT CLASS_NUM FROM CLASS_INFO WHERE CLASS_NUM = #{class_num }) ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ 
 	</select>
 	
 	<select id="classReviewSelectOne" resultType="classReviewDto" parameterType="int">
-		SELECT * FROM CLASS_REVIEW WHERE BOARD_NO = #{board_no }
+		SELECT * FROM CLASS_REVIEW WHERE REVIEW_NUM = #{reveiw_nim }
 	</select>
 
 	<insert id="classReviewInsert" parameterType="classReviewDto">
-		INSERT INTO CLASS_REVIEW VALUES(#{class_num }, BOARDNOSEQ_SQ.NEXTVAL, QA_GROUPNO_SQ.NEXTVAL, 1, 0, #{user_num }, #{review_content }, #{user_star } , #{user_nickname })
+		INSERT INTO CLASS_REVIEW VALUES(#{class_num }, REVIEW_NUM_SQ.NEXTVAL, REVIEW_GROUPNO_SQ.NEXTVAL, 1, 0, #{user_num }, #{review_content }, #{user_star } , #{user_nickname })
 	</insert>
 	
 	<update id="classReviewUpdate" parameterType="classReviewDto">
-		UPDATE CLASS_REVIEW SET REVIEW_CONTENT = #{review_content } WHERE BOARDNO = #{board_no }
+		UPDATE CLASS_REVIEW SET REVIEW_CONTENT = #{review_content } WHERE REVIEW_NUM = #{review_num }
 	</update>
 	
 	<delete id="classReviewDelete" parameterType="int">
-		DELETE FROM CLASS_REVIEW WHERE BOARD_NO = #{board_no }
+		DELETE FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num }
 	</delete>
 	
 	<insert id="classReviewInsertAnswer" parameterType="classReviewDto">

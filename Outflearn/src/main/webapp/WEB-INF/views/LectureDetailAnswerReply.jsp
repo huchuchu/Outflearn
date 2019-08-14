@@ -99,7 +99,7 @@
 		<input type="hidden" name="user_num" value="${user_num }">
 		<input type="hidden" name="user_star" value="${user_star }">
 		<input type="hidden" name="class_num" value="${class_num }">
-		<input type="hidden" name="parentboard_no" value="${board_no }"/>
+		<input type="hidden" name="parentboard_no" value="${review_num }"/>
 
 		<table border="1">
 			<tr>

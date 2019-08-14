@@ -69,8 +69,7 @@ $(function() {
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-
-	<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
+	
 	
 	<div class="row">
 			<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">
@@ -80,7 +79,7 @@ $(function() {
 						<li class="nav-link active"><h3>영상 추가</h3></li>
 			</ul>
 				<div class="col-sm-6 col-el-8">
-	<form:form action="DataVideoUploadForm" method="post" >
+			<form:form action="DataVideoUploadForm" method="post" enctype="multipart/form-data">
 			
 			<div class="input-group">
 				<h1>강의 내용 </h1>
@@ -97,7 +96,8 @@ $(function() {
 			</div>
 	</form:form>
 			</div>
-	</div>
+			</div>
+	
 	
 	
 			

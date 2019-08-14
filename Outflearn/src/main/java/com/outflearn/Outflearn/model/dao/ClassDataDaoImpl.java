@@ -62,15 +62,6 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 
-//	셀프 영상
-	@Override
-	public int classDataSelfInsert(ClassDataDto dto) {
-		int res = 0;
-
-		res = sqlSession.insert(namespace + "classDataSelfInsert", dto);
-
-		return res;
-	}
 	
 //	챕터 추가
 	@Override
@@ -151,13 +142,30 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 // --------------------------------------------------- 강좌 내용
 	@Override
-	public List<ClassIntroduceDto> ClassIntroduceSelectList() {
-		return null;
+	public List<ClassIntroduceDto> ClassIntroduceSelectList(int class_num) {
+		
+		List<ClassIntroduceDto> list = new ArrayList<ClassIntroduceDto>();
+
+		try {
+			list = sqlSession.selectList(namespace + "classIntroduceSelectlist", class_num);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+				return list;
 	}
 
 	@Override
-	public ClassInfoDto ClassIntroduceSelectOne(int class_num) {
-		return null;
+	public ClassIntroduceDto ClassIntroduceSelectOne(int class_num) {
+		ClassIntroduceDto dto = new ClassIntroduceDto();
+
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("class_num", class_num);
+		System.out.println("daoImpl : " + class_num);
+		dto = sqlSession.selectOne(namespace + "classIntroduceselectone", map);
+
+		return dto;
 	}
 
 	@Override
@@ -237,8 +245,6 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 
 
-
-
 	@Override
 	public int ClassReviewInsert(ClassReviewDto dto) {
 		
@@ -288,6 +294,8 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		
 		return res;
 	}
+
+
 
 
 

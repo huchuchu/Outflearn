@@ -1,14 +1,10 @@
 package com.outflearn.Outflearn;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -18,35 +14,24 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.WebUtils;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.LiveDto;
-import com.outflearn.Outflearn.dto.ClassReviewDto;
-import com.outflearn.Outflearn.dto.ClassUploadDto;
-import com.outflearn.Outflearn.dto.FileUpload;
-import com.outflearn.Outflearn.dto.FileValidator;
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
-import com.outflearn.Outflearn.service.KakaoRestapi;
 
 @Controller
 public class HomeController {
 
 	@Autowired
 	public ClassDataBiz biz;
-	
-	@Autowired
-	private FileValidator fileValidator;
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -71,16 +56,27 @@ public class HomeController {
 	}
 
 	@RequestMapping("/LectureDetail")
-	public String LectureDetail(@ModelAttribute ClassInfoDto cDto, int class_num, Model model, HttpSession session, Authentication auth) {
+	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session, Authentication auth) {
 
 		logger.info("/LectureDetail");
-		model.addAttribute("classinfo", biz.ClassInfoSelectOne(class_num));
-		model.addAttribute("class_num", class_num);
 
-		ClassReviewDto rDto = new ClassReviewDto();
+		model.addAttribute("class_num", class_num);
+		// 닉네임
+		// 회원 정보
+		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
+		String user_nickname = uDto.getUser_nickname();
+		model.addAttribute("user_nickname", user_nickname);
 		
+		// 강좌 소개
+		model.addAttribute("classinfo", biz.ClassInfoSelectList());
+		
+		// 댓글
 		model.addAttribute("classReview", biz.ClassReviewSelectList(class_num));
 		System.out.println(biz.ClassReviewSelectList(class_num));
+		
+		// 강의 소개
+		model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
+		System.out.println(biz.ClassIntroduceSelectList(class_num));
 
 		return "LectureDetail";
 	}
@@ -96,7 +92,7 @@ public class HomeController {
 		ClassDataDto dto = biz.ClassDataSelectOne(info_num);
 		System.out.println("controller : " + dto.toString());
 
-		return dto.getData_youtube();
+		return dto.getData_data();
 	}
 
 	@RequestMapping("Livepage")
@@ -104,129 +100,208 @@ public class HomeController {
 
 	}
 
-////	강의 쓰기
-//	@RequestMapping("ClassInfoInsertForm")
-//	public String ClassInfoInsertForm(Authentication auth, Model model) {
-//		logger.info("ClassInfoInsertForm");
-//	
-//		// 회원 정보
-//	    UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
-//	    String user_nickname = uDto.getUser_nickname();
-//	    int user_num = (Integer) uDto.getUser_num();
-//	    model.addAttribute("user_nickname", user_nickname);
-//	    model.addAttribute("user_num", user_num);		
-//		
-//		
-//		return "ClassInfoInsertForm";
-//	}
+//	강의 쓰기
+	@RequestMapping("ClassInfoInsertForm")
+	public String ClassInfoInsertForm(Authentication auth, Model model) {
+		logger.info("ClassInfoInsertForm");
+
+		// 회원 정보
+		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
+		String user_nickname = uDto.getUser_nickname();
+		int user_num = (Integer) uDto.getUser_num();
+		model.addAttribute("user_nickname", user_nickname);
+		model.addAttribute("user_num", user_num);
+
+		return "ClassInfoInsertForm";
+	}
 
 //	ClassInfoInsertForm.jsp - > ClassIntroduceInsertForm.jsp  CLASS_DATA DB 저장
 	@RequestMapping("ClassIntroduceInsertForm")
-	public String ClassIntroduceInsertForm(@ModelAttribute ClassInfoDto dto) {
+	public String ClassIntroduceInsertForm(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassInfoDto dto) {
 		logger.info("ClassIntroduceInsertForm");
+		System.out.println("아예안오니");
+		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 
-		int res = biz.ClassInfoInsert(dto);
-
-		if (res > 0) {
-			return "ClassIntroduceInsertForm";
-		} else {
-			return "redirect: ClassIntroduceInsertForm";
+		String path = mtfRequest.getSession().getServletContext().getRealPath("/uploadImage");
+		File dir = new File(path);
+		if (!dir.isDirectory()) {
+			dir.mkdirs();
 		}
+
+		for (MultipartFile mf : fileList) {
+			String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+			long fileSize = mf.getSize(); // 파일 사이즈
+			String class_img_path = path + "/" + originFileName; // 경로
+			System.out.println("경로 " + class_img_path);
+			String class_img = originFileName; // 파일 이름
+			dto.setClass_img(class_img);
+			System.out.println(class_img);
+			System.out.println("originFileName : " + originFileName);
+			System.out.println("fileSize : " + fileSize);
+			int res = 0;
+			try {
+				mf.transferTo(new File(class_img_path)); // 파일 집어넣는다
+
+				res = biz.ClassInfoInsert(dto);
+
+				if (res > 0) {
+					System.out.println("성공");
+				} else {
+					System.out.println("실패");
+				}
+			} catch (IllegalStateException e) {
+
+				e.printStackTrace();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+		}
+
+		return "ClassIntroduceInsertForm";
 	}
 
-//	ClassIntroduceInsertForm.jsp - > DataVideoUploadForm.jsp  CLASS_INTRODUCE DB 저장
 	@RequestMapping("DataVideoUploadForm")
-	public String DataVideoUploadForm(@ModelAttribute ClassIntroduceDto dto) {
+	public String DataVideoUploadForm(@ModelAttribute ClassIntroduceDto dto, Model model) {
 		logger.info("DataVideoUploadForm");
 
 		int res = biz.ClassIntroduceInsert(dto);
-	
+
 		if (res > 0) {
 			return "DataVideoUploadForm";
 		} else {
-
-			return "redirect: ClassInfoInsertForm";
+			return "DataVideoUploadForm";
 		}
+
 	}
 
 // 	영상소개 작성 확인 DataVideoUploadForm.jsp
 	@RequestMapping("DataVideoUpload")
-	public String DataVideoUpload(@ModelAttribute ClassDataDto dto) {
+	public String DataVideoUpload(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto, Model model)
+			throws FileNotFoundException {
 		logger.info("DataVideoUpload");
 
-		int res = 0;
+		if (dto.getData_data() == null) {
+			List<MultipartFile> fileList = mtfRequest.getFiles("file");
+			String path = mtfRequest.getSession().getServletContext().getRealPath("/uploadImage");
+			File dir = new File(path);
+			if (!dir.isDirectory()) {
+				dir.mkdirs();
+			}
 
-		String a = dto.getData_youtube();
-		String b = "";
+			for (MultipartFile mf : fileList) {
+				String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+				long fileSize = mf.getSize(); // 파일 사이즈
+				String data_data_path = path + "/" + originFileName; // 경로
+				System.out.println("경로 " + data_data_path);
+				String data_data = path + originFileName; // 파일 이름
+				dto.setData_data(data_data);
+				System.out.println(data_data);
+				System.out.println("originFileName : " + originFileName);
+				System.out.println("fileSize : " + fileSize);
 
-		if (a.contains("v=")) {
-			b = a.split("v=")[1];
-		} else if (a.contains("list=")) {
-			b = a.split("list=")[1];
+				try {
+					mf.transferTo(new File(data_data_path));
+
+				} catch (IllegalStateException e) {
+
+					e.printStackTrace();
+				} catch (IOException e) {
+
+					e.printStackTrace();
+				}
+			}
+
+		} else {
+			if (dto.getData_data().substring(0, 5) == "https") {
+
+				String a = dto.getData_data();
+				String b = "";
+
+				if (a.contains("v=")) {
+					b = a.split("v=")[1];
+				} else if (a.contains("list=")) {
+					b = a.split("list=")[1];
+				}
+
+				dto.setData_data(b);
+
+			}
+
 		}
 
-		dto.setData_youtube(b);
-		System.out.println(res);
-
-		//	유튜브 영상인지 셀프 영상 업로드 구분 
-
-		res = biz.ClassDataInsert(dto);
+		int res = biz.ClassDataInsert(dto);
 
 		if (res > 0) {
 			return "DataVideoUploadFormPlus";
 		} else {
-			return "redirect: DataVideoUploadForm";
+			return "DataVideoUploadFormPlus";
 		}
-
 	}
 
-//	직접 영상 업로드 팝업창 파일 받아옴
-	@RequestMapping("ClassUpload")
-	public String ClassUpload(@ModelAttribute ClassDataDto dto, HttpSession session) {
-
-		int res = biz.ClassDataUpdate(dto);
-
-		return "home";
-	}
-
-//	챕터 추가
-	@RequestMapping("DataVideoUploadFormPlus")
-	public void DataVideoUploadFormPlus() {
-
-	}
-
-//	영상 소개페이지에서 
+//	DataVideoUploadFormPlus - > DataVideoUploadFormPlus 한 챕터에 영상 추가
 	@RequestMapping("DataVideoUploadPlus")
-	public String DataVideoUploadPlus(@ModelAttribute ClassDataDto dto, HttpSession session, Model model) {
+	public String DataVideoUploadPlus(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto)
+			throws FileNotFoundException {
+		logger.info("DataVideoUploadPlus");
+		System.out.println("안녕");
+		if (dto.getData_data() == null) {
+			List<MultipartFile> fileList = mtfRequest.getFiles("file");
+			System.out.println("안녕!!!");
+			String path = mtfRequest.getSession().getServletContext().getRealPath("/uploadImage");
+			File dir = new File(path);
+			if (!dir.isDirectory()) {
+				dir.mkdirs();
+			}
 
-		int res = 0;
+			for (MultipartFile mf : fileList) {
+				String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+				long fileSize = mf.getSize(); // 파일 사이즈
+				String data_data_path = path + "/" + originFileName; // 경로
+				System.out.println("경로 " + data_data_path);
+				String data_data = path + originFileName; // 파일 이름
+				dto.setData_data(data_data);
+				System.out.println(data_data);
+				System.out.println("originFileName : " + originFileName);
+				System.out.println("fileSize : " + fileSize);
+				int res = 0;
 
-		String a = dto.getData_youtube();
-		String b = "";
-		if (a.contains("v=")) {
-			b = a.split("v=")[1];
-		} else if (a.contains("list=")) {
-			b = a.split("list=")[1];
+				try {
+					mf.transferTo(new File(data_data_path));
+
+				} catch (IllegalStateException e) {
+
+					e.printStackTrace();
+				} catch (IOException e) {
+
+					e.printStackTrace();
+				}
+			}
+
+		} else {
+			if (dto.getData_data().substring(0, 5) == "https") {
+
+				String a = dto.getData_data();
+				String b = "";
+
+				if (a.contains("v=")) {
+					b = a.split("v=")[1];
+				} else if (a.contains("list=")) {
+					b = a.split("list=")[1];
+				}
+
+				dto.setData_data(b);
+
+			}
 		}
 
-		dto.setData_youtube(b);
-		
-		res = biz.ClassChapterDataInsert(dto);
-
-		model.addAttribute("classdata", biz.ClassDataSelectList());
+		int res = biz.ClassChapterDataInsert(dto);
 
 		if (res > 0) {
-			return "redirect: DataVideoUploadFormPlus";
+			return "DataVideoUploadFormPlus";
 		} else {
-			return "redirect: DataVideoUploadForm";
+			return "DataVideoUploadFormPlus";
 		}
-
-	}
-
-	@RequestMapping("BackDataVideoUploadForm")
-	public String BackDataVideoUploadForm(@ModelAttribute ClassDataDto dto, Model model) {
-
-		return "BackDataVideoUploadForm";
 	}
 
 	@RequestMapping("LectureDetailView")
@@ -246,14 +321,13 @@ public class HomeController {
 		ClassDataDto data_dto = biz.ClassDataSelectOne(info_num);
 		model.addAttribute("info_dto", biz.ClassInfoSelectOne(info_num));
 
-		return data_dto.getData_youtube();
+		return data_dto.getData_data();
 	}
 
 	@RequestMapping("introOutflearn")
 	public void introOutflearn() {
 
 	}
-	
 
 // Live
 	@RequestMapping("liveCalendar")
@@ -278,105 +352,18 @@ public class HomeController {
 		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return biz.getMyClass(dto.getUser_num());
 	}
-// 강의 추가 - > 썸네일 이미지
-	@RequestMapping("ClassImageUpload")
-	public void ClassImageUpload() {
-		
-	}
-	
-//	파일 업로드
-	@RequestMapping("imageUpload")
-	   public String imageUpload(HttpServletRequest request, Model model, FileUpload fileUpload, BindingResult result, Authentication auth) {
-		  logger.info("imageUpload");
-	      
-		  System.out.println("왔냐??????????");
-		//파일 유효성 검사
-			// bingResult : 객체를 Binding하다가 발생하는 error의 정보를 받기 위해 사용 
-			fileValidator.validate(fileUpload, result);
-			if(result.hasErrors()) {
-				return "ClassImageUpload";
-			}
-		  
-		  
-	      //uploadForm.jsp에서 넘어온 file을 MultipartFile로 변환
-	      MultipartFile file = fileUpload.getFile();
-	      System.out.println("안녕 형들");
-	      String filename = file.getOriginalFilename();
-	      System.out.println(filename + "");
-	      
-	      
-	      //uploadFile.jsp에 넘겨줄 객체정보 담기
-	      //fileName 파일명  /  desc 설명
-	      FileUpload fileobj = new FileUpload();
-	      System.out.println("나 그냥 30대 아저씨야");
-	      fileobj.setFilename(filename);
-	      
-	      
-	      InputStream inputStream = null;
-	      OutputStream outputStream = null;
-	      System.out.println("인생으 뭐다");
-	      
-	      try {
-	         
-	         inputStream = file.getInputStream();
-	         String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
-	         
-	         System.out.println("업로드 될 실제 경로 : " + path);
-	         
-	         
-	         //java 파일생성 코드
-	         File storage = new File(path);
-	         if(!storage.exists()) {
-	            storage.mkdirs();
-	         }
-	        
-	         
-	         File newfile = new File(path + "/" + filename);
-	         if(!newfile.exists()) {
-	            newfile.createNewFile();
-	         }
-	         
-	         outputStream = new FileOutputStream(newfile);
-	         
-	         int read = 0;
-	         byte[] b = new byte[(int)file.getSize()];
-	         
-	         while((read=inputStream.read(b)) != -1) {
-	            outputStream.write(b, 0, read);
-	         }
-	      } catch (IOException e) {
 
-	         e.printStackTrace();
-	      } finally {
-	         try {
-	            inputStream.close();
-	            outputStream.close();
-	         } catch (IOException e) {
-	            e.printStackTrace();
-	         }
-	      }
-	  	
-	      // 회원 정보
-		   UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
-		   String user_nickname = uDto.getUser_nickname();
-		   int user_num = (Integer) uDto.getUser_num();
-		   model.addAttribute("user_nickname", user_nickname);
-		   model.addAttribute("user_num", user_num);
-	      
-	      
-	      return "ClassInfoInsertForm";
-	   }
 
 // myPage
 	@RequestMapping("myPage")
 	public String myPage(Model model, Authentication auth) {
-		
+
 		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
+
 		model.addAttribute("userInfo", dto);
 		model.addAttribute("wishList", biz.getWishList(dto.getUser_num()));
 		model.addAttribute("subClass", biz.getSubscribe(dto.getUser_num()));
-		
+
 		return "myPage";
 	}
 

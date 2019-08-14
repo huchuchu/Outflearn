@@ -15,8 +15,7 @@ public interface ClassDataBiz {
 		// 강좌 데이터 -  CLASS_DATA TABLE
 		public List <ClassDataDto> ClassDataSelectList();
 		public ClassDataDto ClassDataSelectOne(int class_num);
-		public int ClassDataInsert(ClassDataDto dto);
-		public int classDataSelfInsert(ClassDataDto dto);		
+		public int ClassDataInsert(ClassDataDto dto);		
 		public int ClassChapterDataInsert(ClassDataDto dto);
 		public int ClassDataUpdate(ClassDataDto dto);
 		public int ClassDataDelete(String data_subhead);
@@ -29,8 +28,8 @@ public interface ClassDataBiz {
 		public int ClassInfoDelete(String class_title);
 		
 		// 강좌 소개 - CLASS_INTRODUCE 테이블
-		public List <ClassIntroduceDto> ClassIntroduceSelectList();
-		public ClassInfoDto ClassIntroduceSelectOne(int class_num);
+		public List <ClassIntroduceDto> ClassIntroduceSelectList(int class_num);
+		public ClassIntroduceDto ClassIntroduceSelectOne(int class_num);
 		public int ClassIntroduceInsert(ClassIntroduceDto dto);
 		public int ClassInfoUpdate(ClassIntroduceDto dto);
 		public int ClassIntroduceDelete(String class_content);
