@@ -99,8 +99,9 @@ public class HomeController {
 	}
 
 	@RequestMapping("Livepage")
-	public void Livepage() {
-
+	public String Livepage() {
+		
+		return "Live/Livepage.jsp";
 	}
 
 //	강의 쓰기
@@ -328,8 +329,8 @@ public class HomeController {
 	}
 
 	@RequestMapping("introOutflearn")
-	public void introOutflearn() {
-
+	public String introOutflearn() {
+		return "introOutflearn";
 	}
 
 // Live
@@ -355,7 +356,8 @@ public class HomeController {
 	}
 
 	@RequestMapping("casterRoom")
-	public void casterRoom() {
+	public String casterRoom() {
+		return "Live/casterRoom";
 	}
 
 	@RequestMapping("getMyClass")
