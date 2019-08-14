@@ -31,16 +31,28 @@
 	<link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 
-	<!-- 써머노트 -->
+	<!-- 여기서부터는 써머노트  라이브러리 구간입니다.-->
+	
 	<!-- include libraries(jQuery, bootstrap) -->
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-</head>
-
-<body>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
+	<!-- include codemirror (codemirror.css, codemirror.js, xml.js, formatting.js) -->
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.css">
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.css">
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.js"></script>
 
+	<!-- include summernote css/js-->
+	<link href="summernote.css">
+	<script src="summernote.js"></script>
+	
+
+	
+	<!-- 여기까지가 써머노트  라이브러리 구간입니다.-->
+</head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 	
 	
@@ -85,13 +97,19 @@
 <!-- Footer Section -->
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 	
-	<script>
-		jQuery.noConflict();
+	<script type="text/javascript">
+	jQuery.noConflict();
+	jQuery('#summernote').summernote({
+		  height: 150,   
+		  codemirror: { 
+		    theme: 'monokai'
+		  }
+		});
 	</script>
+	
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
 	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
-	<script type="text/javascript" src="resources/js/template/contact_me.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
 </body>
 </html>

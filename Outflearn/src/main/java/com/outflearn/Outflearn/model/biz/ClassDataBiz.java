@@ -11,28 +11,24 @@ import com.outflearn.Outflearn.dto.ClassReviewDto;
 
 public interface ClassDataBiz {
 	
+		// 강좌 정보  - CLASS_INFO 테이블
+		public List <ClassInfoDto> ClassInfoSelectList();
+		public List<ClassInfoDto> CategorySelectList(String class_category);
+		public ClassInfoDto ClassInfoSelectOne(int class_num);
+		public int ClassInfoInsert(ClassInfoDto dto);
+		
+	
+		// 강좌 소개 - CLASS_INTRODUCE 테이블
+		public List <ClassIntroduceDto> ClassIntroduceSelectList(int class_num);
+		public int ClassIntroduceInsert(ClassIntroduceDto dto);
+	
+		
 		// 강좌 데이터 -  CLASS_DATA TABLE
 		public List <ClassDataDto> ClassDataSelectList();
-		public List<ClassInfoDto> CategorySelectList(String class_category);
 		public ClassDataDto ClassDataSelectOne(int class_num);
 		public int ClassDataInsert(ClassDataDto dto);		
 		public int ClassChapterDataInsert(ClassDataDto dto);
-		public int ClassDataUpdate(ClassDataDto dto);
-		public int ClassDataDelete(String data_subhead);
-		
-		// 강좌 정보  - CLASS_INFO 테이블
-		public List <ClassInfoDto> ClassInfoSelectList();
-		public ClassInfoDto ClassInfoSelectOne(int class_num);
-		public int ClassInfoInsert(ClassInfoDto dto);
-		public int ClassInfoUpdate(ClassInfoDto dto);
-		public int ClassInfoDelete(String class_title);
-		
-		// 강좌 소개 - CLASS_INTRODUCE 테이블
-		public List <ClassIntroduceDto> ClassIntroduceSelectList(int class_num);
-		public ClassIntroduceDto ClassIntroduceSelectOne(int class_num);
-		public int ClassIntroduceInsert(ClassIntroduceDto dto);
-		public int ClassInfoUpdate(ClassIntroduceDto dto);
-		public int ClassIntroduceDelete(String class_content);
+	
 		
 		// Live
 		public List<LiveDto> liveCalendar();
@@ -46,10 +42,10 @@ public interface ClassDataBiz {
 		
 		// 댓글 - CLASS_REVIEW 테이블
 		public List <ClassReviewDto> ClassReviewSelectList(int class_num);
-		public ClassReviewDto ClassReviewSelectOne(int board_no);
+		public ClassReviewDto ClassReviewSelectOne(int review_num);
 		public int ClassReviewInsert(ClassReviewDto dto);
 		public int ClassReviewUpdate(ClassReviewDto dto);
-		public int ClassReviewDelete(int board_no);
+		public int ClassReviewDelete(int review_num);
 		
 		public int ClassReviewAnswer(ClassReviewDto dto, int parentBoard_no);
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);

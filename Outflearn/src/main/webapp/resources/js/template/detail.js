@@ -50,13 +50,11 @@ $(document).ready(function () {
 })
 
 function Dashboard(video_list, playlist_id) {
-	console.log(video_list + " : detail ajax before")
 	$.ajax({
         type: 'GET',
         dataType: 'JSON',
         url: video_list,
         success: function (vi_list) {
-        	
         	$('#jumbo_row > img').attr('src', vi_list.items[0].snippet.thumbnails.high.url)
         	
         	

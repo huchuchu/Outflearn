@@ -2,17 +2,14 @@ package com.outflearn.Outflearn.model.biz;
 
 import java.util.List;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
-import com.outflearn.Outflearn.dto.LiveDto;
-import com.outflearn.Outflearn.dto.connectUserClass;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
+import com.outflearn.Outflearn.dto.LiveDto;
 import com.outflearn.Outflearn.model.dao.ClassDataDao;
 
 
@@ -22,47 +19,9 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	@Autowired
 	private ClassDataDao dao;
 
-//	--------------------------------------------------- 강좌 데이터
-	@Override
-	public List<ClassDataDto> ClassDataSelectList() {
-		
-		return dao.ClassDataSelectList();
-	}
 
-	@Override
-	public ClassDataDto ClassDataSelectOne(int class_num) {
-		
-		return dao.ClassDataSelectOne(class_num);
-	}
 
-	@Override
-	public int ClassDataInsert(ClassDataDto dto) {
-		
-		return dao.ClassDataInsert(dto);
-	}
-	
-	
-	@Override
-	public int ClassChapterDataInsert(ClassDataDto dto) {
-		
-		return dao.ClassChapterDataInsert(dto);
-	}
-	
-
-	@Override
-	public int ClassDataUpdate(ClassDataDto dto) {
-		
-		return dao.ClassDataUpdate(dto);
-	}
-
-	@Override
-	public int ClassDataDelete(String data_subhead) {
-		
-		return dao.ClassDataDelete(data_subhead);
-	}
-
-//	--------------------------------------------------- 강좌 정보
-	@Override
+//	--------------------------------------------------- 강좌 정보(CLASS_INFO)
 	public List<ClassInfoDto> ClassInfoSelectList() {
 		
 		return dao.ClassInfoSelectList();
@@ -72,7 +31,7 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public List<ClassInfoDto> CategorySelectList(String class_category) {
 		return dao.CategorySelectList(class_category);
 	}
-
+	
 	@Override
 	public ClassInfoDto ClassInfoSelectOne(int class_num) {
 		
@@ -85,48 +44,46 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return dao.ClassInfoInsert(dto);
 	}
 
-	@Override
-	public int ClassInfoUpdate(ClassInfoDto dto) {
-		
-		return dao.ClassInfoUpdate(dto);
-	}
-
-	@Override
-	public int ClassInfoDelete(String class_title) {
-		
-		return dao.ClassInfoDelete(class_title);
-	}
-	
-//	---------------------------------------------------	강좌 소개
+//	---------------------------------------------------	강좌 소개(CLASS_INTRODUCE)
 	@Override
 	public List<ClassIntroduceDto> ClassIntroduceSelectList(int class_num) {
 		
 		return dao.ClassIntroduceSelectList(class_num);
 	}
+	
 
+	@Override
+	public int ClassIntroduceInsert(ClassIntroduceDto dto) {
+		
+		return dao.ClassIntroduceInsert(dto);
+	}
+	
+//	--------------------------------------------------- 강좌 데이터(CLASS_DATA)
+	
 	@Override
 	public ClassIntroduceDto ClassIntroduceSelectOne(int class_num) {
 
 		return dao.ClassIntroduceSelectOne(class_num);
 	}
-
-	@Override
-	public int ClassIntroduceInsert(ClassIntroduceDto dto) {
 	
-		return dao.ClassIntroduceInsert(dto);
-	}
-
 	@Override
-	public int ClassInfoUpdate(ClassIntroduceDto dto) {
-
-		return 0;
+	public ClassDataDto ClassDataSelectOne(int class_num) {
+	
+		return dao.ClassDataSelectOne(class_num);
 	}
-
+	
 	@Override
-	public int ClassIntroduceDelete(String class_content) {
-
-		return 0;
+	public int ClassDataInsert(ClassDataDto dto) {
+		
+		return dao.ClassDataInsert(dto);
 	}
+	
+	@Override
+	public int ClassChapterDataInsert(ClassDataDto dto) {
+		
+		return dao.ClassChapterDataInsert(dto);
+	}
+	
 
 
 // ---------------------------------------------------	Live
@@ -168,9 +125,9 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 
 	@Override
-	public ClassReviewDto ClassReviewSelectOne(int board_no) {
+	public ClassReviewDto ClassReviewSelectOne(int review_num) {
 
-		return dao.ClassReviewSelectOne(board_no);
+		return dao.ClassReviewSelectOne(review_num);
 	}
 
 	@Override
@@ -186,9 +143,9 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 
 	@Override
-	public int ClassReviewDelete(int board_no) {
+	public int ClassReviewDelete(int review_num) {
 		
-		return dao.ClassReviewDelete(board_no);
+		return dao.ClassReviewDelete(review_num);
 	}
 
 	@Override
@@ -208,8 +165,5 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int ClassReviewInsertAnswer(ClassReviewDto dto) {
 		return dao.ClassReviewInsertAnswer(dto);
 	}
-
-	
-
 		
 }

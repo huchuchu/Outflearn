@@ -95,9 +95,6 @@ public class HomeController {
 		int info_num = (int) session.getAttribute("info_num");
 
 		ClassDataDto dto = biz.ClassDataSelectOne(info_num);
-
-		System.out.println(dto.getData_data());
-		
 		return dto.getData_data();
 	}
 
@@ -187,6 +184,15 @@ public class HomeController {
 	public String DataVideoUpload(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto, Model model)
 			throws FileNotFoundException {
 		logger.info("DataVideoUpload");
+		
+		if (dto.getData_data() == null) {
+	         List<MultipartFile> fileList = mtfRequest.getFiles("file");
+	         System.out.println("안녕!!!");
+	         String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
+	         File dir = new File(path);
+	         if (!dir.isDirectory()) {
+	            dir.mkdirs();
+	         }
 
 		if (dto.getData_data() == null) {
 			List<MultipartFile> fileList = mtfRequest.getFiles("file");
@@ -245,6 +251,8 @@ public class HomeController {
 			return "Class/DataVideoUploadFormPlus";
 		}
 	}
+		
+
 
 //	DataVideoUploadFormPlus - > DataVideoUploadFormPlus 한 챕터에 영상 추가
 	@RequestMapping("DataVideoUploadPlus")

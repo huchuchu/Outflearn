@@ -139,8 +139,6 @@ public class AnswerController {
 	public String Reply(@ModelAttribute ClassReviewDto dto , Model model) {
 		logger.info("Reply");
 		
-		System.out.println(dto.getReview_content() + " : content");
-		
 		model.addAttribute("ReviewReply", biz.ClassReviewInsertAnswer(dto));
 		
 		return "redirect: LectureDetail?class_num=" + dto.getClass_num();
