@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 
@@ -83,19 +84,16 @@
 	<div id="main" class="container pull-left">
 		<nav class="nav">
 			<ul class="nav nav-tabs">
-				<li class="nav-item "><a class="nav-link" href="void:0">대쉬보드</a></li>
-				<li class="nav-item "><a class="nav-link" href="void:0">강좌소개</a></li>
-				<li class="nav-item "><a class="nav-link" href="void:0">수강후기</a></li>
-				<li class="nav-item "><a class="nav-link" href="void:0">질문&답변</a></li>
-				<li class="nav-item "><a class="nav-link" href="void:0">새소식</a>
-				</li>
+				<li class="nav-item "><a class="nav-link" href="LectureDetail?class_num=${classinfo.class_num }">대쉬보드</a></li>
+				<li class="nav-item "><a class="nav-link" href="LectureDetailIntro?class_num=${classinfo.class_num }">강좌소개</a></li>
+				<li class="nav-item "><a class="nav-link" href="LectureDetailReview?class_num=${classinfo.class_num }">수강후기</a></li>
+				<li class="nav-item "><a class="nav-link" href="LectureDetailQuestion?class_num=${classinfo.class_num }">질문&답변</a></li>
 			</ul>
 		</nav>
 	</div>
 	<hr />
 
-	
-	<!-- 댓글 -->
+	<!-- BODY -->
 	<div class="panel panel-default">
 		<h1>글 목록</h1>
 		<table>
@@ -112,42 +110,72 @@
 
 							<tr>
 								<td>
-									<div class="form-group">${dto.user_star  }
-											${user_nickname }
-										</div>
+									<div class="form-group">${dto.user_star } ${user_nickname }</div>
 								</td>
 								<td>
-									<c:forEach begin="1" end="${dto.qa_titletab }">
+									<c:forEach begin="1" end="${dto.review_titletab }">
 										&nbsp;
 									</c:forEach>
 								</td>
-							</tr>
-							<tr align="right" id="answerOfAnswer${dto.review_num  }"  >
-							<td id="c${dto.review_num }">
-									${dto.review_content }
+								<td id="c">
+									<div class="form-group">${dto.review_content }</div>
 								</td>
+							</tr>
+							<tr align="right">
 								<td>
 									<form:form action="LectureDetailAnswerDelete" method="post">
 										<input type="hidden" name="class_num" value="${classinfo.class_num }">
-										<input type="hidden" name="review_num"  value="${dto.review_num }">
+										<input type="hidden" name="board_no" value="${dto.review_num }">
 										<input type="submit" value="삭제">
 									</form:form>
 								</td>
 								<td id="a">
-									<input type="hidden" name="review_content" value="${dto.review_content }"> 
-									<input type="hidden" name="review_num" value="${dto.review_num }">
+									<input type="hidden" name="review_contet" value="${dto.review_content }">
+									<input type="hidden" name="board_no" value="${dto.review_num }">
 									<button type="button" id="b">수정</button>
 								</td>
 								<td>
-									<form:form action="ReplyForm" method="post">
-										<input type="hidden" name="review_num" value="${dto.review_num }">
+									<div>
+										<input type="hidden" name="board_no" value="${dto.review_num }">
 										<input type="hidden" name="class_num" value="${classinfo.class_num }">
 										<input type="hidden" name="user_star" value="${dto.user_star }">
-										<input type="submit" value="답글" />
-									</form:form>
+										<button type="button" class="btn btn-default ReviewReply">답글</button>
+									</div>
+								</td>
+							</tr>
+							
+							<tr class="row reply_group">
+								<td colspan="3" class="reply_content col-sm-10 col-md-10">
+									<c:choose>
+										<c:when test="${empty ReviewReply }">
+											<form:form action="Reply" method="post">
+												<input type="hidden" name="class_num" value="${dto.class_num }">
+												<input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
+												<input type="hidden" name="review_num" value="${dto.review_num }">
+												<input type="hidden" name="review_groupno" value="${dto.review_groupno }">
+												<input type="hidden" name="review_groupsq" value="${dto.review_groupsq }">
+												<div class="row">
+													<div class="col-sm-8 col-md-8">
+														<textarea name="review_content" cols="30" rows="10"></textarea>
+													</div>
+													<div class="col-sm-2 col-md-2" >
+														<input type="submit" value="작 성" >
+													</div>
+												</div>
+											</form:form>
+										</c:when>
+										
+										<c:otherwise>
+											<div class="row">
+												<div class="col-sm-10 col-md-10">${ReviewReply.review_content }</div>
+											</div>
+										</c:otherwise>
+								</c:choose>
+									
 								</td>
 							</tr>
 						</c:forEach>
+						</div>
 				</c:otherwise>
 			</c:choose>
 		</table>

@@ -136,29 +136,14 @@ public class AnswerController {
 	
 //	대댓글
 	@RequestMapping("Reply")
-	public String Reply(@ModelAttribute ClassReviewDto dto , Model model, int class_num , int parentboard_no, Authentication auth) {
+	public String Reply(@ModelAttribute ClassReviewDto dto , Model model) {
 		logger.info("Reply");
 		
-		model.addAttribute("class_num", dto.getClass_num());
-		System.out.println("왔냐 " + class_num);
-		System.out.println("빡크 " + dto.getReview_num());
+		System.out.println(dto.getReview_content() + " : content");
 		
-		// 회원 정보 - 닉네임, 유저 번호
-		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
-		String user_nickname = uDto.getUser_nickname();
-		int user_num = (Integer) uDto.getUser_num();
-		model.addAttribute("user_nickname", user_nickname);
-		model.addAttribute("user_num", user_num);		
+		model.addAttribute("ReviewReply", biz.ClassReviewInsertAnswer(dto));
 		
-		model.addAttribute("parentBoard_no",biz.ClassReviewSelectOne(parentboard_no));
-		int res = biz.ClassReviewAnswer(dto, parentboard_no);
-		
-		if (res > 0) {
-			return "redirect:LectureDetail?board_no=" + parentboard_no;
-		} else {
-			return "redirect:LectureDetail?board_no=" + parentboard_no;
-		}
-	
+		return "redirect: LectureDetail?class_num=" + dto.getClass_num();
 	}
 	
 }
