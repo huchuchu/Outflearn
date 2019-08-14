@@ -101,7 +101,7 @@ public class HomeController {
 	@RequestMapping("Livepage")
 	public String Livepage() {
 		
-		return "Live/Livepage.jsp";
+		return "Live/Livepage";
 	}
 
 //	강의 쓰기
@@ -384,7 +384,7 @@ public class HomeController {
 		model.addAttribute("wishList", biz.getWishList(dto.getUser_num()));
 		model.addAttribute("subClass", biz.getSubscribe(dto.getUser_num()));
 
-		return "myPage";
+		return "Member/myPage";
 	}
 
 }
