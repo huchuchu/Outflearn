@@ -44,7 +44,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("class_num", class_num);
 
-		dto = sqlSession.selectOne(namespace + "classInfoSelectone", class_num);
+		dto = sqlSession.selectOne(namespace + "ClassInfoSelectone", map);
 
 		return dto;
 	}

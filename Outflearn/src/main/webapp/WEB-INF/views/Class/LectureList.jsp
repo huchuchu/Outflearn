@@ -137,7 +137,7 @@
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${classinfo }" var="dto">
-									<div style="width: 28%">
+									<div class="card">
 										<div>
 											<a href="LectureDetail?class_num=${dto.class_num }"> <img
 												class="card-img-top" src="${pageContext.request.contextPath }/resources/uploadImage/${dto.class_img }"

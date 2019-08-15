@@ -146,7 +146,7 @@
 										<input type="hidden" name="class_num" value="${classinfo.class_num }">
 										<input type="hidden" name="user_star" value="${dto.user_star }">
 										<button type="button" class="btn btn-default ReviewReply">답글</button>
-									</div>
+									</form:form>
 								</td>
 							</tr>
 							

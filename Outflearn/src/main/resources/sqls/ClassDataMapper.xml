@@ -9,7 +9,7 @@
 	</select>
 	
 	<!-- 해당 강의 조회 -->
-    <select id="ClassInfoSelectone" parameterType="int" resultType="ClassInfoDto">
+    <select id="ClassInfoSelectone" parameterType="map" resultType="ClassInfoDto">
    	  SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
    </select>
   
