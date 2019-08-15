@@ -4,8 +4,6 @@ var localStream
 var remoteStream
 var pc;
 
-var pcArr = []
-
 var pcConfig = {
     'iceServers': [
         {
@@ -27,71 +25,43 @@ var sdpConstraints = {
 
 // socket
 
-var room = 'foo'
 // var name = $('#userInfo').attr("name")
+// var room = $('#userInfo').attr("room")
+var room = 'foo'
 var name = 'test'
-var class_num = 1;
 
-
-var socket = io.connect("https://localhost:3000");
+var socket = io.connect();
 
 if (room !== "") {
-    socket.emit('create or join', name, room, class_num)
-    console.log('create or join 메세지 서버에 전송', room);
+    socket.emit('userJoin', room, name)
+    console.log('userJoin 메세지 서버에 전송', room);
 }
-
-
-socket.on('created', function (room) {
-    console.log(`방 생성 ${room}`);
-    startCast()
-})
-
-socket.on('join', function (numClients, id) {
-    console.log('쪼인!!!');
-    casterPeerCreate(id)
-})
-
-// socket.on('entrance', function () {
-
-// })
-
-// socket Event
 
 socket.on('message', function (msg, id) {
     if (msg.type === 'offer') {
         console.log(`받은 메세지 offer`);
-        userPeerCreate()
+        createPeerConnectionUser()
         pc.setRemoteDescription(new RTCSessionDescription(msg));
         sendAnswer()
-    } else if (msg.type === 'answer') {
-        console.log(`받은 메세지 answer`);
-        commitPc(findPc(id).setRemoteDescription(new RTCSessionDescription(msg)), id);
-        // pc.setRemoteDescription(new RTCSessionDescription(msg));
     } else if (msg.type === 'candidate') {
         var candidate = new RTCIceCandidate({
             sdpMLineIndex: msg.label,
-            candidate: msg
+            candidate: msg.candidate
         });
 
-        var empPc = findPc(id)
-
-        if (empPc) {
-            commitPc(empPc.addIceCandidate(candidate), id)
-        } else {
-            pc.addIceCandidate(candidate)
-        }
-        // commitPc(findPc(id).addIceCandidate(candidate), id);
-        // pc.addIceCandidate(candidate);
+        pc.addIceCandidate(candidate)
     } else if (msg === 'bye') {
-        handleRemoteHangup(id)
+        handleRemoteHangup()
+    } else {
+        console.log('잘못 배달된 메세지', msg);
     }
 })
 
 socket.on('chatMsg', function (data) {
     if (data.type === 'msg') {
         appendMsg('other', data.chatMessage, data.name)
-    } else if (data.type === 'leaveCaster') {
-        appendMsg('server', 'Caster leave this Room')
+    } else if (data.type === 'chatMsg') {
+        alert('Caster가 나갔어요')
     }
 });
 
@@ -118,38 +88,18 @@ if (location.hostname !== 'localhost') {
 }
 
 window.onbeforeunload = function () {
-    sendMessage('bye');
+    userSendMessage('bye');
 };
 
 // funtions
 
-function findPc(id) {
-    for (let i = 0; i < pcArr.length; i++) {
-        if (pcArr[i].id === id) {
-            return pcArr[i].pc
-        }
-    }
-}
-
-function commitPc(pc, id) {
-    for (let i = 0; i < pcArr.length; i++) {
-        if (pcArr[i].id === id) {
-            pcArr[i].pc === pc
-        }
-    }
-}
-
 function sendMessage(msg) {
-    socket.emit('message', msg, room)
+    socket.emit('message', msg)
 }
 
 function userSendMessage(msg) {
     console.log(`클라이언트가 메세지 보냄 ${msg}`);
     socket.emit('userMsg', msg, room)
-}
-
-function casterSendMessage(msg, id) {
-    socket.emit('casterMsg', msg, id)
 }
 
 var localVideo = document.querySelector('#localVideo')
@@ -172,36 +122,6 @@ function gotStream(stream) {
     localVideo.srcObject = stream
 }
 
-function casterPeerCreate(id) {
-    console.log('피어 커넥션 생성');
-
-    pcArr.push({ 'id': id, pc: createPeerConnectionCaster(id) })
-    //createPeerConnection()
-
-    commitPc(findPc(id).addStream(localStream), id)
-    // pc.addStream(localStream)
-
-    sendOffer(id)
-}
-
-function joinUser() {
-    console.log('joinUser');
-    createPeerConnectionUser()
-    // sendMessage('requestOffer')
-}
-
-function sendOffer(id) {
-    console.log('오퍼 보냄');
-    // pc.createOffer(setLocalAndSendMessage, handleCreateOfferError)
-    findPc(id).createOffer()
-        .then(function (sessionDescription) {
-            setLocalAndSendMessageCaster(sessionDescription, id)
-        })
-        .catch(function (err) {
-            handleCreateOfferError(err)
-        })
-}
-
 function handleCreateOfferError(event) {
     console.log('createOffer() error: ', event);
 }
@@ -217,23 +137,13 @@ function sendAnswer() {
 function setLocalAndSendMessageUser(sessionDescription) {
     pc.setLocalDescription(sessionDescription);
     console.log('setLocalAndSendMessage sending message', sessionDescription);
-    // sendMessage(sessionDescription);
     userSendMessage(sessionDescription);
 }
 
-function setLocalAndSendMessageCaster(sessionDescription, id) {
-    commitPc(findPc(id).setLocalDescription(sessionDescription), id);
-    // pc.setLocalDescription(sessionDescription);
-    console.log('setLocalAndSendMessage sending message', sessionDescription);
-    // sendMessage(sessionDescription);
-    casterSendMessage(sessionDescription, id);
-}
 
 function onCreateSessionDescriptionError(error) {
     trace('Failed to create session description: ' + error.toString());
 }
-
-// createPeectConnection
 
 function createPeerConnectionUser() {
     try {
@@ -250,24 +160,6 @@ function createPeerConnectionUser() {
     }
 }
 
-function createPeerConnectionCaster(id) {
-    var empPc
-    try {
-        empPc = new RTCPeerConnection(null);
-        // empPc.onicecandidate = handleIceCandidateLec
-        empPc.onicecandidate = function (event) {
-            handleIceCandidateCaster(event, id)
-        }
-        empPc.onaddstream = handleRemoteStreamAdded
-        empPc.onremovestream = handleRemoteStreamRemoved
-        console.log('피어 커넥션 (Lec) 생성 완료');
-        return empPc
-    } catch (e) {
-        console.log('피어 커넥션 (Lec) 생성 오류', e.message);
-        alert('Cannot create RTCPeerConnection object.');
-        return;
-    }
-}
 
 function handleIceCandidateUser(event) {
     console.log('icecandidate event: ', event);
@@ -278,20 +170,6 @@ function handleIceCandidateUser(event) {
             id: event.candidate.sdpMid,
             candidate: event.candidate.candidate
         });
-    } else {
-        console.log('End of candidates.');
-    }
-}
-
-function handleIceCandidateCaster(event, id) {
-    console.log('icecandidate event: ', event);
-    if (event.candidate) {
-        casterSendMessage({
-            type: 'candidate',
-            label: event.candidate.sdpMLineIndex,
-            id: event.candidate.sdpMid,
-            candidate: event.candidate.candidate
-        }, id);
     } else {
         console.log('End of candidates.');
     }
@@ -313,15 +191,14 @@ function hangup() {
     sendMessage('bye');
 }
 
-function handleRemoteHangup(id) {
+function handleRemoteHangup() {
     console.log('Session terminated.');
-    stop(id);
+    stop();
 }
 
-function stop(id) {
-    commitPc(findPc(id).close(), id)
+function stop() {
+    pc.close()
 }
-
 
 // turn & ice server
 
@@ -357,7 +234,7 @@ function requestTurn(turnURL) {
     }
 }
 
-// Chat functions
+// Chat
 
 function appendMsg(_class, _msg, _name) {
     var text;
@@ -371,12 +248,6 @@ function appendMsg(_class, _msg, _name) {
 
 $(function () {
 
-    // SOCKET
-    //script의 attr 가져오기
-    // var name = $('#userInfo').attr("name")
-    // var room = $('#userInfo').attr("room")
-    // var name = prompt('Insert your Nickname')
-
     $('form').submit(function (e) {
         e.preventDefault();
         var msg = $('#m').val().trim();
@@ -387,6 +258,8 @@ $(function () {
         $('#m').val('');
         return false;
     });
+
+    //FUNCTION
 
     $(document).on('click', '.nameSpace', function () {
         $('.clickMenu').css('display', 'none')
