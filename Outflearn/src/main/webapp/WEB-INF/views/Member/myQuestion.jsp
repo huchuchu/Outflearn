@@ -39,26 +39,26 @@
           <ul class="nav flex-column text-center">
 
             <li class="nav-item side_menu select">
-              <a href="myPage" class="selectMenu">대시보드</a>
+              <a href="myPage">대시보드</a>
             </li>
 
             <li class="nav-item side_menu">
               <a href="void:0">내 강좌</a>
               <ul class="inner_menu">
                 <li><a href="listenClass">수강중인 강좌</a></li>
-                <li><a href="wishClass">위시리스트</a></li>
+                <li><a href="wishClass" >위시리스트</a></li>
               </ul>
             </li>
 
             <li class="nav-item side_menu">
               <a href="void:0">로드맵</a>
               <ul class="inner_menu">
-                <li><a href="subRoadmap">참여중인 로드맵</a></li>
+                <li><a href="subRoadmap" >참여중인 로드맵</a></li>
               </ul>
             </li>
 
             <li class="nav-item side_menu">
-              <a href="myQuestion">내 질문</a>
+              <a href="myQuestion" class="selectMenu">내 질문</a>
             </li>
 
             <li class="nav-item side_menu">
@@ -85,63 +85,19 @@
 
       <div class="col-sm-10">
         <div class="page-header">
-          <h1 id="page-header-content">대시보드</h1>
+          <h1 id="page-header-content">내 질문</h1>
         </div>
         <article>
           <div class="page-body">
             <div class="row">
               <div class="col-sm-12">
                 <div class="boardBox">
-                  <h4 class="boxTitle">수강중인 강좌</h4>
-                  <c:forEach items="${subClass }" var="item">
-                    강좌명 : ${item.class_title}
-                  </c:forEach>
+                  <h4 class="boxTitle">내 질문</h4>
+                  
                 </div>
               </div>
             </div>
 
-            <div class="row">
-
-              <div class="col-sm-6">
-                <div class="boardBox">
-                  <h4 class="boxTitle">내 프로필</h4>
-                  <p>닉네임 : ${userInfo.user_nickname}</p>
-                  <p>이메일 : ${userInfo.user_email}</p>
-                  <p>등급 :
-                    <sec:authentication property="principal.Authorities" var="grade" />
-                    <c:if test="${grade eq '[ROLE_USER]'}"> 유저에요 </c:if>
-                    <c:if test="${grade eq '[ROLE_ADMIN]'}"> 어드민이에요 </c:if>
-                    <c:if test="${grade eq '[ROLE_TUTOR]'}"> 강사에요 </c:if>
-                  </p>
-                </div>
-              </div>
-
-              <div class="col-sm-6">
-                <div class="boardBox">
-                  <h4 class="boxTitle">위시리스트</h4>
-                  <c:forEach items="${wishList }" var="item">
-                    강좌명 : ${item.class_title}
-                  </c:forEach>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="row">
-
-              <div class="col-sm-6">
-                <div class="boardBox">
-                  <h4 class="boxTitle">참여중인 로드맵</h4>
-                </div>
-              </div>
-
-              <div class="col-sm-6">
-                <div class="boardBox">
-                  <h4 class="boxTitle">최근 내 질문</h4>
-                </div>
-              </div>
-
-            </div>
 
           </div>
         </article>
