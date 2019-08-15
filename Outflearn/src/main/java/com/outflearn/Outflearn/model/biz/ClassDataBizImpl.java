@@ -41,11 +41,6 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return dao.ClassDataInsert(dto);
 	}
 	
-	@Override
-	public int classDataSelfInsert(ClassDataDto dto) {
-		
-		return dao.classDataSelfInsert(dto);
-	}
 	
 	@Override
 	public int ClassChapterDataInsert(ClassDataDto dto) {
@@ -104,15 +99,15 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	
 //	---------------------------------------------------	강좌 소개
 	@Override
-	public List<ClassIntroduceDto> ClassIntroduceSelectList() {
+	public List<ClassIntroduceDto> ClassIntroduceSelectList(int class_num) {
 		
-		return null;
+		return dao.ClassIntroduceSelectList(class_num);
 	}
 
 	@Override
-	public ClassInfoDto ClassIntroduceSelectOne(int class_num) {
+	public ClassIntroduceDto ClassIntroduceSelectOne(int class_num) {
 
-		return null;
+		return dao.ClassIntroduceSelectOne(class_num);
 	}
 
 	@Override
@@ -198,7 +193,7 @@ public class ClassDataBizImpl implements ClassDataBiz {
 
 	@Override
 	public int ClassReviewAnswer(ClassReviewDto dto, int parentBoard_no) {
-		int parentboard_no = dto.getBoard_no();
+		int parentboard_no = dto.getReview_num();
 		
 		  // update
 	      int ClassReviewUpdateAnswer = dao.ClassReviewUpdateAnswer(parentboard_no);

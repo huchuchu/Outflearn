@@ -42,7 +42,7 @@ public class AnswerController {
 		model.addAttribute("user_nickname", user_nickname);
 		model.addAttribute("user_num", user_num);
 
-		return "LectureDetailAnswer";
+		return "Class/LectureDetailAnswer";
 	}
 	
 //  댓글 입력
@@ -85,14 +85,15 @@ public class AnswerController {
 	
 	@RequestMapping("AnswerUpdate")
 	@ResponseBody
-	public Map<String,Object> AnswerUpdate(@ModelAttribute ClassReviewDto dto, int board_no, String review_content) {
-		System.out.println("게시판번호"+board_no);
+	public Map<String,Object> AnswerUpdate(@ModelAttribute ClassReviewDto dto, int review_num, String review_content) {
+		System.out.println("게시판번호"+review_num);
 		System.out.println("댓글내용"+review_content);
+		
 		Boolean updatechk = false;
 		Map<String,Object> map = new HashMap<String, Object>();
 		
 	
-		dto.setBoard_no(board_no);
+		dto.setReview_num(review_num);
 		dto.setReview_content(review_content);
 		
 		int res = biz.ClassReviewUpdate(dto);
@@ -130,7 +131,7 @@ public class AnswerController {
 		System.out.println(board_no + "FLEX");
 		model.addAttribute("classReview",biz.ClassReviewSelectOne(board_no));
 		
-		return "LectureDetailAnswerReply";
+		return "Class/LectureDetailAnswerReply";
 	}
 	
 //	대댓글
@@ -140,7 +141,7 @@ public class AnswerController {
 		
 		model.addAttribute("class_num", dto.getClass_num());
 		System.out.println("왔냐 " + class_num);
-		System.out.println("빡크 " + dto.getBoard_no());
+		System.out.println("빡크 " + dto.getReview_num());
 		
 		// 회원 정보 - 닉네임, 유저 번호
 		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();

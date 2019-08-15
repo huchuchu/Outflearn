@@ -28,7 +28,7 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-	<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
+	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 
 	<div class="jumbotron">
 		<div id="jumbo_row" class="row">
@@ -94,27 +94,23 @@
 	  	   <div class="panel panel-default">
 		<h1>댓글 쓰기</h1>
 
-		<form:form action="LectureDetailAnswer" method="post">
+		<form:form action="Reply" method="post">
 		<input type="hidden" name="user_nickname" value="${user_nickname }">
 		<input type="hidden" name="user_num" value="${user_num }">
+		<input type="hidden" name="user_star" value="${user_star }">
 		<input type="hidden" name="class_num" value="${class_num }">
+		<input type="hidden" name="parentboard_no" value="${review_num }"/>
 
 		<table border="1">
 			<tr>
 				<td>
-					<select name="user_star" class="alert alert-success ">
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-					</select>
+					${user_star }
 				</td>
 				<td><strong>${user_nickname }</strong></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea name="review_content"></textarea></td>
+				<td><textarea rows="10" cols="60" name="review_content"></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="right">
@@ -123,10 +119,10 @@
 		</table>
 		</form:form>
 		</div>
-	</div>	
+	</div>
 	
 
-	<jsp:include page="footer/Footer.jsp"></jsp:include>
+	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 
 	<script type="text/javascript"
 		src="resources/js/template/jquery.1.11.1.js"></script>

@@ -72,7 +72,7 @@
 
 <body>
 	<!-- Header  -->
-	<jsp:include page="header/MainHeader.jsp"></jsp:include>
+	<jsp:include page="../header/MainHeader.jsp"></jsp:include>
 	<!-- Header  -->
 
 	
@@ -180,7 +180,7 @@
 	</div>
 
    <!--footer  -->
-   <jsp:include page="footer/Footer.jsp"></jsp:include>    
+   <jsp:include page="../footer/Footer.jsp"></jsp:include>    
    <!--footer  -->
 
 </body>

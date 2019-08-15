@@ -53,13 +53,13 @@ public class LoginController {
 	//로그인 페이지로 이동
 	@RequestMapping("loginform")
 	public String loginform() {
-		return "login";
+		return "Auth/login";
 	}
 	
 	//회원가입페이지로 이동 
 	@RequestMapping("registerform.do")
 	public String joinform() {
-		return "MemberRegister";
+		return "Auth/MemberRegister";
 	}
 	
 		
@@ -79,7 +79,7 @@ public class LoginController {
 		
 		biz.insertUser(map);	
 		
-		return "login";
+		return "Auth/login";
 	}
 	
 	
@@ -219,24 +219,24 @@ public class LoginController {
 	//아이디 찾기 폼
 	@RequestMapping("findIdForm.do")
 	public String findIdForm() {
-		return "FindIdForm";
+		return "Auth/FindIdForm";
 	}
 	//아이디찾기
 	@RequestMapping("/findId.do")
 	public String findId(HttpServletResponse response, @RequestParam("user_email") String user_email, Model md) throws IOException {
 			md.addAttribute("id", biz.findId(response, user_email));
-	return "FindId";
+	return "Auth/FindId";
 	
 	}
 	//비밀번호 찾기폼 
 	@RequestMapping("/findPwForm.do")
 	public String findPwForm() {
-		return "FindPw";
+		return "Auth/FindPw";
 	}
 	//비밀번호 찾기
 	@RequestMapping("/findPw.do")
 	public String findPw() {
-			return "login";
+			return "Auth/login";
 		
 	}
 	
@@ -280,7 +280,7 @@ public class LoginController {
 		} catch (MailException ex) {
 			logger.error("메일발송 실패", ex);
 		}
-		return "login";
+		return "Auth/login";
 	}
 	
 	@RequestMapping("MemberInfoUpdateForm.do")
@@ -294,7 +294,7 @@ public class LoginController {
 		model.addAttribute("email2", email2);
 		logger.info(email1);
 		logger.info(email2);
-		return "MemberInfoUpdate";
+		return "Auth/MemberInfoUpdate";
 	}
 
 	@RequestMapping("memberInfoUpdate.do")
@@ -313,10 +313,10 @@ public class LoginController {
 		int res = biz.updateUserInfo(map);
 		if(res>0) {
 						
-			return "home";
+			return "Auth/home";
 		} else {
 			
-			return "MemberInfoUpdate";
+			return "Auth/MemberInfoUpdate";
 		}
 		
 	}

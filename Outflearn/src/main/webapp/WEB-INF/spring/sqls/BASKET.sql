@@ -16,4 +16,4 @@ INSERT
 	INTO
 		BASKET
 	VALUES(2,
-	2);
+	1);

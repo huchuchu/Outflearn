@@ -53,40 +53,30 @@
 
 <script type="text/javascript">
       
-
-
 // 작성 버튼 눌렀을시 추가 사항이 있는지 알람
    		   function clearalert(){
         		alert("추가 작성 없을시 '게시판 넘기기' 클릭");
-        		var data_youtube = document.getElementsByName("data_data")[0].value;
-        		alert(data_youtube);
         	}
         	
 
 			$(document).ready(function(){
-				
-// 영상 업로드에서 유튜브 링크 클릭시 파일 업로드 작동 금지			
-	
-// 영상 업로드에서  영상 업로드 클릭시 유튜브 링크  작동 금지		
 			
-	
 				$(".success1").click(function(){
-					$(".a").remove();
+					$(".data").remove();
 				});
 		
 				$(".success2").click(function(){
-					$(".b").remove();
+					$(".youTube").remove();
 				});
 			
 			
 			});
      
-          
 </script>
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-	<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
+	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 
 	<div class="form-group">
 		<h1>영상 소개</h1>
@@ -103,7 +93,8 @@
 		</ul>
 		<div class="col-sm-6 col-el-8">
 
-		<form:form action="DataVideoUpload" method="post"  onsubmit="return clearalert();" >
+		<form:form action="DataVideoUpload" method="post" enctype="multipart/form-data">
+		
 				<div class="form-group">
 					<h3>소제목</h3>
 					<input type="text" name="data_subhead" class="form-control" placeholder="소제목을 입력해주세요.">
@@ -120,25 +111,22 @@
 				</div>
 
 			<div class="form-group">
-					<h3>영상 업로드</h3>
-				<div class="b">
-					<input type="text" name="data_youtube" class="youtubeFile form-control" value="https://www.youtube.com/watch?v=KBfRz9kqwnE" 
-					placeholder="유튜브 주소를 입력해주세요."/>
+					<h3>영상 업로드(유튜브 영상 링크 또는 파일 업로드 하나만 선택)</h3>
+				<div class="youTube">
+					<input type="text" name="data_data" class="form-control" placeholder="유튜브 주소를 입력해주세요."/>
 					<input type="button" value="완료" class="success1"/>
 				</div>
-				<div class="a">
-					<input type="file" name="data_data" class="selfDataVideoUpload" />
+			</div>
+			<div class="form-group">
+				<div class="data">
+					<input type="file" name="file"/>
 					<input type="button" value="완료" class="success2"/>
 				</div>
 			</div>
 			
-				<div class="form-group">
-					<h3>내용 소개</h3>
-					<textarea name="class_intro" class="form-control" rows="5" cols="10" placeholder="내용을 설명해주세요.">test</textarea>
-				</div>
 
 				<div class="form-group">
-					<input type="submit" class="add_field_button btn btn-success btn-md" value="작성 후 클릭" id="woong" /> 
+					<input type="submit" class="add_field_button btn btn-success btn-md" value="작성 후 클릭" onclick="clearalert();" /> 
 					<input type="button" class="add_field_button btn btn-success btn-md" value="게시판 넘기기 " onclick="location.href='LectureList'"> 
 					<input type="button" class="add_field_button btn btn-success btn-md pull-right" value="뒤로 가기" onclick="backclassinfo();" />
 				</div>
@@ -149,7 +137,7 @@
 
 
 	<!-- Footer Section -->
-	<jsp:include page="footer/Footer.jsp"></jsp:include>
+	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 
 	<script>
 		jQuery.noConflict();

@@ -30,45 +30,35 @@
 
    <!-- Stylesheet
     ================================================== -->
-   <!-- <link rel="stylesheet" type="text/css" href="resources/css/style.css"> -->
-   <!-- <link rel="stylesheet" type="text/css" -->
-   <!-- 	href="resources/css/nivo-lightbox/nivo-lightbox.css"> -->
-   <!-- <link rel="stylesheet" type="text/css" -->
-   <!-- 	href="resources/css/nivo-lightbox/default.css"> -->
-   <!-- <link -->
-   <!-- 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" -->
-   <!-- 	rel="stylesheet"> -->
-   <!-- <link href="https://fonts.googleapis.com/css?family=Lato:400,700" -->
-   <!-- 	rel="stylesheet"> -->
-   <!-- <link -->
-   <!-- 	href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" -->
-   <!-- 	rel="stylesheet"> -->
+<!-- <link rel="stylesheet" type="text/css" href="resources/css/style.css"> -->
+<!-- <link rel="stylesheet" type="text/css" -->
+<!-- 	href="resources/css/nivo-lightbox/nivo-lightbox.css"> -->
+<!-- <link rel="stylesheet" type="text/css" -->
+<!-- 	href="resources/css/nivo-lightbox/default.css"> -->
+<!-- <link -->
+<!-- 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" -->
+<!-- 	rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=Lato:400,700" -->
+<!-- 	rel="stylesheet"> -->
+<!-- <link -->
+<!-- 	href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" -->
+<!-- 	rel="stylesheet"> -->
 
-   <!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
-   <link href="/your-path-to-fontawesome/css/fontawesome.css" rel="stylesheet">
-   <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
-   <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
-   <!-- <script src="https://kit.fontawesome.com/27cb20e940.js"></script> -->
+<!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
+<link href="/your-path-to-fontawesome/css/fontawesome.css"
+	rel="stylesheet">
+<link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
+<link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
+<!-- <script src="https://kit.fontawesome.com/27cb20e940.js"></script> -->
 
-   <sec:csrfMetaTags />
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-   <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-   <script type="text/javascript">
-      $(function () {
-         var token = $("meta[name='_csrf']").attr("content");
-         var header = $("meta[name='_csrf_header']").attr("content");
-         $(document).ajaxSend(function (e, xhr, options) {
-            xhr.setRequestHeader(header, token);
-         });
-      });
-
-   </script>
 </head>
 
 <body>
 
    <!-- Header  -->
-   <jsp:include page="header/MainHeader.jsp"></jsp:include>
+   <jsp:include page="../header/MainHeader.jsp"></jsp:include>
    <!-- Header  -->
 
    <h1 class="text-center">회원 가입</h1>
@@ -149,7 +139,7 @@
    </div>
 
    <!--footer  -->
-   <jsp:include page="footer/Footer.jsp"></jsp:include>
+   <jsp:include page="../footer/Footer.jsp"></jsp:include>
    <!--footer  -->
 
 </body>

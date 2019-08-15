@@ -26,7 +26,7 @@
 
 <body>
 
-	<jsp:include page="header/LectureListHeader.jsp"></jsp:include>
+	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 
 	<div class="container">
 		<div class="row">
@@ -133,9 +133,8 @@
 							<c:otherwise>
 								<c:forEach items="${classinfo }" var="dto">
 									<div class="card">
-										<a href="LectureDetail?class_num=${dto.class_num }">
-											<img class="card-img-top" src="resources/img/cardpx.svg"
-												alt="Card image cap">
+										<a href="LectureDetail?class_num=${dto.class_num }"> 
+										<img class="card-img-top" src="${pageContext.request.contextPath }/uploadImage/${dto.class_img }" alt="Card image cap">
 											<div class="card-body">
 												<h5 class="card-title">${dto.class_title }</h5>
 												<p class="card-text">${dto.class_intro }</p>
@@ -143,7 +142,7 @@
 										</a>
 									</div>
 								</c:forEach>
-								<input type="button" value="강의 추가" onclick="location.href='ClassImageUpload'" />
+								<input type="button" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" /> 
 							</c:otherwise>
 						</c:choose>
 				</article>
@@ -152,7 +151,7 @@
 	</div>
 	<!-- ==================== FOOTER ==================== -->
 
-	<jsp:include page="footer/Footer.jsp"></jsp:include>
+	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 
 	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>

@@ -13,15 +13,15 @@ public class ClassInfoDto {
 	private int class_price;
 	private int class_subcount;
 	private String class_studentlevel;
-	private String class_category;
+
 
 	public ClassInfoDto() {
 		super();
 	}
 
 	public ClassInfoDto(int class_num, int user_num, String class_title, String class_author, String class_intro,
-			String class_img, String class_live, int class_rating, int class_price, int class_subcount,
-			String class_studentlevel, String class_category) {
+			String class_img,  String class_live, int class_rating, int class_price, int class_subcount,
+			String class_studentlevel) {
 		super();
 		this.class_num = class_num;
 		this.user_num = user_num;
@@ -34,7 +34,6 @@ public class ClassInfoDto {
 		this.class_price = class_price;
 		this.class_subcount = class_subcount;
 		this.class_studentlevel = class_studentlevel;
-		this.class_category = class_category;
 	}
 
 	public int getClass_num() {
@@ -84,6 +83,7 @@ public class ClassInfoDto {
 	public void setClass_img(String class_img) {
 		this.class_img = class_img;
 	}
+	
 
 	public String getClass_live() {
 		return class_live;
@@ -125,12 +125,6 @@ public class ClassInfoDto {
 		this.class_studentlevel = class_studentlevel;
 	}
 
-	public String getClass_category() {
-		return class_category;
-	}
 
-	public void setClass_category(String class_category) {
-		this.class_category = class_category;
-	}
 
 }
