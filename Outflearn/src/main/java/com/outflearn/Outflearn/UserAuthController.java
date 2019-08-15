@@ -163,7 +163,7 @@ public class UserAuthController {
 	public String naverCallback() {
 		
 		
-		return "callback";
+		return "Auth/callback";
 		
 	}
 	
