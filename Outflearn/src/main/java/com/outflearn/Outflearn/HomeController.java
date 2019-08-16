@@ -101,30 +101,39 @@ public class HomeController {
 		
 	}
 
-	@RequestMapping("/LectureDetail")
-	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session, Authentication auth) {
 		
-		logger.info("/LectureDetail");
+	
 
+	@RequestMapping("/LectureDetail")
+	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, @ModelAttribute ClassIntroduceDto iDto ,int class_num, Model model, HttpSession session, Authentication auth) {
+
+		logger.info("/LectureDetail");
+		session.setAttribute("info_num", class_num);
 		model.addAttribute("class_num", class_num);
 		// 닉네임
 		// 회원 정보
+		System.out.println(auth.getPrincipal());
 		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
 		String user_nickname = uDto.getUser_nickname();
 		model.addAttribute("user_nickname", user_nickname);
 		
 		// 강좌 소개
-		model.addAttribute("classinfo", biz.ClassInfoSelectList());
+		model.addAttribute("classinfo", biz.ClassInfoSelectOne(class_num));
+		System.out.println(biz.ClassInfoSelectOne(class_num));
 		
 		// 댓글
 		model.addAttribute("classReview", biz.ClassReviewSelectList(class_num));
 		System.out.println(biz.ClassReviewSelectList(class_num));
 		
 		// 강의 소개
-		model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
-		System.out.println(biz.ClassIntroduceSelectList(class_num));
-
 		
+		
+		ClassIntroduceDto abc = biz.ClassIntroduceSelectList(class_num);
+		model.addAttribute("classIntroduce", abc);
+		System.out.println(abc);
+		
+	
+
 		return "Class/LectureDetail";
 	}
 
@@ -135,7 +144,6 @@ public class HomeController {
 		int info_num = (int) session.getAttribute("info_num");
 
 		ClassDataDto dto = biz.ClassDataSelectOne(info_num);
-
 		return dto.getData_data();
 	}
 
@@ -167,7 +175,7 @@ public class HomeController {
 		System.out.println("아예안오니");
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 
-		String path = mtfRequest.getSession().getServletContext().getRealPath("/uploadImage");
+		String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
 		File dir = new File(path);
 		if (!dir.isDirectory()) {
 			dir.mkdirs();
@@ -225,14 +233,15 @@ public class HomeController {
 	public String DataVideoUpload(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto, Model model)
 			throws FileNotFoundException {
 		logger.info("DataVideoUpload");
-
+		
 		if (dto.getData_data() == null) {
-			List<MultipartFile> fileList = mtfRequest.getFiles("file");
-			String path = mtfRequest.getSession().getServletContext().getRealPath("/uploadImage");
-			File dir = new File(path);
-			if (!dir.isDirectory()) {
-				dir.mkdirs();
-			}
+	         List<MultipartFile> fileList = mtfRequest.getFiles("file");
+	         System.out.println("안녕!!!");
+	         String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
+	         File dir = new File(path);
+	         if (!dir.isDirectory()) {
+	            dir.mkdirs();
+	         }
 
 			for (MultipartFile mf : fileList) {
 				String originFileName = mf.getOriginalFilename(); // 원본 파일 명
@@ -258,11 +267,11 @@ public class HomeController {
 			}
 
 		} else {
-			if (dto.getData_data().substring(0, 5) == "https") {
+			if (dto.getData_data().substring(0, 5).equals("https")) {
 
 				String a = dto.getData_data();
 				String b = "";
-
+				System.out.println(a);
 				if (a.contains("v=")) {
 					b = a.split("v=")[1];
 				} else if (a.contains("list=")) {
@@ -283,6 +292,8 @@ public class HomeController {
 			return "Class/DataVideoUploadFormPlus";
 		}
 	}
+		
+
 
 //	DataVideoUploadFormPlus - > DataVideoUploadFormPlus 한 챕터에 영상 추가
 	@RequestMapping("DataVideoUploadPlus")
@@ -293,7 +304,7 @@ public class HomeController {
 		if (dto.getData_data() == null) {
 			List<MultipartFile> fileList = mtfRequest.getFiles("file");
 			System.out.println("안녕!!!");
-			String path = mtfRequest.getSession().getServletContext().getRealPath("/uploadImage");
+			String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
 			File dir = new File(path);
 			if (!dir.isDirectory()) {
 				dir.mkdirs();
@@ -309,7 +320,7 @@ public class HomeController {
 				System.out.println(data_data);
 				System.out.println("originFileName : " + originFileName);
 				System.out.println("fileSize : " + fileSize);
-				int res = 0;
+				
 
 				try {
 					mf.transferTo(new File(data_data_path));
@@ -324,7 +335,7 @@ public class HomeController {
 			}
 
 		} else {
-			if (dto.getData_data().substring(0, 5) == "https") {
+			if (dto.getData_data().substring(0, 5).equals("https")) {
 
 				String a = dto.getData_data();
 				String b = "";

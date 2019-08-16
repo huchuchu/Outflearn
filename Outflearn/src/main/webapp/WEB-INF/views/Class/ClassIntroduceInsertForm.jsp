@@ -31,16 +31,29 @@
 	<link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 
-	<!-- 써머노트 -->
+	<!-- 여기서부터는 써머노트  라이브러리 구간입니다.-->
+	
 	<!-- include libraries(jQuery, bootstrap) -->
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-</head>
-
-<body>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
+	<!-- include summernote css/js -->
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+	
+	<script type="text/javascript">
+	$(function() {
+  		$('#summernote').summernote({
+    	height: 300,
+    	lang: 'ko-KR' // 언어 세팅
+  	 	});
+	});
+	</script>
 
+	
+	<!-- 여기까지가 써머노트  라이브러리 구간입니다.-->
+</head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 	
 	
@@ -83,15 +96,11 @@
 	
 			
 <!-- Footer Section -->
-	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 	
-	<script>
-		jQuery.noConflict();
-	</script>
+	
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
 	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
-	<script type="text/javascript" src="resources/js/template/contact_me.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
 </body>
 </html>
