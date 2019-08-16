@@ -62,31 +62,37 @@ public class HomeController {
 	}
 
 	@RequestMapping("/LectureDetail")
-	   public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session, Authentication auth) {
+	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, @ModelAttribute ClassIntroduceDto iDto ,int class_num, Model model, HttpSession session, Authentication auth) {
 
-	      logger.info("/LectureDetail");
-	      session.setAttribute("info_num", class_num);
-	      model.addAttribute("class_num", class_num);
-	      // 닉네임
-	      // 회원 정보
-	      System.out.println(auth.getPrincipal());
-	      UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
-	      String user_nickname = uDto.getUser_nickname();
-	      model.addAttribute("user_nickname", user_nickname);
-	      
-	      // 강좌 소개
-	      model.addAttribute("classinfo", biz.ClassInfoSelectOne(class_num));
-	      System.out.println(biz.ClassInfoSelectOne(class_num));
-	      // 댓글
-	      model.addAttribute("classReview", biz.ClassReviewSelectList(class_num));
-	      System.out.println(biz.ClassReviewSelectList(class_num));
-	      
-	      // 강의 소개
-	      model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
-	      System.out.println(biz.ClassIntroduceSelectList(class_num));
+		logger.info("/LectureDetail");
+		session.setAttribute("info_num", class_num);
+		model.addAttribute("class_num", class_num);
+		// 닉네임
+		// 회원 정보
+		System.out.println(auth.getPrincipal());
+		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
+		String user_nickname = uDto.getUser_nickname();
+		model.addAttribute("user_nickname", user_nickname);
+		
+		// 강좌 소개
+		model.addAttribute("classinfo", biz.ClassInfoSelectOne(class_num));
+		System.out.println(biz.ClassInfoSelectOne(class_num));
+		
+		// 댓글
+		model.addAttribute("classReview", biz.ClassReviewSelectList(class_num));
+		System.out.println(biz.ClassReviewSelectList(class_num));
+		
+		// 강의 소개
+		
+		
+		ClassIntroduceDto abc = biz.ClassIntroduceSelectList(class_num);
+		model.addAttribute("classIntroduce", abc);
+		System.out.println(abc);
+		
+	
 
-	      return "Class/LectureDetail";
-	   }
+		return "Class/LectureDetail";
+	}
 
 	@RequestMapping("DetailDashBoard")
 	@ResponseBody
@@ -95,7 +101,6 @@ public class HomeController {
 		int info_num = (int) session.getAttribute("info_num");
 
 		ClassDataDto dto = biz.ClassDataSelectOne(info_num);
-
 		return dto.getData_data();
 	}
 
@@ -182,7 +187,8 @@ public class HomeController {
 
 // 	영상소개 작성 확인 DataVideoUploadForm.jsp
 	@RequestMapping("DataVideoUpload")
-	public String DataVideoUpload(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto, Model model) {
+	public String DataVideoUpload(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto, Model model)
+			throws FileNotFoundException {
 		logger.info("DataVideoUpload");
 		
 		if (dto.getData_data() == null) {
@@ -194,54 +200,54 @@ public class HomeController {
 	            dir.mkdirs();
 	         }
 
-	         for (MultipartFile mf : fileList) {
-	            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
-	            long fileSize = mf.getSize(); // 파일 사이즈
-	            String data_data_path = path + "/" + originFileName; // 경로
-	            System.out.println("경로 " + data_data_path);
-	            String data_data = path + originFileName; // 파일 이름
-	            dto.setData_data(data_data);
-	            System.out.println(data_data);
-	            System.out.println("originFileName : " + originFileName);
-	            System.out.println("fileSize : " + fileSize);
-	            int res = 0;
+			for (MultipartFile mf : fileList) {
+				String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+				long fileSize = mf.getSize(); // 파일 사이즈
+				String data_data_path = path + "/" + originFileName; // 경로
+				System.out.println("경로 " + data_data_path);
+				String data_data = path + originFileName; // 파일 이름
+				dto.setData_data(data_data);
+				System.out.println(data_data);
+				System.out.println("originFileName : " + originFileName);
+				System.out.println("fileSize : " + fileSize);
 
-	            try {
-	               mf.transferTo(new File(data_data_path));
+				try {
+					mf.transferTo(new File(data_data_path));
 
-	            } catch (IllegalStateException e) {
+				} catch (IllegalStateException e) {
 
-	               e.printStackTrace();
-	            } catch (IOException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
 
-	               e.printStackTrace();
-	            }
-	         }
+					e.printStackTrace();
+				}
+			}
 
-	      } else {
-	         if (dto.getData_data().substring(0, 5).equals("https")) {
+		} else {
+			if (dto.getData_data().substring(0, 5).equals("https")) {
 
-	            String a = dto.getData_data();
-	            String b = "";
+				String a = dto.getData_data();
+				String b = "";
+				System.out.println(a);
+				if (a.contains("v=")) {
+					b = a.split("v=")[1];
+				} else if (a.contains("list=")) {
+					b = a.split("list=")[1];
+				}
 
-	            if (a.contains("v=")) {
-	               b = a.split("v=")[1];
-	            } else if (a.contains("list=")) {
-	               b = a.split("list=")[1];
-	            }
+				dto.setData_data(b);
 
-	            dto.setData_data(b);
+			}
 
-	         }
-	      }
+		}
 
-	      int res = biz.ClassChapterDataInsert(dto);
+		int res = biz.ClassDataInsert(dto);
 
-	      if (res > 0) {
-	         return "Class/DataVideoUploadFormPlus";
-	      } else {
-	         return "Class/DataVideoUploadFormPlus";
-	      }
+		if (res > 0) {
+			return "Class/DataVideoUploadFormPlus";
+		} else {
+			return "Class/DataVideoUploadFormPlus";
+		}
 	}
 		
 
@@ -250,67 +256,65 @@ public class HomeController {
 	@RequestMapping("DataVideoUploadPlus")
 	public String DataVideoUploadPlus(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto)
 			throws FileNotFoundException {
-		
-		
 		logger.info("DataVideoUploadPlus");
 		System.out.println("안녕");
-		 
 		if (dto.getData_data() == null) {
-	         List<MultipartFile> fileList = mtfRequest.getFiles("file");
-	         String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
-	         File dir = new File(path);
-	         if (!dir.isDirectory()) {
-	            dir.mkdirs();
-	         }
+			List<MultipartFile> fileList = mtfRequest.getFiles("file");
+			System.out.println("안녕!!!");
+			String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
+			File dir = new File(path);
+			if (!dir.isDirectory()) {
+				dir.mkdirs();
+			}
 
-	         for (MultipartFile mf : fileList) {
-	            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
-	            long fileSize = mf.getSize(); // 파일 사이즈
-	            String data_data_path = path + "/" + originFileName; // 경로
-	            System.out.println("경로 " + data_data_path);
-	            String data_data = path + originFileName; // 파일 이름
-	            dto.setData_data(data_data);
-	            System.out.println(data_data);
-	            System.out.println("originFileName : " + originFileName);
-	            System.out.println("fileSize : " + fileSize);
+			for (MultipartFile mf : fileList) {
+				String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+				long fileSize = mf.getSize(); // 파일 사이즈
+				String data_data_path = path + "/" + originFileName; // 경로
+				System.out.println("경로 " + data_data_path);
+				String data_data = path + originFileName; // 파일 이름
+				dto.setData_data(data_data);
+				System.out.println(data_data);
+				System.out.println("originFileName : " + originFileName);
+				System.out.println("fileSize : " + fileSize);
+				
 
-	            try {
-	               mf.transferTo(new File(data_data_path));
+				try {
+					mf.transferTo(new File(data_data_path));
 
-	            } catch (IllegalStateException e) {
+				} catch (IllegalStateException e) {
 
-	               e.printStackTrace();
-	            } catch (IOException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
 
-	               e.printStackTrace();
-	            }
-	         }
+					e.printStackTrace();
+				}
+			}
 
-	      } else {
-	         if (dto.getData_data().substring(0, 5).equals("https")) {
+		} else {
+			if (dto.getData_data().substring(0, 5).equals("https")) {
 
-	            String a = dto.getData_data();
-	            String b = "";
-	            System.out.println(a);
-	            if (a.contains("v=")) {
-	               b = a.split("v=")[1];
-	            } else if (a.contains("list=")) {
-	               b = a.split("list=")[1];
-	            }
+				String a = dto.getData_data();
+				String b = "";
 
-	            dto.setData_data(b);
+				if (a.contains("v=")) {
+					b = a.split("v=")[1];
+				} else if (a.contains("list=")) {
+					b = a.split("list=")[1];
+				}
 
-	         }
+				dto.setData_data(b);
 
-	      }
+			}
+		}
 
-	      int res = biz.ClassDataInsert(dto);
+		int res = biz.ClassChapterDataInsert(dto);
 
-	      if (res > 0) {
-	         return "Class/DataVideoUploadFormPlus";
-	      } else {
-	         return "Class/DataVideoUploadFormPlus";
-	      }
+		if (res > 0) {
+			return "Class/DataVideoUploadFormPlus";
+		} else {
+			return "Class/DataVideoUploadFormPlus";
+		}
 	}
 
 	@RequestMapping("LectureDetailView")

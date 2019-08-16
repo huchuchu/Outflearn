@@ -19,7 +19,7 @@ public interface ClassDataBiz {
 		
 	
 		// 강좌 소개 - CLASS_INTRODUCE 테이블
-		public List <ClassIntroduceDto> ClassIntroduceSelectList(int class_num);
+		public ClassIntroduceDto ClassIntroduceSelectList(int class_num);
 		public int ClassIntroduceInsert(ClassIntroduceDto dto);
 	
 		
@@ -48,5 +48,7 @@ public interface ClassDataBiz {
 		public int ClassReviewDelete(int review_num);
 		
 		public int ClassReviewAnswer(ClassReviewDto dto, int parentBoard_no);
+		public int ClassReviewInsertAnswer(ClassReviewDto dto);
+
 	
 }

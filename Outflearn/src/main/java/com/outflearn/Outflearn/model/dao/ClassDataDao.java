@@ -22,7 +22,7 @@ public interface ClassDataDao {
 			
 		
 		// 강좌 소개 - CLASS_INTRODUCE 테이블
-		public List <ClassIntroduceDto> ClassIntroduceSelectList(int class_num);
+		public ClassIntroduceDto ClassIntroduceSelectList(int class_num);
 		public int ClassIntroduceInsert(ClassIntroduceDto dto);
 		
 			
@@ -53,4 +53,5 @@ public interface ClassDataDao {
 		public int ClassReviewUpdateAnswer(int review_num);
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);
 		
+	
 }

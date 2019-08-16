@@ -9,7 +9,7 @@
 	</select>
 	
 	<!-- 해당 강의 조회 -->
-    <select id="ClassInfoSelectone" parameterType="int" resultType="ClassInfoDto">
+    <select id="ClassInfoSelectone" parameterType="map" resultType="ClassInfoDto">
    	  SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
    </select>
   
@@ -43,11 +43,10 @@
 	<!-- ================== CLASS_INTRODUCE 테이블 ================== -->
 	
 	<!-- 해당 클래스의 강좌 -->
-	<select id="classIntroduceSelectOne" parameterType="map" resultType="ClassIntroduceDto">
-		SELECT * FROM CLASS_INTRODUCE WHERE CLASS_NUM = (SELECT CLASS_NUM FROM CLASS_INTRODUCE WHERE CLASS_NUM = #{class_num })
+	<select id="classIntroduceSelectlist" parameterType="int" resultType="ClassIntroduceDto">
+		SELECT CLASS_CONTENT FROM CLASS_INTRODUCE WHERE CLASS_NUM = (SELECT CLASS_NUM FROM CLASS_INTRODUCE WHERE CLASS_NUM = #{class_num })
 	</select>
 
-	
 	<!-- 강좌 내용 DB추가 -->
 	<insert id="ClassIntroduceInsert" parameterType="ClassIntroduceDto">
 		INSERT INTO CLASS_INTRODUCE (CLASS_NUM, CLASS_CONTENT) VALUES(CLASS_INFO_SQ.CURRVAL, #{class_content })
@@ -63,7 +62,7 @@
 	</select>
 
 	<insert id="classReviewInsert" parameterType="classReviewDto">
-		INSERT INTO CLASS_REVIEW VALUES(#{class_num }, REVIEW_NUM_SQ.NEXTVAL, REVIEW_GROUPNO_SQ.NEXTVAL, 1, 0, #{user_num }, #{review_content }, #{user_star } , #{user_nickname })
+		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star}, REVIEW_GROUPNO.NEXTVAL, 1, 0)
 	</insert>
 	
 	<update id="classReviewUpdate" parameterType="classReviewDto">
@@ -75,11 +74,9 @@
 	</delete>
 	
 	<insert id="classReviewInsertAnswer" parameterType="classReviewDto">
-		INSERT INTO CLASS_REVIEW VALUES(#{class_num }, BOARD_NO_SQ.NEXTVAL,
-										(SELECT QA_GROUPNO FROM CLASS_REVIEW WHERE BOARD_NO= #{board_no }),
-									    (SELECT QA_GROUPSQ FROM CLASS_REVIEW WHERE BOARD_NO= #{board_no })+1, 
-									    (SELECT QA_TITLETAB FROM CLASS_REVIEW WHERE BOARD_NO= #{board_no })+1,  
-									    #{user_num }, #{review_content }, #{user_star}, #{user_nickname }) 
+		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star},
+										(SELECT REVIEW_GROUPNO FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}),
+										(SELECT REVIEW_GROUPSQ FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1, 0) 
 	</insert>
 	
 	<update id="classReviewUpdateAnswer" parameterType="int">

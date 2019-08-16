@@ -55,7 +55,11 @@ aside li {
 }
 
 .card-body, .card img {
-  	width: 100%
+  	width: 100%;
+}
+
+.card img {
+	height: 17vw;
 }
 
 #side_checkbox > ul{
