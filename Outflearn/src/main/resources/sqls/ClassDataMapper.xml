@@ -120,5 +120,55 @@
             #{item}
         </foreach>
 	</select>
-
+	<select id="selectListPage" parameterType="map" resultType="ClassInfoDto">
+		SELECT *
+		FROM (SELECT ROWNUM AS RNUM, C.*
+			FROM (	SELECT *
+					FROM CLASS_INFO
+					<if test="txt_search != null">
+					WHERE
+						(
+							(upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%') or
+							(upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%')
+						)
+					</if>
+						ORDER BY CLASS_NUM DESC
+						) C
+			)
+		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
+	</select>
+	<select id="selectListPagetwo">
+		SELECT *
+		FROM (SELECT ROWNUM AS RNUM, C.*
+			FROM ( SELECT *
+					FROM CLASS_INFO
+					<if test="txt_search != null">
+					<choose>
+						<when test="searchOption == 'all'">
+							WHERE (
+								(upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%') or
+								(upper(CLASS_AUTHOR) like '%' || upper(#{txt_search})||'%')							
+							)
+						</when>
+						<otherwise>
+							WHERE ${searchOption} like '%' || #{keyword} || '%'
+						</otherwise>
+					</choose>
+					</if>
+						ORDER BY CLASS_NUM DESC
+			) C
+		
+		
+		)
+		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
+	</select>
+	<select id="selectTotalCount" parameterType="map" resultType="Integer">
+		SELECT count(*)
+		FROM CLASS_INFO
+		<if test="txt_search != null">
+		WHERE upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%' or
+			upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
+			
+		</if>	
+	</select>
 </mapper>

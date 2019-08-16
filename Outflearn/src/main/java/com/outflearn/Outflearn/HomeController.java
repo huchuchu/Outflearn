@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -28,6 +29,7 @@ import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.LiveDto;
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
+import com.outflearn.Outflearn.service.Pagination;
 
 @Controller
 public class HomeController {
@@ -48,7 +50,7 @@ public class HomeController {
 
 		return "home";
 	}
-
+/*
 	@RequestMapping("/LectureList")
 	public String LectureList(String class_category, Model model) {
 
@@ -60,10 +62,48 @@ public class HomeController {
 
 		return "Class/LectureList";
 	}
+*/
+	@RequestMapping("/LectureList")
+	public String LectureListPage(Model model, String txt_search, String page, String class_category) {
+		logger.info("txt서치전");
+		
+		int totalCount = biz.selectTotalCount(txt_search);
+		logger.info(""+totalCount);
+		
+		int pageNum = (page==null)? 1:Integer.parseInt(page);
+		
+		Pagination pagination = new Pagination();
+		
+		//get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
+		pagination.setPageNo(pageNum);
+		
+		//한 페이지에 나오는 게시물의 개수 
+		pagination.setPageSize(9);
+		pagination.setTotalCount(totalCount);
+		
+		//select해오는 기준을 구함
+		pageNum = (pageNum -1) * pagination.getPageSize();
+		
+		List<ClassInfoDto> list = biz.selectListPage(pageNum, pagination.getPageSize(), txt_search);
+		
+		model.addAttribute("classinfo", list);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("txt_search", txt_search);
+		model.addAttribute("class_category", class_category);
+		
+		if(class_category != null) {
+			model.addAttribute("classinfo", biz.CategorySelectList(class_category));
+		} else {
+			model.addAttribute("classinfo", biz.selectListPage(pageNum, pagination.getPageSize(), txt_search));
+		}
+		
+		return "Class/LectureList";
+		
+	}
 
 	@RequestMapping("/LectureDetail")
 	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session, Authentication auth) {
-
+		
 		logger.info("/LectureDetail");
 
 		model.addAttribute("class_num", class_num);
@@ -84,6 +124,7 @@ public class HomeController {
 		model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
 		System.out.println(biz.ClassIntroduceSelectList(class_num));
 
+		
 		return "Class/LectureDetail";
 	}
 

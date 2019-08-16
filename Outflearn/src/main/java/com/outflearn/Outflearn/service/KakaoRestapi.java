@@ -16,6 +16,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.outflearn.Outflearn.LoginController;
+import com.outflearn.Outflearn.dto.ClassInfoDto;
 @Service
 public class KakaoRestapi {
 	
@@ -38,11 +39,11 @@ public class KakaoRestapi {
 		System.out.println(headers);
 		
 		//서버로 요청할 body
-	
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		ClassInfoDto dto = new ClassInfoDto();
+		MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
 		params.add("cid", "TC0ONETIME");
 		params.add("partner_order_id", "partner_order_id");
-		params.add("partner_user_id", "partner_user_id");
+		params.add("partner_user_id", dto.getUser_num());
 		params.add("item_name", "자바강좌");
 		params.add("quantity", "1");
 		params.add("total_amount", "2000");
@@ -51,7 +52,7 @@ public class KakaoRestapi {
 		params.add("cancel_url", "http://localhost:8787/Outflearn/kakaoPayCancel");
 		params.add("fail_url", "http://localhost:8787/kakaoPaySuccessFail");
 		
-		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+		HttpEntity<MultiValueMap<String, Object>> body = new HttpEntity<MultiValueMap<String, Object>>(params, headers);
 	
 		try {
 			kakaoPayReadyVo = restTemplate.postForObject(new URI(HOST + READY_URI), body, KakaoPayReadyVo.class);

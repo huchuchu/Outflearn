@@ -56,4 +56,11 @@ public interface ClassDataDao {
 	
 	public int ClassReviewUpdateAnswer(int board_no);
 	public int ClassReviewInsertAnswer(ClassReviewDto dto);
+
+	//페이징
+	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search );
+	public int selectTotalCount(String txt_search);
+	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search, String searchOption );
+	public int selectTotalCount(String searchOption, String txt_search);
+	
 }

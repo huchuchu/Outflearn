@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<sec:csrfMetaTags/>
+
 
 <script type="text/javascript" src="resources/js/utils/register.js"></script>
 <title>Outflearn</title>
@@ -56,16 +56,7 @@
 <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
-$(function () {
-	var token = $("meta[name='_csrf']").attr("content");
-	var header = $("meta[name='_csrf_header']").attr("content");
-	$(document).ajaxSend(function(e, xhr, options) {
-		xhr.setRequestHeader(header, token);
-	});
-	});
 
-</script>
 <link rel="stylesheet" type="text/css" href="resources/css/member.css">
 </head>
 
@@ -136,10 +127,7 @@ $(function () {
 							<button type="button" id="btn_sendPwEmail" class="btn-member" onclick="sendEmailPw()" >임시비밀번호발송</button>
 							</div>
 								<div id="emailDupChk"></div>
-								
-								<p class="result">
-								<span class="msg"></span>
-								</p>
+
 					</div>
 					
 					<br>
