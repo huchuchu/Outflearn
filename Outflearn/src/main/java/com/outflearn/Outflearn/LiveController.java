@@ -60,5 +60,12 @@ public class LiveController {
 		
 		return biz.liveRooms(liveRooms);
 	}
+	
+	@RequestMapping("joinLive")
+	public String joinLive(Model model, String room) {
+		model.addAttribute("room", room);
+		
+		return "Live/showLive";
+	}
 
 }

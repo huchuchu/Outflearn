@@ -28,11 +28,11 @@ var sdpConstraints = {
 
 // var name = $('#userInfo').attr("name")
 // var room = $('#userInfo').attr("room")
-var room = 'foo'
+var room = 2
 var name = 'test'
-var class_num = 1;
+var class_num = 2;
 
-var socket = io.connect();
+var socket = io.connect('https://localhost:3000');
 
 if (room !== "") {
     socket.emit('casterJoin', room, name, class_num)
@@ -110,7 +110,6 @@ function commitPc(pc, id) {
 function sendMessage(msg) {
     socket.emit('message', msg)
 }
-
 
 function casterSendMessage(msg, id) {
     socket.emit('casterMsg', msg, id)
@@ -299,12 +298,8 @@ $(function () {
         }
     });
 
-    socket.on('joinedRoom', function (data) {
-        appendMsg('server', `${data.name}님이 ${data.room}에 입장하셨습니다.`)
-    })
-
-    socket.on('leaveUser', function (data) {
-        appendMsg('server', `${data.name}님께서 접속을 종료하셨습니다.`)
+    socket.on('joinedRoom', function (name) {
+        appendMsg('server', `${name}님이 입장하셨습니다.`)
     })
 
     //FUNCTION

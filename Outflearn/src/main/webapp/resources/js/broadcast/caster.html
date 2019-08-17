@@ -11,25 +11,33 @@
     <link rel="stylesheet" href="/css/main.css" />
 
     <script type="text/javascript">
-        
+
     </script>
 
 </head>
 
 <body>
+    <div id="content">
+        <div id="videos">
+            <video id="localVideo" autoplay muted playsinline></video>
+        </div>
 
-    <div id="videos">
-        <video id="localVideo" autoplay muted playsinline></video>
-    </div>
+        <div id="chat">
+            <ul id="messages"></ul>
+            <div class="div-button-send">
+                <form id="typing" action="">
+                    <input id="m" autocomplete="off" />
+                </form>
+            </div>
+        </div>
 
-    <div id="chat">
-        <ul id="messages"></ul>
-        <div class="div-button-send">
-            <form action="">
-                <input id="m" autocomplete="off" /><button>전 송</button>
-            </form>
+        <div id="info">
+            <h3>Info Test</h3>
         </div>
     </div>
+
+
+
 
     <!-- This file is automatically added/served when running "node index.js". -->
     <script src="/socket.io/socket.io.js"></script>

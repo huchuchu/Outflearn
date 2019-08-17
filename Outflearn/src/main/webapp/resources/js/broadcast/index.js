@@ -88,10 +88,7 @@ io.sockets.on('connection', function (socket) {
         socket.name = name
         socket.join(room);
         io.to(findCasterId(room)).emit('joinedUser', socket.id)
-        io.sockets.to(room).emit('joinedRoom', {
-            room: room,
-            name: socket.name
-        })
+        io.sockets.to(room).emit('joinedRoom', name)
     })
 
     socket.on('bye', function () {
@@ -109,12 +106,18 @@ io.sockets.on('connection', function (socket) {
             if (liveRooms[i].caster === socket.id) {
                 var room = liveRooms[i].room
                 io.in(room).clients((error, socketIds) => {
-                    socketIds.forEach(socketId => io.to(socketId).emit('chatMsg', { type: 'leaveCaster' }));
+                    socketIds.forEach(socketId => io.to(socketId).emit('chatMsg', { type: 'leaveCaster', class_num: room }));
                 });
                 liveRooms.splice(i, 1);
                 break;
             }
         }
+    })
+
+    // Livepage
+
+    socket.on('bringRoom', function () {
+        io.to(socket.id).emit('getRoom', liveRooms)
     })
 
 })

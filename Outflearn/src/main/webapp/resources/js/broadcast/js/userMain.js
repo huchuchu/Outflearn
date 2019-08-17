@@ -27,10 +27,10 @@ var sdpConstraints = {
 
 // var name = $('#userInfo').attr("name")
 // var room = $('#userInfo').attr("room")
-var room = 'foo'
+// var room = 'foo'
 var name = 'test'
 
-var socket = io.connect();
+var socket = io.connect('https://localhost:3000');
 
 if (room !== "") {
     socket.emit('userJoin', room, name)
@@ -60,18 +60,23 @@ socket.on('message', function (msg, id) {
 socket.on('chatMsg', function (data) {
     if (data.type === 'msg') {
         appendMsg('other', data.chatMessage, data.name)
-    } else if (data.type === 'chatMsg') {
-        alert('Caster가 나갔어요')
+    } else if (data.type === 'leaveCaster') {
+        Swal.fire({
+            type: 'error',
+            title: '라이브 끝!',
+            text: '라이브 방송이 종료되었습니다.',
+            footer: data.class_num
+        })
+            .then((result) => {
+                location.href = 'Livepage'
+            })
     }
 });
 
-socket.on('joinedRoom', function (data) {
-    appendMsg('server', `${data.name}님이 ${data.room}에 입장하셨습니다.`)
+socket.on('joinedRoom', function (name) {
+    appendMsg('server', `${name}님이 입장하셨습니다.`)
 })
 
-socket.on('leaveUser', function (data) {
-    appendMsg('server', `${data.name}님께서 접속을 종료하셨습니다.`)
-})
 
 // what?
 
@@ -197,7 +202,7 @@ function handleRemoteHangup() {
 }
 
 function stop() {
-    pc.close()
+    pc = null;
 }
 
 // turn & ice server
