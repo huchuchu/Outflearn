@@ -53,6 +53,13 @@ function findCasterId(room) {
     }
 }
 
+function getNumClients(room) {
+    var clientsInRoom = io.sockets.adapter.rooms[room];
+    var numClients = clientsInRoom ? Object.keys(clientsInRoom.sockets).length : 0;
+
+    return numClients
+}
+
 io.sockets.on('connection', function (socket) {
 
     socket.on('message', function (message) {
@@ -87,7 +94,7 @@ io.sockets.on('connection', function (socket) {
         socket.name = name
         socket.join(room);
         io.to(findCasterId(room)).emit('joinedUser', socket.id)
-        io.sockets.to(room).emit('joinedRoom', name)
+        io.sockets.to(room).emit('joinedRoom', name, getNumClients(room))
     })
 
     socket.on('bye', function () {

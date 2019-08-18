@@ -57,4 +57,10 @@ public class LiveDaoImpl implements LiveDao{
 		
 		return sqlSession.selectList(namespace + "liveRooms", map);
 	}
+
+
+	@Override
+	public ClassInfoDto getClassInfo(String class_num) {
+		return sqlSession.selectOne(namespace + "getClassInfo", class_num);
+	}
 }

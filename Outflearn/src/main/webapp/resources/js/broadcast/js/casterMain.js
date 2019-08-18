@@ -295,8 +295,9 @@ $(function () {
         }
     });
 
-    socket.on('joinedRoom', function (name) {
+    socket.on('joinedRoom', function (name, numClients) {
         appendMsg('server', `${name}님이 입장하셨습니다.`)
+        $('#numView').text(`${numClients}`)
     })
 
     //FUNCTION

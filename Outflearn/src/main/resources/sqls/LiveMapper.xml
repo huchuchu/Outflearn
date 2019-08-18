@@ -20,5 +20,9 @@
             #{item}
         </foreach>
 	</select>
+	
+	<select id="getClassInfo" resultType="ClassInfoDto" parameterType="String">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
+	</select>
 
 </mapper>

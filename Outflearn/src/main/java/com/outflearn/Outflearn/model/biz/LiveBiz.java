@@ -16,5 +16,6 @@ public interface LiveBiz {
 		public ClassInfoDto livePopup(int live_num);
 		public List<ClassInfoDto> getMyClass(int user_num);
 		public List<ClassInfoDto> liveRooms(String[] liveRooms);
+		public ClassInfoDto getClassInfo(String class_num);
 	
 }

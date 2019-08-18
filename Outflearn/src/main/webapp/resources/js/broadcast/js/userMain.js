@@ -25,8 +25,8 @@ var sdpConstraints = {
 
 // socket
 
- var name = $('#userInfo').attr("name")
- var room = $('#userInfo').attr("room")
+var name = $('#userInfo').attr("name")
+var room = $('#userInfo').attr("room")
 // var room = 2
 
 var socket = io.connect('https://localhost:3000');
@@ -72,10 +72,10 @@ socket.on('chatMsg', function (data) {
     }
 });
 
-socket.on('joinedRoom', function (name) {
+socket.on('joinedRoom', function (name, numClients) {
     appendMsg('server', `${name}님이 입장하셨습니다.`)
+    $('#numView').text(`${numClients}`)
 })
-
 
 // what?
 

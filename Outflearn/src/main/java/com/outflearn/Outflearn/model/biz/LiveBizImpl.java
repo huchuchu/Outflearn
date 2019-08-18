@@ -43,8 +43,9 @@ public class LiveBizImpl implements LiveBiz {
 		return dao.liveRooms(liveRooms);
 	}
 
-
+	@Override
+	public ClassInfoDto getClassInfo(String class_num) {
+		return dao.getClassInfo(class_num);
+	}
 	
-
-		
 }

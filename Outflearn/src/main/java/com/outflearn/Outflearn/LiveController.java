@@ -49,7 +49,7 @@ public class LiveController {
 		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		model.addAttribute("userInfo", dto);
-		model.addAttribute("room", room);
+		model.addAttribute("room", biz.getClassInfo(room));
 		
 		return "Live/casterRoom";
 	}
@@ -74,7 +74,7 @@ public class LiveController {
 		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		model.addAttribute("userInfo", dto);
-		model.addAttribute("room", room);
+		model.addAttribute("room", biz.getClassInfo(room));
 		
 		return "Live/showLive";
 	}

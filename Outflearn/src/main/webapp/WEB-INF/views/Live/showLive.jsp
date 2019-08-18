@@ -32,7 +32,10 @@
         </div>
 
         <div id="info">
-            <h3>${userInfo.user_nickname}</h3>
+            <h3>${room.class_title}</h3>
+            <div>
+                시청자 : <span id="numView">1</span>
+            </div>
         </div>
     </div>
 
@@ -45,7 +48,8 @@
     <!-- Sweet Alert2 -->
     <script src='resources/js/sweetalert/sweetalert2.min.js'></script>
 
-    <script id="userInfo" src="resources/js/broadcast/js/userMain.js" name="${userInfo.user_nickname}" room="${room }"></script>
+    <script id="userInfo" src="resources/js/broadcast/js/userMain.js" name="${userInfo.user_nickname}"
+        room="${room.class_num }"></script>
 
 
 

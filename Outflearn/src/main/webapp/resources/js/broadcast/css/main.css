@@ -48,6 +48,7 @@
         #info{
             background-color: coral;
             width: 78%;
+            display: inline-block;
         }
 
         #messages {
