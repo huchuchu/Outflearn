@@ -9,8 +9,7 @@ $(function () {
         var sendData = []
 
         msg.forEach(item => {
-            console.log(item.class_num)
-            sendData.push(item.class_num)
+            sendData.push(item.room)
         });
 
         if (sendData[0]) {

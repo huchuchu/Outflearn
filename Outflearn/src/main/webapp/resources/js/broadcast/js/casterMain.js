@@ -26,23 +26,20 @@ var sdpConstraints = {
 
 // socket
 
-// var name = $('#userInfo').attr("name")
-// var room = $('#userInfo').attr("room")
-var room = 2
-var name = 'test'
-var class_num = 2;
+var name = $('#userInfo').attr("name")
+var room = $('#userInfo').attr("room")
 
 var socket = io.connect('https://localhost:3000');
 
 if (room !== "") {
-    socket.emit('casterJoin', room, name, class_num)
+    socket.emit('casterJoin', room, name)
     console.log('casterJoin 메세지 서버에 전송', room);
 }
 
 socket.on('createdRoom', function (room) {
     console.log(`방 생성 ${room}`);
     startCast()
-    appendMsg('server', '방이 생성되었습니다.')
+    appendMsg('server', `${room}방이 생성되었습니다.`)
 })
 
 socket.on('joinedUser', function (id) {

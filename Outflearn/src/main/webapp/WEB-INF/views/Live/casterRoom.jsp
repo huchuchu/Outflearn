@@ -33,7 +33,7 @@
         </div>
 
         <div id="info">
-            <h3>Info Test</h3>
+            <h3>${userInfo.user_nickname}</h3>
         </div>
     </div>
 
@@ -42,10 +42,14 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 
-    <script src="resources/js/broadcast/js/casterMain.js"></script>
+    <script type="text/javascript">
+    </script>
 
     <!-- Sweet Alert2 -->
     <script src='resources/js/sweetalert/sweetalert2.min.js'></script>
+
+    <script id="userInfo" src="resources/js/broadcast/js/casterMain.js" name="${userInfo.user_nickname}" room="${room}"></script>
+
 
 
 </body>

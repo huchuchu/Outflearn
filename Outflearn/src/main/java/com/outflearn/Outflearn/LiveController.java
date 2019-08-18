@@ -44,11 +44,18 @@ public class LiveController {
 	}
 
 	@RequestMapping("casterRoom")
-	public String casterRoom() {
+	public String casterRoom(Authentication auth, Model model, String room) {
+		
+		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		model.addAttribute("userInfo", dto);
+		model.addAttribute("room", room);
+		
 		return "Live/casterRoom";
 	}
 
 	@RequestMapping("getMyClass")
+	@ResponseBody
 	public List<ClassInfoDto> getMyClass(Authentication auth) {
 		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return biz.getMyClass(dto.getUser_num());
@@ -62,7 +69,11 @@ public class LiveController {
 	}
 	
 	@RequestMapping("joinLive")
-	public String joinLive(Model model, String room) {
+	public String joinLive(Model model, String room, Authentication auth) {
+		
+		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		model.addAttribute("userInfo", dto);
 		model.addAttribute("room", room);
 		
 		return "Live/showLive";

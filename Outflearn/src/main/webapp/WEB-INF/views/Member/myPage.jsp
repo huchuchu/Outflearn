@@ -23,6 +23,10 @@
   <!-- Stylesheet ================================================== -->
   <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 
+  <!-- Sweet Alert2 -->
+  <link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
+  <script src='resources/js/sweetalert/sweetalert2.min.js'></script>
+
 </head>
 
 <body>
@@ -75,7 +79,7 @@
         <div class="side_category live">
           <ul class="nav flex-column text-center">
             <li class="nav-item side_menu">
-              <a href="casterRoom">방송하기</a>
+              <a class="configLiveRoom" href="void:0">방송하기</a>
               <p>강사만 보이게</p>
             </li>
           </ul>
@@ -155,6 +159,8 @@
   <script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
   <script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
   <script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
+  <script type="text/javascript" src="resources/js/utils/myPage.js"></script>
+
 </body>
 
 </html>

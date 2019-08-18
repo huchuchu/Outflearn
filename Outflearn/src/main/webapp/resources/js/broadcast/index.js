@@ -68,7 +68,7 @@ io.sockets.on('connection', function (socket) {
         io.to(id).emit('message', msg, socket.id)
     })
 
-    socket.on('casterJoin', function (room, name, class_num) {
+    socket.on('casterJoin', function (room, name) {
         console.log('casterJoin')
         socket.name = name
         socket.join(room)
@@ -76,7 +76,6 @@ io.sockets.on('connection', function (socket) {
         liveRooms.push({
             'room': room,
             'caster': socket.id,
-            'class_num': class_num
         })
 
         console.log(`캐스터[${socket.id}]가 ${room}에 입장`)

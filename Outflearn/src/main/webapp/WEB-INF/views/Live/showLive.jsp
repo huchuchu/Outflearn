@@ -17,17 +17,22 @@
 </head>
 
 <body>
+    <div id="content">
+        <div id="videos">
+            <video id="remoteVideo" autoplay playsinline></video>
+        </div>
 
-    <div id="videos">
-        <video id="remoteVideo" autoplay muted playsinline></video>
-    </div>
+        <div id="chat">
+            <ul id="messages"></ul>
+            <div class="div-button-send">
+                <form id="typing" action="">
+                    <input id="m" autocomplete="off" />
+                </form>
+            </div>
+        </div>
 
-    <div id="chat">
-        <ul id="messages"></ul>
-        <div class="div-button-send">
-            <form action="">
-                <input id="m" autocomplete="off" /><button>전 송</button>
-            </form>
+        <div id="info">
+            <h3>${userInfo.user_nickname}</h3>
         </div>
     </div>
 
@@ -35,14 +40,13 @@
     <script src="https://localhost:3000/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-    <script type="text/javascript">
-        var room = ${ room }
-    </script>
 
-    <script src="resources/js/broadcast/js/userMain.js"></script>
 
     <!-- Sweet Alert2 -->
     <script src='resources/js/sweetalert/sweetalert2.min.js'></script>
+
+    <script id="userInfo" src="resources/js/broadcast/js/userMain.js" name="${userInfo.user_nickname}" room="${room }"></script>
+
 
 
 </body>
