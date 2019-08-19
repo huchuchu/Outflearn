@@ -42,8 +42,12 @@
     <!-- This file is automatically added/served when running "node index.js". -->
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <!-- <script src="https://localhost:3000/socket.io/socket.io.js"></script> -->
     <script src="https://192.168.10.139:3000/socket.io/socket.io.js"></script>
+=======
+    <script src="https://localhost:3000/socket.io/socket.io.js"></script>
+>>>>>>> origin/mhs
 =======
     <script src="https://localhost:3000/socket.io/socket.io.js"></script>
 >>>>>>> origin/mhs

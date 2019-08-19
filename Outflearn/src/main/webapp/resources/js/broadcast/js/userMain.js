@@ -31,8 +31,12 @@ var room = $('#userInfo').attr("room")
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var socket = io.connect('https://192.168.10.139:3000');
 //var socket = io.connect('https://localhost:3000');
+=======
+var socket = io.connect('https://localhost:3000');
+>>>>>>> origin/mhs
 =======
 var socket = io.connect('https://localhost:3000');
 >>>>>>> origin/mhs
