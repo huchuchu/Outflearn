@@ -17,11 +17,3 @@ INSERT
 		BASKET
 	VALUES(2,
 	2);
-
-
-INSERT
-	INTO
-		BASKET
-	VALUES(1,
-	2);
-

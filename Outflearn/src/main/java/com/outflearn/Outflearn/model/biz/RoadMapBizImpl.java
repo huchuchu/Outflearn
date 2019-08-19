@@ -2,10 +2,12 @@ package com.outflearn.Outflearn.model.biz;
 
 import java.util.List;
 
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
@@ -46,11 +48,11 @@ public class RoadMapBizImpl implements RoadMapBiz {
 		
 		return dao.subStreamList();
 	}
-
-
-
 	
-
-
+	@Override
+	public List<ClassInfoDto> classInfoList(String[] subFilter) {
+		
+		return dao.classInfoList(subFilter);
+	}
 
 }

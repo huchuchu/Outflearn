@@ -2,9 +2,11 @@ package com.outflearn.Outflearn.model.biz;
 
 import java.util.List;
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
@@ -21,5 +23,7 @@ public interface RoadMapBiz {
 	public List<MainStreamDto> mainStreamList();
 	
 	public List<SubStreamDto> subStreamList() ;
+	
+	public List<ClassInfoDto> classInfoList(String[] subFilter);
 
 }

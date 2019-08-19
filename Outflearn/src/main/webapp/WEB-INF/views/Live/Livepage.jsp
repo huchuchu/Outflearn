@@ -41,7 +41,6 @@
 	<!-- Sweet Alert2 -->
 	<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
 	<script src='resources/js/sweetalert/sweetalert2.min.js'></script>
-
 	<!-- fullCalendar -->
 
 

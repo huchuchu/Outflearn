@@ -18,16 +18,25 @@ VALUES (#{item},#{seq},#{i}+1)
 </foreach>
 </insert>
 
-<select id="subStramList" resultType="com.outflearn.Outflearn.dto.SubStreamDto">
-SELECT * FROM SUB_STREAM
-</select>
-
 <select id="mainStreamList" resultType="com.outflearn.Outflearn.dto.MainStreamDto">
 SELECT * FROM MAIN_STREAM
 </select>
 
+<select id="subStramList" resultType="com.outflearn.Outflearn.dto.SubStreamDto">
+SELECT * FROM SUB_STREAM 
+</select>
 
 
+<select id="classInfoList" resultType="ClassInfoDto" parameterType="map">
+SELECT * FROM CLASS_INFO	
+	<trim prefix="WHERE" prefixOverrides="AND|OR">
+		<foreach collection="itemList" item="item">
+			<if test="#{item} !=null">
+				OR CLASS_NUM IN (SELECT CLASS_NUM FROM CLASS_CATEGORY WHERE SUB_NUM=#{item})
+			</if>
+		</foreach>
+	</trim>	
+</select>
 
 
 </mapper>
