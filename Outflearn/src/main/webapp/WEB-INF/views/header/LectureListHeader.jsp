@@ -86,11 +86,6 @@
 					<li><a href="void:0">로드맵 학습</a></li>
 					<li><a href="void:0">아웃프런 소개</a></li>
 					<li><a href="void:0">라이브</a></li>
-					<li>
-						<div class="search navbar-item header-search is-hidden-touch">
-							<input type="text" class="input">
-						</div>
-					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"

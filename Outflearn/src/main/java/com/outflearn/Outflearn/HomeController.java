@@ -1,7 +1,6 @@
 package com.outflearn.Outflearn;
 
 import java.util.List;
-
 import java.util.Map;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,10 +23,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.outflearn.Outflearn.dto.ClassCategoryDto;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.LiveDto;
+import com.outflearn.Outflearn.dto.MainStreamDto;
+import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
 import com.outflearn.Outflearn.service.Pagination;
@@ -51,19 +53,42 @@ public class HomeController {
 
 		return "home";
 	}
-/*
-	@RequestMapping("/LectureList")
-	public String LectureList(String class_category, Model model) {
+	
+//	장바구니 유저정보
+	@RequestMapping("basket")
+	public String basket(@ModelAttribute ClassInfoDto dto, Model model, int class_num, Authentication auth) {
+		logger.info("basket");
+		
+		System.out.println(auth.getPrincipal());
+		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
+		int user_num = uDto.getUser_num();
+		System.out.println(user_num + "오냐");
 
-		if(class_category != null) {
-			model.addAttribute("classinfo", biz.CategorySelectList(class_category));
-		} else {
-			model.addAttribute("classinfo", biz.ClassInfoSelectList());
-		}
-
-		return "Class/LectureList";
+		
+	
+	
+//		ClassInfo
+		dto.setUser_num(uDto.getUser_num());
+		
+		model.addAttribute("classInfoUser", biz.classInfoSelectListUser(user_num));
+		System.out.println("안오냐??");
+				
+		System.out.println("안녕111");
+		int res = biz.classBasketInsert(dto);
+		System.out.println("안녕222");
+		
+		return "Class/ClassBasket";
 	}
-*/
+
+//	장바구니 삭제
+	@RequestMapping("basketDelete")
+	public String basketDelete(@ModelAttribute ClassInfoDto dto, Model model ,int class_num) {
+		
+		model.addAttribute("classInfoUser", biz.classBasketDelete(class_num));
+		
+		return "";
+	}
+	
 	@RequestMapping("/LectureList")
 	public String LectureListPage(Model model, String txt_search, String page, String class_category) {
 		logger.info("txt서치전");
@@ -106,7 +131,7 @@ public class HomeController {
 	
 
 	@RequestMapping("/LectureDetail")
-	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, @ModelAttribute ClassIntroduceDto iDto ,int class_num, Model model, HttpSession session, Authentication auth) {
+	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session, Authentication auth) {
 
 		logger.info("/LectureDetail");
 		session.setAttribute("info_num", class_num);
@@ -121,20 +146,18 @@ public class HomeController {
 		// 강좌 소개
 		model.addAttribute("classinfo", biz.ClassInfoSelectOne(class_num));
 		System.out.println(biz.ClassInfoSelectOne(class_num));
-		
 		// 댓글
 		model.addAttribute("classReview", biz.ClassReviewSelectList(class_num));
 		System.out.println(biz.ClassReviewSelectList(class_num));
 		
 		// 강의 소개
+		model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
+		System.out.println(biz.ClassIntroduceSelectList(class_num));
 		
+		// 질문 리스트
+		model.addAttribute("classQuestion", biz.QASelectList(class_num));
+		System.out.println(biz.QASelectList(class_num) + " : 질문들");
 		
-		ClassIntroduceDto abc = biz.ClassIntroduceSelectList(class_num);
-		model.addAttribute("classIntroduce", abc);
-		System.out.println(abc);
-		
-	
-
 		return "Class/LectureDetail";
 	}
 
@@ -171,11 +194,26 @@ public class HomeController {
 
 //	ClassInfoInsertForm.jsp - > ClassIntroduceInsertForm.jsp  CLASS_DATA DB 저장
 	@RequestMapping("ClassIntroduceInsertForm")
-	public String ClassIntroduceInsertForm(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassInfoDto dto) {
+	public String ClassIntroduceInsertForm(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassInfoDto dto,
+			@RequestParam(name="main_name") String main_name, @RequestParam(name="sub_name") String sub_name ) {
 		logger.info("ClassIntroduceInsertForm");
 		System.out.println("아예안오니");
+		
+		// 주류, 부류
+		MainStreamDto mDto = new MainStreamDto();
+		mDto.setMain_name(main_name);
+		int mRes = biz.mainStreamInsert(mDto);
+		System.out.println(mRes);
+		
+		SubStreamDto sDto = new SubStreamDto();
+		sDto.setSub_name(sub_name);
+		int sRes = biz.subStreamInsert(sDto);
+		System.out.println(sRes);
+		
+		
+		
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
-
+	
 		String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
 		File dir = new File(path);
 		if (!dir.isDirectory()) {
@@ -211,6 +249,10 @@ public class HomeController {
 				e.printStackTrace();
 			}
 		}
+		
+		ClassCategoryDto cDto = new ClassCategoryDto();
+		int cRes = biz.ClassCategoryInsert(cDto);
+		System.out.println(cRes);
 
 		return "Class/ClassIntroduceInsertForm";
 	}
@@ -321,8 +363,8 @@ public class HomeController {
 				System.out.println(data_data);
 				System.out.println("originFileName : " + originFileName);
 				System.out.println("fileSize : " + fileSize);
+				int res = 0;
 				
-
 				try {
 					mf.transferTo(new File(data_data_path));
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="myPage">
+	
+	<select id="getWishList" resultType="ClassInfoDto" parameterType="int">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM BASKET WHERE USER_NUM = #{user_num})
+	</select>
+	
+	<select id="getSubscribe" resultType="ClassInfoDto" parameterType="int">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM SUBSCRIBE WHERE USER_NUM = #{user_num})
+	</select>
+	
+	<select id="getSubRoadmap" resultType="ClassInfoDto" parameterType="int">
+		SELECT * FROM CLASS_INFO
+	</select>
+
+</mapper>
