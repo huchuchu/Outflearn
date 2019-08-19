@@ -327,6 +327,7 @@ public class HomeController {
 
 		}
 
+		
 		int res = biz.ClassDataInsert(dto);
 
 		if (res > 0) {
@@ -393,6 +394,10 @@ public class HomeController {
 
 			}
 		}
+		
+		System.out.println(dto.getData_sq()+ "###");
+		System.out.println(dto.getData_title()+ "###");
+		System.out.println(dto.getData_data()+ "###");
 
 		int res = biz.ClassChapterDataInsert(dto);
 

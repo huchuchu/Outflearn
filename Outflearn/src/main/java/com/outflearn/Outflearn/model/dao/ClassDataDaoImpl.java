@@ -160,7 +160,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	public int ClassChapterDataInsert(ClassDataDto dto) {
 		int res = 0;
 
-		res = sqlSession.update(namespace + "ClassInfoUpdate", dto);
+		res = sqlSession.insert(namespace + "ClassChapterDataInsert", dto);
 
 		return res;
 	}
