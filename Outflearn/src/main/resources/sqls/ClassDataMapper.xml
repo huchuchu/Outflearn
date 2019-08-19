@@ -140,7 +140,7 @@
 			)
 		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
 	</select>
-	<select id="selectListPagetwo">
+	<select id="selectListPagetwo" parameterType="map" resultType="ClassInfoDto">
 		SELECT *
 		FROM (SELECT ROWNUM AS RNUM, C.*
 			FROM ( SELECT *
@@ -154,7 +154,7 @@
 							)
 						</when>
 						<otherwise>
-							WHERE ${searchOption} like '%' || #{keyword} || '%'
+							WHERE ${searchOption} like '%' || #{txt_search} || '%'
 						</otherwise>
 					</choose>
 					</if>

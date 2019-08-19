@@ -27,7 +27,7 @@
 </head>
 <script type="text/javascript">
 	function list(page,data) {
-		location.href = "LectureList?page="+page+"&searchOption="${map.searchOption} + "&txt_search=" + $('input#txt_search').val() + "&class_category="${class_category};
+		location.href = "LectureList?page="+page+"&searchOption="${map.searchOption} + "&txt_search=" + $('input#txt_search').val() + "&class_category="${class_category}";
 	}
 
 </script>
@@ -113,7 +113,7 @@
 					<h1 id="page-header-content">전체 카테고리</h1>
 					<p class="input-group col-sm-4 pull-right">
 						<form name="form1" method="post" action="${pageContext.request.contextPath}/LectureList">
-						<select name="searchOption">
+						<select name="searchOption" id="searchOption">
 							<!-- 검색 조건을 검색 처리 후 결과화면에 보여주기 위해 c:out 출력태그 사용, 삼항연산자.-->
 							<option value="all" <c:out value="${map.searchOption == 'all'?'selected':''}"/>>제목+이름</option>
 							<option value="class_author" <c:out value="${map.searchOption == 'class_author'?'selected':'' }"/>>이름</option>
