@@ -16,6 +16,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.outflearn.Outflearn.LoginController;
+import com.outflearn.Outflearn.dto.ClassInfoDto;
 @Service
 public class KakaoRestapi {
 	
@@ -38,7 +39,7 @@ public class KakaoRestapi {
 		System.out.println(headers);
 		
 		//서버로 요청할 body
-	
+		
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("cid", "TC0ONETIME");
 		params.add("partner_order_id", "partner_order_id");
@@ -47,7 +48,7 @@ public class KakaoRestapi {
 		params.add("quantity", "1");
 		params.add("total_amount", "2000");
 		params.add("tax_free_amount", "100");
-		params.add("approval_url", "http://localhost:8787/Outflearn/kakaoPaySuccess");
+		params.add("approval_url", "http://localhost:8787/Outflearn/Utils/kakaoPaySuccess");
 		params.add("cancel_url", "http://localhost:8787/Outflearn/kakaoPayCancel");
 		params.add("fail_url", "http://localhost:8787/kakaoPaySuccessFail");
 		

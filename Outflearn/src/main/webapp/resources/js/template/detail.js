@@ -170,6 +170,33 @@ function LectureIntro(video_list) {
     })
 }
 
+function LectureIntro(video_list) {
+	$.ajax({
+        type: 'GET',
+        dataType: 'JSON',
+        url: video_list,
+        success: function (vi_list) {
+
+        	$('#jumbo_row > img').attr('src', vi_list.items[0].snippet.thumbnails.high.url)
+        	
+        	
+            var video_id = vi_list.items[5].snippet.resourceId.videoId
+            console.log(vi_list.items[0].contentDetails.endAt)
+        	
+        	$('#page-switch').html(
+        			`<iframe id="player" type="text/html" style="width: 100%; height: 100%; max-width: 900px;"
+                    src="http://www.youtube.com/embed/${video_id}?end=61&enablejsapi=1&origin=http://example.com"
+                    frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" 
+                    msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>`
+        	)
+                
+        },
+        error: function (err) {
+            alert('callback hell!!!!!');
+        }
+    })
+}
+
 function ReviewAnswer() {
 	$('#page-switch').html(
 		`<div class="modal fade" id="myModal3" role="dialog">
