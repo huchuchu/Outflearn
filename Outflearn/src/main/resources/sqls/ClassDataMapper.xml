@@ -99,14 +99,18 @@
 	</select>
 	
 	<insert id="QAInsert" parameterType="QADto">
-		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{qa_title}, #{qa_content}, QA_GROUP_NO_SQ.NEXTVAL, '1')
+		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname}, #{qa_title}, #{qa_content}, QA_GROUP_NO_SQ.NEXTVAL, '1')
 	</insert>
 	
 	<insert id="QAReplyInsert" parameterType="QADto">
 		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname}, '답글', #{qa_content}, 
 										  (SELECT DISTINCT QA_GROUP_NO FROM QA WHERE QA_GROUP_NO = #{qa_group_no}),
-										  #{qa_group_sq} + 1)
+										  QA_GROUP_SQ_SQ.NEXTVAL)
 	</insert>
+	
+	<update id="QAReplyUpdate" parameterType="QADto">
+		UPDATE QA SET QA_CONTENT = ${qa_content} WHERE QA_NUM = #{qa_num} AND QA_GROUP_SQ = #{qa_group_sq}	
+	</update>
 	
 	<!-- ================== Livepage & Mypage 테이블 ================== -->
 	<select id="liveCalendar" resultType="LiveDto">

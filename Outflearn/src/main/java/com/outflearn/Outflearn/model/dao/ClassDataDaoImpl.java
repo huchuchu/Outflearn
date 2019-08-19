@@ -333,4 +333,14 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 
+	@Override
+	public int QAReplyUpdate(QADto dto) {
+		
+		int res = 0;
+		
+		res = sqlSession.update(namespace + "QAReplyUpdate", dto);
+		
+		return res;
+	}
+
 }

@@ -237,7 +237,7 @@
 										<div id="question_content" class="form-group">
 											<p class="question_title"><h3>${dto.qa_title } ${user_nickname }</h3></p>
 											<p>${dto.qa_content }</p>
-											<a class="question_detail_link" href="QASelectOne?qa_num=${dto.qa_num }&qa_group_no=${dto.qa_group_no }" aria-labe="여기로 이동"></a>
+											<a class="question_detail_link" href="QASelectOne?qa_num=${dto.qa_num }" aria-labe="여기로 이동"></a>
 										</div>
 									</div>
 								</c:forEach>

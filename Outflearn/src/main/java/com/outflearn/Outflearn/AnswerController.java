@@ -160,6 +160,18 @@ public class AnswerController {
 		
 	}
 	
+	@RequestMapping("QAReplyUpdate")
+	public String QAReplyUpdate(@ModelAttribute QADto dto) {
+		
+		int res = biz.QAReplyUpdate(dto);
+		
+		if(res > 0) {
+			return "redirect: QASelectOne?qa_num=" + dto.getQa_num() + "&qa_group_no=" + dto.getQa_group_no();
+		} else {
+			return "redirect: QASelectOne?qa_num=" + dto.getQa_num() + "&qa_group_no=" + dto.getQa_group_no();
+		}
+	}
+	
 	@RequestMapping("QAReplyDelete")
 	public String QAReplyDelete(int qa_num) {
 		
