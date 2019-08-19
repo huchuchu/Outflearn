@@ -55,8 +55,8 @@
 
 </head>
 <script type="text/javascript">
-function list(page,data) {
-    location.href = "LectureList?page="+page+"&searchOption="${map.searchOption} + "&txt_search=" + $('input#txt_search').val() + "&class_category="${class_category}";
+function PageMove(page,data) {
+    location.href = "LectureList?page="+page+"&txt_search=" + $('input#txt_search').val();
  }
 
 </script>
@@ -206,7 +206,7 @@ function list(page,data) {
 		</div>
 	</div>
 				<!-- Pagination -->
-			<div class="form-group form-inline" >
+			<div class="text-center form-group form-inline" >
 				<a href="javascript:PageMove(${pagination.firstPageNo})"
 					class="button previous">&laquo;</a> <a
 					href="javascript:PageMove(${pagination.prevPageNo})"

@@ -39,7 +39,7 @@ public interface ClassDataDao {
 		// 장바구니 - BASKET 테이블
 		public int classBasketInsert(ClassInfoDto dto);
 		public int classBasketDelete(int class_num);
-			
+		
 		// 댓글 - CLASS_REVIEW 테이블
 		public List <ClassReviewDto> ClassReviewSelectList(int class_num);
 		public ClassReviewDto ClassReviewSelectOne(int review_num);
@@ -53,8 +53,7 @@ public interface ClassDataDao {
 		//페이징
 		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search );
 		public int selectTotalCount(String txt_search);
-		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search, String searchOption );
-		public int selectTotalCount(String searchOption, String txt_search);
+	
 		// 주류, 부류 - MAIN_STREAM , SUB_STREAM
 		public int mainStreamInsert(MainStreamDto dto);
 		public int subStreamInsert(SubStreamDto dto);
@@ -68,4 +67,5 @@ public interface ClassDataDao {
 		public List<QADto> QAReply(int qa_group_no); 
 		public int QAInsert(QADto dto);
 		public int QAReplyInsert(QADto dto);
+		public int QAReplyUpdate(QADto dto);
 }

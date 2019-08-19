@@ -156,14 +156,11 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return dao.selectListPage(firstIndex, recordCountPerPage, txt_search);
 	}
 
+	
+
 	@Override
 	public int selectTotalCount(String txt_search) {
 		return dao.selectTotalCount(txt_search);
-	}
-
-	@Override
-	public int selectTotalCount(String searchOption, String txt_search) {
-		return dao.selectTotalCount(searchOption, txt_search);
 	}
 
 	@Override
@@ -176,11 +173,7 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return dao.ClassDataSelectList();
 	}
 	
-	@Override
-	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search,
-			String searchOption) {
-		return dao.selectListPage(firstIndex, recordCountPerPage, txt_search, searchOption);
-	}
+	
 	
 	@Override
 	public List<QADto> QASelectList(int class_num) {
@@ -224,6 +217,11 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	@Override
 	public int QAReplyInsert(QADto dto) {
 		return dao.QAReplyInsert(dto);
+	}
+	
+	@Override
+	public int QAReplyUpdate(QADto dto) {
+		return dao.QAReplyUpdate(dto);
 	}
 
 }
