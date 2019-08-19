@@ -2,21 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="data">
 
-	<!-- ================== CLASS_INFO 테이블 ================== -->
-	
+
 	<select id="ClassInfoSelectlist" resultType="ClassInfoDto">
 		SELECT * FROM CLASS_INFO
 	</select>
 	
-	<!-- 해당 강의 조회 -->
-    <select id="ClassInfoSelectone" parameterType="int" resultType="ClassInfoDto">
+   <select id="classinfoselectone" parameterType="map" resultType="ClassInfoDto">
    	  SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
    </select>
-  
-  	<!-- 카테고리에 해당 강좌 조회 -->
-   	<select id="CategorySelectList" resultType="ClassInfoDto">
-   	  	SELECT * FROM CLASS_INFO WHERE CLASS_CATEGORY = #{class_category}
-   	</select>
+   
+   <select id="classdataselectone" parameterType="map" resultType="ClassDataDto">
+	  SELECT DATA_DATA FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
+   </select>
+   
+   <select id="CategorySelectList" resultType="ClassInfoDto">
+   	  SELECT * FROM CLASS_INFO WHERE CLASS_CATEGORY = #{class_category}
+   </select>
+   
+	<select id="ClassDateSelectlist" resultType="ClassDataDto">
+		SELECT * FROM CLASS_DATA
+	</select>
+	
+	<!-- 해당 강좌 조회 -->
+	<select id="ClassInfoSelectone" parameterType="int" resultType="ClassInfoDto">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num }
+	</select>
 	
 	<!-- 강의 소개 페이지  -->
 	<insert id="ClassInfoDtoInsert" parameterType="ClassInfoDto">
@@ -24,11 +34,6 @@
 	</insert>
 	
 	<!-- ================== CLASS_DATA 테이블 ================== -->
-	 
-	<!-- 강좌 챕터 영상 보기 -->
-	<select id="classdataselectone" parameterType="map" resultType="ClassDataDto">
-	  SELECT DATA_DATA FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
-  	</select>
 	
 	<!-- 영상추가 첫번째 페이지 -->
 	<insert id="ClassDataInsert" parameterType="ClassDataDto" >
@@ -43,7 +48,7 @@
 	<!-- ================== CLASS_INTRODUCE 테이블 ================== -->
 	
 	<!-- 해당 클래스의 강좌 -->
-	<select id="classIntroduceSelectOne" parameterType="map" resultType="ClassIntroduceDto">
+	<select id="classIntroduceSelectlist" parameterType="map" resultType="ClassIntroduceDto">
 		SELECT * FROM CLASS_INTRODUCE WHERE CLASS_NUM = (SELECT CLASS_NUM FROM CLASS_INTRODUCE WHERE CLASS_NUM = #{class_num })
 	</select>
 
