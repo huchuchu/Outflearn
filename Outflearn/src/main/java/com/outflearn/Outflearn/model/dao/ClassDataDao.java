@@ -2,11 +2,13 @@ package com.outflearn.Outflearn.model.dao;
 
 import java.util.List;
 
-
+import com.outflearn.Outflearn.dto.ClassCategoryDto;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.LiveDto;
+import com.outflearn.Outflearn.dto.MainStreamDto;
+import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.dto.connectUserClass;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
 
@@ -18,6 +20,7 @@ public interface ClassDataDao {
 		public List <ClassInfoDto> ClassInfoSelectList();
 		public List<ClassInfoDto> CategorySelectList(String class_category);
 		public ClassInfoDto ClassInfoSelectOne(int class_num);
+		public List<ClassInfoDto>  classInfoSelectListUser(int user_num);
 		public int ClassInfoInsert(ClassInfoDto dto);
 			
 		
@@ -32,16 +35,9 @@ public interface ClassDataDao {
 		public int ClassDataInsert(ClassDataDto dto);	
 		public int ClassChapterDataInsert(ClassDataDto dto);
 		
-			
-		// Live
-		public List<LiveDto> liveCalendar();
-		public ClassInfoDto livePopup(int live_num);
-		public List<ClassInfoDto> getMyClass(int user_num);
-		public List<ClassInfoDto> liveRooms(String[] liveRooms);
-			
-		// MyPage
-		public List<ClassInfoDto> getWishList(int user_num);
-		public List<ClassInfoDto> getSubscribe(int user_num);
+		// 장바구니 - BASKET 테이블
+		public int classBasketInsert(ClassInfoDto dto);
+		public int classBasketDelete(int class_num);
 			
 		// 댓글 - CLASS_REVIEW 테이블
 		public List <ClassReviewDto> ClassReviewSelectList(int class_num);
@@ -58,5 +54,9 @@ public interface ClassDataDao {
 		public int selectTotalCount(String txt_search);
 		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search, String searchOption );
 		public int selectTotalCount(String searchOption, String txt_search);
+		// 주류, 부류 - MAIN_STREAM , SUB_STREAM
+		public int mainStreamInsert(MainStreamDto dto);
+		public int subStreamInsert(SubStreamDto dto);
+		public int ClassCategoryInsert(ClassCategoryDto dto);
 	
 }

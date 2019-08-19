@@ -13,6 +13,9 @@
 		<typeAlias type="com.outflearn.Outflearn.dto.connectUserClass" alias="connectUserClass"/>
 		<typeAlias type="com.outflearn.Outflearn.dto.ClassReviewDto" alias="ClassReviewDto"/>
 		<typeAlias type="com.outflearn.Outflearn.dto.RoadMapInfoDto" alias="RoadMapDto"/>
+		<typeAlias type="com.outflearn.Outflearn.dto.MainStreamDto" alias="MainStreamDto"/>
+		<typeAlias type="com.outflearn.Outflearn.dto.SubStreamDto" alias="subStreamDto"/>
+		<typeAlias type="com.outflearn.Outflearn.dto.ClassCategoryDto" alias="ClassCategoryDto"/>
 	</typeAliases>
 	
 	
