@@ -70,7 +70,7 @@ public class HomeController {
 		
 		int totalCount = biz.selectTotalCount(txt_search);
 		logger.info(""+totalCount);
-		
+		System.out.println(class_category);
 		int pageNum = (page==null)? 1:Integer.parseInt(page);
 		
 		Pagination pagination = new Pagination();

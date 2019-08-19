@@ -26,8 +26,9 @@
 
 </head>
 <script type="text/javascript">
-	function list(page,data) {
-		location.href = "LectureList?page="+page+"&searchOption="${map.searchOption} + "&txt_search=" + $('input#txt_search').val() + "&class_category="${class_category}";
+	function PageMove(page,data) {
+
+		location.href = "LectureList?class_category=" + ${class_category} + " &page= " + page + "&searchOption=" + ${searchOption} +"&txt_search=" + $('input#txt_search').val();
 	}
 
 </script>
