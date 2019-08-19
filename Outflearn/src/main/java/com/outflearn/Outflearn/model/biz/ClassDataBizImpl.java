@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.outflearn.Outflearn.dto.ClassCategoryDto;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
 import com.outflearn.Outflearn.dto.LiveDto;
+import com.outflearn.Outflearn.dto.MainStreamDto;
+import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.model.dao.ClassDataDao;
 
 
@@ -36,6 +39,12 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public ClassInfoDto ClassInfoSelectOne(int class_num) {
 		
 		return dao.ClassInfoSelectOne(class_num);
+	}
+	
+	@Override
+	public List<ClassInfoDto> classInfoSelectListUser(int user_num) {
+		
+		return dao.classInfoSelectListUser(user_num);
 	}
 
 	@Override
@@ -78,7 +87,20 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		
 		return dao.ClassChapterDataInsert(dto);
 	}
+
+//	-------------------------------------------------장바구니(BASKET)
+	@Override
+	public int classBasketInsert(ClassInfoDto dto) {
 	
+		return dao.classBasketInsert(dto);
+	}
+
+	@Override
+	public int classBasketDelete(int class_num) {
+		
+		return dao.classBasketDelete(class_num);
+	}
+
 
 
 // ---------------------------------------------------	Live
@@ -165,5 +187,29 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public List<ClassDataDto> ClassDataSelectList() {
 		return dao.ClassDataSelectList();
 	}
+
+	
+	// 주류
+	@Override
+	public int mainStreamInsert(MainStreamDto dto) {
+		
+		return dao.mainStreamInsert(dto);
+	}
+	
+	// 부류
+	@Override
+	public int subStreamInsert(SubStreamDto dto) {
+		
+		return dao.subStreamInsert(dto);
+	}
+
+	@Override
+	public int ClassCategoryInsert(ClassCategoryDto dto) {
+	
+		return dao.ClassCategoryInsert(dto);
+	}
+
+
+
 		
 }
