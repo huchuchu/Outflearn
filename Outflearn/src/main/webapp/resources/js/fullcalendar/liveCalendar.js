@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         },
         error: function (err) {
-            alert(err)
+            console.log(err);
         }
     })
 });

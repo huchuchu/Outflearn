@@ -31,7 +31,7 @@ public class KakaoPayController {
 		return "redirect:"+kakaopay.kakaoPayReady();
 	}
 	
-	@RequestMapping(value="kakaoPaySuccess")
+	@RequestMapping(value="Utils/kakaoPaySuccess")
 	public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
 		logger.info("kakaoPaySuccess get");
 		logger.info("kakaoPaySuccess pg_token : " + pg_token);

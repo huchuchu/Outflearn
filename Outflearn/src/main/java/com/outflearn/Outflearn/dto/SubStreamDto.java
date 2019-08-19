@@ -16,7 +16,6 @@ public class SubStreamDto {
 		this.main_num = main_num;
 		this.sub_name = sub_name;
 	}
-	
 	public int getSub_num() {
 		return sub_num;
 	}
@@ -35,6 +34,4 @@ public class SubStreamDto {
 	public void setSub_name(String sub_name) {
 		this.sub_name = sub_name;
 	}
-	
-	
 }

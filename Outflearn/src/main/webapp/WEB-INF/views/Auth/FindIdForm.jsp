@@ -52,7 +52,7 @@
 <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
 <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
-
+<link rel="stylesheet" type="text/css" href="resources/css/member.css">
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -94,7 +94,8 @@
 			</div>
 		</div>
 	</nav>
-	<h1 class="text-center">아이디 찾기</h1>
+	<h1 style="color:#6372ff;" class="text-center">아이디 찾기</h1>
+	<div class="intro">
 	<div class="row">
 		<div class="col-xs-3 col-sm-3"></div>
 		<div class="col-xs-6 col-sm-6">
@@ -102,34 +103,23 @@
 			<form method="post" action="${pageContext.request.contextPath}/findId.do">
          		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">	
 					<header>
-						<h3>아이디 찾기</h3>
+						<h3 style="color:#6372ff;" class="text-center">아이디 찾기</h3>
 					</header>
-					<table>
-						<tr>
-							<th>이메일을 입력해 주세요</th>
-							<td><br></td>
-						</tr>
+					
+					<div class="form-group">
+                        <label class="memlabel" for="inputEmail">이메일을 입력해 주세요</label>
+                        <input type="email" class="form-control" name="user_email" id="findUserEmail" placeholder="이메일을 입력해주세요" required />
 						
-						<tr>
-							<th>이메일</th>
-							<td>
-								<input type="email" class="text" id="user_email" name="user_email" placeholder="이메일" required/>
-							</td>
-						</tr>
-						
-						
-						<tr>
-							<td colspan="2" >
-								<input type="submit" value="아이디 찾기" id="findBtn" style="margin-left: 10em;"/>
-								<input type="button" value="취소" onclick="history.go(-1);">
-							</td>
-						</tr>
-					</table>
+						<input type="submit" value="아이디 찾기" id="findBtn" class="btn-member" name="findId" id="findId" />
+						<button type="button" id="findIdBtn" class="btn-member" onclick="history.go(-1);">취소</button>
+							
+                    </div>
+					
 				</form>
 
 		</div>
 	</div>
-	
+	</div>
 
 
 	<!-- Contact Section -->

@@ -69,7 +69,7 @@
 	</select>
 
 	<insert id="classReviewInsert" parameterType="classReviewDto">
-		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star}, REVIEW_GROUPNO_SQ.NEXTVAL, 1, 0)
+		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star}, REVIEW_GROUPNO.NEXTVAL, 1, 0)
 	</insert>
 	
 	<update id="classReviewUpdate" parameterType="classReviewDto">
@@ -81,7 +81,7 @@
 	</delete>
 	
 	<insert id="classReviewInsertAnswer" parameterType="classReviewDto">
-		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star},
+		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star},
 										(SELECT REVIEW_GROUPNO FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}),
 										(SELECT REVIEW_GROUPSQ FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1, 0) 
 	</insert>
@@ -96,37 +96,86 @@
 	<insert id="classBasketInsert" parameterType="ClassInfoDto">
 		INSERT INTO BASKET VALUES(#{user_num }, #{class_num} )
 	</insert>
+
 	
 	<delete id="classBasketDelete" parameterType="int">
 		DELETE FROM BASKET WHERE CLASS_NUM = ${class_num }
 	</delete>
 	
-	<!-- ================== Livepage & Mypage 테이블 ================== -->
-	<select id="liveCalendar" resultType="LiveDto">
-		SELECT * FROM LIVE
+
+
+	<select id="QASelectList" parameterType="int" resultType="QADto">
+		SELECT * FROM QA WHERE CLASS_NUM = #{class_num}
 	</select>
 	
-	<select id="livePopup" resultType="ClassInfoDto">
-		SELECT * FROM CLASS_INFO WHERE CLASS_NUM = (SELECT CLASS_NUM FROM LIVE WHERE LIVE_NUM = #{live_num})
+	<select id="QASelectOne" parameterType="int" resultType="QADto">
+		SELECT * FROM QA WHERE QA_NUM = #{qa_num}
 	</select>
 	
-	<select id="getMyClass" resultType="ClassInfoDto" parameterType="int">
-		SELECT * FROM CLASS_INFO WHERE USER_NUM = #{user_num}
+	<select id="QAReply" parameterType="int" resultType="QADto">
+		SELECT * FROM QA WHERE QA_GROUP_NO = #{qa_group_no} ORDER BY QA_GROUP_SQ
 	</select>
 	
-	<select id="getWishList" resultType="ClassInfoDto" parameterType="int">
-		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM BASKET WHERE USER_NUM = #{user_num})
-	</select>
+	<insert id="QAInsert" parameterType="QADto">
+		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{qa_title}, #{qa_content}, QA_GROUP_NO_SQ.NEXTVAL, '1')
+	</insert>
 	
-	<select id="getSubscribe" resultType="ClassInfoDto" parameterType="int">
-		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM SUBSCRIBE WHERE USER_NUM = #{user_num})
-	</select>
+	<insert id="QAReplyInsert" parameterType="QADto">
+		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname}, '답글', #{qa_content}, 
+										  (SELECT DISTINCT QA_GROUP_NO FROM QA WHERE QA_GROUP_NO = #{qa_group_no}),
+										  #{qa_group_sq} + 1)
+	</insert>
 	
-	<select id="liveRooms" resultType="ClassInfoDto" parameterType="map">
-		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN
-		<foreach collection="liveRooms" item="item" open="(" close=")" separator=",">
-            #{item}
-        </foreach>
+	<select id="selectListPage" parameterType="map" resultType="ClassInfoDto">
+		SELECT *
+		FROM (SELECT ROWNUM AS RNUM, C.*
+			FROM (	SELECT *
+					FROM CLASS_INFO
+					<if test="txt_search != null">
+					WHERE
+						(
+							(upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%') or
+							(upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%')
+						)
+					</if>
+						ORDER BY CLASS_NUM DESC
+						) C
+			)
+		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
+	</select>
+
+	<select id="selectListPagetwo">
+		SELECT *
+		FROM (SELECT ROWNUM AS RNUM, C.*
+			FROM ( SELECT *
+					FROM CLASS_INFO
+					<if test="txt_search != null">
+					<choose>
+						<when test="searchOption == 'all'">
+							WHERE (
+								(upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%') or
+								(upper(CLASS_AUTHOR) like '%' || upper(#{txt_search})||'%')							
+							)
+						</when>
+						<otherwise>
+							WHERE ${searchOption} like '%' || #{keyword} || '%'
+						</otherwise>
+					</choose>
+					</if>
+						ORDER BY CLASS_NUM DESC
+			) C
+		)
+		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
+	</select>
+
+	<select id="selectTotalCount" parameterType="map" resultType="Integer">
+		SELECT count(*)
+		FROM CLASS_INFO
+		<if test="txt_search != null">
+		WHERE upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%' or
+			upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
+			
+		</if>	
 	</select>
 	
 	<!-- ================== 카테고리 주류, 부류 ================== -->

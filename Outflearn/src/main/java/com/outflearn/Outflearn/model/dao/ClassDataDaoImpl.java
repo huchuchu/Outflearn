@@ -17,6 +17,9 @@ import com.outflearn.Outflearn.dto.ClassReviewDto;
 import com.outflearn.Outflearn.dto.LiveDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
+import com.outflearn.Outflearn.dto.QADto;
+import com.outflearn.Outflearn.dto.ClassReviewDto;
+import com.outflearn.Outflearn.dto.LiveDto;
 
 @Repository
 public class ClassDataDaoImpl implements ClassDataDao {
@@ -157,7 +160,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	public int ClassChapterDataInsert(ClassDataDto dto) {
 		int res = 0;
 
-		res = sqlSession.insert(namespace + "ClassChapterDataInsert", dto);
+		res = sqlSession.update(namespace + "ClassInfoUpdate", dto);
 
 		return res;
 	}
@@ -183,46 +186,18 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 
-
-// --------------------------------------------------- Live
-
 	@Override
-	public List<LiveDto> liveCalendar() {
+	public ClassIntroduceDto ClassIntroduceSelectOne(int class_num) {
+		ClassIntroduceDto dto = new ClassIntroduceDto();
 
-		List<LiveDto> list = sqlSession.selectList(namespace + "liveCalendar");
-		return list;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("class_num", class_num);
+		System.out.println("daoImpl : " + class_num);
+		dto = sqlSession.selectOne(namespace + "classIntroduceselectone", map);
+
+		return dto;
 	}
 
-	@Override
-	public List<ClassInfoDto> getSubscribe(int user_num) {
-		return sqlSession.selectList(namespace + "getSubscribe", user_num);
-	}
-
-	@Override
-	public ClassInfoDto livePopup(int live_num) {
-
-		return sqlSession.selectOne(namespace + "livePopup", live_num);
-	}
-
-	@Override
-	public List<ClassInfoDto> getMyClass(int user_num) {
-
-		return sqlSession.selectList(namespace + "getMyClass", user_num);
-	}
-
-	@Override
-	public List<ClassInfoDto> getWishList(int user_num) {
-		return sqlSession.selectList(namespace + "getWishList", user_num);
-	}
-
-	@Override
-	public List<ClassInfoDto> liveRooms(String[] liveRooms) {
-
-		Map<String, String[]> map = new HashMap<String, String[]>();
-		map.put("liveRooms", liveRooms);
-
-		return sqlSession.selectList(namespace + "liveRooms", map);
-	}
 
 	// --------------------------------------------------- 댓글
 	@Override
@@ -278,6 +253,29 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 
+	//페이징
+	@Override
+	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("firstIndex", String.valueOf(firstIndex));
+		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
+		map.put("txt_search", txt_search);
+		
+		List<ClassInfoDto> list = sqlSession.selectList(namespace + "selectListPage", map);
+		return list;
+	}
+
+	@Override
+	public int selectTotalCount(String txt_search) {
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("txt_search", txt_search);
+		res = sqlSession.selectOne(namespace + "selectTotalCount", map);
+		return res;
+	}
+		
 	@Override
 	public int ClassReviewUpdateAnswer(int review_num) {
 
@@ -297,7 +295,20 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		
 		return res;
 	}
+	
+	@Override
+	public int selectTotalCount(String searchOption, String txt_search) {
 
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("txt_search", txt_search);
+		res = sqlSession.selectOne(namespace + "selectTotalCount", map);
+		
+		return res;
+	}
+		
 	@Override
 	public int mainStreamInsert(MainStreamDto dto) {
 		
@@ -315,16 +326,81 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 
 	@Override
+	public List<QADto> QASelectList(int class_num) {
+		
+		List<QADto> list = new ArrayList<QADto>();
+		
+		try {
+			list = sqlSession.selectList(namespace + "QASelectList", class_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public QADto QASelectOne(int qa_num) {
+		
+		QADto dto = sqlSession.selectOne(namespace + "QASelectOne", qa_num);
+		
+		return dto;
+	}
+	
+	@Override
 	public int ClassCategoryInsert(ClassCategoryDto dto) {
 	
 		int res = sqlSession.insert(namespace + "classCategoryInsert", dto); 
+		return res;
+	}
+
+	@Override
+	public List<QADto> QAReply(int qa_group_no) {
+		
+		List<QADto> list = new ArrayList<QADto>();
+		
+		try {
+			list = sqlSession.selectList(namespace + "QAReply", qa_group_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	@Override
+	public int QAInsert(QADto dto) {
+		
+		int res = 0;
+		
+		res = sqlSession.insert(namespace + "QAInsert", dto);
 		
 		return res;
 	}
 
+	@Override
+	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("firstIndex", String.valueOf(firstIndex));
+		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
+		map.put("txt_search", txt_search);
+		map.put("searchOption", searchOption);
+		
+		List<ClassInfoDto> list = sqlSession.selectList(namespace + "selectListPagetwo", map);
+		return list;
+	}
+
 	
+	@Override
+	public int QAReplyInsert(QADto dto) {
+		
+		int res = 0;
+		
+		res = sqlSession.insert(namespace + "QAReplyInsert", dto);
+		
+		return res;
+	}
 
-
-
-	
 }

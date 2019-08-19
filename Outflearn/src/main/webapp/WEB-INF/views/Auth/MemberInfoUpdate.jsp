@@ -54,7 +54,7 @@
 <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
 <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 <!-- <script src="https://kit.fontawesome.com/27cb20e940.js"></script> -->
-
+<link rel="stylesheet" type="text/css" href="resources/css/member.css">
 <sec:csrfMetaTags/>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

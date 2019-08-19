@@ -14,18 +14,6 @@ const options = {
     key: fs.readFileSync('./key/server.key'),
     cert: fs.readFileSync('./key/server.cert')
 }
-/*
-app.get('/', function (req, res) {
-    fs.readFile('./index.html', function (err, data) {
-        if (err) {
-            res.send(err)
-        } else {
-            res.writeHead(200, { 'Content-Type': 'text/html' })
-            res.write(data)
-            res.end()
-        }
-    })
-})
 
 app.get('/caster', function (req, res) {
     fs.readFile('./caster.html', function (err, data) {
@@ -50,7 +38,6 @@ app.get('/user', function (req, res) {
         }
     })
 })
-*/
 
 const server = https.createServer(options, app)
 
@@ -60,23 +47,24 @@ var liveRooms = []
 
 function findCasterId(room) {
     for (let i = 0; i < liveRooms.length; i++) {
-        if (liveRooms[i].roomName === room) {
+        if (liveRooms[i].room === room) {
             return liveRooms[i].caster
         }
     }
 }
 
+function getNumClients(room) {
+    var clientsInRoom = io.sockets.adapter.rooms[room];
+    var numClients = clientsInRoom ? Object.keys(clientsInRoom.sockets).length : 0;
+
+    return numClients
+}
+
 io.sockets.on('connection', function (socket) {
 
-    function log() {
-        var array = ['서버 log : ']
-        array.push.apply(array, arguments)
-        socket.emit('log', array)
-    }
-
-    socket.on('message', function (message, room) {
-        log('클라이언트 said:', message);
-        socket.broadcast.to(room).emit('message', message, socket.id)
+    socket.on('message', function (message) {
+        console.log('클라이언트 said:', message);
+        socket.broadcast.emit('message', message, socket.id)
     })
 
     socket.on('userMsg', function (msg, room) {
@@ -87,40 +75,26 @@ io.sockets.on('connection', function (socket) {
         io.to(id).emit('message', msg, socket.id)
     })
 
-    socket.on('create or join', function (name, room, class_num) {
-        log('create or join 요청 받음')
-
-        var clientsInRoom = io.sockets.adapter.rooms[room]
-        var numClients = clientsInRoom ? Object.keys(clientsInRoom.sockets).length : 0;
-        log(`${room}방에 ${numClients}명 들어와 있다`)
-
+    socket.on('casterJoin', function (room, name) {
+        console.log('casterJoin')
         socket.name = name
         socket.join(room)
 
-        console.log(`[${socket.name}] joined ${room}`);
-        io.sockets.to(room).emit('joinedRoom', {
-            room: room,
-            name: socket.name
+        liveRooms.push({
+            'room': room,
+            'caster': socket.id,
         })
 
-        if (numClients === 0) {
-            log(`${socket.id}가 ${room}에 입장`)
+        console.log(`캐스터[${socket.id}]가 ${room}에 입장`)
+        socket.emit('createdRoom', room, socket.id)
+    })
 
-            liveRooms.push({
-                'roomName': room,
-                'caster': socket.id,
-                'class_num': class_num
-            })
-
-            socket.emit('created', room, socket.id)
-
-        } else {
-            log(`${socket.id}가 ${room}에 입장`)
-            // io.sockets.in(room).emit('join', numClients, socket.id);
-            io.to(findCasterId(room)).emit('join', numClients, socket.id);
-            // socket.join(room);
-            // socket.emit('entrance', room, socket.id);
-        }
+    socket.on('userJoin', function (room, name) {
+        console.log(`유저[${socket.id}]가 ${room}에 입장`)
+        socket.name = name
+        socket.join(room);
+        io.to(findCasterId(room)).emit('joinedUser', socket.id)
+        io.sockets.to(room).emit('joinedRoom', name, getNumClients(room))
     })
 
     socket.on('bye', function () {
@@ -131,24 +105,25 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('chatMsg', (msg, room) => {
         socket.broadcast.to(room).emit('chatMsg', { type: 'msg', chatMessage: msg, name: socket.name });
-        console.log('[' + socket.name + '] send >>' + msg);
     });
 
     socket.on('disconnect', function () {
         for (let i = 0; i < liveRooms.length; i++) {
             if (liveRooms[i].caster === socket.id) {
-                var room = liveRooms[i].roomName
+                var room = liveRooms[i].room
                 io.in(room).clients((error, socketIds) => {
-                    socketIds.forEach(socketId => io.to(socketId).emit('chatMsg', { type: 'leaveCaster' }));
+                    socketIds.forEach(socketId => io.to(socketId).emit('chatMsg', { type: 'leaveCaster', class_num: room }));
                 });
+                liveRooms.splice(i, 1);
                 break;
             }
         }
     })
 
-    // Room List
-    socket.on('getLive', function () {
-        socket.emit('liveList', liveRooms)
+    // Livepage
+
+    socket.on('bringRoom', function () {
+        io.to(socket.id).emit('getRoom', liveRooms)
     })
 
 })
