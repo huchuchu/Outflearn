@@ -110,23 +110,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return list;
 	}
 
-	@Override
-	public List<ClassInfoDto> CategorySelectList(String class_category) {
-
-		List<ClassInfoDto> list = new ArrayList<ClassInfoDto>();
-
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("class_category", class_category);
-
-		try {
-			list = sqlSession.selectList(namespace + "CategorySelectList", map);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return list;
-	}
-
+	
 	@Override
 	public ClassDataDto ClassDataSelectOne(int class_num) {
 

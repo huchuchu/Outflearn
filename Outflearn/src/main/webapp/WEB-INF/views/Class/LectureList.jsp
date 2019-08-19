@@ -25,7 +25,12 @@
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 
 </head>
+<script type="text/javascript">
+	function list(page,data) {
+		location.href = "LectureList?class_category="${class_category}+&page="+page+"&searchOption=${map.searchOption}" + "&txt_search=" + $('input#txt_search').val();
+	}
 
+</script>
 <body>
 
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
@@ -107,10 +112,20 @@
 				<div class="page-header">
 					<h1 id="page-header-content">전체 카테고리</h1>
 					<p class="input-group col-sm-4 pull-right">
-						<input type="text" class="form-control" placeholder="검색하기">
+						<form name="form1" method="post" action="${pageContext.request.contextPath}/LectureList">
+						<select name="searchOption">
+							<!-- 검색 조건을 검색 처리 후 결과화면에 보여주기 위해 c:out 출력태그 사용, 삼항연산자.-->
+							<option value="all" <c:out value="${map.searchOption == 'all'?'selected':''}"/>>제목+이름</option>
+							<option value="class_author" <c:out value="${map.searchOption == 'class_author'?'selected':'' }"/>>이름</option>
+							<option value="class_title" <c:out value="${map.searchOption == 'class_title'?'selected':''}"/>>제목</option>
+						</select> 
+						
+						<input type="text" class="form-control" name="txt_search" id="txt_search" placeholder="검색하기">
 						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">검색</button>
+							<button class="btn btn-default" type="submit">검색</button>
 						</span>
+					</form>	
+						
 					</p>
 				</div>
 				<article>
@@ -155,12 +170,35 @@
 							</c:otherwise>
 						</c:choose>
 
-						
+			
 					
 				</article>
 			</div>
 		</div>
 	</div>
+				<!-- Pagination -->
+			<div class="form-group form-inline" >
+				<a href="javascript:PageMove(${pagination.firstPageNo})"
+					class="button previous">&laquo;</a> <a
+					href="javascript:PageMove(${pagination.prevPageNo})"
+					class="button previous">&lt;</a>
+				<div class="pages">
+					<c:forEach var="i" begin="${pagination.startPageNo}" end="${pagination.endPageNo}" step="1">
+						<c:choose>
+							<c:when test="${i eq pagination.pageNo}">
+								<a href="javascript:PageMove(${i})" class="active">${i}</a>
+							</c:when>
+							<c:otherwise>
+								<a href="javascript:PageMove(${i})">${i}</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</div>
+				<a href="javascript:PageMove(${pagination.nextPageNo})"
+					class="button_next">&gt;</a> <a
+					href="javascript:PageMove(${pagination.finalPageNo})"
+					class="button_next">&raquo;</a>
+			</div>
 	<!-- ==================== FOOTER ==================== -->
 
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>

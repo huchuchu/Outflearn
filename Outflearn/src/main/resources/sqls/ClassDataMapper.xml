@@ -13,10 +13,6 @@
    	  SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
    </select>
    
-   <select id="classdataselectone" parameterType="map" resultType="ClassDataDto">
-	  SELECT DATA_DATA FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
-   </select>
-   
      
 	<select id="ClassDateSelectlist" resultType="ClassDataDto">
 		SELECT * FROM CLASS_DATA

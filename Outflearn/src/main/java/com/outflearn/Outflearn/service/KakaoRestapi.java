@@ -39,20 +39,20 @@ public class KakaoRestapi {
 		System.out.println(headers);
 		
 		//서버로 요청할 body
-		ClassInfoDto dto = new ClassInfoDto();
-		MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("cid", "TC0ONETIME");
 		params.add("partner_order_id", "partner_order_id");
-		params.add("partner_user_id", dto.getUser_num());
+		params.add("partner_user_id", "partner_user_id");
 		params.add("item_name", "자바강좌");
 		params.add("quantity", "1");
 		params.add("total_amount", "2000");
 		params.add("tax_free_amount", "100");
-		params.add("approval_url", "http://localhost:8787/Outflearn/kakaoPaySuccess");
+		params.add("approval_url", "http://localhost:8787/Outflearn/Utils/kakaoPaySuccess");
 		params.add("cancel_url", "http://localhost:8787/Outflearn/kakaoPayCancel");
 		params.add("fail_url", "http://localhost:8787/kakaoPaySuccessFail");
 		
-		HttpEntity<MultiValueMap<String, Object>> body = new HttpEntity<MultiValueMap<String, Object>>(params, headers);
+		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 	
 		try {
 			kakaoPayReadyVo = restTemplate.postForObject(new URI(HOST + READY_URI), body, KakaoPayReadyVo.class);
