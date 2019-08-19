@@ -17,16 +17,59 @@
  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script> 
  
+ <style type="text/css">
+ 
+ .top{
+ 	grid-area : header;
+ 	background-color: LightSeaGreen ; 
+ 	height: 30%;
+ }
+ 
+ .leftCol{
+ 	grid-area : menu;
+ 	background-color: orange;
+ }
+ 
+ .mid{
+ 	grid-area : main;
+ 	background-color: lightblue;
+ }
+ 
+ .wapper{
+ 	display: grid;
+	grid-template-areas:
+	'header header'
+	'menu main';
+ 	grid-gap : 10px;
+ }
+ 
+ 
+ 
+ </style>
+ 
+ 
+ 
  </head>
- <body>	  	  
-	 <div>
+ <body>	  
+ 
+ 	<div class="wrapper">	
+ 	  
+	 <div class="top">
 		 <h1>로드맵 작성하기</h1>
 		 <input type="button" value="다음페이지로->" onclick="document.getElementById('roadMapForm').submit();" >
-	 </div>	  
+	 </div>
+	 	 
+	 <div class="leftCol">
+	 <ul>
+	 	<li>로드맵 등록하기</li>
+		<li>강의 등록하기</li>	 
+	 </ul>	 
+	 </div> 
 	 
-	 <div>
+	 <div class="mid">
 	 <form action="roadInsert" method="post" id="roadMapForm">
-	 <input type="text" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
+	 <!-- hidden : 사용자 번호 -->
+	 <input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
 	  <input type="text" name="roadmap_title">  
 	  <select name="main_num">
 	  	<option>카테고리</option>
@@ -35,10 +78,12 @@
 	  	<option value="3">데이터베이스</option>  
 	  	
 	  </select>	  
-	    <textarea rows="" cols=""id="summernote" name="roadmap_content"></textarea>    
-	  </form> 
-	  
+<!-- 	    <textarea rows="" cols=""id="summernote" name="roadmap_content"></textarea>     -->
+	  </form> 	  
 	  </div>
+	  
+	</div>  
+	  
 	   <script>
 	     $('#summernote').summernote({
 			width: 1000,

@@ -47,12 +47,11 @@ function addSession(){
 			  
 	tr.innerHTML=str;	
 	document.getElementById("addtr").appendChild(tr);
-	$("#classInfoTable").tableDnD({
-		onDragClass:"dragRow"
-		
-		
-	});
 	Cnt +=1;
+	$("#classInfoTable").tableDnD({
+		onDragClass:"dragRow"		
+	});
+	
 }
 </script>
 
