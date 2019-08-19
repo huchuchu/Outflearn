@@ -5,6 +5,7 @@ package com.outflearn.Outflearn;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
@@ -29,10 +31,7 @@ public class RoadMapController {
 	private static final Logger logger  = LoggerFactory.getLogger(RoadMapController.class);
 	
 	@Inject
-	private RoadMapBiz biz;
-	
-
-	
+	private RoadMapBiz biz;	
 	
 	//로드맵 보기
 	@RequestMapping("/RoadMap")
@@ -90,25 +89,49 @@ public class RoadMapController {
 		
 		biz.insertroadNclass(class_num, seq);
 		
-		System.out.println("인서트 성공!");
-	
+		System.out.println("인서트 성공!");	
 		
 		return"RoadMap/RoadMapList";
 	}
 	
 	//검색창 띄우기
 	@RequestMapping("/searchWingogo")
-	public String searchWingogo(Model model) {
+	public String searchWingogo(Model model, @RequestParam String btnIdVal) {
 		
-		List<MainStreamDto> mainStreamList = biz.mainStreamList();
-		List<SubStreamDto> subStreamList = biz.subStreamList();
-		System.out.println(mainStreamList.size());
+		List<MainStreamDto> mainStreamList = biz.mainStreamList();		
+		List<SubStreamDto> subStreamList = biz.subStreamList();	
+		
 		System.out.println(subStreamList.size());
+		System.out.println(mainStreamList.size());
 		
+		model.addAttribute("btnIdVal", btnIdVal);
 		model.addAttribute("mainList", mainStreamList);
 		model.addAttribute("subList", subStreamList);
 		return"RoadMap/SearchForm";
 	}
+	
+	//검색창에서 검색 후 값과 리턴
+	@RequestMapping("/searchFilter")
+	public String searchFilter(Model model, @RequestParam String[] subFilter, @RequestParam String please) {
+		
+		System.out.println("들어온 필터 갯수"+subFilter.length);
+		
+		List<ClassInfoDto> resList = new ArrayList<ClassInfoDto>();
+		resList = biz.classInfoList(subFilter);
+		System.out.println("컨트롤러로 다시 컴백 :"+ resList.size());
+		
+		
+		List<MainStreamDto> mainStreamList = biz.mainStreamList();		
+		List<SubStreamDto> subStreamList = biz.subStreamList();	
+		
+		model.addAttribute("btnIdVal", please);
+		model.addAttribute("mainList", mainStreamList);
+		model.addAttribute("subList", subStreamList);
+		model.addAttribute("resList", resList);		
+		return"RoadMap/SearchForm";
+	}
+	
+	
 	
 	
 

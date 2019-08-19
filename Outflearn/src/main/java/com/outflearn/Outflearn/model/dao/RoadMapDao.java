@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
@@ -23,6 +24,8 @@ public interface RoadMapDao {
 	public List<MainStreamDto> mainStreamList();
 	
 	public List<SubStreamDto> subStreamList() ;
+	
+	public List<ClassInfoDto> classInfoList(String[] subFilter);
 	
 	
 }

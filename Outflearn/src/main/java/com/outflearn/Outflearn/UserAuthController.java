@@ -167,8 +167,6 @@ public class UserAuthController {
 		
 	}
 	
-
-	
 	
 	//sns로그인 권한 강제 부여 
 	//강제부여한는거라서 성공/실패 핸들러는 안타는 것 같당 

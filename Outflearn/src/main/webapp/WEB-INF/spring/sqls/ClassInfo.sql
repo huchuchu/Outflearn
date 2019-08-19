@@ -1,4 +1,5 @@
 ------------------------------------------ 강좌 정보
+
 ------------------------------------------ DROP 할때는 ClassIntroduce랑 ClassData 먼저 DROP시켜야된다.
 DROP TABLE CLASS_INFO;
 
@@ -25,3 +26,13 @@ SELECT * FROM CLASS_INFO;
 INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL,2 , '제목', '강사명','강좌소개','이미지','Y',0,0,0,'상급자','대분류','중분류','소분류');
 INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL,2 , '제목2', '강사명2','강좌소개2','이미지2','Y',0,0,0,'상급자','대분류','중분류','소분류');
 INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL,1 , '제목', '강사명','강좌소개','이미지','Y',0,0,0,'상급자')
+
+
+
+INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL,1, 'title: TEST01', 'qwqw', 'intro: test01', '이미지', 'N',0,0,0,'상급자' );
+
+SELECT * FROM CLASS_INFO WHERE CLASS_NUM = 1 OR CLASS_NUM=2;
+
+SELECT * FROM CLASS_INFO WHERE CLASS_NUM = (SELECT CLASS_NUM FROM CLASS_CATEGORY WHERE SUB_NUM=1) 
+						 OR CLASS_NUM = (SELECT CLASS_NUM FROM CLASS_CATEGORY WHERE SUB_NUM=2) ;
+
