@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+<fullyQualifiedTypeName name="com.outflearn.Outflearn.service.Pagination"/>
+<fullyQualifiedTypeName name="com.outflearn.Outflearn.dto.ClassInfoDto"/>
+</qualifiedTypeNameHistroy>
