@@ -41,7 +41,6 @@
 	<!-- Sweet Alert2 -->
 	<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
 	<script src='resources/js/sweetalert/sweetalert2.min.js'></script>
-	
 	<!-- fullCalendar -->
 
 
@@ -67,27 +66,31 @@
 		<div class="page-header">
 			<h1 class="float-left">방송</h1>
 			<h3 class="m-0">
-				<span class="label bg-danger">LIVE</span> <a href="/Outflearn/casterRoom"><span
-						class="label bg-danger">TESTLIVE</span></a>
+				<span class="label bg-danger">LIVE</span> <a href="/Outflearn/casterRoom"></a>
 			</h3>
 		</div>
 
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-			<!-- Indicators -->
+		<h2><a class="reloadRoom" href="void:0">새로고침</a></h2>
+		<div class="roomTest">
+
+		</div>
+
+		<!-- <div id="myCarousel" class="carousel slide" data-ride="carousel">
+			Indicators
 			<ol class="carousel-indicators">
 			</ol>
 
-			<!-- Wrapper for slides -->
+			Wrapper for slides
 			<div class="carousel-inner">
 			</div>
 
-			<!-- Left and right controls -->
+			Left and right controls
 			<a class="left carousel-control" href="#myCarousel" data-slide="prev">
 				<span class="glyphicon glyphicon-chevron-left"></span> <span class="sr-only">Previous</span>
 			</a> <a class="right carousel-control" href="#myCarousel" data-slide="next"> <span
 					class="glyphicon glyphicon-chevron-right"></span> <span class="sr-only">Next</span>
 			</a>
-		</div>
+		</div> -->
 
 		<!--End off row-->
 	</div>

@@ -2,6 +2,7 @@ package com.outflearn.Outflearn.model.biz;
 
 import java.util.List;
 
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -15,8 +16,8 @@ import com.outflearn.Outflearn.model.dao.RoadMapDao;
 @Service
 public class RoadMapBizImpl implements RoadMapBiz {
 	
-	
-	@Inject	RoadMapDao dao;
+	@Inject
+	RoadMapDao dao;
 
 	@Override
 	public int insertRoadMap(RoadMapInfoDto dto) {
@@ -47,17 +48,11 @@ public class RoadMapBizImpl implements RoadMapBiz {
 		
 		return dao.subStreamList();
 	}
-
+	
 	@Override
 	public List<ClassInfoDto> classInfoList(String[] subFilter) {
 		
 		return dao.classInfoList(subFilter);
 	}
-
-
-
-	
-
-
 
 }

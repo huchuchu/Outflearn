@@ -130,9 +130,5 @@ public class RoadMapController {
 		model.addAttribute("resList", resList);		
 		return"RoadMap/SearchForm";
 	}
-	
-	
-	
-	
 
 }

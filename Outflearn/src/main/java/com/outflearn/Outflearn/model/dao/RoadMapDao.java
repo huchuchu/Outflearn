@@ -2,6 +2,7 @@ package com.outflearn.Outflearn.model.dao;
 
 import java.util.List;
 
+
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,6 +27,5 @@ public interface RoadMapDao {
 	public List<SubStreamDto> subStreamList() ;
 	
 	public List<ClassInfoDto> classInfoList(String[] subFilter);
-	
 	
 }

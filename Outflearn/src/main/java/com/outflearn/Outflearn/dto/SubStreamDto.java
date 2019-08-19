@@ -33,9 +33,5 @@ public class SubStreamDto {
 	public void setSub_name(String sub_name) {
 		this.sub_name = sub_name;
 	}
-	
-	
-	
-
 
 }

@@ -39,8 +39,4 @@ SELECT * FROM CLASS_INFO
 </select>
 
 
-
-
-
-
 </mapper>
