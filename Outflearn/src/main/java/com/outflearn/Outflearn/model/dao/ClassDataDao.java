@@ -68,4 +68,5 @@ public interface ClassDataDao {
 		public List<QADto> QAReply(int qa_group_no); 
 		public int QAInsert(QADto dto);
 		public int QAReplyInsert(QADto dto);
+		public int QAReplyUpdate(QADto dto);
 }

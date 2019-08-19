@@ -113,13 +113,11 @@
 	
 	<div class="panel panel-default">
 		<h1>강좌 소개</h1>
-			<div class="form-group">
-					<p>
-					${classIntroduce.class_content }
-					</p>
-			</div>
-			
-	
+		<div class="form-group">
+			<p>
+				${classIntroduce.class_content }
+			</p>
+		</div>
 	</div>
 
 	<div id="page-switch" class="nav-page">

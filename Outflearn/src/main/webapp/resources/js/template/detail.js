@@ -56,27 +56,27 @@ $(document).ready(function () {
 })
 
 function Dashboard(video_list, playlist_id) {
-    $.ajax({
+	$.ajax({
         type: 'GET',
         dataType: 'JSON',
         url: video_list,
         success: function (vi_list) {
-            $('#jumbo_row > img').attr('src', vi_list.items[0].snippet.thumbnails.high.url)
-
-
-
-            var count = 0;
-            var timer = 0;
-            var hour = 0;
-            var min = 0;
-            var sec = 0;
-
+        	$('#jumbo_row > img').attr('src', vi_list.items[0].snippet.thumbnails.high.url)
+        	
+        	
+        	
+        	var count = 0;
+        	var timer = 0;
+        	var hour = 0;
+        	var min = 0;
+        	var sec = 0;
+        	
             $('#dashboard').empty()
             $('#dashboard').append(
-                "<div class='page-header'><h1>유튜브</h1></div>" +
-                "<div class='table-responsive-lg'>" +
+                "<div class='page-header'><h1>유튜브</h1></div>" + 
+                "<div class='table-responsive-lg'>" + 
                 "<table class='table'>" +
-                "<tr class='text-center'>" +
+                "<tr class='text-center'>" + 
                 "<th>youtube title</th>" +
                 "<th>startAt</th>" +
                 "<th>endAt</th>" +
@@ -85,8 +85,8 @@ function Dashboard(video_list, playlist_id) {
             )
             for (var i = 0; i < vi_list.items.length; i++) {
 
-                count++;
-
+            	count++;
+            	
                 var video_title = vi_list.items[i].snippet.title;
                 var video_id = vi_list.items[i].snippet.resourceId.videoId;
                 var duration = getVideos(video_id);
@@ -98,49 +98,36 @@ function Dashboard(video_list, playlist_id) {
                     	<td>${duration}</td>
                     	<td>${duration}</td>`
                 );
-
+                
                 min += parseInt(duration.split(' : ')[0]);
                 sec += parseInt(duration.split(' : ')[1]);
-
-                if (min > 59) {
-                    hour++;
-                    min -= 60;
+                
+                if(min > 59) {
+                	hour ++;
+                	min -= 60;
                 }
-
-                if (sec > 59) {
-                    min++;
-                    sec = sec - 60;
+                
+                if(sec > 59) {
+                	min ++;
+                	sec = sec - 60;
                 }
             }
-
-            if (isNaN(sec) && isNaN(min)) {
-                timer = "총 " + hour + "시간 ";
-            } else if (isNaN(sec) || isNaN(min)) {
-                if (isNaN(sec)) {
-                    timer = "총 " + hour + "시간 " + min + "분 ";
-                } else {
-                    timer = "총 " + hour + "시간 " + sec + "초";
-                }
+            
+            if(isNaN(sec) && isNaN(min)) {
+            	timer = "총 " + hour + "시간 ";
+            } else if(isNaN(sec) || isNaN(min)) {
+            	if(isNaN(sec)) {
+            		timer = "총 " + hour + "시간 " +  min + "분 ";
+            	} else {
+            		timer = "총 " + hour + "시간 " + sec + "초";
+            	}
             } else {
-                timer = "총 " + hour + "시간 " + min + "분 " + sec + "초";
+            	timer = "총 " + hour + "시간 " +  min + "분 " + sec + "초";
             }
-
+            
             $('#count').html(`${count} 개 수업`)
             $('#timer').html(`${timer}`)
             $('#dashboard').append("</table></div>")
-
-            $('#jumbo_row > img').attr('src', vi_list.items[0].snippet.thumbnails.high.url)
-
-
-            var video_id = vi_list.items[5].snippet.resourceId.videoId
-            console.log(vi_list.items[0].contentDetails.endAt)
-
-            $('#page-switch').html(
-                `<iframe id="player" type="text/html" style="width: 100%; height: 100%; max-width: 900px;"
-                    src="http://www.youtube.com/embed/${video_id}?end=61&enablejsapi=1&origin=http://example.com"
-                    frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" 
-                    msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>`
-            )
 
         },
         error: function (err) {
