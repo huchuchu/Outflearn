@@ -115,10 +115,7 @@
 		<div class="col-xs-6 col-sm-6">
 			
 			<table>
-				<tr>
-					<th>결제자</th>
-					<td><sec:authentication property="principal.username"/></td>
-				</tr>
+			
 				<tr>
 					<th>결제일시</th>
 					<td>${info.approved_at}</td>

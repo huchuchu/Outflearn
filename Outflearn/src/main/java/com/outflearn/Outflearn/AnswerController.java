@@ -1,6 +1,7 @@
 package com.outflearn.Outflearn;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -158,18 +159,6 @@ public class AnswerController {
 			return "redirect: QASelectOne?qa_num=" + dto.getQa_num() + "&qa_group_no=" + dto.getQa_group_no();
 		}
 		
-	}
-	
-	@RequestMapping("QAReplyUpdate")
-	public String QAReplyUpdate(@ModelAttribute QADto dto) {
-		
-		int res = biz.QAReplyUpdate(dto);
-		
-		if(res > 0) {
-			return "redirect: QASelectOne?qa_num=" + dto.getQa_num() + "&qa_group_no=" + dto.getQa_group_no();
-		} else {
-			return "redirect: QASelectOne?qa_num=" + dto.getQa_num() + "&qa_group_no=" + dto.getQa_group_no();
-		}
 	}
 	
 	@RequestMapping("QAReplyDelete")

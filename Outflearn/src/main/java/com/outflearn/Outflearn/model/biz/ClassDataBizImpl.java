@@ -2,15 +2,18 @@ package com.outflearn.Outflearn.model.biz;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.outflearn.Outflearn.dto.ClassCategoryDto;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
-import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
-import com.outflearn.Outflearn.dto.LiveDto;
+import com.outflearn.Outflearn.dto.MainStreamDto;
+import com.outflearn.Outflearn.dto.SubStreamDto;
+import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.model.dao.ClassDataDao;
 
 
@@ -38,6 +41,12 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		
 		return dao.ClassInfoSelectOne(class_num);
 	}
+	
+	@Override
+	public List<ClassInfoDto> classInfoSelectListUser(int user_num) {
+		
+		return dao.classInfoSelectListUser(user_num);
+	}
 
 	@Override
 	public int ClassInfoInsert(ClassInfoDto dto) {
@@ -47,7 +56,7 @@ public class ClassDataBizImpl implements ClassDataBiz {
 
 //	---------------------------------------------------	강좌 소개(CLASS_INTRODUCE)
 	@Override
-	public List<ClassIntroduceDto> ClassIntroduceSelectList(int class_num) {
+	public ClassIntroduceDto ClassIntroduceSelectList(int class_num) {
 		
 		return dao.ClassIntroduceSelectList(class_num);
 	}
@@ -84,38 +93,18 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		
 		return dao.ClassChapterDataInsert(dto);
 	}
+
+//	-------------------------------------------------장바구니(BASKET)
+	@Override
+	public int classBasketInsert(ClassInfoDto dto) {
 	
-
-
-// ---------------------------------------------------	Live
-	@Override
-	public List<LiveDto> liveCalendar() {
-		return dao.liveCalendar();
+		return dao.classBasketInsert(dto);
 	}
 
 	@Override
-	public ClassInfoDto livePopup(int live_num) {
-		return dao.livePopup(live_num);
-	}
-
-	@Override
-	public List<ClassInfoDto> getMyClass(int user_num) {
-		return dao.getMyClass(user_num);
-	}
-
-	@Override
-	public List<ClassInfoDto> getWishList(int user_num) {
-		return dao.getWishList(user_num);
-	}
-
-	@Override
-	public List<ClassInfoDto> getSubscribe(int user_num) {
-		return dao.getSubscribe(user_num);
-	}
-	
-	@Override
-	public List<ClassInfoDto> liveRooms(String[] liveRooms) {
-		return dao.liveRooms(liveRooms);
+	public int classBasketDelete(int class_num) {
+		
+		return dao.classBasketDelete(class_num);
 	}
 	
 //	--------------------------------------------------- 댓글
@@ -163,6 +152,21 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 
 	@Override
+	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search) {
+		return dao.selectListPage(firstIndex, recordCountPerPage, txt_search);
+	}
+
+	@Override
+	public int selectTotalCount(String txt_search) {
+		return dao.selectTotalCount(txt_search);
+	}
+
+	@Override
+	public int selectTotalCount(String searchOption, String txt_search) {
+		return dao.selectTotalCount(searchOption, txt_search);
+	}
+
+	@Override
 	public int ClassReviewInsertAnswer(ClassReviewDto dto) {
 		return dao.ClassReviewInsertAnswer(dto);
 	}
@@ -173,11 +177,36 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 	
 	@Override
+	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption) {
+		return dao.selectListPage(firstIndex, recordCountPerPage, txt_search, searchOption);
+	}
+	
+	@Override
 	public List<QADto> QASelectList(int class_num) {
 		return dao.QASelectList(class_num);
 	}
+	
+	// 주류
+	@Override
+	public int mainStreamInsert(MainStreamDto dto) {
+		
+		return dao.mainStreamInsert(dto);
+	}
+	
+	// 부류
+	@Override
+	public int subStreamInsert(SubStreamDto dto) {
+		
+		return dao.subStreamInsert(dto);
+	}
 
 	@Override
+	public int ClassCategoryInsert(ClassCategoryDto dto) {
+	
+		return dao.ClassCategoryInsert(dto);
+	}
+		
 	public QADto QASelectOne(int qa_num) {
 		return dao.QASelectOne(qa_num);
 	}
@@ -195,11 +224,6 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	@Override
 	public int QAReplyInsert(QADto dto) {
 		return dao.QAReplyInsert(dto);
-	}
-
-	@Override
-	public int QAReplyUpdate(QADto dto) {
-		return dao.QAReplyUpdate(dto);
 	}
 
 }

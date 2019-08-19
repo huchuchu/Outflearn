@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 
@@ -36,7 +36,7 @@
 
 	<div class="jumbotron">
 		<div id="jumbo_row" class="row">
-			<img src="resources/img/cardpx.svg" alt="썸네일" class="col-md-3">
+			<img src="${pageContext.request.contextPath }/resources/uploadImage/${classinfo.class_img }" alt="썸네일" class="col-md-3">
 			<div class="col-md-6">
 				<h3>${classinfo.class_title }</h3>
 				<div>
@@ -51,6 +51,7 @@
 					</div>
 				</div>
 			</div>
+			
 			<div id="study_btn" class="col-md-3">
 				<p class="text-center" align="center">
 					<a href="void:0" class="btn btn-success btn-lg" role="button">학습하기</a>
@@ -58,9 +59,15 @@
 				<div id="box">
 					<div id="course">
 						<h4>${classinfo.class_price }원</h4>
-						<button type="button" class="btn-group btn-group-vertical btns">바로 수강신청</button>
-						<button type="button" class="btn-group btn-group-vertical btns">장바구니 담기</button>
+						<button type="button" class="btn-group btn-group-vertical btns">바로
+							수강신청</button>
+						<form:form action="basket" method="post">
+							<input type="hidden" name="class_num" value="${class_num }">
+							<input type="submit" value="장바구니 담기" class="btn-group btn-group-vertical btns" >
+						</form:form>
 					</div>
+			
+					
 					<div id="course_info">
 						<div id="instructor_profile" class="text-center">${classinfo.class_author }</div>
 						<div id="course_metas">
@@ -103,6 +110,17 @@
 		</nav>
 	</div>
 	<hr />
+	
+	<div class="panel panel-default">
+		<h1>강좌 소개</h1>
+			<div class="form-group">
+					<p>
+					${classIntroduce.class_content }
+					</p>
+			</div>
+			
+	
+	</div>
 
 	<div id="page-switch" class="nav-page">
 		<!-- 대쉬보드 -->
@@ -128,7 +146,6 @@
 								<td colspan="4" align="center">=======작성된 글이 없습니다=======</td>
 							</tr>
 						</c:when>
-
 						<c:otherwise>
 							<div class="form-group">
 								<c:forEach items="${classReview }" var="dto">
@@ -237,7 +254,7 @@
 										<div id="question_content" class="form-group">
 											<p class="question_title"><h3>${dto.qa_title } ${user_nickname }</h3></p>
 											<p>${dto.qa_content }</p>
-											<a class="question_detail_link" href="QASelectOne?qa_num=${dto.qa_num }" aria-labe="여기로 이동"></a>
+											<a class="question_detail_link" href="QASelectOne?qa_num=${dto.qa_num }&qa_group_no=${dto.qa_group_no }" aria-labe="여기로 이동"></a>
 										</div>
 									</div>
 								</c:forEach>

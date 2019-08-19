@@ -42,16 +42,14 @@
 					<div class="form-group">
 						<c:forEach items="${classQuestionReply }" var="dto">
 							<div class="panel student_question_panel">
-								<div class="form-group question_content">
+								<div id="question_content" class="form-group">
 									<p class="question_title">작성자 : ${dto.user_nickname }</p>
 									<p class="question-content">${dto.qa_content }</p>
+									<textarea cols="10" name="qa_content" class="reply-update">${dto.qa_content }</textarea>
 									<div>
 										<div class="update-btn-div">
-											<form:form cssClass="update-complete-btn" action="QAReplyUpdate">
-												<textarea cols="10" name="qa_content" class="reply-update">${dto.qa_content }</textarea>
+											<form:form cssClass="update-complete-btn" action="QuestionReplyDelete">
 												<input type="hidden" name="qa_num" value="${dto.qa_num }">
-												<input type="hidden" name="qa_group_sq" value="${dto.qa_group_sq }">
-												<input type="hidden" name="qa_content" value="${dto.qa_content }">
 												<button type="submit" class="btn btn-default delete-btn">수정 완료</button>
 											</form:form>
 											<button type="button" class="btn btn-default update-btn">수정</button>

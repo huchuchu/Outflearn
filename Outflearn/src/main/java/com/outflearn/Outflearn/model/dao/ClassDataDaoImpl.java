@@ -9,9 +9,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.outflearn.Outflearn.dto.ClassCategoryDto;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
+import com.outflearn.Outflearn.dto.ClassReviewDto;
+import com.outflearn.Outflearn.dto.LiveDto;
+import com.outflearn.Outflearn.dto.MainStreamDto;
+import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
 import com.outflearn.Outflearn.dto.LiveDto;
@@ -49,6 +54,22 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 		return dto;
 	}
+	
+	@Override
+	public List<ClassInfoDto> classInfoSelectListUser(int user_num) {
+		
+		List<ClassInfoDto> list = new ArrayList<ClassInfoDto>();
+		
+		
+		try {
+			list = sqlSession.selectList(namespace + "classInfoSelectListUser", user_num);
+		} catch (Exception e) {
+			System.out.println("오냐");
+			e.printStackTrace();
+		} 
+		
+		return list;
+	}
 
 	@Override
 	public int ClassInfoInsert(ClassInfoDto dto) {
@@ -61,18 +82,11 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 // --------------------------------------------------- 강좌 내용(CLASS_INTRODUCE)
 	@Override
-	public List<ClassIntroduceDto> ClassIntroduceSelectList(int class_num) {
+	public ClassIntroduceDto ClassIntroduceSelectList(int class_num) {
 
-		List<ClassIntroduceDto> list = new ArrayList<ClassIntroduceDto>();
+		ClassIntroduceDto dto = sqlSession.selectOne(namespace + "classIntroduceSelectlist", class_num);
 
-		try {
-			list = sqlSession.selectList(namespace + "classIntroduceSelectlist", class_num);
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-
-		return list;
+		return dto;
 	}
 
 	@Override
@@ -150,6 +164,27 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 		return res;
 	}
+	
+//	--------------------------------------------------- 장바구니(BASKET)
+	@Override
+	public int classBasketInsert(ClassInfoDto dto) {
+		
+		int res = 0;
+		
+		res = sqlSession.insert(namespace + "classBasketInsert", dto); 
+		
+		return res;
+	}
+
+	@Override
+	public int classBasketDelete(int class_num) {
+		
+		int res = 0;
+		
+		res = sqlSession.delete(namespace + "classBasketDelete", class_num); 
+		
+		return res;
+	}
 
 	@Override
 	public ClassIntroduceDto ClassIntroduceSelectOne(int class_num) {
@@ -163,45 +198,6 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return dto;
 	}
 
-// --------------------------------------------------- Live
-
-	@Override
-	public List<LiveDto> liveCalendar() {
-
-		List<LiveDto> list = sqlSession.selectList(namespace + "liveCalendar");
-		return list;
-	}
-
-	@Override
-	public List<ClassInfoDto> getSubscribe(int user_num) {
-		return sqlSession.selectList(namespace + "getSubscribe", user_num);
-	}
-
-	@Override
-	public ClassInfoDto livePopup(int live_num) {
-
-		return sqlSession.selectOne(namespace + "livePopup", live_num);
-	}
-
-	@Override
-	public List<ClassInfoDto> getMyClass(int user_num) {
-
-		return sqlSession.selectList(namespace + "getMyClass", user_num);
-	}
-
-	@Override
-	public List<ClassInfoDto> getWishList(int user_num) {
-		return sqlSession.selectList(namespace + "getWishList", user_num);
-	}
-
-	@Override
-	public List<ClassInfoDto> liveRooms(String[] liveRooms) {
-
-		Map<String, String[]> map = new HashMap<String, String[]>();
-		map.put("liveRooms", liveRooms);
-
-		return sqlSession.selectList(namespace + "liveRooms", map);
-	}
 
 	// --------------------------------------------------- 댓글
 	@Override
@@ -257,6 +253,29 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 
+	//페이징
+	@Override
+	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("firstIndex", String.valueOf(firstIndex));
+		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
+		map.put("txt_search", txt_search);
+		
+		List<ClassInfoDto> list = sqlSession.selectList(namespace + "selectListPage", map);
+		return list;
+	}
+
+	@Override
+	public int selectTotalCount(String txt_search) {
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("txt_search", txt_search);
+		res = sqlSession.selectOne(namespace + "selectTotalCount", map);
+		return res;
+	}
+		
 	@Override
 	public int ClassReviewUpdateAnswer(int review_num) {
 
@@ -277,6 +296,35 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 	
+	@Override
+	public int selectTotalCount(String searchOption, String txt_search) {
+
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("txt_search", txt_search);
+		res = sqlSession.selectOne(namespace + "selectTotalCount", map);
+		
+		return res;
+	}
+		
+	@Override
+	public int mainStreamInsert(MainStreamDto dto) {
+		
+		int res = sqlSession.insert(namespace + "mainStreamInsert", dto);
+		
+		return res;
+	}
+
+	@Override
+	public int subStreamInsert(SubStreamDto dto) {
+		
+		int res = sqlSession.insert(namespace + "subStreamInsert", dto);
+		
+		return res;
+	}
+
 	@Override
 	public List<QADto> QASelectList(int class_num) {
 		
@@ -299,6 +347,13 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return dto;
 	}
 	
+	@Override
+	public int ClassCategoryInsert(ClassCategoryDto dto) {
+	
+		int res = sqlSession.insert(namespace + "classCategoryInsert", dto); 
+		return res;
+	}
+
 	@Override
 	public List<QADto> QAReply(int qa_group_no) {
 		
@@ -324,21 +379,26 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 
 	@Override
+	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("firstIndex", String.valueOf(firstIndex));
+		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
+		map.put("txt_search", txt_search);
+		map.put("searchOption", searchOption);
+		
+		List<ClassInfoDto> list = sqlSession.selectList(namespace + "selectListPagetwo", map);
+		return list;
+	}
+
+	
+	@Override
 	public int QAReplyInsert(QADto dto) {
 		
 		int res = 0;
 		
 		res = sqlSession.insert(namespace + "QAReplyInsert", dto);
-		
-		return res;
-	}
-
-	@Override
-	public int QAReplyUpdate(QADto dto) {
-		
-		int res = 0;
-		
-		res = sqlSession.update(namespace + "QAReplyUpdate", dto);
 		
 		return res;
 	}

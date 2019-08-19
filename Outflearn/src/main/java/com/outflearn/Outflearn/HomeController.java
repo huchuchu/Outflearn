@@ -18,16 +18,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.outflearn.Outflearn.dto.ClassCategoryDto;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.LiveDto;
+import com.outflearn.Outflearn.dto.MainStreamDto;
+import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
+import com.outflearn.Outflearn.service.Pagination;
 
 @Controller
 public class HomeController {
@@ -48,18 +53,82 @@ public class HomeController {
 
 		return "home";
 	}
+	
+//	장바구니 유저정보
+	@RequestMapping("basket")
+	public String basket(@ModelAttribute ClassInfoDto dto, Model model, int class_num, Authentication auth) {
+		logger.info("basket");
+		
+		System.out.println(auth.getPrincipal());
+		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
+		int user_num = uDto.getUser_num();
+		System.out.println(user_num + "오냐");
 
+		
+	
+	
+//		ClassInfo
+		dto.setUser_num(uDto.getUser_num());
+		
+		model.addAttribute("classInfoUser", biz.classInfoSelectListUser(user_num));
+		System.out.println("안오냐??");
+				
+		System.out.println("안녕111");
+		int res = biz.classBasketInsert(dto);
+		System.out.println("안녕222");
+		
+		return "Class/ClassBasket";
+	}
+
+//	장바구니 삭제
+	@RequestMapping("basketDelete")
+	public String basketDelete(@ModelAttribute ClassInfoDto dto, Model model ,int class_num) {
+		
+		model.addAttribute("classInfoUser", biz.classBasketDelete(class_num));
+		
+		return "";
+	}
+	
 	@RequestMapping("/LectureList")
-	public String LectureList(String class_category, Model model) {
-
+	public String LectureListPage(Model model, String txt_search, String page, String class_category) {
+		logger.info("txt서치전");
+		
+		int totalCount = biz.selectTotalCount(txt_search);
+		logger.info(""+totalCount);
+		
+		int pageNum = (page==null)? 1:Integer.parseInt(page);
+		
+		Pagination pagination = new Pagination();
+		
+		//get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
+		pagination.setPageNo(pageNum);
+		
+		//한 페이지에 나오는 게시물의 개수 
+		pagination.setPageSize(9);
+		pagination.setTotalCount(totalCount);
+		
+		//select해오는 기준을 구함
+		pageNum = (pageNum -1) * pagination.getPageSize();
+		
+		List<ClassInfoDto> list = biz.selectListPage(pageNum, pagination.getPageSize(), txt_search);
+		
+		model.addAttribute("classinfo", list);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("txt_search", txt_search);
+		model.addAttribute("class_category", class_category);
+		
 		if(class_category != null) {
 			model.addAttribute("classinfo", biz.CategorySelectList(class_category));
 		} else {
-			model.addAttribute("classinfo", biz.ClassInfoSelectList());
+			model.addAttribute("classinfo", biz.selectListPage(pageNum, pagination.getPageSize(), txt_search));
 		}
-
+		
 		return "Class/LectureList";
+		
 	}
+
+		
+	
 
 	@RequestMapping("/LectureDetail")
 	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session, Authentication auth) {
@@ -105,7 +174,7 @@ public class HomeController {
 	@RequestMapping("Livepage")
 	public String Livepage() {
 		
-		return "Live/Livepage.jsp";
+		return "Live/Livepage";
 	}
 
 //	강의 쓰기
@@ -125,11 +194,26 @@ public class HomeController {
 
 //	ClassInfoInsertForm.jsp - > ClassIntroduceInsertForm.jsp  CLASS_DATA DB 저장
 	@RequestMapping("ClassIntroduceInsertForm")
-	public String ClassIntroduceInsertForm(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassInfoDto dto) {
+	public String ClassIntroduceInsertForm(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassInfoDto dto,
+			@RequestParam(name="main_name") String main_name, @RequestParam(name="sub_name") String sub_name ) {
 		logger.info("ClassIntroduceInsertForm");
 		System.out.println("아예안오니");
+		
+		// 주류, 부류
+		MainStreamDto mDto = new MainStreamDto();
+		mDto.setMain_name(main_name);
+		int mRes = biz.mainStreamInsert(mDto);
+		System.out.println(mRes);
+		
+		SubStreamDto sDto = new SubStreamDto();
+		sDto.setSub_name(sub_name);
+		int sRes = biz.subStreamInsert(sDto);
+		System.out.println(sRes);
+		
+		
+		
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
-
+	
 		String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
 		File dir = new File(path);
 		if (!dir.isDirectory()) {
@@ -165,6 +249,10 @@ public class HomeController {
 				e.printStackTrace();
 			}
 		}
+		
+		ClassCategoryDto cDto = new ClassCategoryDto();
+		int cRes = biz.ClassCategoryInsert(cDto);
+		System.out.println(cRes);
 
 		return "Class/ClassIntroduceInsertForm";
 	}
@@ -276,7 +364,7 @@ public class HomeController {
 				System.out.println("originFileName : " + originFileName);
 				System.out.println("fileSize : " + fileSize);
 				int res = 0;
-
+				
 				try {
 					mf.transferTo(new File(data_data_path));
 
@@ -338,60 +426,6 @@ public class HomeController {
 	@RequestMapping("introOutflearn")
 	public String introOutflearn() {
 		return "introOutflearn";
-	}
-
-// Live
-	@RequestMapping("liveCalendar")
-	@ResponseBody
-	public List<LiveDto> liveCalendar() {
-
-		return biz.liveCalendar();
-	}
-	
-	@RequestMapping("LectureList/LectureCategory")
-	public String LectureCategory(String class_category, Model model) {
-		
-		model.addAttribute("classinfo", biz.CategorySelectList(class_category));
-		
-		return "Class/LectureList";
-	}
-
-	@RequestMapping("livePopup")
-	@ResponseBody
-	public ClassInfoDto livePopup(int live_num) {
-		return biz.livePopup(live_num);
-	}
-
-	@RequestMapping("casterRoom")
-	public String casterRoom() {
-		return "Live/casterRoom";
-	}
-
-	@RequestMapping("getMyClass")
-	public List<ClassInfoDto> getMyClass(Authentication auth) {
-		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return biz.getMyClass(dto.getUser_num());
-	}
-	
-	@RequestMapping("liveRooms")
-	@ResponseBody
-	public List<ClassInfoDto> liveRooms(String[] liveRooms){
-		
-		return biz.liveRooms(liveRooms);
-	}
-	
-
-// myPage
-	@RequestMapping("myPage")
-	public String myPage(Model model, Authentication auth) {
-
-		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		model.addAttribute("userInfo", dto);
-		model.addAttribute("wishList", biz.getWishList(dto.getUser_num()));
-		model.addAttribute("subClass", biz.getSubscribe(dto.getUser_num()));
-
-		return "myPage";
 	}
 
 }

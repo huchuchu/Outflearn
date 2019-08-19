@@ -52,7 +52,7 @@
 <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
 <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
-
+<link rel="stylesheet" type="text/css" href="resources/css/member.css">
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -102,19 +102,25 @@
           <div class="row">
             <div class="col-md-8 col-md-offset-2 intro-text">
 
-<!-- 로그인 폼 영역 -->            
+  				 <div class="form-group">
+              		<h1 style="color:#6372ff;" class="text-center">당신의 아이디는 ${id }입니다.</h1>
+              		<br>
+						
+					<button type="button" id=loginBtn onclick="location.href='loginform'" class="btn-member">로그인 하기</button>
+					<button type="button" id=findPwBtn onclick="location.href='findPwForm.do'" class="btn-member">비밀번호 찾기</button>
+					<button type="button" onclick="history.go(-1);" class="btn-member">뒤로가기</button>
+							
+                 </div>
+          	
+         
               
-          	<div>
-				<h5>
-					당신의 아이디는 ${ id }입니다.
-				</h5>
-				<p class=>
-					<button type="button" id=loginBtn onclick="location.href='loginform'" >로그인 하기</button>
-					<button type="button" id=findPwBtn onclick="location.href='findPwForm.do'">비밀번호 찾기</button>
-					<button type="button" onclick="history.go(-1);">뒤로가기</button>
-				</p>
-			</div> 
-<!-- 로그인 폼 끝 -->           
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+       
               
             </div>
           </div>

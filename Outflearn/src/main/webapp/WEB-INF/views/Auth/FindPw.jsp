@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<sec:csrfMetaTags/>
+
 
 <script type="text/javascript" src="resources/js/utils/register.js"></script>
 <title>Outflearn</title>
@@ -56,16 +56,8 @@
 <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
-$(function () {
-	var token = $("meta[name='_csrf']").attr("content");
-	var header = $("meta[name='_csrf_header']").attr("content");
-	$(document).ajaxSend(function(e, xhr, options) {
-		xhr.setRequestHeader(header, token);
-	});
-	});
 
-</script>
+<link rel="stylesheet" type="text/css" href="resources/css/member.css">
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -107,50 +99,47 @@ $(function () {
 			</div>
 		</div>
 	</nav>
-	<h1 class="text-center">비밀번호 찾기</h1>
+	<div class="intro">
+	<h1 style="color:#6372ff;"class="text-center">비밀번호 찾기</h1>
 	<div class="row">
 		<div class="col-xs-3 col-sm-3"></div>
 		<div class="col-xs-6 col-sm-6">
 			
 			<form method="post" action="${pageContext.request.contextPath}/findPw.do">
-         		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">		
-					<header>
-						<h3>비밀번호 찾기</h3>
-					</header>
-					<table>
-						<tr>
-							<th>아이디</th>
-							<td>
-								<input type="text" class="text" name="user_id" placeholder="아이디" required />
+					
+					<div class="form-group">
+                        <label class="memlabel" for="inputName">아이디</label>
+                        <input type="text" class="form-control"  name="user_id" id="" placeholder="아이디를 입력해 주세요" required />
 								<div id="id_confirm"></div>
-								<input type="button" class="idChk" id="btn_idcheck" value="아이디 확인" onclick="idChkPw()"/><p></p>
-								<p class="result">
-									<span class="msg">아이디를 확인해 주십시오.</span>
+								<div class="form-group text-center" >
+									<button type="button" id="btn_idcheck" class="btn-member" onclick="idChkPw()" >아이디 확인</button>
+									<p class="result">
+									<span class="msg"></span>
 								</p>
-							</td>
-							
-						</tr>
-						<tr>
-							<th>이메일 체크</th>
-							<td>
-								<input type="email" class="text" name="user_email"  placeholder="이메일" required/>
-								<input type="button" id="btn_sendemail" value="이메일 체크" onclick="emailChkPw()"/>
+								</div>
+					</div>
+					
+						<div class="form-group">
+                        <label class="memlabel" for="inputEmail">이메일체크</label>
+                        <input type="text" class="form-control"  name="user_email" id="" placeholder="이메일을 입력해 주세요" required />
+							<div class="form-group text-center" >
+							<button type="button" id="btn_sendemail" class="btn-member" onclick="emailChkPw()" >이메일 체크</button>
+							<button type="button" id="btn_sendPwEmail" class="btn-member" onclick="sendEmailPw()" >임시비밀번호발송</button>
+							</div>
 								<div id="emailDupChk"></div>
-								<input type="button" id="btn_sendPwEmail" value="임시비밀번호발송" onclick="sendEmailPw()"/>
-							</td>
-						</tr>
-											
-						<tr>
-							<td colspan="2" >
-								<br>
-								<input type="submit" value="로그인" id="findPwBtn" style="margin-left: 10em;"/>
-								<input type="button" value="취소" onclick="history.go(-1);">
-							</td>
-						</tr>
-					</table>
+
+					</div>
+					
+					<br>
+					<div class="form-group text-center">
+						<button type="submit" id="findPwBtn" class="btn-member">로그인</button>
+						<button type="submit" id="findPwBtn" class="btn-member" onclick="history.go(-1);">취소</button>
+					</div>
+							
 				</form>
 
 		</div>
+	</div>
 	</div>
 	
 
