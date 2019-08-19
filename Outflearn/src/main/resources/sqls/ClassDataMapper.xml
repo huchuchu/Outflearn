@@ -97,6 +97,10 @@
 		INSERT INTO BASKET VALUES(#{user_num }, #{class_num} )
 	</insert>
 	
+	<delete id="classBasketDelete" parameterType="int">
+		DELETE FROM BASKET WHERE CLASS_NUM = ${class_num }
+	</delete>
+	
 	<!-- ================== Livepage & Mypage 테이블 ================== -->
 	<select id="liveCalendar" resultType="LiveDto">
 		SELECT * FROM LIVE
