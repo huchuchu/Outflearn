@@ -87,24 +87,26 @@
 		$.ajax({
 			url:"emailNumCheck.do",
 			type:"POST",
-			data:"ranNumPass=" + ranNumPass,
+			data:"ranNumPass=" + $.trim(ranNumPass),
+	        contentType:"application/x-www-form-urlencoded; charset=UTF-8",
 			success:function(data){
 				if(ranNumPass == null || ranNumPass == ""){
 					
-					$("div[id=confirm").html('');
-					$("div[id=confirm").html('<b>인증번호를 입력해 주세요</b>');
-					$("div[id=confirm").val("");
+					$("div[id=confirm]").html('');
+					$("div[id=confirm]").html('<b>인증번호를 입력해 주세요</b>');
+					$("div[id=confirm]").val("");
 				}else{
+					console.log(data.ranChk);
 					if(data.ranChk != true){
 						ranNumChk = false;
-						$("div[id=emailChkConfirm]").html('');
-						$("div[id=confirm").html('<b style="color:red;">인증번호 확인 실패</b>');
-						$("div[id=confirm").val("");
+						$("div[id=confirm]").html('');
+						$("div[id=confirm]").html('<b style="color:red;">인증번호 확인 실패</b>');
+						$("div[id=confirm]").val("");
 					}else{
 						ranNumChk = true;
-						$("div[id=emailChkConfirm]").html('');
-						$("div[id=confirm").html('<b style="color:green;">인증번호 확인 완료</b>');
-						$("div[id=confirm").val("");
+						$("div[id=confirm]").html('');
+						$("div[id=confirm]").html('<b style="color:green;">인증번호 확인 완료</b>');
+						$("div[id=confirm]").val("");
 					}
 				}
 			},
@@ -128,12 +130,16 @@
 				success:function(data){
 					if(data.idChk != true){
 						idChk = false;
-						$(".result .msg").text('이미 사용중인 아이디 입니다.');
+						
+						$(".result .msg").text('이미 사용중인 아이디입니다.');
 						$(".result .msg").attr("style", "color:#f00")
+						$(".result .msg").val("");
 					}else{
 						idChk = true;
-						 $(".result .msg").text("사용 가능");
+						
+						 $(".result .msg").text("사용 가능한 아이디입니다.");
 						 $(".result .msg").attr("style", "color:#00f");
+						 $(".result .msg").val("");
 					}
 				},
 				error:function(){
@@ -157,11 +163,15 @@ function idChkPw(){
 				success:function(data){
 					if(data.idChk != true){
 						var idChk = false;
+						
 						$(".result .msg").text('등록된 아이디 입니다.');
 						$(".result .msg").attr("style", "color:#00f");
+						$(".result .msg").val("");
 					}else{
+						
 						 $(".result .msg").text("아이디가 없습니다.");
-						 $(".result .msg").attr("style", "color:#f00")
+						 $(".result .msg").attr("style", "color:#f00");
+						 $(".result .msg").val("");
 					}
 				},
 				error:function(){
@@ -175,9 +185,10 @@ function idChkPw(){
 		
 		var user_email = $("input[name=user_email]").val();
 		if(user_email==null|| user_email==""){
-			
+			$("div[id=emailDupChk]").html('');
 			$("div[id=emailDupChk]").html('이메일을 입력해주세요.');
 			$("div[id=emailDupChk]").attr("style","color:green")
+			$("div[id=emailDupChk]").val("");
 		}else{
 			$.ajax({
 				url:"emailChk.do",
@@ -187,12 +198,16 @@ function idChkPw(){
 					 
 						if(data.emailChk != true){
 						emailChk = false;
+							$("div[id=emailDupChk]").html('');
 							$("div[id=emailDupChk]").html('사용할 수 없는 메일입니다.');
 							$("div[id=emailDupChk]").attr("style","color:red")
+							$("div[id=emailDupChk]").val("");
 					    } else if(data.emailChk == true) {
 					    emailChk = true;
+					    	$("div[id=emailDupChk]").html('');
 					    	$("div[id=emailDupChk]").html('사용 가능한 메일입니다.');
-							$("div[id=emailDupChk]").attr("style","color:blue")
+							$("div[id=emailDupChk]").attr("style","color:blue");
+							$("div[id=emailDupChk]").val("");
 					    	
 					    }
 					
@@ -211,8 +226,10 @@ function emailChkPw(){
 		var user_email = $("input[name=user_email]").val();
 		if(user_email==null|| user_email==""){
 			emailChk = false;
+			$("div[id=emailDupChk]").html('');
 			$("div[id=emailDupChk]").html('이메일을 입력해주세요.');
 			$("div[id=emailDupChk]").attr("style","color:green")
+			$("div[id=emailDupChk]").val("");
 		}else{
 			$.ajax({
 				url:"emailChk.do",
@@ -222,12 +239,16 @@ function emailChkPw(){
 					 
 						if(data.emailChk != true){
 						emailChk = false;
+							$("div[id=emailDupChk]").html('');
 							$("div[id=emailDupChk]").html('이메일 확인되었습니다.');
-							$("div[id=emailDupChk]").attr("style","color:blue")
+							$("div[id=emailDupChk]").attr("style","color:blue");
+							$("div[id=emailDupChk]").val("");
 					    } else if(data.emailChk == true) {
 					    emailChk = true;
+					    	$("div[id=emailDupChk]").html('');
 					    	$("div[id=emailDupChk]").html('등록되지 않은 메일입니다.');
-					    	$("div[id=emailDupChk]").attr("style","color:red")
+					    	$("div[id=emailDupChk]").attr("style","color:red");
+					    	$("div[id=emailDupChk]").val("");
 					    	
 					    }
 					
@@ -244,6 +265,7 @@ function emailChkPw(){
 	function pass_check(){
 		var length = $("input[name=user_pw]").val().length;
 		if(length<8){
+			$("div[id=pass_check]").html('');
 			$("div[id=pass_check]").html('비밀번호 8자리이상 입력해 주세요');
 			$("div[id=pass_check]").val("");
 			pass_chk = false;
@@ -257,11 +279,14 @@ function emailChkPw(){
 		var once = $("input[name=user_pw]").val();
 		var twice = $("input[name=user_pw02]").val();
 		if(once != twice){
+			$("div[id=pass_confirm]").html('');
 			$("div[id=pass_confirm]").html('비밀번호 같지 않습니다.');
 			$("div[id=pass_confirm]").val("");
 			pass_cfm = false;
 		}else{
+			$("div[id=pass_confirm]").html('');
 			$("div[id=pass_confirm]").html('비밀번호 같음 확인');
+			$("div[id=pass_confirm]").val("");
 			pass_cfm = true;
 		}
 	}
