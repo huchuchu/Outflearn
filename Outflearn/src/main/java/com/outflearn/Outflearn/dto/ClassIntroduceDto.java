@@ -8,11 +8,6 @@ public class ClassIntroduceDto {
 	public ClassIntroduceDto() {
 	
 	}
-	
-	public ClassIntroduceDto(int class_num) {
-		this.class_num = class_num;
-	}
-
 	public ClassIntroduceDto(int class_num, String class_content) {
 		this.class_num = class_num;
 		this.class_content = class_content;

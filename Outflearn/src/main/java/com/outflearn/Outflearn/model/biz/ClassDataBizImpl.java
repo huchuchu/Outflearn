@@ -22,6 +22,7 @@ public class ClassDataBizImpl implements ClassDataBiz {
 
 
 //	--------------------------------------------------- 강좌 정보(CLASS_INFO)
+	@Override
 	public List<ClassInfoDto> ClassInfoSelectList() {
 		
 		return dao.ClassInfoSelectList();
@@ -31,7 +32,7 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public List<ClassInfoDto> CategorySelectList(String class_category) {
 		return dao.CategorySelectList(class_category);
 	}
-	
+
 	@Override
 	public ClassInfoDto ClassInfoSelectOne(int class_num) {
 		
@@ -46,7 +47,7 @@ public class ClassDataBizImpl implements ClassDataBiz {
 
 //	---------------------------------------------------	강좌 소개(CLASS_INTRODUCE)
 	@Override
-	public ClassIntroduceDto ClassIntroduceSelectList(int class_num) {
+	public List<ClassIntroduceDto> ClassIntroduceSelectList(int class_num) {
 		
 		return dao.ClassIntroduceSelectList(class_num);
 	}
@@ -54,12 +55,17 @@ public class ClassDataBizImpl implements ClassDataBiz {
 
 	@Override
 	public int ClassIntroduceInsert(ClassIntroduceDto dto) {
-		
+	
 		return dao.ClassIntroduceInsert(dto);
 	}
 	
 //	--------------------------------------------------- 강좌 데이터(CLASS_DATA)
 	
+	@Override
+	public List<ClassDataDto> ClassDataSelectList() {
+	
+		return dao.ClassDataSelectList();
+	}
 	
 	@Override
 	public ClassDataDto ClassDataSelectOne(int class_num) {
@@ -156,14 +162,15 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return (ClassReviewUpdateAnswer + ClassReviewInsertAnswer);
 	}
 
-	@Override
-	public int ClassReviewInsertAnswer(ClassReviewDto dto) {
-		return dao.ClassReviewInsertAnswer(dto);
-	}
 
-	@Override
-	public List<ClassDataDto> ClassDataSelectList() {
-		return dao.ClassDataSelectList();
-	}
+
+	
+
+	
+
+
+
+	
+
 		
 }
