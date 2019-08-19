@@ -131,7 +131,7 @@ public class HomeController {
 	
 
 	@RequestMapping("/LectureDetail")
-	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, @ModelAttribute ClassIntroduceDto iDto ,int class_num, Model model, HttpSession session, Authentication auth) {
+	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session, Authentication auth) {
 
 		logger.info("/LectureDetail");
 		session.setAttribute("info_num", class_num);
@@ -146,20 +146,18 @@ public class HomeController {
 		// 강좌 소개
 		model.addAttribute("classinfo", biz.ClassInfoSelectOne(class_num));
 		System.out.println(biz.ClassInfoSelectOne(class_num));
-		
 		// 댓글
 		model.addAttribute("classReview", biz.ClassReviewSelectList(class_num));
 		System.out.println(biz.ClassReviewSelectList(class_num));
 		
 		// 강의 소개
+		model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
+		System.out.println(biz.ClassIntroduceSelectList(class_num));
 		
+		// 질문 리스트
+		model.addAttribute("classQuestion", biz.QASelectList(class_num));
+		System.out.println(biz.QASelectList(class_num) + " : 질문들");
 		
-		ClassIntroduceDto abc = biz.ClassIntroduceSelectList(class_num);
-		model.addAttribute("classIntroduce", abc);
-		System.out.println(abc);
-		
-	
-
 		return "Class/LectureDetail";
 	}
 
@@ -365,8 +363,8 @@ public class HomeController {
 				System.out.println(data_data);
 				System.out.println("originFileName : " + originFileName);
 				System.out.println("fileSize : " + fileSize);
+				int res = 0;
 				
-
 				try {
 					mf.transferTo(new File(data_data_path));
 

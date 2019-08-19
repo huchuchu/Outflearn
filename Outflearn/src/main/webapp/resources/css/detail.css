@@ -79,3 +79,47 @@
 .fa-star, .fa-star-half-alb {
 	color: #ffff66;
 }
+
+.nav-page {
+	clear: both;
+	max-width: 900px;
+}
+
+#Question {
+	padding-top: 3rem;
+	margin: 3rem;
+}
+
+#Question-btn {
+	background-color: #2fc97a;
+	border: 1px solid #2fc97a;
+}
+
+#question_content {
+	position: relative;
+	padding: 1rem;
+}
+
+.question_detail_link {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	z-index: 10;
+}
+
+.question_title {
+	font-weight: bold;
+}
+
+#QuestionForm {
+	position: fixed;
+	z-index: 9999;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}

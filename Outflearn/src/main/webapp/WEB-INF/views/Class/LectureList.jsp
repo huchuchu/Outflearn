@@ -69,13 +69,14 @@ function list(page,data) {
 			<aside class="col-sm-2">
 				<div id="side_category">
 					<ul class="nav flex-column text-center">
-						<li class="nav-item side_menu">
-						<a href="void:0" class="nav-link active" data-toggle="dropdown">카테고리</a></li>
-						<li class="nav-item all_category">
-						<a href="void:0" id="server1 side_server" class="nav-link active">서버&nbsp;<i
+						<li class="nav-item side_menu"><a href="void:0"
+							class="nav-link active" data-toggle="dropdown">카테고리</a></li>
+						<li class="nav-item all_category"><a href="void:0"
+							id="side_server" class="nav-link active">서버&nbsp;<i
 								class="fas fa-chevron-right"></i></a>
-							<ul id="server2 side_server_menu" class="nav flex-column collapse">
-								<li><a href="void:0" class="nav-link active">BackEnd</a></li>
+							<ul id="side_server_menu" class="nav flex-column collapse">
+								<li><a href="void:0" class="nav-link active">BackEnd<input
+										type="hidden" name="" value="backend"></a></li>
 								<li><a href="void:0" class="nav-link active">Linux</a></li>
 								<li><a href="void:0" class="nav-link active">Nodejs</a></li>
 								<li><a href="void:0" class="nav-link active">Express</a></li>

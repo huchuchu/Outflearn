@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
@@ -110,56 +113,59 @@ public class AnswerController {
 		System.out.println(updatechk);
 		return map;
 	}
-
-//	대댓글 폼
-	@RequestMapping("ReplyForm")
-	public String replyForm(@ModelAttribute ClassReviewDto dto , Model model, int class_num, int board_no, Authentication auth) {
-		logger.info("ReplyForm");
-		
-		model.addAttribute("class_num", dto.getClass_num());
-		model.addAttribute("user_star", dto.getUser_star());
-		System.out.println("왔냐" + class_num);
-		
-		// 회원 정보 - 닉네임, 유저 번호
-		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
-		String user_nickname = uDto.getUser_nickname();
-		int user_num = (Integer) uDto.getUser_num();
-		model.addAttribute("user_nickname", user_nickname);
-		model.addAttribute("user_num", user_num);		
-		
-
-		model.addAttribute("board_no", board_no);
-		System.out.println(board_no + "FLEX");
-		model.addAttribute("classReview",biz.ClassReviewSelectOne(board_no));
-		
-		return "Class/LectureDetailAnswerReply";
-	}
 	
 //	대댓글
 	@RequestMapping("Reply")
-	public String Reply(@ModelAttribute ClassReviewDto dto , Model model, int class_num , int parentboard_no, Authentication auth) {
+	public String Reply(@ModelAttribute ClassReviewDto dto , Model model) {
 		logger.info("Reply");
 		
-		model.addAttribute("class_num", dto.getClass_num());
-		System.out.println("왔냐 " + class_num);
-		System.out.println("빡크 " + dto.getReview_num());
+		model.addAttribute("ReviewReply", biz.ClassReviewInsertAnswer(dto));
 		
-		// 회원 정보 - 닉네임, 유저 번호
-		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
-		String user_nickname = uDto.getUser_nickname();
-		int user_num = (Integer) uDto.getUser_num();
-		model.addAttribute("user_nickname", user_nickname);
-		model.addAttribute("user_num", user_num);		
-		
-		model.addAttribute("parentBoard_no",biz.ClassReviewSelectOne(parentboard_no));
-		int res = biz.ClassReviewAnswer(dto, parentboard_no);
-		
-		if (res > 0) {
-			return "redirect:LectureDetail?board_no=" + parentboard_no;
-		} else {
-			return "redirect:LectureDetail?board_no=" + parentboard_no;
-		}
+		return "redirect: LectureDetail?class_num=" + dto.getClass_num();
+	}
 	
+	@RequestMapping("QuestionInsert")
+	public String QuestionInsert(@ModelAttribute QADto dto, Model model) {
+		
+		logger.info("QuestionInsert");
+		
+		int res = biz.QAInsert(dto);
+		
+		if(res > 0) {
+			return "redirect: LectureDetail?class_num=" + dto.getClass_num();
+		} else {
+			return "redirect: LectureDetail?class_num=" + dto.getClass_num();
+		}
+		
+	}
+	
+	@RequestMapping("QASelectOne")
+	public String QASelectOne(int qa_num, int qa_group_no, Model model, Authentication auth) {
+		
+		model.addAttribute("classQuestion", biz.QASelectOne(qa_num));
+		model.addAttribute("classQuestionReply", biz.QAReply(qa_group_no));
+		
+		return "Class/QASelectOne";
+	}
+	
+	@RequestMapping("QAReplyInsert")
+	public String QAReplyInsert(@ModelAttribute QADto dto, int class_num, Model model) {
+		
+		int res = biz.QAReplyInsert(dto);
+		
+		if(res > 0) {
+			return "redirect: QASelectOne?qa_num=" + dto.getQa_num() + "&qa_group_no=" + dto.getQa_group_no();
+		} else {
+			return "redirect: QASelectOne?qa_num=" + dto.getQa_num() + "&qa_group_no=" + dto.getQa_group_no();
+		}
+		
+	}
+	
+	@RequestMapping("QAReplyDelete")
+	public String QAReplyDelete(int qa_num) {
+		
+		
+		return "QASelectOne";
 	}
 	
 }

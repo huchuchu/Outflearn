@@ -6,6 +6,9 @@ import com.outflearn.Outflearn.dto.ClassCategoryDto;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
+import com.outflearn.Outflearn.dto.QADto;
+import com.outflearn.Outflearn.dto.LiveDto;
+import com.outflearn.Outflearn.dto.connectUserClass;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
 import com.outflearn.Outflearn.dto.LiveDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
@@ -50,12 +53,18 @@ public interface ClassDataBiz {
 		public int mainStreamInsert(MainStreamDto dto);
 		public int subStreamInsert(SubStreamDto dto);
 		public int ClassCategoryInsert(ClassCategoryDto dto);
-
-
 	
 		//페이징
 		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search );
 		public int selectTotalCount(String txt_search);
 		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search , String searchOption);
 		public int selectTotalCount(String searchOption, String txt_search);
+		public ClassIntroduceDto ClassIntroduceSelectOne(int class_num);
+		
+		//질문
+		public List<QADto> QASelectList(int class_num);
+		public QADto QASelectOne(int qa_num);
+		public List<QADto> QAReply(int qa_group_no);
+		public int QAInsert(QADto dto);
+		public int QAReplyInsert(QADto dto);
 }

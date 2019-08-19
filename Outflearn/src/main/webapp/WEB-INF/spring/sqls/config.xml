@@ -16,6 +16,7 @@
 		<typeAlias type="com.outflearn.Outflearn.dto.MainStreamDto" alias="MainStreamDto"/>
 		<typeAlias type="com.outflearn.Outflearn.dto.SubStreamDto" alias="subStreamDto"/>
 		<typeAlias type="com.outflearn.Outflearn.dto.ClassCategoryDto" alias="ClassCategoryDto"/>
+		<typeAlias type="com.outflearn.Outflearn.dto.QADto" alias="QADto" />
 	</typeAliases>
 	
 	
