@@ -79,11 +79,7 @@
         <div class="side_category live">
           <ul class="nav flex-column text-center">
             <li class="nav-item side_menu">
-              <<<<<<< HEAD:Outflearn/src/main/webapp/WEB-INF/views/Member/myPage.jsp <a class="configLiveRoom"
-                href="void:0">방송하기</a>
-                =======
-                <a href="casterRoom">방송하기</a>
-                >>>>>>> origin/ysk:Outflearn/src/main/webapp/WEB-INF/views/myPage.jsp
+              <a class="configLiveRoom" href="void:0">방송하기</a>
                 <p>강사만 보이게</p>
             </li>
           </ul>
