@@ -84,7 +84,11 @@ public class HomeController {
 		// 강의 소개
 		model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
 		System.out.println(biz.ClassIntroduceSelectList(class_num));
-
+		
+		// 질문 리스트
+		model.addAttribute("classQuestion", biz.QASelectList(class_num));
+		System.out.println(biz.QASelectList(class_num) + " : 질문들");
+		
 		return "Class/LectureDetail";
 	}
 

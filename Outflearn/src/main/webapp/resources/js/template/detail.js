@@ -22,31 +22,37 @@ $(document).ready(function () {
 		})
 	}
 	
-
-
+	console.log($('div#main nav li a.selected').attr('href'))
+	$('div#page-switch > div:not(' + $('div#main nav li a.selected').attr('href') + ')').hide()
+	
     $('.nav-tabs > li > a').on('click', function () {
+    	
         $(this).css({ 'border-bottom': '2px solid #6473ff' })
-        $(this).parents().siblings().children().css({ 'border-bottom': '' });
+        $(this).parents().siblings().children().css({ 'border-bottom': '' })
+        
+        $('div#main nav li a').removeClass('selected')
+        $(this).addClass('selected')
+        $('div#page-switch > div').hide()
+        $($(this).attr('href')).show()
+        
+        console.log($(this).attr('href') + " : this attr href")
+        
         if ($(this).text() == '대쉬보드') {
             Dashboard(playlist, playlist_id)
-        } else if ($(this).text() == '강좌소개') {
-            LectureIntro(playlist)
         } else if ($(this).text() == '질문&답변') {
             ReviewAnswer()
-        } else {
-            $('#page-switch').html('ghi');
         }
     })
     
-    $('#main, #page-switch').css({'width': '75%'})
+    $('#main, #dashboard').css({'width': '75%'})
     $('#box').css({'top': $('#menu').height() * 2})
-    
-    $("#modal-btn").click(function(){
-        $("#myModal3").modal({backdrop: "static"});
-    });
     
     $('.reply_group').hide()
     ReviewReply()
+    
+    $("#Question-btn").on('click', function(){
+        $("#QuestionForm").modal({backdrop: "static"})
+     });
 })
 
 function Dashboard(video_list, playlist_id) {
@@ -65,8 +71,8 @@ function Dashboard(video_list, playlist_id) {
         	var min = 0;
         	var sec = 0;
         	
-            $('#page-switch').empty()
-            $('#page-switch').append(
+            $('#dashboard').empty()
+            $('#dashboard').append(
                 "<div class='page-header'><h1>유튜브</h1></div>" + 
                 "<div class='table-responsive-lg'>" + 
                 "<table class='table'>" +
@@ -121,7 +127,7 @@ function Dashboard(video_list, playlist_id) {
             
             $('#count').html(`${count} 개 수업`)
             $('#timer').html(`${timer}`)
-            $('#page-switch').append("</table></div>")
+            $('#dashboard').append("</table></div>")
 
         },
         error: function (err) {
@@ -143,7 +149,7 @@ function LectureIntro(video_list) {
             var video_id = vi_list.items[5].snippet.resourceId.videoId
             console.log(vi_list.items[0].contentDetails.endAt)
         	
-        	$('#page-switch').html(
+        	$('#dashboard').html(
         			`<iframe id="player" type="text/html" style="width: 100%; height: 100%; max-width: 900px;"
                     src="http://www.youtube.com/embed/${video_id}?end=61&enablejsapi=1&origin=http://example.com"
                     frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" 
@@ -158,7 +164,7 @@ function LectureIntro(video_list) {
 }
 
 function ReviewAnswer() {
-	$('#page-switch').html(
+	$('#dashboard').html(
 		`<div class="modal fade" id="myModal3" role="dialog">
 		    <div class="modal-dialog">
 		    
@@ -248,7 +254,6 @@ function ReviewReply() {
 	
 	$('.ReviewReply').on('click', function() {
 		$(this).parents('tr').next().toggle();
-		
 	})
 		
 }

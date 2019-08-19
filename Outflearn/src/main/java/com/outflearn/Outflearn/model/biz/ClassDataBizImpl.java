@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
+import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
 import com.outflearn.Outflearn.dto.LiveDto;
 import com.outflearn.Outflearn.model.dao.ClassDataDao;
@@ -170,5 +171,30 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public List<ClassDataDto> ClassDataSelectList() {
 		return dao.ClassDataSelectList();
 	}
-		
+	
+	@Override
+	public List<QADto> QASelectList(int class_num) {
+		return dao.QASelectList(class_num);
+	}
+
+	@Override
+	public QADto QASelectOne(int qa_num) {
+		return dao.QASelectOne(qa_num);
+	}
+	
+	@Override
+	public List<QADto> QAReply(int qa_group_no) {
+		return dao.QAReply(qa_group_no);
+	}
+	
+	@Override
+	public int QAInsert(QADto dto) {
+		return dao.QAInsert(dto);
+	}
+
+	@Override
+	public int QAReplyInsert(QADto dto) {
+		return dao.QAReplyInsert(dto);
+	}
+
 }

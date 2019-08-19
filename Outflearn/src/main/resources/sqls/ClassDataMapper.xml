@@ -86,6 +86,28 @@
 		AND QA_GROUPSQ > (SELECT QA_GROUPSQ FROM CLASS_REVIEW WHERE BOARD_NO = #{board_no })
 	</update>
 	
+	<select id="QASelectList" parameterType="int" resultType="QADto">
+		SELECT * FROM QA WHERE CLASS_NUM = #{class_num}
+	</select>
+	
+	<select id="QASelectOne" parameterType="int" resultType="QADto">
+		SELECT * FROM QA WHERE QA_NUM = #{qa_num}
+	</select>
+	
+	<select id="QAReply" parameterType="int" resultType="QADto">
+		SELECT * FROM QA WHERE QA_GROUP_NO = #{qa_group_no} ORDER BY QA_GROUP_SQ
+	</select>
+	
+	<insert id="QAInsert" parameterType="QADto">
+		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{qa_title}, #{qa_content}, QA_GROUP_NO_SQ.NEXTVAL, '1')
+	</insert>
+	
+	<insert id="QAReplyInsert" parameterType="QADto">
+		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname}, '답글', #{qa_content}, 
+										  (SELECT DISTINCT QA_GROUP_NO FROM QA WHERE QA_GROUP_NO = #{qa_group_no}),
+										  #{qa_group_sq} + 1)
+	</insert>
+	
 	<!-- ================== Livepage & Mypage 테이블 ================== -->
 	<select id="liveCalendar" resultType="LiveDto">
 		SELECT * FROM LIVE

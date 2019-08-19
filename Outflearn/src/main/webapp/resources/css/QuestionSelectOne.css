@@ -1,0 +1,15 @@
+div#Question {
+	max-width: 900px;
+}
+
+div.student_question_panel {
+	border: 1px solid #d7d7d7;
+}
+
+div.form-group {
+	padding: 3rem;
+}
+
+#reply-insert {
+	width: 100%
+}

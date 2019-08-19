@@ -6,6 +6,7 @@ import java.util.List;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
+import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.LiveDto;
 import com.outflearn.Outflearn.dto.connectUserClass;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
@@ -54,4 +55,11 @@ public interface ClassDataDao {
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);
 		
 		public ClassIntroduceDto ClassIntroduceSelectOne(int class_num);
+		
+		// 질문
+		public List<QADto> QASelectList(int class_num);
+		public QADto QASelectOne(int qa_num);
+		public List<QADto> QAReply(int qa_group_no); 
+		public int QAInsert(QADto dto);
+		public int QAReplyInsert(QADto dto);
 }

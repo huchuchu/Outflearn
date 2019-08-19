@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
+import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
 import com.outflearn.Outflearn.dto.LiveDto;
 
@@ -275,4 +276,61 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		
 		return res;
 	}
+	
+	@Override
+	public List<QADto> QASelectList(int class_num) {
+		
+		List<QADto> list = new ArrayList<QADto>();
+		
+		try {
+			list = sqlSession.selectList(namespace + "QASelectList", class_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public QADto QASelectOne(int qa_num) {
+		
+		QADto dto = sqlSession.selectOne(namespace + "QASelectOne", qa_num);
+		
+		return dto;
+	}
+	
+	@Override
+	public List<QADto> QAReply(int qa_group_no) {
+		
+		List<QADto> list = new ArrayList<QADto>();
+		
+		try {
+			list = sqlSession.selectList(namespace + "QAReply", qa_group_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	@Override
+	public int QAInsert(QADto dto) {
+		
+		int res = 0;
+		
+		res = sqlSession.insert(namespace + "QAInsert", dto);
+		
+		return res;
+	}
+
+	@Override
+	public int QAReplyInsert(QADto dto) {
+		
+		int res = 0;
+		
+		res = sqlSession.insert(namespace + "QAReplyInsert", dto);
+		
+		return res;
+	}
+
 }

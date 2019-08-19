@@ -12,6 +12,7 @@
 		<typeAlias type="com.outflearn.Outflearn.dto.LiveDto" alias="LiveDto"/>
 		<typeAlias type="com.outflearn.Outflearn.dto.connectUserClass" alias="connectUserClass"/>
 		<typeAlias type="com.outflearn.Outflearn.dto.ClassReviewDto" alias="ClassReviewDto"/>
+		<typeAlias type="com.outflearn.Outflearn.dto.QADto" alias="QADto" />
 	</typeAliases>
 	
 	
