@@ -101,10 +101,13 @@
 		SELECT * FROM QA WHERE CLASS_NUM = #{class_num}
 	</select>
 	
+<<<<<<< HEAD
 	<insert id="QAInsert" parameterType="QADto">
 		INSERT INTO QA VALUES(QA_NUM.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname},  #{qa_title}, #{qa_content}, QA_GROUP_NO_SQ.NEXTVAL, '1')
 	</insert>
 	
+=======
+>>>>>>> origin/mhs
 	<select id="QASelectOne" parameterType="int" resultType="QADto">
 		SELECT * FROM QA WHERE QA_NUM = #{qa_num}
 	</select>
@@ -141,7 +144,33 @@
 		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
 	</select>
 
+<<<<<<< HEAD
 	
+=======
+	<select id="selectListPagetwo">
+		SELECT *
+		FROM (SELECT ROWNUM AS RNUM, C.*
+			FROM ( SELECT *
+					FROM CLASS_INFO
+					<if test="txt_search != null">
+					<choose>
+						<when test="searchOption == 'all'">
+							WHERE (
+								(upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%') or
+								(upper(CLASS_AUTHOR) like '%' || upper(#{txt_search})||'%')							
+							)
+						</when>
+						<otherwise>
+							WHERE ${searchOption} like '%' || #{keyword} || '%'
+						</otherwise>
+					</choose>
+					</if>
+						ORDER BY CLASS_NUM DESC
+			) C
+		)
+		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
+	</select>
+>>>>>>> origin/mhs
 
 	<select id="selectTotalCount" parameterType="map" resultType="Integer">
 		SELECT count(*)

@@ -113,6 +113,7 @@
 	
 	<div class="panel panel-default">
 		<h1>강좌 소개</h1>
+<<<<<<< HEAD
 			<div class="form-group">
 					<p>
 					${classIntroduce.class_content }
@@ -120,6 +121,13 @@
 			</div>
 			
 	
+=======
+		<div class="form-group">
+			<p>
+				${classIntroduce.class_content }
+			</p>
+		</div>
+>>>>>>> origin/mhs
 	</div>
 
 	<div id="page-switch" class="nav-page">

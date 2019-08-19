@@ -1,5 +1,9 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: user14
+=======
+Built-By: hicja
+>>>>>>> origin/mhs
 Build-Jdk: 1.8.0_201
 Created-By: Maven Integration for Eclipse
 
