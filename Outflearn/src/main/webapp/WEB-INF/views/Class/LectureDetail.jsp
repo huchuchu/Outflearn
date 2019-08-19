@@ -56,10 +56,8 @@
 						<h4>${classinfo.class_price }원</h4>
 						<button type="button" class="btn-group btn-group-vertical btns">바로
 							수강신청</button>
-						<form:form action="basket" method="post">
-							<input type="hidden" name="class_num" value="${class_num }">
-							<input type="submit" value="장바구니 담기" class="btn-group btn-group-vertical btns" >
-						</form:form>
+						<button type="button" class="btn-group btn-group-vertical btns">장바구니
+							담기</button>
 					</div>
 			
 					

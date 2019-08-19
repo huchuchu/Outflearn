@@ -24,35 +24,6 @@
 <!-- Stylesheet ================================================== -->
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script type="text/javascript">
-	
-	$(function(){
-		
-		var server1 = $('#server1').val();
-		
-		var chlidren = $('#server1').chiln
-		
-		for(var count = 0; count < server1.chlidren());
-		
-		$.ajax({
-		    url:'classCategory, //request 보낼 서버의 경로
-		    type:'post', // 메소드(get, post, put 등)
-		    success: function(data) {
-		        //서버로부터 정상적으로 응답이 왔을 때 실행
-		    },
-		    error: function(err) {
-		        //서버로부터 응답이 정상적으로 처리되지 못햇을 때 실행
-		    }
-		});
-
-
-		
-	})
-
-</script>
-
-
 </head>
 
 <body>
@@ -64,13 +35,14 @@
 			<aside class="col-sm-2">
 				<div id="side_category">
 					<ul class="nav flex-column text-center">
-						<li class="nav-item side_menu">
-						<a href="void:0" class="nav-link active" data-toggle="dropdown">카테고리</a></li>
-						<li class="nav-item all_category">
-						<a href="void:0" id="server1 side_server" class="nav-link active">서버&nbsp;<i
+						<li class="nav-item side_menu"><a href="void:0"
+							class="nav-link active" data-toggle="dropdown">카테고리</a></li>
+						<li class="nav-item all_category"><a href="void:0"
+							id="side_server" class="nav-link active">서버&nbsp;<i
 								class="fas fa-chevron-right"></i></a>
-							<ul id="server2 side_server_menu" class="nav flex-column collapse">
-								<li><a href="void:0" class="nav-link active">BackEnd</a></li>
+							<ul id="side_server_menu" class="nav flex-column collapse">
+								<li><a href="void:0" class="nav-link active">BackEnd<input
+										type="hidden" name="" value="backend"></a></li>
 								<li><a href="void:0" class="nav-link active">Linux</a></li>
 								<li><a href="void:0" class="nav-link active">Nodejs</a></li>
 								<li><a href="void:0" class="nav-link active">Express</a></li>

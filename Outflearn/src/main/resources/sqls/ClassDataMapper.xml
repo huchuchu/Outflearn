@@ -17,18 +17,11 @@
    	<select id="CategorySelectList" resultType="ClassInfoDto">
    	  	SELECT * FROM CLASS_INFO WHERE CLASS_CATEGORY = #{class_category}
    	</select>
-   	
-   	<!-- 장바구니에서 해당 유저가 담은 강의 -->
-	<select id="classInfoSelectListUser" parameterType="int" resultType="ClassInfoDto">
-		SELECT * FROM CLASS_INFO WHERE USER_NUM = #{user_num }
-	</select>
 	
 	<!-- 강의 소개 페이지  -->
 	<insert id="ClassInfoDtoInsert" parameterType="ClassInfoDto">
 		INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL, #{user_num } , #{class_title }, #{class_author }, #{class_intro }, #{class_img }, #{class_live } ,0, #{class_price }, 0, #{class_studentlevel })
 	</insert>
-	
-	
 	
 	<!-- ================== CLASS_DATA 테이블 ================== -->
 	 
@@ -69,7 +62,7 @@
 	</select>
 
 	<insert id="classReviewInsert" parameterType="classReviewDto">
-		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star}, REVIEW_GROUPNO_SQ.NEXTVAL, 1, 0)
+		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star}, REVIEW_GROUPNO.NEXTVAL, 1, 0)
 	</insert>
 	
 	<update id="classReviewUpdate" parameterType="classReviewDto">
@@ -81,7 +74,7 @@
 	</delete>
 	
 	<insert id="classReviewInsertAnswer" parameterType="classReviewDto">
-		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star},
+		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star},
 										(SELECT REVIEW_GROUPNO FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}),
 										(SELECT REVIEW_GROUPSQ FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1, 0) 
 	</insert>
@@ -91,11 +84,6 @@
 		WHERE QA_GROUPSQ = (SELECT QA_GROUPNO FROM CLASS_REVIEW WHERE BOARD_NO = #{board_no })
 		AND QA_GROUPSQ > (SELECT QA_GROUPSQ FROM CLASS_REVIEW WHERE BOARD_NO = #{board_no })
 	</update>
-	
-	<!-- ================== Basket 테이블 ======================== -->
-	<insert id="classBasketInsert" parameterType="ClassInfoDto">
-		INSERT INTO BASKET VALUES(#{user_num }, #{class_num} )
-	</insert>
 	
 	<!-- ================== Livepage & Mypage 테이블 ================== -->
 	<select id="liveCalendar" resultType="LiveDto">
@@ -124,20 +112,5 @@
             #{item}
         </foreach>
 	</select>
-	
-	<!-- ================== 카테고리 주류, 부류 ================== -->
-	<insert id="mainStreamInsert" parameterType="MainStreamDto">
-		INSERT INTO MAIN_STREAM VALUES(MAIN_SQ.NEXTVAL, #{main_name })
-	</insert>
-	
-	<insert id="subStreamInsert" parameterType="SubStreamDto">
-		INSERT INTO SUB_STREAM VALUES(SUB_SQ.NEXTVAL , MAIN_SQ.CURRVAL, #{sub_name })
-	</insert>
-	
-	<insert id="classCategoryInsert" parameterType="ClassCategoryDto">
-		INSERT INTO CLASS_CATEGORY VALUES(CLASS_INFO_SQ.CURRVAL , MAIN_SQ.CURRVAL, SUB_SQ.CURRVAL)
-	</insert>
-	
-	
 
 </mapper>

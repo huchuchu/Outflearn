@@ -9,14 +9,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.outflearn.Outflearn.dto.ClassCategoryDto;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
 import com.outflearn.Outflearn.dto.LiveDto;
-import com.outflearn.Outflearn.dto.MainStreamDto;
-import com.outflearn.Outflearn.dto.SubStreamDto;
 
 @Repository
 public class ClassDataDaoImpl implements ClassDataDao {
@@ -50,22 +47,6 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		dto = sqlSession.selectOne(namespace + "ClassInfoSelectone", map);
 
 		return dto;
-	}
-	
-	@Override
-	public List<ClassInfoDto> classInfoSelectListUser(int user_num) {
-		
-		List<ClassInfoDto> list = new ArrayList<ClassInfoDto>();
-		
-		
-		try {
-			list = sqlSession.selectList(namespace + "classInfoSelectListUser", user_num);
-		} catch (Exception e) {
-			System.out.println("오냐");
-			e.printStackTrace();
-		} 
-		
-		return list;
 	}
 
 	@Override
@@ -159,27 +140,6 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 		res = sqlSession.insert(namespace + "ClassChapterDataInsert", dto);
 
-		return res;
-	}
-	
-//	--------------------------------------------------- 장바구니(BASKET)
-	@Override
-	public int classBasketInsert(ClassInfoDto dto) {
-		
-		int res = 0;
-		
-		res = sqlSession.insert(namespace + "classBasketInsert", dto); 
-		
-		return res;
-	}
-
-	@Override
-	public int classBasketDelete(int class_num) {
-		
-		int res = 0;
-		
-		res = sqlSession.delete(namespace + "classBasketDelete", class_num); 
-		
 		return res;
 	}
 
@@ -297,34 +257,6 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		
 		return res;
 	}
-
-	@Override
-	public int mainStreamInsert(MainStreamDto dto) {
-		
-		int res = sqlSession.insert(namespace + "mainStreamInsert", dto);
-		
-		return res;
-	}
-
-	@Override
-	public int subStreamInsert(SubStreamDto dto) {
-		
-		int res = sqlSession.insert(namespace + "subStreamInsert", dto);
-		
-		return res;
-	}
-
-	@Override
-	public int ClassCategoryInsert(ClassCategoryDto dto) {
-	
-		int res = sqlSession.insert(namespace + "classCategoryInsert", dto); 
-		
-		return res;
-	}
-
-	
-
-
 
 	
 }
