@@ -1,6 +1,7 @@
 package com.outflearn.Outflearn;
 
 import java.util.List;
+
 import java.util.Map;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -150,7 +151,7 @@ public class HomeController {
 	@RequestMapping("Livepage")
 	public String Livepage() {
 		
-		return "Live/Livepage.jsp";
+		return "Live/Livepage";
 	}
 
 //	강의 쓰기
@@ -383,60 +384,6 @@ public class HomeController {
 	@RequestMapping("introOutflearn")
 	public String introOutflearn() {
 		return "introOutflearn";
-	}
-
-// Live
-	@RequestMapping("liveCalendar")
-	@ResponseBody
-	public List<LiveDto> liveCalendar() {
-
-		return biz.liveCalendar();
-	}
-	
-	@RequestMapping("LectureList/LectureCategory")
-	public String LectureCategory(String class_category, Model model) {
-		
-		model.addAttribute("classinfo", biz.CategorySelectList(class_category));
-		
-		return "Class/LectureList";
-	}
-
-	@RequestMapping("livePopup")
-	@ResponseBody
-	public ClassInfoDto livePopup(int live_num) {
-		return biz.livePopup(live_num);
-	}
-
-	@RequestMapping("casterRoom")
-	public String casterRoom() {
-		return "Live/casterRoom";
-	}
-
-	@RequestMapping("getMyClass")
-	public List<ClassInfoDto> getMyClass(Authentication auth) {
-		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return biz.getMyClass(dto.getUser_num());
-	}
-	
-	@RequestMapping("liveRooms")
-	@ResponseBody
-	public List<ClassInfoDto> liveRooms(String[] liveRooms){
-		
-		return biz.liveRooms(liveRooms);
-	}
-	
-
-// myPage
-	@RequestMapping("myPage")
-	public String myPage(Model model, Authentication auth) {
-
-		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		model.addAttribute("userInfo", dto);
-		model.addAttribute("wishList", biz.getWishList(dto.getUser_num()));
-		model.addAttribute("subClass", biz.getSubscribe(dto.getUser_num()));
-
-		return "myPage";
 	}
 
 }

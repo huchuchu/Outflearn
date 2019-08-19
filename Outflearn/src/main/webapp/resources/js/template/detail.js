@@ -28,9 +28,9 @@ $(document).ready(function () {
         $(this).css({ 'border-bottom': '2px solid #6473ff' })
         $(this).parents().siblings().children().css({ 'border-bottom': '' });
         if ($(this).text() == '대쉬보드') {
-            Dashboard(playlist, playlist_id);
+            Dashboard(playlist, playlist_id)
         } else if ($(this).text() == '강좌소개') {
-            LectureIntro(playlist);
+            LectureIntro(playlist)
         } else if ($(this).text() == '질문&답변') {
             ReviewAnswer()
         } else {
@@ -122,20 +122,6 @@ function Dashboard(video_list, playlist_id) {
             $('#count').html(`${count} 개 수업`)
             $('#timer').html(`${timer}`)
             $('#page-switch').append("</table></div>")
-
-        },
-        error: function (err) {
-            alert('callback hell!!!!!');
-        }
-    })
-}
-
-function LectureIntro(video_list) {
-	$.ajax({
-        type: 'GET',
-        dataType: 'JSON',
-        url: video_list,
-        success: function (vi_list) {
 
         	$('#jumbo_row > img').attr('src', vi_list.items[0].snippet.thumbnails.high.url)
         	

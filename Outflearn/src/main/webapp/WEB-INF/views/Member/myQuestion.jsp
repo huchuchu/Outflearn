@@ -23,11 +23,15 @@
   <!-- Stylesheet ================================================== -->
   <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 
+  <!-- Sweet Alert2 -->
+  <link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
+  <script src='resources/js/sweetalert/sweetalert2.min.js'></script>
+
 </head>
 
 <body>
 
-  <jsp:include page="header/LectureListHeader.jsp"></jsp:include>
+  <jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 
   <div class="container">
 
@@ -39,33 +43,33 @@
           <ul class="nav flex-column text-center">
 
             <li class="nav-item side_menu select">
-              <a href="void:0" class="selectMenu">대시보드</a>
+              <a href="myPage">대시보드</a>
             </li>
 
             <li class="nav-item side_menu">
               <a href="void:0">내 강좌</a>
               <ul class="inner_menu">
-                <li><a href="void:0">수강중인 강좌</a></li>
-                <li><a href="void:0">위시리스트</a></li>
+                <li><a href="listenClass">수강중인 강좌</a></li>
+                <li><a href="wishClass">위시리스트</a></li>
               </ul>
             </li>
 
             <li class="nav-item side_menu">
               <a href="void:0">로드맵</a>
               <ul class="inner_menu">
-                <li><a href="void:0">참여중인 로드맵</a></li>
+                <li><a href="subRoadmap">참여중인 로드맵</a></li>
               </ul>
             </li>
 
             <li class="nav-item side_menu">
-              <a href="void:0">내 질문</a>
+              <a href="myQuestion" class="selectMenu">내 질문</a>
             </li>
 
             <li class="nav-item side_menu">
               <a href="void:0">설정</a>
               <ul class="inner_menu">
-                <li><a href="void:0">프로필 설정</a></li>
-                <li><a href="void:0">알림 설정</a></li>
+                <li><a href="configProfile">프로필 설정</a></li>
+                <li><a href="configAlarm">알림 설정</a></li>
               </ul>
             </li>
 
@@ -75,7 +79,7 @@
         <div class="side_category live">
           <ul class="nav flex-column text-center">
             <li class="nav-item side_menu">
-              <a href="casterRoom">방송하기</a>
+              <a class="configLiveRoom" href="void:0">방송하기</a>
               <p>강사만 보이게</p>
             </li>
           </ul>
@@ -85,63 +89,19 @@
 
       <div class="col-sm-10">
         <div class="page-header">
-          <h1 id="page-header-content">대시보드</h1>
+          <h1 id="page-header-content">내 질문</h1>
         </div>
         <article>
           <div class="page-body">
             <div class="row">
               <div class="col-sm-12">
                 <div class="boardBox">
-                  <h4 class="boxTitle">수강중인 강좌</h4>
-                  <c:forEach items="${subClass }" var="item">
-                    강좌명 : ${item.class_title}
-                  </c:forEach>
+                  <h4 class="boxTitle">내 질문</h4>
+
                 </div>
               </div>
             </div>
 
-            <div class="row">
-
-              <div class="col-sm-6">
-                <div class="boardBox">
-                  <h4 class="boxTitle">내 프로필</h4>
-                  <p>닉네임 : ${userInfo.user_nickname}</p>
-                  <p>이메일 : ${userInfo.user_email}</p>
-                  <p>등급 :
-                    <sec:authentication property="principal.Authorities" var="grade" />
-                    <c:if test="${grade eq '[ROLE_USER]'}"> 유저에요 </c:if>
-                    <c:if test="${grade eq '[ROLE_ADMIN]'}"> 어드민이에요 </c:if>
-                    <c:if test="${grade eq '[ROLE_TUTOR]'}"> 강사에요 </c:if>
-                  </p>
-                </div>
-              </div>
-
-              <div class="col-sm-6">
-                <div class="boardBox">
-                  <h4 class="boxTitle">위시리스트</h4>
-                  <c:forEach items="${wishList }" var="item">
-                    강좌명 : ${item.class_title}
-                  </c:forEach>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="row">
-
-              <div class="col-sm-6">
-                <div class="boardBox">
-                  <h4 class="boxTitle">참여중인 로드맵</h4>
-                </div>
-              </div>
-
-              <div class="col-sm-6">
-                <div class="boardBox">
-                  <h4 class="boxTitle">최근 내 질문</h4>
-                </div>
-              </div>
-
-            </div>
 
           </div>
         </article>
@@ -150,7 +110,7 @@
   </div>
   <!-- ==================== FOOTER ==================== -->
 
-  <jsp:include page="footer/Footer.jsp"></jsp:include>
+  <jsp:include page="../footer/Footer.jsp"></jsp:include>
 
   <script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
   <script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
