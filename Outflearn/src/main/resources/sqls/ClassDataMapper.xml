@@ -141,6 +141,7 @@
 		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
 	</select>
 
+<<<<<<< HEAD
 	
 
 	<select id="selectTotalCount" parameterType="map" resultType="Integer">
@@ -166,6 +167,55 @@
 		INSERT INTO CLASS_CATEGORY VALUES(CLASS_INFO_SQ.CURRVAL , MAIN_SQ.CURRVAL, SUB_SQ.CURRVAL)
 	</insert>
 	
+=======
+	<select id="selectListPagetwo">
+		SELECT *
+		FROM (SELECT ROWNUM AS RNUM, C.*
+			FROM ( SELECT *
+					FROM CLASS_INFO
+					<if test="txt_search != null">
+					<choose>
+						<when test="searchOption == 'all'">
+							WHERE (
+								(upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%') or
+								(upper(CLASS_AUTHOR) like '%' || upper(#{txt_search})||'%')							
+							)
+						</when>
+						<otherwise>
+							WHERE ${searchOption} like '%' || #{keyword} || '%'
+						</otherwise>
+					</choose>
+					</if>
+						ORDER BY CLASS_NUM DESC
+			) C
+		)
+		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
+	</select>
+
+	<select id="selectTotalCount" parameterType="map" resultType="Integer">
+		SELECT count(*)
+		FROM CLASS_INFO
+		<if test="txt_search != null">
+		WHERE upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%' or
+			upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
+			
+		</if>	
+	</select>
+	
+	<!-- ================== 카테고리 주류, 부류 ================== -->
+	<insert id="mainStreamInsert" parameterType="MainStreamDto">
+		INSERT INTO MAIN_STREAM VALUES(MAIN_SQ.NEXTVAL, #{main_name })
+	</insert>
+	
+	<insert id="subStreamInsert" parameterType="SubStreamDto">
+		INSERT INTO SUB_STREAM VALUES(SUB_SQ.NEXTVAL , MAIN_SQ.CURRVAL, #{sub_name })
+	</insert>
+	
+	<insert id="classCategoryInsert" parameterType="ClassCategoryDto">
+		INSERT INTO CLASS_CATEGORY VALUES(CLASS_INFO_SQ.CURRVAL , MAIN_SQ.CURRVAL, SUB_SQ.CURRVAL)
+	</insert>
+	
+>>>>>>> origin/mhs
 	
 
 </mapper>

@@ -1,6 +1,10 @@
 Manifest-Version: 1.0
 <<<<<<< HEAD
+<<<<<<< HEAD
 Built-By: user14
+=======
+Built-By: hicja
+>>>>>>> origin/mhs
 =======
 Built-By: hicja
 >>>>>>> origin/mhs

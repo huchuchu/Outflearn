@@ -114,6 +114,7 @@
 	<div class="panel panel-default">
 		<h1>강좌 소개</h1>
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<div class="form-group">
 					<p>
 					${classIntroduce.class_content }
@@ -122,11 +123,16 @@
 			
 	
 =======
+=======
+>>>>>>> origin/mhs
 		<div class="form-group">
 			<p>
 				${classIntroduce.class_content }
 			</p>
 		</div>
+<<<<<<< HEAD
+>>>>>>> origin/mhs
+=======
 >>>>>>> origin/mhs
 	</div>
 

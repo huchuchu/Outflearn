@@ -56,8 +56,13 @@
 </head>
 <script type="text/javascript">
 <<<<<<< HEAD
+<<<<<<< HEAD
 function PageMove(page,data) {
     location.href = "LectureList?page="+page+"&txt_search=" + $('input#txt_search').val();
+=======
+function list(page,data) {
+    location.href = "LectureList?page="+page+"&searchOption="${map.searchOption} + "&txt_search=" + $('input#txt_search').val() + "&class_category="${class_category}";
+>>>>>>> origin/mhs
 =======
 function list(page,data) {
     location.href = "LectureList?page="+page+"&searchOption="${map.searchOption} + "&txt_search=" + $('input#txt_search').val() + "&class_category="${class_category}";
@@ -212,7 +217,11 @@ function list(page,data) {
 	</div>
 				<!-- Pagination -->
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<div class="text-center form-group form-inline" >
+=======
+			<div class="form-group form-inline" >
+>>>>>>> origin/mhs
 =======
 			<div class="form-group form-inline" >
 >>>>>>> origin/mhs
