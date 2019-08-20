@@ -37,8 +37,9 @@ if (room !== "") {
     console.log('casterJoin 메세지 서버에 전송', room);
 }
 
-socket.on('createdRoom', function (room) {
+socket.on('createdRoom', function (room, liveTime) {
     console.log(`방 생성 ${room}`);
+    $('#liveStartTime').text(liveTime)
     startCast()
     appendMsg('server', `${room}방이 생성되었습니다.`)
 })
@@ -267,6 +268,12 @@ function requestTurn(turnURL) {
 
 // Chat
 
+function ScrollToBottom() {
+	var objDiv = document.getElementById("chat");
+	objDiv.scrollTop = objDiv.scrollHeight;
+}
+
+
 function appendMsg(_class, _msg, _name) {
     var text;
     if (_name) {
@@ -275,6 +282,7 @@ function appendMsg(_class, _msg, _name) {
         text = `<p>${_msg}</p>`
     }
     $('#messages').append($(`<li class=${_class}>`).html(text));
+    ScrollToBottom()
 }
 
 $(function () {
@@ -313,6 +321,7 @@ $(function () {
             $('.clickMenu').css('display', 'none')
         }
     })
+    
 
     function noEvent() {
         if (event.keyCode == 116) {
@@ -323,6 +332,7 @@ $(function () {
             return false;
         }
     }
+
     document.onkeydown = noEvent;
 
 })

@@ -78,6 +78,10 @@ socket.on('joinedRoom', function (name, numClients) {
     $('#numView').text(`${numClients}`)
 })
 
+socket.on('roomSetting', function (liveTime) {
+    $('#liveStartTime').text(liveTime)
+})
+
 // what?
 
 var constraints = {
@@ -241,6 +245,11 @@ function requestTurn(turnURL) {
 
 // Chat
 
+function ScrollToBottom() {
+    var objDiv = document.getElementById("chat");
+    objDiv.scrollTop = objDiv.scrollHeight;
+}
+
 function appendMsg(_class, _msg, _name) {
     var text;
     if (_name) {
@@ -249,6 +258,7 @@ function appendMsg(_class, _msg, _name) {
         text = `<p>${_msg}</p>`
     }
     $('#messages').append($(`<li class=${_class}>`).html(text));
+    ScrollToBottom()
 }
 
 $(function () {
@@ -263,6 +273,8 @@ $(function () {
         $('#m').val('');
         return false;
     });
+
+
 
     //FUNCTION
 

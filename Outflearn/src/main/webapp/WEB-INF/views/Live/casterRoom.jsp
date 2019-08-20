@@ -6,15 +6,14 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Outflearn</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Outflearn</title>
 
-<link rel="stylesheet" href="resources/js/broadcast/css/main.css" />
-<!-- Sweet Alert2 -->
-<link href='resources/js/sweetalert/sweetalert2.min.css'
-	rel='stylesheet' />
+	<link rel="stylesheet" href="resources/js/broadcast/css/main.css" />
+	<!-- Sweet Alert2 -->
+	<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
 
 </head>
 
@@ -35,9 +34,10 @@
 		</div>
 
 		<div id="info">
-			<h3>${room.class_title}</h3>
+			<h1 id="roomTitle">${room.class_title}</h1>
 			<div>
 				시청자 : <span id="numView">1</span>
+				방송시작시간 : <span id="liveStartTime">0000-00-00 00:00:00</span>
 			</div>
 		</div>
 	</div>
@@ -48,8 +48,8 @@
 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 
-	<script id="userInfo" src="resources/js/broadcast/js/casterMain.js"
-		name="${userInfo.user_nickname}" room="${room.class_num }"></script>
+	<script id="userInfo" src="resources/js/broadcast/js/casterMain.js" name="${userInfo.user_nickname}"
+		room="${room.class_num }"></script>
 
 	<!-- Sweet Alert2 -->
 	<script src='resources/js/sweetalert/sweetalert2.min.js'></script>

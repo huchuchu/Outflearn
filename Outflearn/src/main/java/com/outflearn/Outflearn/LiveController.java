@@ -76,6 +76,7 @@ public class LiveController {
 		model.addAttribute("userInfo", dto);
 		model.addAttribute("room", biz.getClassInfo(room));
 		
+		
 		return "Live/showLive";
 	}
 

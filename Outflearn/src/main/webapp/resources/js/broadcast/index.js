@@ -60,6 +60,26 @@ function getNumClients(room) {
     return numClients
 }
 
+function twoChar(target) {
+    if ((target + '').length === 1) return ('0' + target)
+    return target
+}
+
+function setLiveTime() {
+    var time = new Date()
+    var liveTime = `${time.getFullYear()}-${twoChar(time.getMonth() + 1)}-${twoChar(time.getDate())} ${twoChar(time.getHours())}:${twoChar(time.getMinutes())}:${twoChar(time.getSeconds())}`
+    return liveTime
+}
+
+function getLiveTime(room) {
+    for (let i = 0; i < liveRooms.length; i++) {
+        if (liveRooms[i].room === room) {
+            return liveRooms[i].liveTime
+        }
+    }
+}
+
+
 io.sockets.on('connection', function (socket) {
 
     socket.on('message', function (message) {
@@ -83,16 +103,18 @@ io.sockets.on('connection', function (socket) {
         liveRooms.push({
             'room': room,
             'caster': socket.id,
+            'liveTime': setLiveTime()
         })
 
         console.log(`캐스터[${socket.id}]가 ${room}에 입장`)
-        socket.emit('createdRoom', room, socket.id)
+        socket.emit('createdRoom', room, getLiveTime(room))
     })
 
     socket.on('userJoin', function (room, name) {
         console.log(`유저[${socket.id}]가 ${room}에 입장`)
         socket.name = name
         socket.join(room);
+        io.to(socket.id).emit('roomSetting', getLiveTime(room))
         io.to(findCasterId(room)).emit('joinedUser', socket.id)
         io.sockets.to(room).emit('joinedRoom', name, getNumClients(room))
     })

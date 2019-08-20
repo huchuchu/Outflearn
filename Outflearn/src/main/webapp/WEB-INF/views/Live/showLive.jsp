@@ -32,9 +32,15 @@
         </div>
 
         <div id="info">
-            <h3>${room.class_title}</h3>
-            <div>
-                시청자 : <span id="numView">1</span>
+            <div id="thisClassInfo">
+                <img id="classThumb" src="/Outflearn/resources/uploadImage/${room.class_img}" alt="No image">
+                <h1 id="roomTitle">${room.class_title}</h1>
+                <div>
+                    <p id="casterName">${room.class_author} </p>
+                    시청자 : <span id="numView">1</span>
+                    방송시작시간 : <span id="liveStartTime">0000-00-00 00:00:00</span>
+                    <p id="classIntro">강좌소개 : ${room.class_intro}</p>
+                </div>
             </div>
         </div>
     </div>

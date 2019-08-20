@@ -11,7 +11,7 @@
 
         body {
             font: 13px Helvetica, Arial;
-            background: cadetblue;
+            background-color:  1px solid #e4e4e4;
         }
 
         form {
@@ -46,13 +46,41 @@
             height: 100vh;
             overflow-y: scroll;
             overflow-x: hidden;
-            
+            background-color: #9bbbd4;
         }
 
         #info{
-            background-color: coral;
+            padding: 7px;
             width: 78%;
             display: inline-block;
+            font-size: 15px;
+            border-bottom: 1px solid #e4e4e4;
+        }
+
+        #roomTitle{
+            display: inline-block;
+            border-bottom: 1px solid #e4e4e4;
+            margin-bottom: 5px;
+        }
+        
+        #classThumb{
+        	height: 125px;
+            border-radius: 50%;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            float: left;
+        }
+        
+        #casterName{
+        	color: #4279ff;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        #classIntro{
+		  overflow: hidden;
+		  text-overflow: ellipsis;
+		  white-space: nowrap;
         }
 
         #messages {
@@ -86,11 +114,12 @@
         }
 
         #messages li.other{
+        	background: white;
             float: left;
         }
 
         #messages li.me{
-            background: white;
+            
             float: right;
         }
 
