@@ -96,7 +96,17 @@
 	
 			
 <!-- Footer Section -->
+	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 	
+	<script type="text/javascript">
+	jQuery.noConflict();
+	jQuery('#summernote').summernote({
+		  height: 150,   
+		  codemirror: { 
+		    theme: 'monokai'
+		  }
+		});
+	</script>
 	
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>

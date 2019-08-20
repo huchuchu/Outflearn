@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -90,7 +91,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/LectureList")
-	public String LectureListPage(Model model, String txt_search, String page, String class_category) {
+	public String LectureListPage(Model model, String txt_search, String page, String class_category, HttpServletRequest request) {
 		logger.info("txt서치전");
 		
 		int totalCount = biz.selectTotalCount(txt_search);
@@ -117,10 +118,14 @@ public class HomeController {
 		model.addAttribute("txt_search", txt_search);
 		model.addAttribute("class_category", class_category);
 		
+		request.setAttribute("txt_search", txt_search);
+	
 		if(class_category != null) {
 			model.addAttribute("classinfo", biz.CategorySelectList(class_category));
+			
 		} else {
 			model.addAttribute("classinfo", biz.selectListPage(pageNum, pagination.getPageSize(), txt_search));
+		
 		}
 		
 		return "Class/LectureList";

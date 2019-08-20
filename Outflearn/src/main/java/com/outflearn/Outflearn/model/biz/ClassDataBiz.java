@@ -57,8 +57,6 @@ public interface ClassDataBiz {
 		//페이징
 		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search );
 		public int selectTotalCount(String txt_search);
-		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search , String searchOption);
-		public int selectTotalCount(String searchOption, String txt_search);
 		public ClassIntroduceDto ClassIntroduceSelectOne(int class_num);
 		
 		//질문

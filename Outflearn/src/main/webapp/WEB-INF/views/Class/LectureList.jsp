@@ -36,7 +36,7 @@
 		for(var count = 0; count < server1.chlidren());
 		
 		$.ajax({
-		    url:'classCategory, //request 보낼 서버의 경로
+		    url:'classCategory', //request 보낼 서버의 경로
 		    type:'post', // 메소드(get, post, put 등)
 		    success: function(data) {
 		        //서버로부터 정상적으로 응답이 왔을 때 실행
@@ -55,9 +55,9 @@
 
 </head>
 <script type="text/javascript">
-	function PageMove(page,data) {
+	function PageMove(page) {
 
-		location.href = "LectureList?class_category=" + ${class_category} + " &page= " + page + "&searchOption=" + ${searchOption} +"&txt_search=" + $('input#txt_search').val();
+		location.href = "LectureList?page=" + page + "&txt_search=" + $('input#txt_search').val();
 	}
 
 </script>
@@ -207,7 +207,7 @@
 		</div>
 	</div>
 				<!-- Pagination -->
-			<div class="form-group form-inline" >
+			<div class="text-center form-group form-inline" >
 				<a href="javascript:PageMove(${pagination.firstPageNo})"
 					class="button previous">&laquo;</a> <a
 					href="javascript:PageMove(${pagination.prevPageNo})"

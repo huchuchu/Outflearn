@@ -151,19 +151,10 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return (ClassReviewUpdateAnswer + ClassReviewInsertAnswer);
 	}
 
-	@Override
-	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search) {
-		return dao.selectListPage(firstIndex, recordCountPerPage, txt_search);
-	}
-
+	
 	@Override
 	public int selectTotalCount(String txt_search) {
 		return dao.selectTotalCount(txt_search);
-	}
-
-	@Override
-	public int selectTotalCount(String searchOption, String txt_search) {
-		return dao.selectTotalCount(searchOption, txt_search);
 	}
 
 	@Override
@@ -177,9 +168,8 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 	
 	@Override
-	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search,
-			String searchOption) {
-		return dao.selectListPage(firstIndex, recordCountPerPage, txt_search, searchOption);
+	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search) {
+		return dao.selectListPage(firstIndex, recordCountPerPage, txt_search);
 	}
 	
 	@Override

@@ -4,4 +4,5 @@
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
 <fullyQualifiedTypeName name="com.outflearn.Outflearn.service.Pagination"/>
 <fullyQualifiedTypeName name="com.outflearn.Outflearn.dto.ClassInfoDto"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
 </qualifiedTypeNameHistroy>

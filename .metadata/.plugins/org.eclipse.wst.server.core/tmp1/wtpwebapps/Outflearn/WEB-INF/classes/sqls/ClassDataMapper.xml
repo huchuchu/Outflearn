@@ -8,17 +8,6 @@
 		SELECT * FROM CLASS_INFO
 	</select>
 	
-
-   <select id="classinfoselectone" parameterType="map" resultType="ClassInfoDto">
-   	  SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
-   </select>
-   
-     
-	<select id="ClassDateSelectlist" resultType="ClassDataDto">
-		SELECT * FROM CLASS_DATA
-	</select>
-	
-
 	<!-- 해당 강의 조회 -->
     <select id="ClassInfoSelectone" parameterType="map" resultType="ClassInfoDto">
    	  SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
@@ -28,11 +17,18 @@
    	<select id="CategorySelectList" resultType="ClassInfoDto">
    	  	SELECT * FROM CLASS_INFO WHERE CLASS_CATEGORY = #{class_category}
    	</select>
-
+   	
+   	<!-- 장바구니에서 해당 유저가 담은 강의 -->
+	<select id="classInfoSelectListUser" parameterType="int" resultType="ClassInfoDto">
+		SELECT * FROM CLASS_INFO WHERE USER_NUM = #{user_num }
+	</select>
+	
 	<!-- 강의 소개 페이지  -->
 	<insert id="ClassInfoDtoInsert" parameterType="ClassInfoDto">
 		INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL, #{user_num } , #{class_title }, #{class_author }, #{class_intro }, #{class_img }, #{class_live } ,0, #{class_price }, 0, #{class_studentlevel })
 	</insert>
+	
+	
 	
 	<!-- ================== CLASS_DATA 테이블 ================== -->
 	 
@@ -96,34 +92,34 @@
 		AND QA_GROUPSQ > (SELECT QA_GROUPSQ FROM CLASS_REVIEW WHERE BOARD_NO = #{board_no })
 	</update>
 	
-	<!-- ================== Livepage & Mypage 테이블 ================== -->
-	<select id="liveCalendar" resultType="LiveDto">
-		SELECT * FROM LIVE
+	<!-- ================== Basket 테이블 ======================== -->
+	<insert id="classBasketInsert" parameterType="ClassInfoDto">
+		INSERT INTO BASKET VALUES(#{user_num }, #{class_num} )
+	</insert>
+
+	<select id="QASelectList" parameterType="int" resultType="QADto">
+		SELECT * FROM QA WHERE CLASS_NUM = #{class_num}
 	</select>
 	
-	<select id="livePopup" resultType="ClassInfoDto">
-		SELECT * FROM CLASS_INFO WHERE CLASS_NUM = (SELECT CLASS_NUM FROM LIVE WHERE LIVE_NUM = #{live_num})
+	<select id="QASelectOne" parameterType="int" resultType="QADto">
+		SELECT * FROM QA WHERE QA_NUM = #{qa_num}
 	</select>
 	
-	<select id="getMyClass" resultType="ClassInfoDto" parameterType="int">
-		SELECT * FROM CLASS_INFO WHERE USER_NUM = #{user_num}
+	<select id="QAReply" parameterType="int" resultType="QADto">
+		SELECT * FROM QA WHERE QA_GROUP_NO = #{qa_group_no} ORDER BY QA_GROUP_SQ
 	</select>
 	
-	<select id="getWishList" resultType="ClassInfoDto" parameterType="int">
-		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM BASKET WHERE USER_NUM = #{user_num})
-	</select>
+	<insert id="QAInsert" parameterType="QADto">
+		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{qa_title}, #{qa_content}, QA_GROUP_NO_SQ.NEXTVAL, '1')
+	</insert>
 	
-	<select id="getSubscribe" resultType="ClassInfoDto" parameterType="int">
-		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM SUBSCRIBE WHERE USER_NUM = #{user_num})
-	</select>
+	<insert id="QAReplyInsert" parameterType="QADto">
+		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname}, '답글', #{qa_content}, 
+										  (SELECT DISTINCT QA_GROUP_NO FROM QA WHERE QA_GROUP_NO = #{qa_group_no}),
+										  #{qa_group_sq} + 1)
+	</insert>
 	
-	<select id="liveRooms" resultType="ClassInfoDto" parameterType="map">
-		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN
-		<foreach collection="liveRooms" item="item" open="(" close=")" separator=",">
-            #{item}
-        </foreach>
-	</select>
-	<select id="selectListPage" parameterType="map" resultType="ClassInfoDto">
+	<select id="selectListPagetwo" parameterType="map" resultType="ClassInfoDto">
 		SELECT *
 		FROM (SELECT ROWNUM AS RNUM, C.*
 			FROM (	SELECT *
@@ -140,7 +136,7 @@
 			)
 		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
 	</select>
-	<select id="selectListPagetwo" parameterType="map" resultType="ClassInfoDto">
+	<!-- <select id="selectListPagetwo" parameterType="map" resultType="ClassInfoDto">
 		SELECT *
 		FROM (SELECT ROWNUM AS RNUM, C.*
 			FROM ( SELECT *
@@ -154,17 +150,16 @@
 							)
 						</when>
 						<otherwise>
-							WHERE ${searchOption} like '%' || #{txt_search} || '%'
+							WHERE upper(${searchOption}) like '%' || upper(#{txt_search}) || '%'
 						</otherwise>
 					</choose>
 					</if>
 						ORDER BY CLASS_NUM DESC
 			) C
-		
-		
 		)
 		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
-	</select>
+	</select> -->
+
 	<select id="selectTotalCount" parameterType="map" resultType="Integer">
 		SELECT count(*)
 		FROM CLASS_INFO
@@ -174,4 +169,20 @@
 			
 		</if>	
 	</select>
+	
+	<!-- ================== 카테고리 주류, 부류 ================== -->
+	<insert id="mainStreamInsert" parameterType="MainStreamDto">
+		INSERT INTO MAIN_STREAM VALUES(MAIN_SQ.NEXTVAL, #{main_name })
+	</insert>
+	
+	<insert id="subStreamInsert" parameterType="SubStreamDto">
+		INSERT INTO SUB_STREAM VALUES(SUB_SQ.NEXTVAL , MAIN_SQ.CURRVAL, #{sub_name })
+	</insert>
+	
+	<insert id="classCategoryInsert" parameterType="ClassCategoryDto">
+		INSERT INTO CLASS_CATEGORY VALUES(CLASS_INFO_SQ.CURRVAL , MAIN_SQ.CURRVAL, SUB_SQ.CURRVAL)
+	</insert>
+	
+	
+
 </mapper>

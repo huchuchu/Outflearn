@@ -119,7 +119,7 @@
 										  #{qa_group_sq} + 1)
 	</insert>
 	
-	<select id="selectListPage" parameterType="map" resultType="ClassInfoDto">
+	<select id="selectListPagetwo" parameterType="map" resultType="ClassInfoDto">
 		SELECT *
 		FROM (SELECT ROWNUM AS RNUM, C.*
 			FROM (	SELECT *
@@ -136,7 +136,7 @@
 			)
 		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
 	</select>
-	<select id="selectListPagetwo" parameterType="map" resultType="ClassInfoDto">
+	<!-- <select id="selectListPagetwo" parameterType="map" resultType="ClassInfoDto">
 		SELECT *
 		FROM (SELECT ROWNUM AS RNUM, C.*
 			FROM ( SELECT *
@@ -150,7 +150,7 @@
 							)
 						</when>
 						<otherwise>
-							WHERE ${searchOption} like '%' || #{txt_search} || '%'
+							WHERE upper(${searchOption}) like '%' || upper(#{txt_search}) || '%'
 						</otherwise>
 					</choose>
 					</if>
@@ -158,7 +158,7 @@
 			) C
 		)
 		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
-	</select>
+	</select> -->
 
 	<select id="selectTotalCount" parameterType="map" resultType="Integer">
 		SELECT count(*)

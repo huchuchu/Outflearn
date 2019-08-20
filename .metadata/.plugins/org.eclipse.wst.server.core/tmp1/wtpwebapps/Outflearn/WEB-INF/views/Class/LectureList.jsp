@@ -24,11 +24,40 @@
 <!-- Stylesheet ================================================== -->
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+	
+	$(function(){
+		
+		var server1 = $('#server1').val();
+		
+		var chlidren = $('#server1').chiln
+		
+		for(var count = 0; count < server1.chlidren());
+		
+		$.ajax({
+		    url:'classCategory', //request 보낼 서버의 경로
+		    type:'post', // 메소드(get, post, put 등)
+		    success: function(data) {
+		        //서버로부터 정상적으로 응답이 왔을 때 실행
+		    },
+		    error: function(err) {
+		        //서버로부터 응답이 정상적으로 처리되지 못햇을 때 실행
+		    }
+		});
+
+
+		
+	})
+
+</script>
+
+
 </head>
 <script type="text/javascript">
-	function PageMove(page,data) {
+	function PageMove(page) {
 
-		location.href = "LectureList?class_category=" + ${class_category} + " &page= " + page + "&searchOption=" + ${searchOption} +"&txt_search=" + $('input#txt_search').val();
+		location.href = "LectureList?page=" + page + "&txt_search=" + $('input#txt_search').val();
 	}
 
 </script>
@@ -178,7 +207,7 @@
 		</div>
 	</div>
 				<!-- Pagination -->
-			<div class="form-group form-inline" >
+			<div class="text-center form-group form-inline" >
 				<a href="javascript:PageMove(${pagination.firstPageNo})"
 					class="button previous">&laquo;</a> <a
 					href="javascript:PageMove(${pagination.prevPageNo})"
