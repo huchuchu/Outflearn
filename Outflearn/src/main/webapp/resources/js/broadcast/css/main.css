@@ -43,6 +43,10 @@
         #chat{
             float: right;
             min-width: 22%;
+            height: 100vh;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            
         }
 
         #info{
@@ -94,10 +98,6 @@
             text-align: center;
             max-width: 100%;
             background: green;
-        }
-
-        .div-chat-box {
-            overflow-y: auto;
         }
 
         .clickMenu{

@@ -39,7 +39,7 @@ public interface ClassDataDao {
 		// 장바구니 - BASKET 테이블
 		public int classBasketInsert(ClassInfoDto dto);
 		public int classBasketDelete(int class_num);
-			
+		
 		// 댓글 - CLASS_REVIEW 테이블
 		public List <ClassReviewDto> ClassReviewSelectList(int class_num);
 		public ClassReviewDto ClassReviewSelectOne(int review_num);
@@ -66,4 +66,5 @@ public interface ClassDataDao {
 		public List<QADto> QAReply(int qa_group_no); 
 		public int QAInsert(QADto dto);
 		public int QAReplyInsert(QADto dto);
+		public int QAReplyUpdate(QADto dto);
 }

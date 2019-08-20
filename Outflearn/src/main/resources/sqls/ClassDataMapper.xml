@@ -101,6 +101,10 @@
 		SELECT * FROM QA WHERE CLASS_NUM = #{class_num}
 	</select>
 	
+	<insert id="QAInsert" parameterType="QADto">
+		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname},  #{qa_title}, #{qa_content}, QA_GROUP_NO_SQ.NEXTVAL, '1')
+	</insert>
+	
 	<select id="QASelectOne" parameterType="int" resultType="QADto">
 		SELECT * FROM QA WHERE QA_NUM = #{qa_num}
 	</select>
@@ -109,17 +113,17 @@
 		SELECT * FROM QA WHERE QA_GROUP_NO = #{qa_group_no} ORDER BY QA_GROUP_SQ
 	</select>
 	
-	<insert id="QAInsert" parameterType="QADto">
-		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{qa_title}, #{qa_content}, QA_GROUP_NO_SQ.NEXTVAL, '1')
-	</insert>
-	
 	<insert id="QAReplyInsert" parameterType="QADto">
 		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname}, '답글', #{qa_content}, 
 										  (SELECT DISTINCT QA_GROUP_NO FROM QA WHERE QA_GROUP_NO = #{qa_group_no}),
-										  #{qa_group_sq} + 1)
+										  QA_GROUP_NO_SQ.NEXTVAL)
 	</insert>
 	
-	<select id="selectListPagetwo" parameterType="map" resultType="ClassInfoDto">
+	<update id="QAReplyUpdate" parameterType="QADto">
+		UPDATE QA SET QA_CONTENT = ${qa_content} WHERE QA_NUM = #{qa_num} AND QA_GROUP_SQ = #{qa_group_sq}	
+	</update>
+	
+	<select id="selectListPage" parameterType="map" resultType="ClassInfoDto">
 		SELECT *
 		FROM (SELECT ROWNUM AS RNUM, C.*
 			FROM (	SELECT *
@@ -182,7 +186,6 @@
 	<insert id="classCategoryInsert" parameterType="ClassCategoryDto">
 		INSERT INTO CLASS_CATEGORY VALUES(CLASS_INFO_SQ.CURRVAL , MAIN_SQ.CURRVAL, SUB_SQ.CURRVAL)
 	</insert>
-	
 	
 
 </mapper>

@@ -55,10 +55,9 @@
 
 </head>
 <script type="text/javascript">
-	function PageMove(page) {
-
-		location.href = "LectureList?page=" + page + "&txt_search=" + $('input#txt_search').val();
-	}
+function PageMove(page,data) {
+    location.href = "LectureList?page="+page+"&txt_search" + $('input#txt_search').val();
+ }
 
 </script>
 <body>

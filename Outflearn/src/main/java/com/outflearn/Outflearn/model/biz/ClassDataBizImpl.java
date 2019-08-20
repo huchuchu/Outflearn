@@ -215,5 +215,10 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int QAReplyInsert(QADto dto) {
 		return dao.QAReplyInsert(dto);
 	}
+	
+	@Override
+	public int QAReplyUpdate(QADto dto) {
+		return dao.QAReplyUpdate(dto);
+	}
 
 }

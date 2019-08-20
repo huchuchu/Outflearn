@@ -160,7 +160,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	public int ClassChapterDataInsert(ClassDataDto dto) {
 		int res = 0;
 
-		res = sqlSession.update(namespace + "ClassInfoUpdate", dto);
+		res = sqlSession.insert(namespace + "ClassChapterDataInsert", dto);
 
 		return res;
 	}
@@ -388,7 +388,6 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 
-
 	
 	@Override
 	public int QAReplyInsert(QADto dto) {
@@ -396,6 +395,16 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		int res = 0;
 		
 		res = sqlSession.insert(namespace + "QAReplyInsert", dto);
+		
+		return res;
+	}
+	
+	@Override
+	public int QAReplyUpdate(QADto dto) {
+		
+		int res = 0;
+		
+		res = sqlSession.update(namespace + "QAReplyUpdate", dto);
 		
 		return res;
 	}
