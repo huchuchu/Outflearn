@@ -34,8 +34,8 @@ public class myPageDaoImpl implements myPageDao {
 
 
 	@Override
-	public List<ClassInfoDto> getWishList(int user_num) {
-		return sqlSession.selectList(namespace + "getWishList", user_num);
+	public List<ClassInfoDto> getBasketClass(int user_num) {
+		return sqlSession.selectList(namespace + "getBasketClass", user_num);
 	}
 
 

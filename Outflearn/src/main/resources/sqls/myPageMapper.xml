@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="myPage">
 	
-	<select id="getWishList" resultType="ClassInfoDto" parameterType="int">
+	<select id="getBasketClass" resultType="ClassInfoDto" parameterType="int">
 		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM BASKET WHERE USER_NUM = #{user_num})
 	</select>
 	

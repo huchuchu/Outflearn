@@ -12,7 +12,7 @@ import com.outflearn.Outflearn.dto.ClassReviewDto;
 
 public interface myPageBiz {
 		
-		public List<ClassInfoDto> getWishList(int user_num);
+		public List<ClassInfoDto> getBasketClass(int user_num);
 		public List<ClassInfoDto> getSubscribe(int user_num);
 		public List<RoadMapCon> getSubRoadmap(int user_num);
 	

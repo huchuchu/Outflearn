@@ -73,8 +73,11 @@ public class LiveController {
 		
 		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
+		ClassInfoDto liveClass = biz.getClassInfo(room);
+		
 		model.addAttribute("userInfo", dto);
-		model.addAttribute("room", biz.getClassInfo(room));
+		model.addAttribute("room", liveClass);
+		model.addAttribute("casterClassList", biz.getMyClass(liveClass.getUser_num()));
 		
 		
 		return "Live/showLive";

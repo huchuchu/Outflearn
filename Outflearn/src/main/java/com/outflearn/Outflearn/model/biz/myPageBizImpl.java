@@ -25,8 +25,8 @@ public class myPageBizImpl implements myPageBiz {
 	private myPageDao dao;
 
 	@Override
-	public List<ClassInfoDto> getWishList(int user_num) {
-		return dao.getWishList(user_num);
+	public List<ClassInfoDto> getBasketClass(int user_num) {
+		return dao.getBasketClass(user_num);
 	}
 
 	@Override

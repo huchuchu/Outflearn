@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -9,8 +10,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Outflearn</title>
-
+    
+    <!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
+    
+	<link rel="stylesheet" type="text/css" href="resources/css/style.css">
     <link rel="stylesheet" href="resources/js/broadcast/css/main.css" />
+    
+    <!-- css -->
+	<link rel="stylesheet" href="resources/css/LectureList.css">	
+    
     <!-- Sweet Alert2 -->
     <link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
 
@@ -41,6 +50,22 @@
                     방송시작시간 : <span id="liveStartTime">0000-00-00 00:00:00</span>
                     <p id="classIntro">강좌소개 : ${room.class_intro}</p>
                 </div>
+            </div>
+            <div id="otherClassInfo">
+				<c:forEach items="${casterClassList }" var="item">
+					<div class="card">
+						<div>
+							<a href="LectureDetail?class_num=${item.class_num }">
+							<img class="card-img-top" src="${pageContext.request.contextPath }/resources/uploadImage/${item.class_img }"
+								alt="Card image cap">
+								<div class="card-body">
+									<h5 class="card-title">${item.class_title }</h5>
+									<p class="card-text">${item.class_intro }</p>
+								</div>
+							</a>
+						</div>
+					</div>
+				</c:forEach>
             </div>
         </div>
     </div>
