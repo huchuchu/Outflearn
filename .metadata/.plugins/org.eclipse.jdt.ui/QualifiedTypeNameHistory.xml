@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
-<fullyQualifiedTypeName name="com.outflearn.Outflearn.service.Pagination"/>
 <fullyQualifiedTypeName name="com.outflearn.Outflearn.dto.ClassInfoDto"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
+<fullyQualifiedTypeName name="org.slf4j.LoggerFactory"/>
+<fullyQualifiedTypeName name="java.util.logging.Logger"/>
+<fullyQualifiedTypeName name="org.mybatis.logging.Logger"/>
+<fullyQualifiedTypeName name="org.apache.taglibs.standard.lang.jstl.Logger"/>
+<fullyQualifiedTypeName name="org.eclipse.jdt.internal.compiler.batch.Main.Logger"/>
+<fullyQualifiedTypeName name="org.slf4j.Logger"/>
+<fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
+<fullyQualifiedTypeName name="com.outflearn.Outflearn.service.Pagination"/>
+<fullyQualifiedTypeName name="javax.inject.Inject"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ModelAttribute"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMethod"/>
+<fullyQualifiedTypeName name="com.outflearn.Outflearn.service.SearchCriteria"/>
+<fullyQualifiedTypeName name="org.springframework.ui.Model"/>
+<fullyQualifiedTypeName name="org.springframework.web.servlet.ModelAndView"/>
 </qualifiedTypeNameHistroy>

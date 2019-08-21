@@ -46,19 +46,18 @@
 		    }
 		});
 
-
-		
-	})
+	}
+	
+	
 
 </script>
 
 
 </head>
 <script type="text/javascript">
-	function PageMove(page) {
-
-		location.href = "LectureList?page=" + page + "&txt_search=" + $('input#txt_search').val();
-	}
+function PageMove(page,data) {
+    location.href = "LectureList?page="+page+"&txt_search=" + $('input#txt_search').val() + "&searchOption=" + $('#searchOption').val();
+ }
 
 </script>
 <body>
@@ -141,21 +140,23 @@
 			<div class="col-sm-10">
 				<div class="page-header">
 					<h1 id="page-header-content">전체 카테고리</h1>
+					<div class="form-group row justify-content-center">
+						<div class="w100" style="padding-right:10px">
+							<select class="form-control form-control-sm" name="searchOption" id="searchOption">
+								<option value="all">전체</option>
+								<option value="class_title">제목</option>
+								<option value="class_author">작성자</option>
+							</select>
+						</div>
+						<div class="w300" style="padding-right:10px">
+							<input type="text" class="form-control form-control-sm" name="txt_search" id="txt_search" value="${txt_search }" placeholder="검색하기">
+						</div>
+						<div>
+							<button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch" onclick="javascript:PageMove(${pagination.pageNo});">검색</button>
+						</div>
+					</div>
 					<p class="input-group col-sm-4 pull-right">
-						<form name="form1" method="post" action="${pageContext.request.contextPath}/LectureList">
-						<select name="searchOption" id="searchOption">
-							<!-- 검색 조건을 검색 처리 후 결과화면에 보여주기 위해 c:out 출력태그 사용, 삼항연산자.-->
-							<option value="all" <c:out value="${map.searchOption == 'all'?'selected':''}"/>>제목+이름</option>
-							<option value="class_author" <c:out value="${map.searchOption == 'class_author'?'selected':'' }"/>>이름</option>
-							<option value="class_title" <c:out value="${map.searchOption == 'class_title'?'selected':''}"/>>제목</option>
-						</select> 
-						
-						<input type="text" class="form-control" name="txt_search" id="txt_search" placeholder="검색하기">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="submit">검색</button>
-						</span>
-					</form>	
-						
+				
 					</p>
 				</div>
 				<article>
