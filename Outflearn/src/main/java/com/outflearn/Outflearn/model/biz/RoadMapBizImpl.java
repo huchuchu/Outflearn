@@ -55,4 +55,19 @@ public class RoadMapBizImpl implements RoadMapBiz {
 		return dao.classInfoList(subFilter);
 	}
 
+	@Override
+	public List<RoadMapInfoDto> roadMapList() {
+		
+		return dao.roadMapList();
+	}
+
+	@Override
+	public RoadMapInfoDto selectOneRoadMap(String roadNum) {
+	
+		return dao.selectOneRoadMap(roadNum);
+	}
+
+
+
+
 }

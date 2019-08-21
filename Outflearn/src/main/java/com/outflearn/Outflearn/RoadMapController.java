@@ -35,7 +35,20 @@ public class RoadMapController {
 	
 	//로드맵 보기
 	@RequestMapping("/RoadMap")
-	public String roadMapPage() {
+	public String roadMapPage(Model model) {
+		
+		List<MainStreamDto> mainStreamList = biz.mainStreamList();		
+		List<RoadMapInfoDto> roadMapList = biz.roadMapList();
+		
+//
+//		System.out.println("stream갯수"+mainStreamList.size());	
+//		System.out.println("roadMap갯수"+roadMapList.size());
+		//조인 -유저네임 맵으로리턴
+		//유저인포 
+		
+		model.addAttribute("roadList", roadMapList);
+		model.addAttribute("mainList", mainStreamList);		
+
 		return"RoadMap/RoadMapList";
 	}
 	
@@ -130,5 +143,17 @@ public class RoadMapController {
 		model.addAttribute("resList", resList);		
 		return"RoadMap/SearchForm";
 	}
+	
+	@RequestMapping("/roadMapDetail")
+	public String roadMapDetail(@RequestParam String roadNum, Model model) {
+		System.out.println("들어온 번호: "+ roadNum );
+		
+		RoadMapInfoDto dto = biz.selectOneRoadMap(roadNum);
+		System.out.println("dto"+dto);
+		
+		model.addAttribute("roadMap", dto);
+		return"RoadMap/RoadMapDetail";
+	}
+	
 
 }

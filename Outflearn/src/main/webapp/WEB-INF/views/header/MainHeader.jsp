@@ -50,7 +50,7 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-center">
           <li><a href="LectureList">강좌 둘러보기</a></li>
-          <li><a href="void:0">로드맵 학습</a></li>
+          <li><a href="RoadMap">로드맵 학습</a></li>
           <li><a href="introOutflearn">아웃프런 소개</a></li>
           <li><a href="Livepage">라이브</a></li>
         </ul>

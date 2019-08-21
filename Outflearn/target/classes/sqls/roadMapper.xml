@@ -38,5 +38,16 @@ SELECT * FROM CLASS_INFO
 	</trim>	
 </select>
 
+<select id="roadMapList" resultType="RoadMapDto">
+SELECT * FROM ROADMAP_INFO
+</select>
+
+<select id="selectOneRoadMap" parameterType="String" resultType="RoadMapDto">
+
+SELECT * FROM ROADMAP_INFO WHERE ROADMAP_NUM=#{roadNum}
+
+</select>
+
+
 
 </mapper>
