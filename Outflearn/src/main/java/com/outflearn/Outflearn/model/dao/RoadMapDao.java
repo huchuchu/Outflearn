@@ -28,4 +28,8 @@ public interface RoadMapDao {
 	
 	public List<ClassInfoDto> classInfoList(String[] subFilter);
 	
+	public List<RoadMapInfoDto> roadMapList();
+	
+	public RoadMapInfoDto selectOneRoadMap(String roadNum);
+	
 }

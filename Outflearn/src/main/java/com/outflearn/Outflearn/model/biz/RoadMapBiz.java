@@ -22,8 +22,12 @@ public interface RoadMapBiz {
 	
 	public List<MainStreamDto> mainStreamList();
 	
-	public List<SubStreamDto> subStreamList() ;
+	public List<SubStreamDto> subStreamList() ;	
 	
 	public List<ClassInfoDto> classInfoList(String[] subFilter);
+	
+	public List<RoadMapInfoDto> roadMapList();
+	
+	public RoadMapInfoDto selectOneRoadMap(String roadNum);
 
 }

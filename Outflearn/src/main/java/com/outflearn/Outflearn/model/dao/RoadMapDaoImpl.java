@@ -138,4 +138,37 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		return list;
 	}
 
+	@Override
+	public List<RoadMapInfoDto> roadMapList() {
+		
+		List<RoadMapInfoDto> list = new ArrayList<RoadMapInfoDto>();
+		
+		try {
+			list = session.selectList(NAMESPACE+"roadMapList");
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public RoadMapInfoDto selectOneRoadMap(String roadNum) {
+		
+		RoadMapInfoDto dto = new RoadMapInfoDto();
+		
+		try {
+			dto = session.selectOne(NAMESPACE+"selectOneRoadMap", roadNum);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return dto;
+	}
+
+
+
 }
