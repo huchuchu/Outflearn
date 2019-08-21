@@ -18,10 +18,10 @@ var pcConfig = {
     ]
 };
 
-var sdpConstraints = {
-    offerToReceiveAudio: true,
-    offerToReceiveVideo: true
-};
+// var sdpConstraints = {
+//     offerToReceiveAudio: true,
+//     offerToReceiveVideo: true
+// };
 
 // socket
 
@@ -29,8 +29,8 @@ var name = $('#userInfo').attr("name")
 var room = $('#userInfo').attr("room")
 // var room = 2
 
-// var socket = io.connect('https://192.168.10.139:3000');
-var socket = io.connect('https://localhost:3000');
+var socket = io.connect('https://192.168.10.139:3000');
+// var socket = io.connect('https://localhost:3000');
 
 if (room !== "") {
     socket.emit('userJoin', room, name)
@@ -84,11 +84,11 @@ socket.on('roomSetting', function (liveTime) {
 
 // what?
 
-var constraints = {
-    video: true
-};
+// var constraints = {
+//     video: true
+// };
 
-console.log('Getting user media with constraints', constraints);
+// console.log('Getting user media with constraints', constraints);
 
 if (location.hostname !== 'localhost') {
     requestTurn(
@@ -114,26 +114,26 @@ function userSendMessage(msg) {
 var localVideo = document.querySelector('#localVideo')
 var remoteVideo = document.querySelector('#remoteVideo')
 
-function startCast() {
-    navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: { width: { ideal: 1280 }, height: { ideal: 720 } }
-    })
-        .then(gotStream)
-        .catch(function (e) {
-            alert(`getUserMedia 에러!! ${e.name}`)
-        })
-}
+// function startCast() {
+//     navigator.mediaDevices.getUserMedia({
+//         audio: true,
+//         video: { width: { ideal: 1280 }, height: { ideal: 720 } }
+//     })
+//         .then(gotStream)
+//         .catch(function (e) {
+//             alert(`getUserMedia 에러!! ${e.name}`)
+//         })
+// }
 
-function gotStream(stream) {
-    console.log('로컬 스트림 추가');
-    localStream = stream
-    localVideo.srcObject = stream
-}
+// function gotStream(stream) {
+//     console.log('로컬 스트림 추가');
+//     localStream = stream
+//     localVideo.srcObject = stream
+// }
 
-function handleCreateOfferError(event) {
-    console.log('createOffer() error: ', event);
-}
+// function handleCreateOfferError(event) {
+//     console.log('createOffer() error: ', event);
+// }
 
 function sendAnswer() {
     console.log('Sending answer to peer.');
@@ -287,6 +287,28 @@ $(function () {
         if (!$(e.target).is('.nameSpace') && !$(e.target).is('.clickMenu')) {
             $('.clickMenu').css('display', 'none')
         }
+    })
+
+    $('.card').on('click', function (e) {
+        e.preventDefault()
+        Swal.fire({
+            type: 'warning',
+            title: '현재 화면이 종료 됩니다.',
+            text: `${$(this).find('.card-title').text()}로 이동하시겠습니까?`,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '이동',
+            cancelButtonText: '취소'
+        })
+            .then((result) => {
+                if (result.value) {
+                    location.href = `${$(this).find('a').attr('href')}`
+                } else {
+                    return false;
+                }
+            })
+
     })
 
 })
