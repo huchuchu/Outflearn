@@ -43,5 +43,26 @@ public class myPageDaoImpl implements myPageDao {
 	public List<RoadMapCon> getSubRoadmap(int user_num) {
 		return sqlSession.selectList(namespace + "getSubRoadmap", user_num);
 	}
+
+
+	@Override
+	public List<ClassInfoDto> getPreBasketClass(int user_num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<ClassInfoDto> getPreSubscribe(int user_num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<RoadMapCon> getPreSubRoadmap(int user_num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

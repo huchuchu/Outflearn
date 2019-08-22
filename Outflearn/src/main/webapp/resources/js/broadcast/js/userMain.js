@@ -28,8 +28,8 @@ var pcConfig = {
 var name = $('#userInfo').attr("name")
 var room = $('#userInfo').attr("room")
 // var room = 2
-
-var socket = io.connect('https://192.168.10.139:3000');
+// var socket = io.connect('http://192.168.10.139:3000');
+//var socket = io.connect('https://192.168.10.139:3000', { rejectUnauthorized: false });
 // var socket = io.connect('https://localhost:3000');
 
 if (room !== "") {

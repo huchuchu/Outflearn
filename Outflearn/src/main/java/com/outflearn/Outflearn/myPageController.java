@@ -68,6 +68,7 @@ public class myPageController {
 		
 		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
+		
 		return "Member/subRoadmap";
 	}
 	

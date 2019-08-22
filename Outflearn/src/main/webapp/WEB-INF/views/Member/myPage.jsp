@@ -97,9 +97,16 @@
               <div class="col-sm-12">
                 <div class="boardBox">
                   <h4 class="boxTitle">수강중인 강좌</h4>
-                  <c:forEach items="${subClass }" var="item">
-                    강좌명 : ${item.class_title}
-                  </c:forEach>
+                  <c:choose>
+                  	<c:when test="${empty subClass }">
+                  		<h5>수강중인 강좌가 없습니다...ㅠㅠ</h5>
+                  	</c:when>
+                  	<c:otherwise>
+                  		<c:forEach items="${subClass }" var="item">
+		                    강좌명 : ${item.class_title}
+		                </c:forEach>
+                  	</c:otherwise>
+                  </c:choose>
                 </div>
               </div>
             </div>
@@ -123,9 +130,17 @@
               <div class="col-sm-6">
                 <div class="boardBox">
                   <h4 class="boxTitle">장바구니</h4>
-                  <c:forEach items="${basketClass }" var="item">
-                    강좌명 : ${item.class_title}
-                  </c:forEach>
+	                  <c:choose>
+	                  	<c:when test="${empty basketClass }">
+	                  		<h5>장바구니가 비었습니다...ㅠㅠ</h5>
+	                  	</c:when>
+	                  	<c:otherwise>
+	                  		<c:forEach items="${basketClass }" var="item">
+                    			강좌명 : ${item.class_title}
+                 			 </c:forEach>
+	                  	</c:otherwise>
+	                  </c:choose>
+                  
                 </div>
               </div>
 

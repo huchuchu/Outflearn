@@ -39,5 +39,23 @@ public class myPageBizImpl implements myPageBiz {
 		return dao.getSubRoadmap(user_num);
 	}
 
+	@Override
+	public List<ClassInfoDto> getPreBasketClass(int user_num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ClassInfoDto> getPreSubscribe(int user_num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<RoadMapCon> getPreSubRoadmap(int user_num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 		
 }

@@ -1,7 +1,9 @@
 $(function () {
 
     // var socket = io.connect('https://localhost:3000');
-    var socket = io.connect('https://192.168.10.139:3000');
+    // var socket = io.connect('https://192.168.10.139:3000', { rejectUnauthorized: false });
+    // var socket = io.connect('http://192.168.10.139:3000');
+
 
     socket.emit('bringRoom')
 
