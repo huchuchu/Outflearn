@@ -115,10 +115,7 @@ float: left;
 														<i class="fas fa-user"></i>
 														<span class="social_cnt">${roadDto.roadmap_subscribe }</span>&nbsp;&nbsp;
 													</div>
-													<div class="social_item">
-														<i class="fas fa-heart"></i>
-														<span class="social_cnt">${roadDto.roadmap_like }</span>&nbsp;&nbsp;
-													</div>
+
 													<div class="social_item">
 														<i class="fas fa-share-alt"></i>
 														<span class="social_cnt">${roadDto.roadmap_share }</span>

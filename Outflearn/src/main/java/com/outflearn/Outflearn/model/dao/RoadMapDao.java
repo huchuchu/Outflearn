@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
+import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
 
@@ -31,5 +32,16 @@ public interface RoadMapDao {
 	public List<RoadMapInfoDto> roadMapList();
 	
 	public RoadMapInfoDto selectOneRoadMap(String roadNum);
+	
+	public List<RoadMapCon> RoadMapConList(String roadNum);
+	
+	public List<ClassInfoDto> RoadClassInfoList(List<Integer> list);
+	
+	public int roadMapSubscribeInsert(String roadNum, String userNum);
+	
+	public int updateRoadSubscribe(String roandNum);
+	
+	
+	
 	
 }

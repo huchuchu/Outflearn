@@ -11,6 +11,8 @@
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="resources/js/tableDnD/jquery.tablednd.js"></script>
 
+
+
 <style type="text/css">
 .dragRow{
 background-color: #6372ff;
@@ -90,7 +92,7 @@ function addSession(){
 
 
 
-<input type="button" value="로드맵1p 수정하기">
+<input type="button" value="로드맵1p 수정하기" >
 
 <script type="text/javascript">
 
