@@ -103,7 +103,7 @@
                   	</c:when>
                   	<c:otherwise>
                   		<c:forEach items="${subClass }" var="item">
-		                    강좌명 : ${item.class_title}
+		                    <p>강좌명 : ${item.class_title}</p>
 		                </c:forEach>
                   	</c:otherwise>
                   </c:choose>
@@ -136,7 +136,7 @@
 	                  	</c:when>
 	                  	<c:otherwise>
 	                  		<c:forEach items="${basketClass }" var="item">
-                    			강좌명 : ${item.class_title}
+                    			<p>강좌명 : ${item.class_title}</p>
                  			 </c:forEach>
 	                  	</c:otherwise>
 	                  </c:choose>

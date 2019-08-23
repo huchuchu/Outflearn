@@ -1,24 +1,13 @@
 package com.outflearn.Outflearn.model.dao;
 
-import java.sql.SQLWarning;
-
-import java.util.ArrayList;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
-import com.outflearn.Outflearn.dto.ClassIntroduceDto;
-import com.outflearn.Outflearn.dto.LiveDto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
-import com.outflearn.Outflearn.dto.connectUserClass;
-import com.outflearn.Outflearn.dto.ClassReviewDto;
 
 @Repository
 public class myPageDaoImpl implements myPageDao {
@@ -47,22 +36,19 @@ public class myPageDaoImpl implements myPageDao {
 
 	@Override
 	public List<ClassInfoDto> getPreBasketClass(int user_num) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList(namespace + "getPreBasketClass", user_num);
 	}
 
 
 	@Override
 	public List<ClassInfoDto> getPreSubscribe(int user_num) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList(namespace + "getPreSubscribe", user_num);
 	}
 
 
 	@Override
 	public List<RoadMapCon> getPreSubRoadmap(int user_num) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList(namespace + "getPreSubRoadmap", user_num);
 	}
 	
 }

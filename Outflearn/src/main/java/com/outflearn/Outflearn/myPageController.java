@@ -38,8 +38,9 @@ public class myPageController {
 		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		model.addAttribute("userInfo", dto);
-		model.addAttribute("basketClass", biz.getBasketClass(dto.getUser_num()));
-		model.addAttribute("subClass", biz.getSubscribe(dto.getUser_num()));
+		model.addAttribute("basketClass", biz.getPreBasketClass(dto.getUser_num()));
+		model.addAttribute("subClass", biz.getPreSubscribe(dto.getUser_num()));
+		model.addAttribute("subRoadmap", biz.getPreSubRoadmap(dto.getUser_num()));
 
 		return "Member/myPage";
 	}

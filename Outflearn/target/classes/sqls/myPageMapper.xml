@@ -11,7 +11,19 @@
 	</select>
 	
 	<select id="getSubRoadmap" resultType="ClassInfoDto" parameterType="int">
-		SELECT * FROM CLASS_INFO
+		SELECT * FROM ROADMAP_INFO
+	</select>
+	
+	<select id="getPreBasketClass" resultType="ClassInfoDto" parameterType="int">
+		<![CDATA[ SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM BASKET WHERE USER_NUM = #{user_num}) AND ROWNUM < 6 ]]>
+	</select>
+	
+	<select id="getPreSubscribe" resultType="ClassInfoDto" parameterType="int">
+		<![CDATA[ SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM SUBSCRIBE WHERE USER_NUM = #{user_num}) AND ROWNUM < 6 ]]>
+	</select>
+	
+	<select id="getPreSubRoadmap" resultType="ClassInfoDto" parameterType="int">
+		<![CDATA[ SELECT * FROM CLASS_INFO WHERE ROWNUM < 6 ]]>
 	</select>
 
 </mapper>

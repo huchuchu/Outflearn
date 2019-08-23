@@ -41,20 +41,17 @@ public class myPageBizImpl implements myPageBiz {
 
 	@Override
 	public List<ClassInfoDto> getPreBasketClass(int user_num) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getPreBasketClass(user_num);
 	}
 
 	@Override
 	public List<ClassInfoDto> getPreSubscribe(int user_num) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getPreSubscribe(user_num);
 	}
 
 	@Override
 	public List<RoadMapCon> getPreSubRoadmap(int user_num) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getPreSubRoadmap(user_num);
 	}
 
 		
