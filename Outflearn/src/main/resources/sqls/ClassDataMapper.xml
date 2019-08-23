@@ -20,7 +20,7 @@
    	
    	<!-- 장바구니에서 해당 유저가 담은 강의 -->
 	<select id="classInfoSelectListUser" parameterType="int" resultType="ClassInfoDto">
-		SELECT * FROM CLASS_INFO WHERE USER_NUM = #{user_num }
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN (SELECT DISTINCT CLASS_NUM FROM BASKET WHERE USER_NUM = #{user_num })
 	</select>
 	
 	<!-- 강의 소개 페이지  -->
@@ -28,6 +28,10 @@
 		INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL, #{user_num } , #{class_title }, #{class_author }, #{class_intro }, #{class_img }, #{class_live } ,0, #{class_price }, 0, #{class_studentlevel })
 	</insert>
 	
+	<!-- 부류 강의 소개 -->
+	<select id="ClassSubName" resultType="ClassInfoDto">
+	SELECT * FROM CLASS_INFO WHERE CLASS_NUM = (SELECT CLASS_NUM FROM CLASS_CATEGORY WHERE SUB_NUM= #{sub_num })
+	</select>
 	
 	
 	<!-- ================== CLASS_DATA 테이블 ================== -->
@@ -99,10 +103,10 @@
 
 	
 	<delete id="classBasketDelete" parameterType="int">
-		DELETE FROM BASKET WHERE CLASS_NUM = ${class_num }
+		DELETE FROM BASKET WHERE CLASS_NUM = #{class_num }
 	</delete>
 	
-
+	
 	<select id="QASelectList" parameterType="int" resultType="QADto">
 		SELECT * FROM QA WHERE CLASS_NUM = #{class_num}
 	</select>
@@ -162,7 +166,7 @@
 					</choose>
 					</if>
 						ORDER BY CLASS_NUM DESC
-			) C
+			) 
 		)
 		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
 	</select>
@@ -178,18 +182,12 @@
 	</select>
 	
 	<!-- ================== 카테고리 주류, 부류 ================== -->
-	<insert id="mainStreamInsert" parameterType="MainStreamDto">
-		INSERT INTO MAIN_STREAM VALUES(MAIN_SQ.NEXTVAL, #{main_name })
+	<insert id="ClassCategoryInsert" parameterType="hashmap" >
+		INSERT INTO CLASS_CATEGORY VALUES(CLASS_INFO_SQ.CURRVAL , #{main_num }, #{sub_num })
 	</insert>
 	
-	<insert id="subStreamInsert" parameterType="SubStreamDto">
-		INSERT INTO SUB_STREAM VALUES(SUB_SQ.NEXTVAL , MAIN_SQ.CURRVAL, #{sub_name })
-	</insert>
+	<select id="MainStreamSelectOne" parameterType="int" resultType="subStreamDto">
+		SELECT * FROM SUB_STREAM WHERE MAIN_NUM = #{main_num }
+	</select>
 	
-	<insert id="classCategoryInsert" parameterType="ClassCategoryDto">
-		INSERT INTO CLASS_CATEGORY VALUES(CLASS_INFO_SQ.CURRVAL , MAIN_SQ.CURRVAL, SUB_SQ.CURRVAL)
-	</insert>
-	
-	
-
 </mapper>

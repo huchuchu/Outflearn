@@ -53,6 +53,13 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		
 		return dao.ClassInfoInsert(dto);
 	}
+	
+	@Override
+	public List<ClassInfoDto> ClassSubName(int sub_num) {
+		System.out.println("비즈오니?");
+		return dao.ClassSubName(sub_num);
+	}
+
 
 //	---------------------------------------------------	강좌 소개(CLASS_INTRODUCE)
 	@Override
@@ -187,24 +194,31 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return dao.QASelectList(class_num);
 	}
 	
-	// 주류
+	@Override
+	public List<SubStreamDto> MainStreamSelectOne(int main_num) {
+	
+		return dao.MainStreamSelectOne(main_num);
+	}
+	
+	/* 주류
 	@Override
 	public int mainStreamInsert(MainStreamDto dto) {
 		
 		return dao.mainStreamInsert(dto);
 	}
-	
-	// 부류
+	*/
+	/* 부류
 	@Override
 	public int subStreamInsert(SubStreamDto dto) {
 		
 		return dao.subStreamInsert(dto);
 	}
-
-	@Override
-	public int ClassCategoryInsert(ClassCategoryDto dto) {
+	*/
 	
-		return dao.ClassCategoryInsert(dto);
+	@Override
+	public int ClassCategoryInsert(int main_num, int sub_num) {
+	
+		return dao.ClassCategoryInsert(main_num, sub_num);
 	}
 		
 	public QADto QASelectOne(int qa_num) {
@@ -225,5 +239,9 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int QAReplyInsert(QADto dto) {
 		return dao.QAReplyInsert(dto);
 	}
+
+
+
+	
 
 }
