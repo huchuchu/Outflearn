@@ -22,6 +22,7 @@ public interface ClassDataBiz {
 		public ClassInfoDto ClassInfoSelectOne(int class_num);
 		public List<ClassInfoDto>  classInfoSelectListUser(int user_num);
 		public int ClassInfoInsert(ClassInfoDto dto);
+		public List<ClassInfoDto> ClassSubName(int sub_num);
 		
 	
 		// 강좌 소개 - CLASS_INTRODUCE 테이블
@@ -50,9 +51,10 @@ public interface ClassDataBiz {
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);
 		
 		// 주류, 부류 - MAIN_STREAM , SUB_STREAM
-		public int mainStreamInsert(MainStreamDto dto);
-		public int subStreamInsert(SubStreamDto dto);
-		public int ClassCategoryInsert(ClassCategoryDto dto);
+		//public int mainStreamInsert(MainStreamDto dto);
+		//public int subStreamInsert(SubStreamDto dto);
+		public List<SubStreamDto> MainStreamSelectOne(int main_num);
+		public int ClassCategoryInsert(int main_num, int sub_num);
 	
 		//페이징
 		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search );

@@ -53,6 +53,7 @@
           <li><a href="RoadMap">로드맵 학습</a></li>
           <li><a href="introOutflearn">아웃프런 소개</a></li>
           <li><a href="Livepage">라이브</a></li>
+          <li><a href="basketSelect">장바구니</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown"><a href="void:0" class="dropdown-toggle" data-toggle="dropdown"><i class="far fa-user" style="color: #6372ff "></i><div class="dropdown-menu" role="menu" aria-expanded="navbarDropdown">
