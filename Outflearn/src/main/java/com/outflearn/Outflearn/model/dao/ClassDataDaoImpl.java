@@ -14,12 +14,8 @@ import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
-import com.outflearn.Outflearn.dto.LiveDto;
-import com.outflearn.Outflearn.dto.MainStreamDto;
-import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.dto.QADto;
-import com.outflearn.Outflearn.dto.ClassReviewDto;
-import com.outflearn.Outflearn.dto.LiveDto;
+import com.outflearn.Outflearn.dto.SubStreamDto;
 
 @Repository
 public class ClassDataDaoImpl implements ClassDataDao {
@@ -79,6 +75,19 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 		return res;
 	}
+	
+	@Override
+	public List<ClassInfoDto> ClassSubName(int sub_num) {
+		System.out.println("왜 안와??" + sub_num);
+		
+		
+		List<ClassInfoDto> list = sqlSession.selectList(namespace + "ClassSubName", sub_num); 
+
+		
+		System.out.println("여기오니??");
+		return list;
+	}
+
 
 // --------------------------------------------------- 강좌 내용(CLASS_INTRODUCE)
 	@Override
@@ -296,7 +305,46 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 	
+	@Override
+	public int selectTotalCount(String searchOption, String txt_search) {
+
+		int res = 0;
 		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("txt_search", txt_search);
+		res = sqlSession.selectOne(namespace + "selectTotalCount", map);
+		
+		return res;
+	}
+	
+	@Override
+	public List<SubStreamDto> MainStreamSelectOne(int main_num) {
+		
+		List<SubStreamDto> list = new ArrayList<SubStreamDto>();
+
+		try {
+			list = sqlSession.selectList(namespace + "MainStreamSelectOne", main_num);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+	
+	@Override
+	public int ClassCategoryInsert(int main_num, int sub_num) {
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("main_num", main_num);
+		map.put("sub_num", sub_num);
+		
+		int list = sqlSession.insert(namespace + "ClassCategoryInsert", map); 
+		
+		return list;
+	}	
+/*		
 	@Override
 	public int mainStreamInsert(MainStreamDto dto) {
 		
@@ -313,6 +361,8 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 
+*/
+	
 	@Override
 	public List<QADto> QASelectList(int class_num) {
 		
@@ -335,12 +385,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return dto;
 	}
 	
-	@Override
-	public int ClassCategoryInsert(ClassCategoryDto dto) {
 	
-		int res = sqlSession.insert(namespace + "classCategoryInsert", dto); 
-		return res;
-	}
 
 	@Override
 	public List<QADto> QAReply(int qa_group_no) {
@@ -386,5 +431,10 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		
 		return res;
 	}
+
+
+
+
+
 
 }
