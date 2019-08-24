@@ -38,5 +38,37 @@ SELECT * FROM CLASS_INFO
 	</trim>	
 </select>
 
+<select id="roadMapList" resultType="RoadMapDto">
+SELECT * FROM ROADMAP_INFO
+</select>
+
+<select id="selectOneRoadMap" parameterType="String" resultType="RoadMapDto">
+SELECT * FROM ROADMAP_INFO WHERE ROADMAP_NUM=#{roadNum}
+</select>
+
+<select id="roadMapConlist" parameterType="String" resultType="com.outflearn.Outflearn.dto.RoadMapCon">
+SELECT * FROM ROADMAP_CON WHERE ROADMAP_NUM=#{roadNum} ORDER BY ROADMAP_CUE
+</select>
+
+<select id="RoadClassInfoList" resultType="ClassInfoDto" parameterType="map">
+SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN
+	<foreach collection="roadClassList" item="item" open="(" separator="," close=")">
+		#{item}
+	</foreach>
+</select>
+
+
+<insert id="roadMapSubscribeInsert" parameterType="map" >
+INSERT INTO ROADMAP_SUBSCRIBE VALUES(#{userNum},#{roadNum})
+</insert>
+
+<update id="updatesubScribe" parameterType="String">
+UPDATE ROADMAP_INFO SET ROADMAP_SUBSCRIBE = ROADMAP_SUBSCRIBE+1 WHERE ROADMAP_NUM =#{roandNum}
+</update>
+
+<select id="roadJoinChk" parameterType="map" resultType="int">
+SELECT COUNT(*) FROM ROADMAP_SUBSCRIBE WHERE USER_NUM=#{userNum} AND ROADMAP_NUM=#{roadNum}
+</select>
+
 
 </mapper>

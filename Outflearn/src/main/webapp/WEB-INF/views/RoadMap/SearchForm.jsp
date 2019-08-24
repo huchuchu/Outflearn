@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
 
 <!-- slimSelect -->
-<!-- <script type="text/javascript" src="resources/js/slimSelect/slimselect.js"></script> -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.23.0/slimselect.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.23.0/slimselect.min.css" rel="stylesheet"></link>
 
@@ -39,6 +39,19 @@
 				<c:forEach items="${resList }" var="resDto">
 					<tr>
 						<td>
+						<div>
+							<div id="img">
+								<img src="${pageContext.request.contextPath }/resources/uploadImage/${resDto.class_img }" alt="썸네일" class="col-md-3">
+							</div>
+						
+						
+						</div>
+						
+						
+						
+						
+						
+						
 						<input type="text" name="resTitle" value="${resDto.class_title }" id="title${resDto.class_num }">					
 						<input type="text" name="resNum" value="${resDto.class_num }" id="num${resDto.class_num }">
 						</td>
