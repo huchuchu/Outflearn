@@ -4,13 +4,14 @@ package com.outflearn.Outflearn;
 
 
 import java.util.ArrayList;
-
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -21,6 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
@@ -152,9 +155,9 @@ public class RoadMapController {
 	
 	//로드맵 보기
 	@RequestMapping("/roadMapDetail")
-	public String roadMapDetail(@RequestParam String roadNum, Model model, ServletRequest request) {
+	public String roadMapDetail(@RequestParam String roadNum, Model model, ServletRequest request ) {
 		System.out.println("로드맵번호 번호: "+ roadNum );
-		//로드맵 번호로 리트스받아옴
+		//로드맵 번호로 로드맵 인포를 받아옴
 		RoadMapInfoDto dto = biz.selectOneRoadMap(roadNum);
 		
 		//로드맵 번호로 roamapCon에서 classNum들 받아옴
@@ -174,7 +177,7 @@ public class RoadMapController {
 		//class_Num으로 class_infoList받아옴
 		List<ClassInfoDto> resList = biz.RoadClassInfoList(classNumList);
 		System.out.println(resList.size()+"+++++++++++++++++++++");
-		
+		//현재 주소 받기
 		HttpServletRequest req = (HttpServletRequest)request;
 		String Http =StringUtils.defaultString(req.getScheme());
 		int serverPort = req.getServerPort();
@@ -185,34 +188,67 @@ public class RoadMapController {
 		String URL = Http+"://"+serverName+":"+serverPort+"/"+url+"?"+queryString;
 		System.out.println(URL);
 		
+		
+		
 		model.addAttribute("URL", URL); //현재 주소
 		model.addAttribute("resList", resList);//classInfo
-		model.addAttribute("conList", list);//roadMapCon
 		model.addAttribute("roadMap", dto); //roadMapInfo
 		return"RoadMap/RoadMapDetail";
 	}
 	
 	//로드맵 구독
-	@RequestMapping("/roadMapJoin")
-	public String roadMapJoin(@RequestParam String roadnum, @RequestParam String usernum) {
+	@RequestMapping("/roadMapJoin")	
+	@ResponseBody
+	public Map<String, Boolean> roadMapJoin(@RequestParam String roadnum, @RequestParam String usernum) {
+		
+	boolean res = false;
+	
+	System.out.println("res+++"+res);
 				
 	int subRes = biz.roadMapSubscribeInsert(roadnum, usernum); //로드맵 구독 insert
 	int roadRes= biz.updateRoadSubscribe(roadnum); //roadmap subscribe update
+	
+	Map<String,Boolean> map = new HashMap<String,Boolean>();
 		
-	if(subRes>0) {
-		System.out.println("로드맵 구독 insert 성공");
+	if(subRes>0 && roadRes>0) {
+		System.out.println("로드맵 구독 insert & roadmap subscribe update성공 ");
+		res = true;
+		map.put("res",res);
 	}else {
-		System.out.println("로드맵 구독 insert 실패");
+		System.out.println("로드맵 구독 insert or roadmap subscribe update 실패");		
+		res = false;
+		map.put("res",res);
+		
+	}	
+	
+	System.out.println("res+++"+res);
+	
+		return map;
 	}
 	
-	if(roadRes>0) {
-		System.out.println("roadmap subscribe update성공");
-	}else {
-		System.out.println("roadmap subscribe update실패");
-	}
+	@RequestMapping("/roadJoinChk")
+	@ResponseBody
+	public Map<String,Boolean> roadJoinChk(@RequestParam String roadnum, @RequestParam String usernum) {
+		System.out.println("roadJoinChk+++");
+		System.out.println(roadnum);
+		System.out.println(usernum);
 		
+		boolean roadChk = false;
+		Map<String, Boolean> map = new HashMap<String,Boolean>();
+				
+		int res = biz.roadJoinChk(roadnum, usernum);
+		System.out.println("res는!!!"+res);
 		
-		return "";
+		if(res>0) {
+			roadChk = true;
+			map.put("roadChk", roadChk);
+		}else {
+			roadChk = false;
+			map.put("roadChk", roadChk);
+		}
+		
+		System.out.println(roadChk);
+		return map;
 	}
 	
 

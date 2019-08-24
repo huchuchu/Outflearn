@@ -64,7 +64,11 @@ INSERT INTO ROADMAP_SUBSCRIBE VALUES(#{userNum},#{roadNum})
 
 <update id="updatesubScribe" parameterType="String">
 UPDATE ROADMAP_INFO SET ROADMAP_SUBSCRIBE = ROADMAP_SUBSCRIBE+1 WHERE ROADMAP_NUM =#{roandNum}
-
 </update>
+
+<select id="roadJoinChk" parameterType="map" resultType="int">
+SELECT COUNT(*) FROM ROADMAP_SUBSCRIBE WHERE USER_NUM=#{userNum} AND ROADMAP_NUM=#{roadNum}
+</select>
+
 
 </mapper>

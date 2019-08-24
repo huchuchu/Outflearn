@@ -91,6 +91,12 @@ public class RoadMapBizImpl implements RoadMapBiz {
 		
 		return dao.updateRoadSubscribe(roandNum);
 	}
+
+	@Override
+	public int roadJoinChk(String roadNum, String userNum) {
+		
+		return dao.roadJoinChk(roadNum, userNum);
+	}
 	
 	
 

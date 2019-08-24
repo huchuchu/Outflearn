@@ -38,5 +38,7 @@ public interface RoadMapBiz {
 	public int roadMapSubscribeInsert(String roadNum, String userNum);
 	
 	public int updateRoadSubscribe(String roandNum);
+	
+	public int roadJoinChk(String roadNum, String userNum);
 
 }

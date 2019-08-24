@@ -41,6 +41,8 @@ public interface RoadMapDao {
 	
 	public int updateRoadSubscribe(String roandNum);
 	
+	public int roadJoinChk(String roadNum, String userNum);
+	
 	
 	
 	

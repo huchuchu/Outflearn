@@ -234,6 +234,23 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		return res;
 	}
 
+	@Override
+	public int roadJoinChk(String roadNum, String userNum) {
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String,String>();
+		map.put("userNum",userNum);
+		map.put("roadNum",roadNum);		
+		
+		try {
+			res = session.selectOne(NAMESPACE+"roadJoinChk", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+
 
 
 }
