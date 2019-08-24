@@ -53,7 +53,7 @@
                     <p id="classIntro">강좌소개 : ${room.class_intro}</p>
                 </div>
             </div>
-        </div>
+x1        </div>
     </div>
 
     <!-- This file is automatically added/served when running "node index.js". -->
