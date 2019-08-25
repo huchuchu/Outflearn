@@ -69,7 +69,6 @@
               <a href="void:0">설정</a>
               <ul class="inner_menu">
                 <li><a href="configProfile">프로필 설정</a></li>
-                <li><a href="configAlarm">알림 설정</a></li>
               </ul>
             </li>
 
@@ -140,7 +139,6 @@
                  			 </c:forEach>
 	                  	</c:otherwise>
 	                  </c:choose>
-                  
                 </div>
               </div>
 
@@ -151,12 +149,32 @@
               <div class="col-sm-6">
                 <div class="boardBox">
                   <h4 class="boxTitle">참여중인 로드맵</h4>
+	                  <c:choose>
+	                  	<c:when test="${empty subRoadmap }">
+	                  		<h5>참여중인 로드맵이 없습니다...ㅠㅠ</h5>
+	                  	</c:when>
+	                  	<c:otherwise>
+	                  		<c:forEach items="${subRoadmap }" var="item">
+                    			<p>로드맵 : ${item.roadmap_title}</p>
+                 			 </c:forEach>
+	                  	</c:otherwise>
+	                  </c:choose>
                 </div>
               </div>
 
               <div class="col-sm-6">
                 <div class="boardBox">
                   <h4 class="boxTitle">최근 내 질문</h4>
+	                  <c:choose>
+	                  	<c:when test="${empty preQA }">
+	                  		<h5>질문이 없습니다...ㅠㅠ</h5>
+	                  	</c:when>
+	                  	<c:otherwise>
+	                  		<c:forEach items="${preQA }" var="item">
+                    			<p>질문명 : ${item.qa_title}</p>
+                 			 </c:forEach>
+	                  	</c:otherwise>
+	                  </c:choose>
                 </div>
               </div>
 

@@ -50,7 +50,7 @@
               <a href="void:0">내 강좌</a>
               <ul class="inner_menu">
                 <li><a href="listenClass">수강중인 강좌</a></li>
-                <li><a href="basketClass">장바구니</a></li>
+                <li><a href="basketSelect">장바구니</a></li>
               </ul>
             </li>
 
@@ -69,7 +69,6 @@
               <a href="void:0">설정</a>
               <ul class="inner_menu">
                 <li><a href="configProfile" class="selectMenu">프로필 설정</a></li>
-                <li><a href="configAlarm">알림 설정</a></li>
               </ul>
             </li>
 
@@ -97,7 +96,14 @@
               <div class="col-sm-12">
                 <div class="boardBox">
                   <h4 class="boxTitle">프로필 설정</h4>
-
+                  <p>닉네임 : ${userInfo.user_nickname}</p>
+                  <p>이메일 : ${userInfo.user_email}</p>
+                  <p>등급 :
+                    <sec:authentication property="principal.Authorities" var="grade" />
+                    <c:if test="${grade eq '[ROLE_USER]'}"> 유저에요 </c:if>
+                    <c:if test="${grade eq '[ROLE_ADMIN]'}"> 어드민이에요 </c:if>
+                    <c:if test="${grade eq '[ROLE_TUTOR]'}"> 강사에요 </c:if>
+                  </p>
                 </div>
               </div>
             </div>
