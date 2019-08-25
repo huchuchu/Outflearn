@@ -15,6 +15,7 @@ import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
+import com.outflearn.Outflearn.dto.RoadUserCombineDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
 
 @Repository
@@ -140,6 +141,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		return list;
 	}
 
+	//로드맵 리스트
 	@Override
 	public List<RoadMapInfoDto> roadMapList() {
 		
@@ -172,9 +174,9 @@ public class RoadMapDaoImpl implements RoadMapDao {
 	}
 
 	@Override
-	public List<RoadMapCon> RoadMapConList(String roadNum) {
+	public List<Integer> RoadMapConList(String roadNum) {
 		
-		List<RoadMapCon> list = new ArrayList<RoadMapCon>();
+		List<Integer> list = new ArrayList<Integer>();
 		
 		try {
 		list = session.selectList(NAMESPACE+"roadMapConlist", roadNum);	
@@ -226,7 +228,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		int res=0;
 		
 		try{
-			res = session.update(NAMESPACE+"updatesubScribe", roandNum);
+			res = session.update(NAMESPACE+"updateSubscribe", roandNum);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -249,6 +251,64 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		}
 		
 		return res;
+	}
+
+	@Override
+	public int roadMapSubscribeDelete(String roadNum, String userNum) {
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String,String>();
+		map.put("userNum",userNum);
+		map.put("roadNum",roadNum);			
+		
+		try {
+			res = session.delete(NAMESPACE+"roadMapSubscribeDelete", map);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}	
+		
+		return res;
+	}
+
+	@Override
+	public int deleteRoadSubscribe(String roadNum) {
+		int res = 0;
+		
+		try {
+			res = session.update(NAMESPACE+"deleteSubScribe", roadNum);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+
+	@Override
+	public List<RoadUserCombineDto> roadMapComList() {
+		
+		List<RoadUserCombineDto> list = new ArrayList<RoadUserCombineDto>();
+		try {
+			list = session.selectList(NAMESPACE+"roadComList");
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return list;
+	}
+
+	@Override
+	public RoadUserCombineDto roadMapComSelectOne(String roadNum) {
+		
+		RoadUserCombineDto dto = new RoadUserCombineDto();
+		
+		try {
+			dto = session.selectOne(NAMESPACE+"roadComOne", roadNum);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
 	}
 
 

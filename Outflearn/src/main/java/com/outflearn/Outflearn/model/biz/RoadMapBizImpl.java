@@ -11,6 +11,7 @@ import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
+import com.outflearn.Outflearn.dto.RoadUserCombineDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.model.dao.RoadMapDao;
 
@@ -69,7 +70,7 @@ public class RoadMapBizImpl implements RoadMapBiz {
 	}
 
 	@Override
-	public List<RoadMapCon> RoadMapConList(String roadNum) {
+	public List<Integer> RoadMapConList(String roadNum) {
 		
 		return dao.RoadMapConList(roadNum);
 	}
@@ -96,6 +97,30 @@ public class RoadMapBizImpl implements RoadMapBiz {
 	public int roadJoinChk(String roadNum, String userNum) {
 		
 		return dao.roadJoinChk(roadNum, userNum);
+	}
+
+	@Override
+	public int roadMapSubscribeDelete(String roadNum, String userNum) {
+		
+		return dao.roadMapSubscribeDelete(roadNum, userNum);
+	}
+
+	@Override
+	public int deleteRoadSubscribe(String roadNum) {
+		
+		return dao.deleteRoadSubscribe(roadNum);
+	}
+
+	@Override
+	public List<RoadUserCombineDto> roadMapComList() {
+		
+		return dao.roadMapComList();
+	}
+
+	@Override
+	public RoadUserCombineDto roadMapComSelectOne(String roadNum) {
+		
+		return dao.roadMapComSelectOne(roadNum);
 	}
 	
 	

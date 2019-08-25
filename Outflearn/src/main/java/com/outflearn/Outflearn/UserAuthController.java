@@ -14,6 +14,7 @@ import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -95,8 +96,11 @@ public class UserAuthController {
 //		return "redirect:loginform";
 //	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("sulkiki")
 	public String Sulkiki() {
+		
+		
 		
 		return"test02";
 	}
@@ -181,6 +185,8 @@ public class UserAuthController {
 		session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
 		
 	}
+	
+	
 	
 
 	

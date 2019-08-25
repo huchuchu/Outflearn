@@ -46,8 +46,8 @@ SELECT * FROM ROADMAP_INFO
 SELECT * FROM ROADMAP_INFO WHERE ROADMAP_NUM=#{roadNum}
 </select>
 
-<select id="roadMapConlist" parameterType="String" resultType="com.outflearn.Outflearn.dto.RoadMapCon">
-SELECT * FROM ROADMAP_CON WHERE ROADMAP_NUM=#{roadNum} ORDER BY ROADMAP_CUE
+<select id="roadMapConlist" parameterType="String" resultType="java.lang.Integer">
+SELECT CLASS_NUM FROM ROADMAP_CON WHERE ROADMAP_NUM =#{roadNum} ORDER BY ROADMAP_CUE
 </select>
 
 <select id="RoadClassInfoList" resultType="ClassInfoDto" parameterType="map">
@@ -62,13 +62,38 @@ SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN
 INSERT INTO ROADMAP_SUBSCRIBE VALUES(#{userNum},#{roadNum})
 </insert>
 
-<update id="updatesubScribe" parameterType="String">
+<update id="updateSubscribe" parameterType="String">
 UPDATE ROADMAP_INFO SET ROADMAP_SUBSCRIBE = ROADMAP_SUBSCRIBE+1 WHERE ROADMAP_NUM =#{roandNum}
 </update>
 
 <select id="roadJoinChk" parameterType="map" resultType="int">
 SELECT COUNT(*) FROM ROADMAP_SUBSCRIBE WHERE USER_NUM=#{userNum} AND ROADMAP_NUM=#{roadNum}
 </select>
+
+<delete id="roadMapSubscribeDelete" parameterType="map">
+DELETE FROM ROADMAP_SUBSCRIBE WHERE USER_NUM=#{userNum} AND ROADMAP_NUM=#{roadNum}
+</delete>
+
+<update id="deleteSubScribe" parameterType="String">
+UPDATE ROADMAP_INFO SET ROADMAP_SUBSCRIBE = ROADMAP_SUBSCRIBE-1 WHERE ROADMAP_NUM =#{roadNum}
+</update>
+
+<select id="roadComList" resultType="com.outflearn.Outflearn.dto.RoadUserCombineDto">
+SELECT R.ROADMAP_NUM, R.USER_NUM, R.ROADMAP_TITLE, R.ROADMAP_CONTENT, R.ROADMAP_CONTENT, R.ROADMAP_SUBSCRIBE, R.ROADMAP_LIKE, R.ROADMAP_SHARE,
+	   R.MAIN_NUM, U.USER_NICKNAME
+	   FROM ROADMAP_INFO R, USER_INFO U
+	   WHERE R.USER_NUM = U.USER_NUM
+</select>
+
+<select id="roadComOne" resultType="com.outflearn.Outflearn.dto.RoadUserCombineDto">
+SELECT R.ROADMAP_NUM, R.USER_NUM, R.ROADMAP_TITLE, R.ROADMAP_CONTENT, R.ROADMAP_CONTENT, R.ROADMAP_SUBSCRIBE, R.ROADMAP_LIKE, R.ROADMAP_SHARE,
+	   R.MAIN_NUM, U.USER_NICKNAME
+	   FROM ROADMAP_INFO R, USER_INFO U
+	   WHERE R.USER_NUM = U.USER_NUM
+	   AND R.ROADMAP_NUM=#{roadNum}
+</select>
+
+
 
 
 </mapper>

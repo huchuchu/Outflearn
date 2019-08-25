@@ -11,8 +11,7 @@
 <meta name="author" content="">
 <title>Outflearn</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<!-- css -->
-<link rel="stylesheet" href="resources/css/LectureList.css">
+
 
 <style type="text/css">
 .container-fluid{
@@ -81,6 +80,8 @@ margin-top: 5%;
 }
 
 
+
+
 </style>
 
 
@@ -128,8 +129,8 @@ margin-top: 5%;
 		</div>
 		<div class="col-md-4">
 			<div class="floating_card"> 
-				<button class="roadCancle" style="display: none;">구독취소하기</button>
-				<button type="button" class="enroll" onclick="roadmap_join();">
+				<button class="roadCancle" style="display: none;" onclick="roadmap_unsubscribe();">구독취소하기</button>
+				<button type="button" class="enroll" onclick="roadmap_subscribe();">
 					<i class="far fa-plus"></i>
 					 로드맵 참여하기
 				</button>
@@ -139,7 +140,7 @@ margin-top: 5%;
 					<div class="author">
 						<div class="author">
 							<span class="author_label">만든사람</span>
-							<span class="author_name"><b>${roadMap.user_num }</b></span>
+							<span class="author_name"><b>${roadMap.user_nickname }</b></span>
 						</div>
 					</div>
 					<div class="another">
@@ -148,12 +149,13 @@ margin-top: 5%;
 					</a>
 					</div>
 			     	</div>
-			     	<div class="basket" style="display: none;">
+			     	<div class="basket_card" style="display: none;">
 			     	<ul class="basket">
 					<c:forEach items="${resList }" var="resDto">
+						<c:if test="${resDto.class_price > 0 }">
 						<li class="basket">
 							<div>
-								<input type="checkbox" name="" value="${resDto.class_num }">
+								<input type="checkbox" name="" value="">
 							</div>
 								<img alt="${pageContext.request.contextPath }/resources/uploadImage/${ resDto.class_img }" src="Card image cap">
 							<div>
@@ -161,7 +163,7 @@ margin-top: 5%;
 								<span>${resDto.class_price }</span>
 							</div>
 						</li>
-					
+						</c:if>
 					</c:forEach>
 					</ul>
 					<button>장바구니담기</button>			     	
@@ -171,7 +173,7 @@ margin-top: 5%;
 							<button type="button" class="link_share" data-clipboard-text="${URL }">
 							<i class="fas fa-share-alt"></i>
 							</button>
-							<button type="button" class="kakao_share" >
+							<button type="button" class="kakao_share" onclick="location.href='sulkiki'">
 							<i class="fas fa-comment"></i>
 							</button>
 					</div>
@@ -245,10 +247,9 @@ margin-top: 5%;
 	
  	$('.link_share').click(function(){
 	
- 		var URL = window.location.href;
-		
+ 		var URL = window.location.href;		
  		var clip = new ClipboardJS('.link_share');
-		
+ 		
  		clip.on('success', function(e){
  			alert("복사완료");
  			
@@ -261,17 +262,17 @@ margin-top: 5%;
  })
 
 
-function roadmap_join(){
+function roadmap_subscribe(){
 	var roadNum = $("#roamdMapNum").val();
 	var userNum = $("#userNum").val();
 	
-//	alert(roadNum); alert(userNum);
+	alert(roadNum); alert(userNum);
 	
-	if(userNum == "" || userNum == null){
-		location.href="loginform";		
-	}
-	else{
-	
+// 	if(userNum == "" || userNum == null){
+				
+// 	}
+// 	else{
+// 		alert(roadNum); alert(userNum);
 	var param = {roadnum : roadNum, usernum : userNum}
 	
 	$.ajax({
@@ -293,7 +294,7 @@ function roadmap_join(){
 		
 	});
 	
-	}
+//	}
 }
  
  
@@ -313,7 +314,9 @@ function roadmap_join(){
 //	 			alert(data);
 //	 			alert(data.roadChk);
 	 			if(data.roadChk==true){
-	 			roadmapsubScribe(userNum);
+	 				 $(".roadCancle").attr('style',"display:inline;");
+	 				 $(".enroll").attr('style',"display:none;");
+	 				 $(".basket_card").attr('style',"display:inline;");
 	 			}
 	 		},
 	 		error:function(){
@@ -324,13 +327,36 @@ function roadmap_join(){
 	 }
  }
  
- 
- function roadmapsubScribe(userNum){
-//	 alert("여기까지옴!로드맵 구독 회원이란소리지"+userNum);
-	 $(".roadCancle").attr('style',"display:inline;");
-	 $(".enroll").attr('style',"display:none;");
-	 $(".basket").attr('style',"display:inline;");
+ function roadmap_unsubscribe(){
+//	 alert("구독취소버튼!");
+	var roadNum = $("#roamdMapNum").val();
+	var userNum = $("#userNum").val();
+	
+	var param = {roadnum : roadNum, usernum : userNum}	
+	
+	$.ajax({
+		url: "roadUnsubscribe",
+		type: "POST",
+		data: param,
+		success:function(data){
+//			alert(data);
+//			alert(data.res);
+			if(data.res==true){
+			window.location.reload();//이렇게 새로고침을 넣어야 하는건지 잘 모르겠음!!!	
+			}
+		},
+		error:function(){
+			
+		}
+	});
+	
+		
+	 
+	 
+	 
  }
+ 
+
  
 
 </script>

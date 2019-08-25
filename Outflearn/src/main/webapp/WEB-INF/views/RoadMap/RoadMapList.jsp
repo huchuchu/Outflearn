@@ -96,11 +96,11 @@ float: left;
 					<div class="page-body">
 
 						<c:choose>
-							<c:when test="${empty roadList }">
+							<c:when test="${empty comList }">
 								<h3>강좌 정보가 없습니다...!!</h3>
 							</c:when>
 							<c:otherwise>
-								<c:forEach items="${ roadList }" var="roadDto">
+								<c:forEach items="${ comList }" var="roadDto">
 									<div class="card">
 										<a class="hidden_link" href="roadMapDetail?roadNum=${roadDto.roadmap_num }">
 										<div class="content_area">
@@ -109,7 +109,7 @@ float: left;
 											</div>
 											<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 											<div class="bottom_content">
-												<p>by ${roadDto.user_num }</p>
+												<p>by ${roadDto.user_nickname }</p>
 												<div class="social_item">
 													<div class="social_item">
 														<i class="fas fa-user"></i>

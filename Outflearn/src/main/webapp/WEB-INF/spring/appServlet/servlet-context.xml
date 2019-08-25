@@ -27,6 +27,11 @@
 	<context:component-scan base-package="com.outflearn.Outflearn" />
 	
 	<!-- @secured 어노테이션 활성화, 사용권한 제한 -->
-	<security:global-method-security secured-annotations="enabled" />
+	<!-- 0825 속성추가 @preAuthorize, @postAuthorize 사용가능 -->
+	<security:global-method-security 
+	secured-annotations="enabled" 
+	pre-post-annotations="enabled"
+	proxy-target-class="true"
+	/>
 </beans:beans>
 
