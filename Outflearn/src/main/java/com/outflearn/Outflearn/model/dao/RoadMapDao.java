@@ -32,4 +32,7 @@ public interface RoadMapDao {
 	
 	public RoadMapInfoDto selectOneRoadMap(String roadNum);
 	
+	public List<RoadMapInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search, String searchOption);
+	
+	public int selectTotalCountRoadMap(String txt_search, String searchOption);
 }
