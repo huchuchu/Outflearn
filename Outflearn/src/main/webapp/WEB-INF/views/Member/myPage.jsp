@@ -50,7 +50,7 @@
               <a href="void:0">내 강좌</a>
               <ul class="inner_menu">
                 <li><a href="listenClass">수강중인 강좌</a></li>
-                <li><a href="basketClass">장바구니</a></li>
+                <li><a href="basketSelect">장바구니</a></li>
               </ul>
             </li>
 

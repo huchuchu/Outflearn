@@ -54,16 +54,6 @@ public class myPageController {
 		return "Member/listenClass";
 	}
 	
-	@RequestMapping("basketClass")
-	public String wishClass(Model model) {
-		
-		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		model.addAttribute("basketClass", biz.getSubscribe(dto.getUser_num()));
-		
-		return "Member/basketClass";
-	}
-	
 	@RequestMapping("subRoadmap")
 	public String subRoadmap(Model model) {
 		
