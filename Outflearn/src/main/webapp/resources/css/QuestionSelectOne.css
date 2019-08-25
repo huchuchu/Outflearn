@@ -10,6 +10,11 @@ div.form-group {
 	padding: 3rem;
 }
 
-#reply-insert {
+.reply-insert {
 	width: 100%
+}
+
+.qa-btn {
+	float: left;
+	margin-right: 1rem;
 }

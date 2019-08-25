@@ -1,5 +1,8 @@
 package com.outflearn.Outflearn;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.io.File;
 
 
@@ -48,14 +51,18 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping(value = "/")
-	public String home() {
+	public String home(Model model) {
 
+		model.addAttribute("SubCount", biz.SubCountSelectList());
+		
 		return "home";
 	}
 
 	@RequestMapping(value = "home")
-	public String tohome() {
+	public String tohome(Model model) {
 
+		model.addAttribute("SubCount", biz.SubCountSelectList());
+		
 		return "home";
 	}
 
@@ -218,12 +225,25 @@ public class HomeController {
 
 	@RequestMapping("DetailDashBoard")
 	@ResponseBody
-	public String DetailDashBoard(Model model, HttpSession session) {
+	public String[] DetailDashBoard(Model model, HttpSession session) {
 
 		int info_num = (int) session.getAttribute("info_num");
 
-		ClassDataDto dto = biz.ClassDataSelectOne(info_num);
-		return dto.getData_data();
+		List<ClassDataDto> dto = biz.ClassDataSelectOne(info_num);
+		
+
+		String[] array = new String[dto.size()];
+
+		int size = 0;
+
+		for(ClassDataDto temp : dto){
+			
+			array[size++] = temp.getData_data();
+			System.out.println(temp.getData_data() + " : controller");
+
+		}
+
+		return array;
 	}
 
 	@RequestMapping("Livepage")
@@ -372,10 +392,18 @@ public class HomeController {
 				String a = dto.getData_data();
 				String b = "";
 				System.out.println(a);
-				if (a.contains("v=")) {
-					b = a.split("v=")[1];
+				if(a.contains("v=")) {
+					b = a.split("\\?")[1];
+					if(b.contains("&")) {
+						b = b.substring(0, b.indexOf("&"));
+					}
+					System.out.println(b);
 				} else if (a.contains("list=")) {
-					b = a.split("list=")[1];
+					b = a.split("\\?")[1];
+					if(b.contains("&")) {
+						b = b.substring(0, b.indexOf("&"));
+					}
+					System.out.println(b);
 				}
 
 				dto.setData_data(b);
@@ -441,10 +469,18 @@ public class HomeController {
 				String a = dto.getData_data();
 				String b = "";
 
-				if (a.contains("v=")) {
-					b = a.split("v=")[1];
+				if(a.contains("v=")) {
+					b = a.split("\\?")[1];
+					if(b.contains("&")) {
+						b = b.substring(0, b.indexOf("&"));
+					}
+					System.out.println(b);
 				} else if (a.contains("list=")) {
-					b = a.split("list=")[1];
+					b = a.split("\\?")[1];
+					if(b.contains("&")) {
+						b = b.substring(0, b.indexOf("&"));
+					}
+					System.out.println(b);
 				}
 
 				dto.setData_data(b);
@@ -475,14 +511,25 @@ public class HomeController {
 
 	@RequestMapping("LecturePlayList")
 	@ResponseBody
-	public String LecturePlayList(Model model, HttpSession session) {
+	public String[] LecturePlayList(Model model, HttpSession session) {
 
 		int info_num = (int) session.getAttribute("info_num");
 
-		ClassDataDto data_dto = biz.ClassDataSelectOne(info_num);
+		List<ClassDataDto> data_dto = biz.ClassDataSelectOne(info_num);
 		model.addAttribute("info_dto", biz.ClassInfoSelectOne(info_num));
 
-		return data_dto.getData_data();
+		String[] array = new String[data_dto.size()];
+
+		int size = 0;
+
+		for(ClassDataDto temp : data_dto){
+			
+			array[size++] = temp.getData_data();
+			System.out.println(temp.getData_data() + " : controller");
+
+		}
+
+		return array;
 	}
 
 	@RequestMapping("introOutflearn")
