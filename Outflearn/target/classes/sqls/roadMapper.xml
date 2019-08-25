@@ -70,5 +70,52 @@ UPDATE ROADMAP_INFO SET ROADMAP_SUBSCRIBE = ROADMAP_SUBSCRIBE+1 WHERE ROADMAP_NU
 SELECT COUNT(*) FROM ROADMAP_SUBSCRIBE WHERE USER_NUM=#{userNum} AND ROADMAP_NUM=#{roadNum}
 </select>
 
+<!--  페이징, 검색 -->
+<select id="selectTotalCountRoadMap" parameterType="map"
+		resultType="Integer">
+		SELECT count(*)
+		FROM ROADMAP_INFO
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="txt_search != null">
+				<if test="searchOption == 'all'">
+				AND	upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%'
+				OR upper(ROADMAP_NUM) like '%' || upper(#{txt_search}) || '%'
+					
+				</if>
+				<if test="searchOption == 'roadmap_author'">
+					AND upper(USER_NUM) like '%' || upper(#{txt_search}) || '%'
+				</if>
+				<if test="searchOption == 'roadmap_title'">
+					AND upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%'
+				</if>
+			</if>
+		</trim>
+		
+	</select>
+	
+<select id="selectListPageRoadMap" parameterType="map"
+		resultType="RoadMapDto">
+		SELECT *
+		FROM (SELECT ROWNUM AS RNUM, C.*
+		FROM ( SELECT *
+		FROM ROADMAP_INFO
+		 <if test="txt_search != null">
+				<if test="searchOption=='all'">
+					WHERE upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%' or
+					upper(USER_NUM) like '%' || upper(#{txt_search}) || '%'
+				</if>
+				<if test="searchOption=='class_author'">
+					WHERE upper(USER_NUM) like '%' || upper(#{txt_search}) || '%'
+				</if>
+				<if test="searchOption=='class_title'">
+					WHERE upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%'
+				</if>
+		</if>
+		ORDER BY ROADMAP_NUM DESC
+		) C
+		)
+		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} +
+		#{recordCountPerPage}
+	</select>
 
 </mapper>

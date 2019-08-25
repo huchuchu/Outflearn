@@ -43,7 +43,7 @@ public interface RoadMapDao {
 	
 	public int roadJoinChk(String roadNum, String userNum);
 	
+	public List<RoadMapInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search, String searchOption);
 	
-	
-	
+	public int selectTotalCountRoadMap(String txt_search, String searchOption);
 }

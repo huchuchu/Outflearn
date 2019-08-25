@@ -263,6 +263,19 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 
 	//페이징
+			
+	@Override
+	public int selectTotalCount(String txt_search) {
+		
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("txt_search", txt_search);
+		res = sqlSession.selectOne(namespace + "selectTotalCount", map);
+		
+		return res;
+	}
+	
 	@Override
 	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search) {
 		
@@ -270,21 +283,42 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		map.put("firstIndex", String.valueOf(firstIndex));
 		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
 		map.put("txt_search", txt_search);
+//		map.put("searchOption", searchOption);
 		
 		List<ClassInfoDto> list = sqlSession.selectList(namespace + "selectListPage", map);
 		return list;
 	}
-
+	
 	@Override
-	public int selectTotalCount(String txt_search) {
+	public List<ClassInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("firstIndex", String.valueOf(firstIndex));
+		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
+		map.put("txt_search", txt_search );
+		map.put("searchOption", searchOption);
+		
+		List<ClassInfoDto> list = sqlSession.selectList(namespace +"selectListPageTwo", map);
+		System.out.println(list);
+		return list;
+	}
+	
+	
+	@Override
+	public int selectTotalCountTwo(String txt_search, String searchOption) {
+		
 		int res = 0;
 		
 		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
 		map.put("txt_search", txt_search);
-		res = sqlSession.selectOne(namespace + "selectTotalCount", map);
+		res = sqlSession.selectOne(namespace + "selectTotalCountTwo", map);
+		System.out.println(txt_search+"다오임플");
+		System.out.println(searchOption);
+		System.out.println(res);
 		return res;
 	}
-		
 	@Override
 	public int ClassReviewUpdateAnswer(int review_num) {
 
@@ -305,18 +339,6 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 	
-	@Override
-	public int selectTotalCount(String searchOption, String txt_search) {
-
-		int res = 0;
-		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("searchOption", searchOption);
-		map.put("txt_search", txt_search);
-		res = sqlSession.selectOne(namespace + "selectTotalCount", map);
-		
-		return res;
-	}
 	
 	@Override
 	public List<SubStreamDto> MainStreamSelectOne(int main_num) {
@@ -344,7 +366,10 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		
 		return list;
 	}	
+	
 /*		
+=======
+>>>>>>> origin/syh
 	@Override
 	public int mainStreamInsert(MainStreamDto dto) {
 		
@@ -431,10 +456,5 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		
 		return res;
 	}
-
-
-
-
-
 
 }

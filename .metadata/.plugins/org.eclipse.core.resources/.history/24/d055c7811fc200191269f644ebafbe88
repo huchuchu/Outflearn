@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="data">
+
+	<!-- ================== CLASS_INFO 테이블 ================== -->
+	
+	<select id="ClassInfoSelectlist" resultType="ClassInfoDto">
+		SELECT * FROM CLASS_INFO
+	</select>
+	
+
+   <select id="classinfoselectone" parameterType="map" resultType="ClassInfoDto">
+   	  SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
+   </select>
+   
+     
+	<select id="ClassDateSelectlist" resultType="ClassDataDto">
+		SELECT * FROM CLASS_DATA
+	</select>
+	
+
+	<!-- 해당 강의 조회 -->
+    <select id="ClassInfoSelectone" parameterType="map" resultType="ClassInfoDto">
+   	  SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
+   </select>
+  
+  	<!-- 카테고리에 해당 강좌 조회 -->
+   	<select id="CategorySelectList" resultType="ClassInfoDto">
+   	  	SELECT * FROM CLASS_INFO WHERE CLASS_CATEGORY = #{class_category}
+   	</select>
+
+	<!-- 강의 소개 페이지  -->
+	<insert id="ClassInfoDtoInsert" parameterType="ClassInfoDto">
+		INSERT INTO CLASS_INFO VALUES(CLASS_INFO_SQ.NEXTVAL, #{user_num } , #{class_title }, #{class_author }, #{class_intro }, #{class_img }, #{class_live } ,0, #{class_price }, 0, #{class_studentlevel })
+	</insert>
+	
+	<!-- ================== CLASS_DATA 테이블 ================== -->
+	 
+	<!-- 강좌 챕터 영상 보기 -->
+	<select id="classdataselectone" parameterType="map" resultType="ClassDataDto">
+	  SELECT DATA_DATA FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
+  	</select>
+	
+	<!-- 영상추가 첫번째 페이지 -->
+	<insert id="ClassDataInsert" parameterType="ClassDataDto" >
+		INSERT INTO CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SUBHEAD, DATA_SQ, DATA_TITLE, DATA_DATA) VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.NEXTVAL ,#{data_subhead }, #{data_sq }, #{data_title }, #{data_data })
+	</insert>
+
+	<!-- 영상추가 두번째 페이지 챕터안에 내용 추가 -->
+	<insert id="ClassChapterDataInsert" parameterType="ClassDataDto">
+		INSERT INTO CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SQ, DATA_TITLE, DATA_DATA) VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.CURRVAL , #{data_sq }, #{data_title } , #{data_data })
+	</insert>
+	
+	<!-- ================== CLASS_INTRODUCE 테이블 ================== -->
+	
+	<!-- 해당 클래스의 강좌 -->
+	<select id="classIntroduceSelectlist" parameterType="int" resultType="ClassIntroduceDto">
+		SELECT CLASS_CONTENT FROM CLASS_INTRODUCE WHERE CLASS_NUM = (SELECT CLASS_NUM FROM CLASS_INTRODUCE WHERE CLASS_NUM = #{class_num })
+	</select>
+
+	<!-- 강좌 내용 DB추가 -->
+	<insert id="ClassIntroduceInsert" parameterType="ClassIntroduceDto">
+		INSERT INTO CLASS_INTRODUCE (CLASS_NUM, CLASS_CONTENT) VALUES(CLASS_INFO_SQ.CURRVAL, #{class_content })
+	</insert>
+	
+	<!-- ================== CLASS_REVIEW 테이블 ================== -->
+	<select id="classReviewSelectlist" resultType="classReviewDto" parameterType="map">
+		SELECT * FROM CLASS_REVIEW  WHERE CLASS_NUM = (SELECT CLASS_NUM FROM CLASS_INFO WHERE CLASS_NUM = #{class_num }) ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ 
+	</select>
+	
+	<select id="classReviewSelectOne" resultType="classReviewDto" parameterType="int">
+		SELECT * FROM CLASS_REVIEW WHERE REVIEW_NUM = #{reveiw_nim }
+	</select>
+
+	<insert id="classReviewInsert" parameterType="classReviewDto">
+		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star}, REVIEW_GROUPNO.NEXTVAL, 1, 0)
+	</insert>
+	
+	<update id="classReviewUpdate" parameterType="classReviewDto">
+		UPDATE CLASS_REVIEW SET REVIEW_CONTENT = #{review_content } WHERE REVIEW_NUM = #{review_num }
+	</update>
+	
+	<delete id="classReviewDelete" parameterType="int">
+		DELETE FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num }
+	</delete>
+	
+	<insert id="classReviewInsertAnswer" parameterType="classReviewDto">
+		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star},
+										(SELECT REVIEW_GROUPNO FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}),
+										(SELECT REVIEW_GROUPSQ FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1, 0) 
+	</insert>
+	
+	<update id="classReviewUpdateAnswer" parameterType="int">
+		UPDATE CLASS_REVIEW SET QA_GROUPSQ = QA_GROUPSQ + 1
+		WHERE QA_GROUPSQ = (SELECT QA_GROUPNO FROM CLASS_REVIEW WHERE BOARD_NO = #{board_no })
+		AND QA_GROUPSQ > (SELECT QA_GROUPSQ FROM CLASS_REVIEW WHERE BOARD_NO = #{board_no })
+	</update>
+	
+	<!-- ================== Livepage & Mypage 테이블 ================== -->
+	<select id="liveCalendar" resultType="LiveDto">
+		SELECT * FROM LIVE
+	</select>
+	
+	<select id="livePopup" resultType="ClassInfoDto">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM = (SELECT CLASS_NUM FROM LIVE WHERE LIVE_NUM = #{live_num})
+	</select>
+	
+	<select id="getMyClass" resultType="ClassInfoDto" parameterType="int">
+		SELECT * FROM CLASS_INFO WHERE USER_NUM = #{user_num}
+	</select>
+	
+	<select id="getWishList" resultType="ClassInfoDto" parameterType="int">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM BASKET WHERE USER_NUM = #{user_num})
+	</select>
+	
+	<select id="getSubscribe" resultType="ClassInfoDto" parameterType="int">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM SUBSCRIBE WHERE USER_NUM = #{user_num})
+	</select>
+	
+	<select id="liveRooms" resultType="ClassInfoDto" parameterType="map">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN
+		<foreach collection="liveRooms" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+	</select>
+	<select id="selectListPage" parameterType="map" resultType="ClassInfoDto">
+		SELECT *
+		FROM (SELECT ROWNUM AS RNUM, C.*
+			FROM (	SELECT *
+					FROM CLASS_INFO
+					<if test="txt_search != null">
+					WHERE
+						(
+							(upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%') or
+							(upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%')
+						)
+					</if>
+						ORDER BY CLASS_NUM DESC
+						) C
+			)
+		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
+	</select>
+	<select id="selectListPagetwo" parameterType="map" resultType="ClassInfoDto">
+		SELECT *
+		FROM (SELECT ROWNUM AS RNUM, C.*
+			FROM ( SELECT *
+					FROM CLASS_INFO
+					<if test="txt_search != null">
+					<choose>
+						<when test="searchOption == 'all'">
+							WHERE (
+								(upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%') or
+								(upper(CLASS_AUTHOR) like '%' || upper(#{txt_search})||'%')							
+							)
+						</when>
+						<otherwise>
+							WHERE ${searchOption} like '%' || #{keyword} || '%'
+						</otherwise>
+					</choose>
+					</if>
+						ORDER BY CLASS_NUM DESC
+			) C
+		
+		
+		)
+		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
+	</select>
+	<select id="selectTotalCount" parameterType="map" resultType="Integer">
+		SELECT count(*)
+		FROM CLASS_INFO
+		<if test="txt_search != null">
+		WHERE upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%' or
+			upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
+			
+		</if>	
+	</select>
+</mapper>

@@ -24,16 +24,16 @@
 	<link rel="stylesheet" type="text/css" href="resources/css/style.css">
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script type="text/javascript">
+
+			function PageMove(page, data) {	
+				location.href = "LectureList?page=" + page + "&txt_search=" + $('input#txt_search').val() + "&searchOption=" + $('#searchOption').val();
+			}
+
+	</script>
 
 
 </head>
-<script type="text/javascript">
-	function PageMove(page, data) {
-		location.href = "LectureList?page=" + page + "&txt_search=" + $('input#txt_search').val()
-	}
-</script>
-
-
 
 <body>
 
@@ -64,10 +64,7 @@
 					</li>
 					</c:forEach>
 					</ul>
-
 				</div>
-
-
 
 
 				<div id="side_checkbox">
@@ -105,21 +102,24 @@
 			<div class="col-sm-10">
 				<div class="page-header">
 					<h1 id="page-header-content">전체 카테고리</h1>
-					<p class="input-group col-sm-4 pull-right">
-						<form name="form1" method="post" action="${pageContext.request.contextPath}/LectureList">
-							<select name="searchOption">
-								<!-- 검색 조건을 검색 처리 후 결과화면에 보여주기 위해 c:out 출력태그 사용, 삼항연산자.-->
-								<option value="all" <c:out value="${map.searchOption == 'all'?'selected':''}" />>제목+이름
-								</option>
-								<option value="class_author" <c:out
-									value="${map.searchOption == 'class_author'?'selected':'' }" />>이름</option>
-								<option value="class_title" <c:out
-									value="${map.searchOption == 'class_title'?'selected':''}" />>제목</option>
-							</select> <input type="text" class="form-control" name="txt_search" id="txt_search"
-								placeholder="검색하기"> <span class="input-group-btn">
-								<button class="btn btn-default" type="submit">검색</button>
-							</span>
-						</form>
+					<div class="form-group row justify-content-center">
+						<div class="w100" style="padding-right:10px">
+							<select class="form-control form-control-sm" name="searchOption" id="searchOption">
+								<option value="all">전체</option>
+								<option value="class_title">제목</option>
+								<option value="class_author">작성자</option>
+							</select>
+						</div>
+						<div class="w300" style="padding-right:10px">
+							<input type="text" class="form-control form-control-sm" name="txt_search" id="txt_search"
+								value="${txt_search }" placeholder="검색하기">
+						</div>
+						<div>
+							<button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch"
+								onclick="javascript:PageMove(${pagination.pageNo});">검색</button>
+						</div>
+					</div>
+					<p class="input-group col-sm-4 pull-right"></p>
 				</div>
 
 				<article>
@@ -164,53 +164,39 @@
 				</article>
 			</div>
 		</div>
-
-
-		<!-- Pagination -->
-		<div class="form-group form-inline">
-			<a href="javascript:PageMove(${pagination.firstPageNo})" class="button previous">&laquo;</a> <a
-				href="javascript:PageMove(${pagination.prevPageNo})" class="button previous">&lt;</a>
-			<div class="pages">
-				<c:forEach var="i" begin="${pagination.startPageNo}" end="${pagination.endPageNo}" step="1">
-					<c:choose>
-						<c:when test="${i eq pagination.pageNo}">
-							<a href="javascript:PageMove(${i})" class="active">${i}</a>
-						</c:when>
-						<c:otherwise>
-							<a href="javascript:PageMove(${i})">${i}</a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</div>
-			<a href="javascript:PageMove(${pagination.nextPageNo})" class="button_next">&gt;</a> <a
-				href="javascript:PageMove(${pagination.finalPageNo})" class="button_next">&raquo;</a>
+	</div>
+	<!-- Pagination -->
+	<div class="text-center form-group form-inline">
+		<a href="javascript:PageMove(${pagination.firstPageNo})" class="button previous">&laquo;</a> <a
+			href="javascript:PageMove(${pagination.prevPageNo})" class="button previous">&lt;</a>
+		<div class="pages">
+			<c:forEach var="i" begin="${pagination.startPageNo}" end="${pagination.endPageNo}" step="1">
+				<c:choose>
+					<c:when test="${i eq pagination.pageNo}">
+						<a href="javascript:PageMove(${i})" class="active">${i}</a>
+					</c:when>
+					<c:otherwise>
+						<a href="javascript:PageMove(${i})">${i}</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
 		</div>
-		<!-- ==================== FOOTER ==================== -->
+		<a href="javascript:PageMove(${pagination.nextPageNo})" class="button_next">&gt;</a> <a
+			href="javascript:PageMove(${pagination.finalPageNo})" class="button_next">&raquo;</a>
+	</div>
+	<a href="javascript:PageMove(${pagination.nextPageNo})" class="button_next">&gt;</a> <a
+		href="javascript:PageMove(${pagination.finalPageNo})" class="button_next">&raquo;</a>
+	</div>
+	<!-- ==================== FOOTER ==================== -->
 
-		<jsp:include page="../footer/Footer.jsp"></jsp:include>
+	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 
-		<script type="text/javascript">
-
-
-			$('.sub_category').on('click', function () {
-				var sub_num = $(this).attr('id')
-				classsubname(sub_num)
-			})
-
-
-			function classsubname(sub_num) {
-
-				location.href = 'home';
-
-			}
-		</script>
-
-		<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
-		<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
-		<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
-		<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
-		<script type="text/javascript" src="resources/js/template/LectureList.js"></script>
-		<script type="text/javascript" src="resources/js/template/main.js"></script>
+	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
+	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
+	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
+	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
+	<script type="text/javascript" src="resources/js/template/LectureList.js"></script>
+	<script type="text/javascript" src="resources/js/template/main.js"></script>
 
 </body>
 

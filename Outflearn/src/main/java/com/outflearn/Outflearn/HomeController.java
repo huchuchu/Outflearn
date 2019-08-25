@@ -2,11 +2,13 @@ package com.outflearn.Outflearn;
 
 import java.io.File;
 
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.outflearn.Outflearn.dto.ClassCategoryDto;
 import com.outflearn.Outflearn.dto.ClassDataDto;
@@ -125,9 +128,13 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/LectureList")
-	public String LectureListPage(Model model, String txt_search, String page, String class_category) {
-		logger.info("txt서치전");	
-		int totalCount = biz.selectTotalCount(txt_search);
+	public String LectureListPage(Model model, String txt_search, String page, String class_category, String searchOption) {
+		logger.info("txt서치전");
+		
+		//int totalCount = biz.selectTotalCount(txt_search);
+		int totalCount = biz.selectTotalCountTwo(txt_search, searchOption);
+		logger.info("텍스트서치:"+txt_search);
+		logger.info("서치옵션:"+searchOption);
 		logger.info(""+totalCount);
 		
 		int pageNum = (page==null)? 1:Integer.parseInt(page);
@@ -144,14 +151,14 @@ public class HomeController {
 		//select해오는 기준을 구함
 		pageNum = (pageNum -1) * pagination.getPageSize();
 		
-		List<ClassInfoDto> list = biz.selectListPage(pageNum, pagination.getPageSize(), txt_search);
+		//List<ClassInfoDto> list = biz.selectListPage(pageNum, pagination.getPageSize(), txt_search);
+		List<ClassInfoDto> list = biz.selectListPageTwo(pageNum, pagination.getPageSize(), txt_search, searchOption);
 		
 		model.addAttribute("classinfo", list);
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("txt_search", txt_search);
 		model.addAttribute("class_category", class_category);
-		
-		System.out.println("안녕");
+		model.addAttribute("searchOption", searchOption);
 		
 		// 부류, 주류
 	     List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();      
@@ -162,20 +169,19 @@ public class HomeController {
 	      
 	      model.addAttribute("mainList", mainStreamList);	
 	      model.addAttribute("subList", subStreamList);      
-		
+	
 		if(class_category != null) {
 			model.addAttribute("classinfo", biz.CategorySelectList(class_category));
+			
 		} else {
-			model.addAttribute("classinfo", biz.selectListPage(pageNum, pagination.getPageSize(), txt_search));
-		}
+			//model.addAttribute("classinfo", biz.selectListPage(pageNum, pagination.getPageSize(), txt_search));
+			model.addAttribute("classinfo", biz.selectListPageTwo(pageNum, pagination.getPageSize(), txt_search, searchOption));
 		
+		}
 		
 		return "Class/LectureList";
 		
 	}
-
-		
-	
 
 	@RequestMapping("/LectureDetail")
 	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session, Authentication auth) {

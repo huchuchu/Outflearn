@@ -52,11 +52,10 @@ public interface ClassDataDao {
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);
 		
 		//페이징
-		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search );
+		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search);
 		public int selectTotalCount(String txt_search);
-		
-//		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search, String searchOption );
-		public int selectTotalCount(String searchOption, String txt_search);
+		public List<ClassInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search, String searchOption);
+		public int selectTotalCountTwo(String txt_search, String searchOption);
 		
 		// 주류, 부류 - MAIN_STREAM , SUB_STREAM
 		//public int mainStreamInsert(MainStreamDto dto);
