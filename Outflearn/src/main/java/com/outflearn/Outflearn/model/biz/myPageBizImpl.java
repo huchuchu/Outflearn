@@ -25,8 +25,8 @@ public class myPageBizImpl implements myPageBiz {
 	private myPageDao dao;
 
 	@Override
-	public List<ClassInfoDto> getWishList(int user_num) {
-		return dao.getWishList(user_num);
+	public List<ClassInfoDto> getBasketClass(int user_num) {
+		return dao.getBasketClass(user_num);
 	}
 
 	@Override
@@ -37,6 +37,21 @@ public class myPageBizImpl implements myPageBiz {
 	@Override
 	public List<RoadMapCon> getSubRoadmap(int user_num) {
 		return dao.getSubRoadmap(user_num);
+	}
+
+	@Override
+	public List<ClassInfoDto> getPreBasketClass(int user_num) {
+		return dao.getPreBasketClass(user_num);
+	}
+
+	@Override
+	public List<ClassInfoDto> getPreSubscribe(int user_num) {
+		return dao.getPreSubscribe(user_num);
+	}
+
+	@Override
+	public List<RoadMapCon> getPreSubRoadmap(int user_num) {
+		return dao.getPreSubRoadmap(user_num);
 	}
 
 		

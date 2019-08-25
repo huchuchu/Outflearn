@@ -246,15 +246,48 @@ header .intro-text {
 	text-align: center;
 }
 
-/* Live Section */
 .mySlides1, .mySlides2, .mySlides3, .mySlides4 {display: none}
 img {vertical-align: middle;}
+
+.carousel-inner > .item > img {
+	width: 30%;
+	height: 100vh;
+	max-height: 240px;
+	float: left;
+	margin-right: 5%;
+	cursor: pointer;
+}
+
+.carousel-inner > div.item > img:last-child {
+	margin-right: 0;
+}
+
+.carousel-control {
+	line-height: 240px;
+}
+
+.href-div{
+	position: relative;
+}
+
+.Lecturehref {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 80;
+}
 
 /* Slideshow container */
 .slideshow-container {
   max-width: 600px;
   position: relative;
   margin: auto;
+}
+
+#popular {
+	position: relative;
 }
 
 /* Next & previous buttons */

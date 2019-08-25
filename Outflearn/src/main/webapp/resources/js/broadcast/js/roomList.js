@@ -1,56 +1,56 @@
-var socket = io.connect("https://localhost:3000");
+$(function () {
 
-socket.emit('getLive')
+    // var socket = io.connect('https://localhost:3000');
+    // var socket = io.connect('https://192.168.10.139:3000', { rejectUnauthorized: false });
+    // var socket = io.connect('http://192.168.10.139:3000');
 
-socket.on('liveList', function (data) {
 
-    console.log(data);
-    var sendData = []
+    socket.emit('bringRoom')
 
-    data.forEach(item => {
-        sendData.push(item.class_num)
+    socket.on('getRoom', function (msg) {
+
+        var sendData = []
+
+        msg.forEach(item => {
+            sendData.push(item.room)
+        });
+
+        if (sendData[0]) {
+            $.ajax({
+                url: `liveRooms?liveRooms=${sendData}`,
+                success: function (data) {
+                    var content = '';
+                    data.forEach(item => {
+                        content +=
+                            `
+                        <div class="card">
+                            <div>
+                                <a href="joinLive?room=${item.class_num}">
+                                    <img src="/Outflearn/resources/uploadImage/${item.class_img}" alt="what?">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${item.class_title}</h5>
+                                        <p class="card-text">${item.class_intro}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        `
+                    });
+                    // <h3><a href='joinLive?room=${item.class_num}'>${item.class_title}</a></h3>
+
+                    $('.roomTest').html(content)
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+        } else {
+            $('.roomTest').html(`<h3>방 없다!</h3>`)
+        }
     })
 
-    if (sendData[0]) {
-        $.ajax({
-            url: `liveRooms?liveRooms=${sendData}`,
-            method: 'get',
-            success: function (msg) {
-            	
-                $('.carousel-indicators').html(setIndicator(msg))
-                $('.carousel-inner').html(setInner(msg))
-
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        })
-
-    }
+    $('.reloadRoom').on('click', function () {
+        socket.emit('bringRoom')
+    })
 
 })
-
-function setIndicator(msg) {
-    var indicators = "";
-    for (let i = 0; i < msg.length; i++) {
-        if (i === 0) {
-            indicators += `<li data-target="#myCarousel" data-slide-to="0" class="active"></li>`
-        } else {
-            indicators += `<li data-target="#myCarousel" data-slide-to=${i}></li>`
-        }
-    }
-    return indicators
-}
-
-function setInner(msg) {
-    var inner = "";
-    for (let i = 0; i < msg.length; i++) {
-        if (i === 0) {
-            inner +=`<div class="item active">${msg[i].class_title}</div>`
-        } else {
-            inner +=`<div class="item">${msg[i].class_title}</div>`
-        }
-    }
-    return inner
-}
-

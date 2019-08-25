@@ -1,12 +1,17 @@
 package com.outflearn.Outflearn;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.io.File;
+
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -21,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.outflearn.Outflearn.dto.ClassCategoryDto;
 import com.outflearn.Outflearn.dto.ClassDataDto;
@@ -45,14 +51,18 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping(value = "/")
-	public String home() {
+	public String home(Model model) {
 
+		model.addAttribute("SubCount", biz.SubCountSelectList());
+		
 		return "home";
 	}
 
 	@RequestMapping(value = "home")
-	public String tohome() {
+	public String tohome(Model model) {
 
+		model.addAttribute("SubCount", biz.SubCountSelectList());
+		
 		return "home";
 	}
 
@@ -125,9 +135,13 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/LectureList")
-	public String LectureListPage(Model model, String txt_search, String page, String class_category) {
-		logger.info("txt서치전");	
-		int totalCount = biz.selectTotalCount(txt_search);
+	public String LectureListPage(Model model, String txt_search, String page, String class_category, String searchOption) {
+		logger.info("txt서치전");
+		
+		//int totalCount = biz.selectTotalCount(txt_search);
+		int totalCount = biz.selectTotalCountTwo(txt_search, searchOption);
+		logger.info("텍스트서치:"+txt_search);
+		logger.info("서치옵션:"+searchOption);
 		logger.info(""+totalCount);
 		
 		int pageNum = (page==null)? 1:Integer.parseInt(page);
@@ -144,14 +158,14 @@ public class HomeController {
 		//select해오는 기준을 구함
 		pageNum = (pageNum -1) * pagination.getPageSize();
 		
-		List<ClassInfoDto> list = biz.selectListPage(pageNum, pagination.getPageSize(), txt_search);
+		//List<ClassInfoDto> list = biz.selectListPage(pageNum, pagination.getPageSize(), txt_search);
+		List<ClassInfoDto> list = biz.selectListPageTwo(pageNum, pagination.getPageSize(), txt_search, searchOption);
 		
 		model.addAttribute("classinfo", list);
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("txt_search", txt_search);
 		model.addAttribute("class_category", class_category);
-		
-		System.out.println("안녕");
+		model.addAttribute("searchOption", searchOption);
 		
 		// 부류, 주류
 	     List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();      
@@ -162,20 +176,19 @@ public class HomeController {
 	      
 	      model.addAttribute("mainList", mainStreamList);	
 	      model.addAttribute("subList", subStreamList);      
-		
+	
 		if(class_category != null) {
 			model.addAttribute("classinfo", biz.CategorySelectList(class_category));
+			
 		} else {
-			model.addAttribute("classinfo", biz.selectListPage(pageNum, pagination.getPageSize(), txt_search));
-		}
+			//model.addAttribute("classinfo", biz.selectListPage(pageNum, pagination.getPageSize(), txt_search));
+			model.addAttribute("classinfo", biz.selectListPageTwo(pageNum, pagination.getPageSize(), txt_search, searchOption));
 		
+		}
 		
 		return "Class/LectureList";
 		
 	}
-
-		
-	
 
 	@RequestMapping("/LectureDetail")
 	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session, Authentication auth) {
@@ -212,12 +225,25 @@ public class HomeController {
 
 	@RequestMapping("DetailDashBoard")
 	@ResponseBody
-	public String DetailDashBoard(Model model, HttpSession session) {
+	public String[] DetailDashBoard(Model model, HttpSession session) {
 
 		int info_num = (int) session.getAttribute("info_num");
 
-		ClassDataDto dto = biz.ClassDataSelectOne(info_num);
-		return dto.getData_data();
+		List<ClassDataDto> dto = biz.ClassDataSelectOne(info_num);
+		
+
+		String[] array = new String[dto.size()];
+
+		int size = 0;
+
+		for(ClassDataDto temp : dto){
+			
+			array[size++] = temp.getData_data();
+			System.out.println(temp.getData_data() + " : controller");
+
+		}
+
+		return array;
 	}
 
 	@RequestMapping("Livepage")
@@ -366,10 +392,18 @@ public class HomeController {
 				String a = dto.getData_data();
 				String b = "";
 				System.out.println(a);
-				if (a.contains("v=")) {
-					b = a.split("v=")[1];
+				if(a.contains("v=")) {
+					b = a.split("\\?")[1];
+					if(b.contains("&")) {
+						b = b.substring(0, b.indexOf("&"));
+					}
+					System.out.println(b);
 				} else if (a.contains("list=")) {
-					b = a.split("list=")[1];
+					b = a.split("\\?")[1];
+					if(b.contains("&")) {
+						b = b.substring(0, b.indexOf("&"));
+					}
+					System.out.println(b);
 				}
 
 				dto.setData_data(b);
@@ -378,6 +412,7 @@ public class HomeController {
 
 		}
 
+		
 		int res = biz.ClassDataInsert(dto);
 
 		if (res > 0) {
@@ -434,16 +469,28 @@ public class HomeController {
 				String a = dto.getData_data();
 				String b = "";
 
-				if (a.contains("v=")) {
-					b = a.split("v=")[1];
+				if(a.contains("v=")) {
+					b = a.split("\\?")[1];
+					if(b.contains("&")) {
+						b = b.substring(0, b.indexOf("&"));
+					}
+					System.out.println(b);
 				} else if (a.contains("list=")) {
-					b = a.split("list=")[1];
+					b = a.split("\\?")[1];
+					if(b.contains("&")) {
+						b = b.substring(0, b.indexOf("&"));
+					}
+					System.out.println(b);
 				}
 
 				dto.setData_data(b);
 
 			}
 		}
+		
+		System.out.println(dto.getData_sq()+ "###");
+		System.out.println(dto.getData_title()+ "###");
+		System.out.println(dto.getData_data()+ "###");
 
 		int res = biz.ClassChapterDataInsert(dto);
 
@@ -464,14 +511,25 @@ public class HomeController {
 
 	@RequestMapping("LecturePlayList")
 	@ResponseBody
-	public String LecturePlayList(Model model, HttpSession session) {
+	public String[] LecturePlayList(Model model, HttpSession session) {
 
 		int info_num = (int) session.getAttribute("info_num");
 
-		ClassDataDto data_dto = biz.ClassDataSelectOne(info_num);
+		List<ClassDataDto> data_dto = biz.ClassDataSelectOne(info_num);
 		model.addAttribute("info_dto", biz.ClassInfoSelectOne(info_num));
 
-		return data_dto.getData_data();
+		String[] array = new String[data_dto.size()];
+
+		int size = 0;
+
+		for(ClassDataDto temp : data_dto){
+			
+			array[size++] = temp.getData_data();
+			System.out.println(temp.getData_data() + " : controller");
+
+		}
+
+		return array;
 	}
 
 	@RequestMapping("introOutflearn")

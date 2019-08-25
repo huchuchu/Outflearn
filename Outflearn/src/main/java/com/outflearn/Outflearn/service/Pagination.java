@@ -28,6 +28,8 @@ public class Pagination {
 	
 	//게시 글 전체 수
 	private int totalCount;
+	
+	
 
 	public Pagination() {
 		super();

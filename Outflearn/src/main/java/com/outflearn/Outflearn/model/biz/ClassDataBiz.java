@@ -32,7 +32,7 @@ public interface ClassDataBiz {
 		
 		// 강좌 데이터 -  CLASS_DATA 테이블
 		public List <ClassDataDto> ClassDataSelectList();
-		public ClassDataDto ClassDataSelectOne(int class_num);
+		public List<ClassDataDto> ClassDataSelectOne(int class_num);
 		public int ClassDataInsert(ClassDataDto dto);		
 		public int ClassChapterDataInsert(ClassDataDto dto);
 		
@@ -59,14 +59,20 @@ public interface ClassDataBiz {
 		//페이징
 		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search );
 		public int selectTotalCount(String txt_search);
-		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search , String searchOption);
-		public int selectTotalCount(String searchOption, String txt_search);
+		public List<ClassInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search, String searchOption);
+		public int selectTotalCountTwo(String txt_search, String searchOption);
 		public ClassIntroduceDto ClassIntroduceSelectOne(int class_num);
-		
 		//질문
 		public List<QADto> QASelectList(int class_num);
 		public QADto QASelectOne(int qa_num);
 		public List<QADto> QAReply(int qa_group_no);
 		public int QAInsert(QADto dto);
+		public int QADelete(int qa_group_no);
 		public int QAReplyInsert(QADto dto);
+		public int QAReplyUpdate(QADto dto);
+		public int QAReplyDelete(QADto dto);
+		
+		// 메인화면 리스트
+		public List<ClassInfoDto> SubCountSelectList();
+		public List<ClassInfoDto> PopularReviewSelectList();
 }

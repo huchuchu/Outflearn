@@ -50,7 +50,7 @@
               <a href="void:0">내 강좌</a>
               <ul class="inner_menu">
                 <li><a href="listenClass">수강중인 강좌</a></li>
-                <li><a href="wishClass">위시리스트</a></li>
+                <li><a href="basketSelect">장바구니</a></li>
               </ul>
             </li>
 
@@ -97,9 +97,16 @@
               <div class="col-sm-12">
                 <div class="boardBox">
                   <h4 class="boxTitle">수강중인 강좌</h4>
-                  <c:forEach items="${subClass }" var="item">
-                    강좌명 : ${item.class_title}
-                  </c:forEach>
+                  <c:choose>
+                  	<c:when test="${empty subClass }">
+                  		<h5>수강중인 강좌가 없습니다...ㅠㅠ</h5>
+                  	</c:when>
+                  	<c:otherwise>
+                  		<c:forEach items="${subClass }" var="item">
+		                    <p>강좌명 : ${item.class_title}</p>
+		                </c:forEach>
+                  	</c:otherwise>
+                  </c:choose>
                 </div>
               </div>
             </div>
@@ -122,10 +129,18 @@
 
               <div class="col-sm-6">
                 <div class="boardBox">
-                  <h4 class="boxTitle">위시리스트</h4>
-                  <c:forEach items="${wishList }" var="item">
-                    강좌명 : ${item.class_title}
-                  </c:forEach>
+                  <h4 class="boxTitle">장바구니</h4>
+	                  <c:choose>
+	                  	<c:when test="${empty basketClass }">
+	                  		<h5>장바구니가 비었습니다...ㅠㅠ</h5>
+	                  	</c:when>
+	                  	<c:otherwise>
+	                  		<c:forEach items="${basketClass }" var="item">
+                    			<p>강좌명 : ${item.class_title}</p>
+                 			 </c:forEach>
+	                  	</c:otherwise>
+	                  </c:choose>
+                  
                 </div>
               </div>
 

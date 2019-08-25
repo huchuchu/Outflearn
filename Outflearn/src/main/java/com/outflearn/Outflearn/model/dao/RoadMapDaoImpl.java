@@ -249,6 +249,35 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	
+		return res;
+	}
+	
+	//페이징, 검색
+	@Override
+	public List<RoadMapInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("firstIndex", String.valueOf(firstIndex));
+		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
+		map.put("txt_search", txt_search);
+		map.put("searchOption", searchOption);
+		
+		List<RoadMapInfoDto> list = session.selectList(NAMESPACE + "selectListPageRoadMap", map);
+		
+		return list;
+	}
+
+	@Override
+	public int selectTotalCountRoadMap(String txt_search, String searchOption) {
+		
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("txt_search", txt_search);
+		res = session.selectOne(NAMESPACE + "selectTotalCountRoadMap", map);
 		
 		return res;
 	}

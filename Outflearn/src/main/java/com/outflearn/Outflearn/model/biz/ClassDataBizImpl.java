@@ -84,7 +84,7 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 	
 	@Override
-	public ClassDataDto ClassDataSelectOne(int class_num) {
+	public List<ClassDataDto> ClassDataSelectOne(int class_num) {
 	
 		return dao.ClassDataSelectOne(class_num);
 	}
@@ -158,20 +158,7 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return (ClassReviewUpdateAnswer + ClassReviewInsertAnswer);
 	}
 
-	@Override
-	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search) {
-		return dao.selectListPage(firstIndex, recordCountPerPage, txt_search);
-	}
-
-	@Override
-	public int selectTotalCount(String txt_search) {
-		return dao.selectTotalCount(txt_search);
-	}
-
-	@Override
-	public int selectTotalCount(String searchOption, String txt_search) {
-		return dao.selectTotalCount(searchOption, txt_search);
-	}
+	
 
 	@Override
 	public int ClassReviewInsertAnswer(ClassReviewDto dto) {
@@ -182,13 +169,24 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public List<ClassDataDto> ClassDataSelectList() {
 		return dao.ClassDataSelectList();
 	}
-	
+//-----------------------------------------------------페이징 및 리스트 불러오기	
 	@Override
-	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search,
-			String searchOption) {
-		return dao.selectListPage(firstIndex, recordCountPerPage, txt_search, searchOption);
+	public int selectTotalCount(String txt_search) {
+		return dao.selectTotalCount(txt_search);
+	}
+	@Override
+	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search) {
+		return dao.selectListPage(firstIndex, recordCountPerPage, txt_search);
 	}
 	
+	@Override
+	public List<ClassInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search, String searchOption) {
+		return dao.selectListPageTwo(firstIndex, recordCountPerPage, txt_search, searchOption);
+	}
+	@Override
+	public int selectTotalCountTwo(String txt_search, String searchOption) {
+		return dao.selectTotalCountTwo(txt_search, searchOption);
+	}
 	@Override
 	public List<QADto> QASelectList(int class_num) {
 		return dao.QASelectList(class_num);
@@ -239,9 +237,29 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int QAReplyInsert(QADto dto) {
 		return dao.QAReplyInsert(dto);
 	}
-
-
-
 	
+	@Override
+	public int QAReplyUpdate(QADto dto) {
+		return dao.QAReplyUpdate(dto);
+	}
 
+	@Override
+	public List<ClassInfoDto> SubCountSelectList() {
+		return dao.SubCountSelectList();
+	}
+
+	@Override
+	public List<ClassInfoDto> PopularReviewSelectList() {
+		return dao.PopularReviewSelectList();
+	}
+
+	@Override
+	public int QADelete(int qa_group_no) {
+		return dao.QADelete(qa_group_no);
+	}
+
+	@Override
+	public int QAReplyDelete(QADto dto) {
+		return dao.QAReplyDelete(dto);
+	}
 }

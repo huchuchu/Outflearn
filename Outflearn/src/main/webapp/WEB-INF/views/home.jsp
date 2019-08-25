@@ -9,13 +9,24 @@
   <meta charset="UTF-8">
   <title>Outflearn</title>
 
+<!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
+<script src="https://kit.fontawesome.com/27cb20e940.js"></script>
+
+<!-- css -->
+<link rel="stylesheet" href="resources/css/LectureList.css">
+
+<!-- Bootstrap -->
+<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="resources/fonts/font-awesome/css/font-awesome.css">
+
+<!-- Stylesheet ================================================== -->
+<link rel="stylesheet" type="text/css" href="resources/css/style.css">
+
 </head>
 <body>
   
   <!-- Header -->
   <jsp:include page="header/MainHeader.jsp"></jsp:include>
-  
-  
   
   <header id="header">
     <div class="intro">
@@ -48,7 +59,7 @@
 
 
   <!-- Live Section -->
-  <div id="live">
+  <!-- <div id="live">
     <div class="container">
       <h2 class="page-header" style="text-align: center">Live 강의</h2>
 
@@ -68,52 +79,47 @@
         <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a> <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
       </div>
     </div>
-  </div>
-
-  <!-- 신규 강좌 -->
-  <div id="recent">
-    <div class="container">
-      <h2 class="page-header" style="text-align: center">최근에 개설된 신규 강좌</h2>
-
-      <div class="slideshow-container">
-        <div class="mySlides2">
-          <img src="images/img_1.jpg" style="width: 100%">
-        </div>
-
-        <div class="mySlides2">
-          <img src="images/img_2.jpg" style="width: 100%">
-        </div>
-
-        <div class="mySlides2">
-          <img src="images/img_3.jpg" style="width: 100%">
-        </div>
-
-        <a class="prev" onclick="plusSlides(-1, 1)">&#10094;</a> <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
-      </div>
-    </div>
-  </div>
+  </div> -->
 
   <!-- 좋은 평가를 받고 있는 강좌 -->
   <div id="best_review">
     <div class="container">
-      <h2 class="page-header" style="text-align: center">좋은 평가를 받고 있는
-        강좌</h2>
-
-      <div class="slideshow-container">
-        <div class="mySlides3">
-          <img src="images/img_1.jpg" style="width: 100%">
-        </div>
-
-        <div class="mySlides3">
-          <img src="images/img_2.jpg" style="width: 100%">
-        </div>
-
-        <div class="mySlides3">
-          <img src="images/img_3.jpg" style="width: 100%">
-        </div>
-
-        <a class="prev" onclick="plusSlides(-1, 2)">&#10094;</a> <a class="next" onclick="plusSlides(1, 2)">&#10095;</a>
-      </div>
+    	<h2 class="page-header" style="text-align: center">좋은 평가를 받고있는 강좌</h2>
+      	<div id="BestReview" class="carousel slide" data-ride="carousel">
+      		<div class="carousel-inner">
+				<c:choose>
+					<c:when test="${empty SubCount }">
+						<h1>아직 강좌 개설이 안됐습니다.</h1>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="i" begin="3" step="3" end="6">	
+        					<div class="item href-div">
+        					<c:choose>
+        						<c:when test="${i eq '3' }">
+								<c:forEach items="${SubCount }" var="dto" begin="0" end="${i - 1}">
+        							<img src="${pageContext.request.contextPath }/resources/uploadImage/${dto.class_img }" onclick="location.href='LectureDetail?class_num=${dto.class_num }'">
+								</c:forEach>
+								</c:when>
+								<c:otherwise>
+								<c:forEach items="${SubCount }" var="dto" begin="3" end="${i }">
+        							<img src="${pageContext.request.contextPath }/resources/uploadImage/${dto.class_img }" onclick="location.href='LectureDetail?class_num=${dto.class_num }'">
+								</c:forEach>
+								</c:otherwise>
+      						</c:choose>
+      						</div>
+      					</c:forEach>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<a class="left carousel-control" href="#BestReview" data-slide="prev">
+      			&#10094;
+      			<span class="sr-only">Previous</span>
+    		</a>
+    		<a class="right carousel-control" href="#BestReview" data-slide="next">
+      			&#10095;
+      			<span class="sr-only">Next</span>
+    		</a>
+		</div>
     </div>
   </div>
 
@@ -121,29 +127,53 @@
   <div id="popular">
     <div class="container">
       <h2 class="page-header" style="text-align: center">인기있는 강좌</h2>
-
-      <div class="slideshow-container">
-        <div class="mySlides4">
-          <img src="images/img_1.jpg" style="width: 100%">
-        </div>
-
-        <div class="mySlides4">
-          <img src="images/img_2.jpg" style="width: 100%">
-        </div>
-
-        <div class="mySlides4">
-          <img src="images/img_3.jpg" style="width: 100%">
-        </div>
-
-        <a class="prev" onclick="plusSlides(-1, 3)">&#10094;</a> <a class="next" onclick="plusSlides(1, 3)">&#10095;</a>
+      	<div id="Popular_" class="carousel slide" data-ride="carousel">
+      		<div class="carousel-inner">
+				<c:choose>
+					<c:when test="${empty SubCount }">
+						<h1>아직 강좌 개설이 안됐습니다.</h1>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="i" begin="3" step="3" end="6">	
+        					<div class="item">
+        					<c:choose>
+        						<c:when test="${i eq '3' }">
+								<c:forEach items="${SubCount }" var="dto" begin="0" end="${i - 1}">
+        							<img src="${pageContext.request.contextPath }/resources/uploadImage/${dto.class_img }">
+								</c:forEach>
+								</c:when>
+								<c:otherwise>
+								<c:forEach items="${SubCount }" var="dto" begin="3" end="${i }">
+        							<img src="${pageContext.request.contextPath }/resources/uploadImage/${dto.class_img }">
+								</c:forEach>
+								</c:otherwise>
+      						</c:choose>
+      						</div>
+      					</c:forEach>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<a class="left carousel-control" href="#Popular_" data-slide="prev">
+      			&#10094;
+      			<span class="sr-only">Previous</span>
+    		</a>
+    		<a class="right carousel-control" href="#Popular_" data-slide="next">
+      			&#10095;
+      			<span class="sr-only">Next</span>
+    		</a>
+		</div>
       </div>
     </div>
-  </div>
 
   <!--footer  --> 
   <jsp:include page="footer/Footer.jsp"></jsp:include>
   <!--footer  --> 
 
+  	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
+	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
+	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
+	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
+	<script type="text/javascript" src="resources/js/template/LectureList.js"></script>
+	<script type="text/javascript" src="resources/js/template/main.js"></script>
 </body>
-
 </html>

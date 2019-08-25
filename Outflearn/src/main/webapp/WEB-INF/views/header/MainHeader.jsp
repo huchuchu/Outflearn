@@ -31,9 +31,6 @@
   <link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
   <script src='resources/js/sweetalert/sweetalert2.min.js'></script>
 
-  
-
-  
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <!-- ==========================================Navigation==========================================-->
@@ -49,11 +46,10 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-center">
-          <li><a href="LectureList">강좌 둘러보기</a></li>
+          <li><a href="LectureList?txt_search=&searchOption=all">강좌 둘러보기</a></li>
           <li><a href="RoadMap">로드맵 학습</a></li>
           <li><a href="introOutflearn">아웃프런 소개</a></li>
           <li><a href="Livepage">라이브</a></li>
-          <li><a href="basketSelect">장바구니</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown"><a href="void:0" class="dropdown-toggle" data-toggle="dropdown"><i class="far fa-user" style="color: #6372ff "></i><div class="dropdown-menu" role="menu" aria-expanded="navbarDropdown">
@@ -73,7 +69,9 @@
       </div>
     </div>
   </nav>
-  <!-- Header -->
+  
+  <script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
+  <script type="text/javascript" src="resources/js/template/header.js"></script>
   
 </body>
 </html>
