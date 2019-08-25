@@ -77,10 +77,24 @@ public class myPageController {
 	public String configProfile(Model model) {
 		
 		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
 		model.addAttribute("userInfo", dto);
 		
 		return "Member/configProfile";
+	}
+	
+	@RequestMapping("reqLecturer")
+	public String reqLecturer(Model model) {
+		
+		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("userInfo", dto);
+		
+		return "Member/reqLecturer";
+	}
+	
+	@RequestMapping("sendLecturerEmail")
+	public String sendLecturerEmail() {
+		
+		return "";
 	}
 
 }
