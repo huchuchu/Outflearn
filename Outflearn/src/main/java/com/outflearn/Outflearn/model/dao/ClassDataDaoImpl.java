@@ -133,16 +133,13 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 
 	@Override
-	public ClassDataDto ClassDataSelectOne(int class_num) {
+	public List<ClassDataDto> ClassDataSelectOne(int class_num) {
 
-		ClassDataDto dto = new ClassDataDto();
+		List<ClassDataDto> list = new ArrayList<ClassDataDto>();
 
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("class_num", class_num);
-		System.out.println("daoImpl : " + class_num);
-		dto = sqlSession.selectOne(namespace + "classdataselectone", map);
+		list = sqlSession.selectList(namespace + "classdataselectone", class_num);
 
-		return dto;
+		return list;
 	}
 
 //  유튜브 영상
@@ -160,7 +157,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	public int ClassChapterDataInsert(ClassDataDto dto) {
 		int res = 0;
 
-		res = sqlSession.update(namespace + "ClassInfoUpdate", dto);
+		res = sqlSession.insert(namespace + "ClassChapterDataInsert", dto);
 
 		return res;
 	}
@@ -407,8 +404,48 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	public int QAReplyUpdate(QADto dto) {
 		
 		int res = 0;
+		System.out.println(dto.getQa_content() + " : daoImpl");
+		System.out.println(dto.getQa_num() + " : daoimpl qanum");
+		System.out.println(dto.getQa_group_no() + " : daoimpl groupnoS");
+		System.out.println(dto.getQa_group_sq() + " : daoimpl groupsq");
 		
 		res = sqlSession.update(namespace + "QAReplyUpdate", dto);
+		
+		return res;
+	}
+
+	@Override
+	public List<ClassInfoDto> SubCountSelectList() {
+		
+		List<ClassInfoDto> list = new ArrayList<ClassInfoDto>();
+		
+		list = sqlSession.selectList(namespace + "SubCountSelectList", list);
+		
+		return list;
+	}
+	
+	@Override
+	public List<ClassInfoDto> PopularReviewSelectList() {
+		
+		List<ClassInfoDto> list = new ArrayList<ClassInfoDto>();
+		
+		list = sqlSession.selectList(namespace + "PopularReviewSelectList", list);
+		
+		return list;
+	}
+
+	@Override
+	public int QADelete(int qa_group_no) {
+		
+		int res = sqlSession.delete(namespace + "QADelete", qa_group_no);
+		
+		return res;
+	}
+
+	@Override
+	public int QAReplyDelete(QADto dto) {
+		
+		int res = sqlSession.delete(namespace + "QAReplyDelete", dto);
 		
 		return res;
 	}

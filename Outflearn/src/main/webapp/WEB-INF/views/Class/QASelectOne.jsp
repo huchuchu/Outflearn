@@ -23,6 +23,15 @@
 	rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
 	crossorigin="anonymous">
 
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+
+
 </head>
 <body>
 
@@ -40,7 +49,7 @@
 					</c:when>
 				<c:otherwise>
 					<div class="form-group">
-						<c:forEach items="${classQuestionReply }" var="dto">
+						<c:forEach items="${classQuestionReply }" var="dto" begin="2">
 							<div class="panel student_question_panel">
 								<div class="form-group question_content">
 									<p class="question_title">작성자 : ${dto.user_nickname }</p>
@@ -48,17 +57,20 @@
 									<div>
 										<div class="update-btn-div">
 											<form:form cssClass="update-complete-btn" action="QAReplyUpdate">
-												<textarea cols="10" name="qa_content" class="reply-update">${dto.qa_content }</textarea>
+												<textarea name="qa_content" class="reply-update summernote">${dto.qa_content }</textarea>
 												<input type="hidden" name="qa_num" value="${dto.qa_num }">
 												<input type="hidden" name="qa_group_sq" value="${dto.qa_group_sq }">
-												<input type="hidden" name="qa_content" value="${dto.qa_content }">
-												<button type="submit" class="btn btn-default delete-btn">수정 완료</button>
+												<input type="hidden" name="qa_group_no" value="${dto.qa_group_no }">
+												<button type="submit" class="btn btn-default qa-btn">수정 완료</button>
+												<button type="button" class="btn btn-default cancel-btn qa-btn">수정 취소</button>
 											</form:form>
-											<button type="button" class="btn btn-default update-btn">수정</button>
+											<button type="button" class="btn btn-default update-btn qa-btn">수정</button>
 										</div>
-										<form:form action="QuestionReplyDelete">
+										<form:form action="QAReplyDelete">
 											<input type="hidden" name="qa_num" value="${dto.qa_num }">
-											<button type="submit" class="btn btn-default delete-btn">삭제</button>
+											<input type="hidden" name="qa_group_no" value="${dto.qa_group_no }">
+											<input type="hidden" name="qa_group_sq" value="${dto.qa_group_sq }">
+											<button type="submit" class="btn btn-default qa-btn">삭제</button>
 										</form:form>
 									</div>
 								</div>
@@ -75,7 +87,7 @@
 					<input type="hidden" name="qa_group_no" value="${classQuestion.qa_group_no }">
 					<input type="hidden" name="qa_group_sq" value="${classQuestion.qa_group_sq }">
 					<input type="hidden" name="qa_num" value="${classQuestion.qa_num }">
-					<textarea cols="10" name="qa_content" id="reply-insert"></textarea>
+					<textarea cols="10" name="qa_content" class="summernote reply-insert"></textarea>
 					<button type="submit" class="btn btn-default">답글 입력</button>
 				</form:form>
 			</div>
@@ -88,8 +100,6 @@
 	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/template/QuestionSelectOne.js"></script>
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
-	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
-	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
-	<script type="text/javascript" src="resources/js/template/main.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 </body>
 </html>

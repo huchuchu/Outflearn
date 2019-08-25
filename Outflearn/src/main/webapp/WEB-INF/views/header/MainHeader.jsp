@@ -31,9 +31,6 @@
   <link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
   <script src='resources/js/sweetalert/sweetalert2.min.js'></script>
 
-  
-
-  
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <!-- ==========================================Navigation==========================================-->
@@ -72,7 +69,9 @@
       </div>
     </div>
   </nav>
-  <!-- Header -->
+  
+  <script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
+  <script type="text/javascript" src="resources/js/template/header.js"></script>
   
 </body>
 </html>

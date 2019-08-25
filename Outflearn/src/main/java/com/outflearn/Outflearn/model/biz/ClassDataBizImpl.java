@@ -77,7 +77,7 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 	
 	@Override
-	public ClassDataDto ClassDataSelectOne(int class_num) {
+	public List<ClassDataDto> ClassDataSelectOne(int class_num) {
 	
 		return dao.ClassDataSelectOne(class_num);
 	}
@@ -229,5 +229,25 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	@Override
 	public int QAReplyUpdate(QADto dto) {
 		return dao.QAReplyUpdate(dto);
+	}
+
+	@Override
+	public List<ClassInfoDto> SubCountSelectList() {
+		return dao.SubCountSelectList();
+	}
+
+	@Override
+	public List<ClassInfoDto> PopularReviewSelectList() {
+		return dao.PopularReviewSelectList();
+	}
+
+	@Override
+	public int QADelete(int qa_group_no) {
+		return dao.QADelete(qa_group_no);
+	}
+
+	@Override
+	public int QAReplyDelete(QADto dto) {
+		return dao.QAReplyDelete(dto);
 	}
 }

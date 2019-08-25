@@ -1,20 +1,43 @@
+var count_sum = 0
+var hour_sum = 0
+var minite_sum = 0
+var second_sum = 0
+
 $(document).ready(function () {
 
     rating_star($('#rating').val())
 
     var _class_num = $('#selectone').val()
-    var playlist = '';
-    var playlist_id = '';
+    var playlist = ''
+    var playOne = new Array()
+    var playlist_id = new Array()
+    
     if ($('.nav-tabs > li > a').text().indexOf('대쉬보드') != -1) {
         $(".nav-tabs > li > a:contains('대쉬보드')").css({ 'border-bottom': '2px solid #6473ff' });
         $.ajax({
             type: 'GET',
             url: 'DetailDashBoard',
             success: function (play_id) {
-                console.log(play_id)
-                playlist_id = play_id
-                playlist = "https://www.googleapis.com/youtube/v3/playlistItems?playlistId=" + play_id + "&part=contentDetails,snippet&maxResults=11&key=AIzaSyAKpVZhMIKzF0zAD17yeVygQWNfL7MCCzc";
-                Dashboard(playlist, playlist_id);
+            	DashboardHeader()
+            
+                for(var i = 0; i < play_id.length; i++) {
+                	
+                	if(play_id[i].indexOf("v=") != -1){
+                		
+                		play_id[i] = play_id[i].split('v=', 2)[1]
+	                	playOne[i] = play_id[i]
+                		playlist = "https://www.googleapis.com/youtube/v3/videos?id= " + play_id[i] + "&part=contentDetails,snippet&key=AIzaSyAKpVZhMIKzF0zAD17yeVygQWNfL7MCCzc";
+	                	DashboardOne(playlist, playOne[i])
+	                	
+                	} else if(play_id[i].indexOf("list") != -1) {
+                		
+                		play_id[i] = play_id[i].split('list=', 2)[1]
+                		playlist_id[i] = play_id[i]
+                		playlist = "https://www.googleapis.com/youtube/v3/playlistItems?playlistId=" + play_id[i] + "&part=contentDetails,snippet&maxResults=5&key=AIzaSyAKpVZhMIKzF0zAD17yeVygQWNfL7MCCzc";
+	                	DashboardList(playlist, playlist_id[i])
+	                	
+                	}
+                }
             },
             error: function (err) {
                 console.log('실패!!')
@@ -38,7 +61,7 @@ $(document).ready(function () {
         console.log($(this).attr('href') + " : this attr href")
 
         if ($(this).text() == '대쉬보드') {
-            Dashboard(playlist, playlist_id)
+        	DashboardHeader()
         } else if ($(this).text() == '질문&답변') {
             ReviewAnswer()
         }
@@ -55,7 +78,70 @@ $(document).ready(function () {
     });
 })
 
-function Dashboard(video_list, playlist_id) {
+function DashboardHeader() {
+	$('#dashboard').empty()
+	$('#dashboard').html(
+    "<div class='page-header'><h1>유튜브</h1></div>" + 
+    "<div class='table-responsive-lg'>" + 
+    "<table class='table'>" +
+    "<tr class='text-center'>" + 
+    "<th>youtube title</th>" +
+    "<th>startAt</th>" +
+    "<th>endAt</th>" +
+    "<th>regdate</th>" +
+    "</tr>"
+	)
+}
+
+function DashboardOne(video_list, playlist_id) {
+	$.ajax({
+        type: 'GET',
+        dataType: 'JSON',
+        url: video_list,
+        success: function (vi_list) {
+        	console.log(video_list, ' : ')
+
+        	var count = 0;
+        	var timer = 0;
+        	var hour = 0;
+        	var min = 0;
+        	var sec = 0;
+        	
+        	var video_id = vi_list.items[0].id;
+        	var video_title = vi_list.items[0].snippet.title
+            var duration = getVideos(video_id);
+        	
+        	$('.table').append(
+                `<tr class='youtube_data'>
+                	<td><i class=\"far fa-clock\"></i></td>
+                  	<td><a href='LectureDetailView?DATA_DATA=${video_id}'>${video_title}</a></td>
+                   	<td>${duration}</td>
+                   	<td>${duration}</td>`
+            );
+
+        	min += parseInt(duration.split(' : ')[0]);
+            sec += parseInt(duration.split(' : ')[1]);
+            
+            hour_sum = hour_sum + hour
+            minite_sum = minite_sum + min
+            second_sum = second_sum + sec
+        
+        count_sum = count_sum + count
+        
+        $('#count').html(`${count_sum} 개 수업`)
+        $('#timer').html(`${timer}`)
+        $('#dashboard').append("</table></div>")
+        	
+            count_sum++
+
+        },
+        error: function (err) {
+            alert('callback hell!!!!!');
+        }
+    })
+}
+
+function DashboardList(video_list, playlist_id) {
 	$.ajax({
         type: 'GET',
         dataType: 'JSON',
@@ -71,18 +157,6 @@ function Dashboard(video_list, playlist_id) {
         	var min = 0;
         	var sec = 0;
         	
-            $('#dashboard').empty()
-            $('#dashboard').append(
-                "<div class='page-header'><h1>유튜브</h1></div>" + 
-                "<div class='table-responsive-lg'>" + 
-                "<table class='table'>" +
-                "<tr class='text-center'>" + 
-                "<th>youtube title</th>" +
-                "<th>startAt</th>" +
-                "<th>endAt</th>" +
-                "<th>regdate</th>" +
-                "</tr>"
-            )
             for (var i = 0; i < vi_list.items.length; i++) {
 
             	count++;
@@ -102,30 +176,36 @@ function Dashboard(video_list, playlist_id) {
                 min += parseInt(duration.split(' : ')[0]);
                 sec += parseInt(duration.split(' : ')[1]);
                 
+//                hour_sum = hour_sum + hour
+//                minite_sum = minite_sum + min
+//                second_sum = second_sum + sec
+                
                 if(min > 59) {
-                	hour ++;
+                	hour_sum ++;
                 	min -= 60;
                 }
                 
                 if(sec > 59) {
-                	min ++;
+                	minite_sum ++;
                 	sec = sec - 60;
                 }
             }
             
-            if(isNaN(sec) && isNaN(min)) {
+            if(isNaN(sec) && isNaN(minite_sum)) {
             	timer = "총 " + hour + "시간 ";
-            } else if(isNaN(sec) || isNaN(min)) {
+            } else if(isNaN(sec) || isNaN(minite_sum)) {
             	if(isNaN(sec)) {
-            		timer = "총 " + hour + "시간 " +  min + "분 ";
+            		timer = "총 " + hour_sum + "시간 " +  minite_sum + "분 ";
             	} else {
-            		timer = "총 " + hour + "시간 " + sec + "초";
+            		timer = "총 " + hour_sum + "시간 " + sec + "초";
             	}
             } else {
-            	timer = "총 " + hour + "시간 " +  min + "분 " + sec + "초";
+            	timer = "총 " + hour_sum + "시간 " +  minite_sum + "분 " + sec + "초";
             }
             
-            $('#count').html(`${count} 개 수업`)
+            count_sum = count_sum + count
+            
+            $('#count').html(`${count_sum} 개 수업`)
             $('#timer').html(`${timer}`)
             $('#dashboard').append("</table></div>")
 
@@ -136,35 +216,8 @@ function Dashboard(video_list, playlist_id) {
     })
 }
 
-function LectureIntro(video_list) {
-    $.ajax({
-        type: 'GET',
-        dataType: 'JSON',
-        url: video_list,
-        success: function (vi_list) {
-
-            $('#jumbo_row > img').attr('src', vi_list.items[0].snippet.thumbnails.high.url)
-
-
-            var video_id = vi_list.items[5].snippet.resourceId.videoId
-            console.log(vi_list.items[0].contentDetails.endAt)
-
-            $('#dashboard').html(
-                `<iframe id="player" type="text/html" style="width: 100%; height: 100%; max-width: 900px;"
-                    src="http://www.youtube.com/embed/${video_id}?end=61&enablejsapi=1&origin=http://example.com"
-                    frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" 
-                    msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>`
-            )
-
-        },
-        error: function (err) {
-            alert('callback hell!!!!!');
-        }
-    })
-}
-
 function ReviewAnswer() {
-    $('#dashboard').html(
+    $('#dashboard').append(
         `<div class="modal fade" id="myModal3" role="dialog">
 		    <div class="modal-dialog">
 		    

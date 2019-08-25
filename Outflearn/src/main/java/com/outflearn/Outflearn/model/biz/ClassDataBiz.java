@@ -31,7 +31,7 @@ public interface ClassDataBiz {
 		
 		// 강좌 데이터 -  CLASS_DATA 테이블
 		public List <ClassDataDto> ClassDataSelectList();
-		public ClassDataDto ClassDataSelectOne(int class_num);
+		public List<ClassDataDto> ClassDataSelectOne(int class_num);
 		public int ClassDataInsert(ClassDataDto dto);		
 		public int ClassChapterDataInsert(ClassDataDto dto);
 		
@@ -66,6 +66,12 @@ public interface ClassDataBiz {
 		public QADto QASelectOne(int qa_num);
 		public List<QADto> QAReply(int qa_group_no);
 		public int QAInsert(QADto dto);
+		public int QADelete(int qa_group_no);
 		public int QAReplyInsert(QADto dto);
 		public int QAReplyUpdate(QADto dto);
+		public int QAReplyDelete(QADto dto);
+		
+		// 메인화면 리스트
+		public List<ClassInfoDto> SubCountSelectList();
+		public List<ClassInfoDto> PopularReviewSelectList();
 }

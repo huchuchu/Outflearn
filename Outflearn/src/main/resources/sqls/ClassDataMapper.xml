@@ -33,7 +33,7 @@
 	<!-- ================== CLASS_DATA 테이블 ================== -->
 	 
 	<!-- 강좌 챕터 영상 보기 -->
-	<select id="classdataselectone" parameterType="map" resultType="ClassDataDto">
+	<select id="classdataselectone" parameterType="int" resultType="ClassDataDto">
 	  SELECT DATA_DATA FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
   	</select>
 	
@@ -98,12 +98,20 @@
 	</insert>
 
 	<select id="QASelectList" parameterType="int" resultType="QADto">
-		SELECT * FROM QA WHERE CLASS_NUM = #{class_num}
+		SELECT * FROM QA WHERE CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1
 	</select>
 	
 	<select id="QASelectOne" parameterType="int" resultType="QADto">
 		SELECT * FROM QA WHERE QA_NUM = #{qa_num}
 	</select>
+	
+	<insert id="QAInsert" parameterType="QADto">
+		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname}, #{qa_title}, #{qa_content}, QA_GROUP_NO_SQ.NEXTVAL, '1')
+	</insert>
+	
+	<delete id="QADelete" parameterType="int">
+		DELETE FROM QA WHERE QA_GROUP_NO = #{qa_group_no}
+	</delete>
 	
 	<select id="QAReply" parameterType="int" resultType="QADto">
 		SELECT * FROM QA WHERE QA_GROUP_NO = #{qa_group_no} ORDER BY QA_GROUP_SQ
@@ -112,12 +120,16 @@
 	<insert id="QAReplyInsert" parameterType="QADto">
 		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname}, '답글', #{qa_content}, 
 										  (SELECT DISTINCT QA_GROUP_NO FROM QA WHERE QA_GROUP_NO = #{qa_group_no}),
-										  QA_GROUP_SQ_SQ.NEXTVAL)
+										  (SELECT QA_GROUP_SQ FROM QA WHERE QA_GROUP_SQ = (SELECT MAX(QA_GROUP_SQ) FROM QA WHERE QA_GROUP_NO = #{qa_group_no}) AND QA_GROUP_NO = #{qa_group_no}) + 1)
 	</insert>
 	
 	<update id="QAReplyUpdate" parameterType="QADto">
-		UPDATE QA SET QA_CONTENT = ${qa_content} WHERE QA_NUM = #{qa_num} AND QA_GROUP_SQ = #{qa_group_sq}	
+		UPDATE QA SET QA_CONTENT = '${qa_content}' WHERE (QA_NUM = #{qa_num}) AND (QA_GROUP_SQ = #{qa_group_sq})	
 	</update>
+	
+	<delete id="QAReplyDelete" parameterType="QADto">
+		DELETE FROM QA WHERE QA_GROUP_NO = #{qa_group_no} AND QA_GROUP_SQ = #{qa_group_sq}
+	</delete>
 	
 	<select id="selectListPage" parameterType="map" resultType="ClassInfoDto">
 		SELECT *
@@ -184,6 +196,16 @@
 		INSERT INTO CLASS_CATEGORY VALUES(CLASS_INFO_SQ.CURRVAL , MAIN_SQ.CURRVAL, SUB_SQ.CURRVAL)
 	</insert>
 	
+	<select id="SubCountSelectList" resultType="ClassInfoDto">
+		<![CDATA[
+			SELECT * FROM (SELECT * FROM CLASS_INFO ORDER BY CLASS_SUBCOUNT DESC) WHERE ROWNUM <= 6
+		]]>
+	</select>
 	
+	<select id="PopularSelectList" resultType="ClassInfoDto">
+		<![CDATA[
+			SELECT * FROM (SELECT * FROM CLASS_INFO ORDER BY CLASS_RATING DESC) WHERE ROWNUM <= 6
+		]]>
+	</select>
 
 </mapper>
