@@ -4,14 +4,21 @@ import java.util.List;
 
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 
 public interface myPageDao {
 	
 	String namespace = "myPage.";
 	
-	public List<ClassInfoDto> getWishList(int user_num);
+	public List<ClassInfoDto> getPreBasketClass(int user_num);
+	public List<ClassInfoDto> getPreSubscribe(int user_num);
+	public List<RoadMapCon> getPreSubRoadmap(int user_num);
+	public List<QADto> getPreQA(int user_num);
+	
+	public List<ClassInfoDto> getBasketClass(int user_num);
 	public List<ClassInfoDto> getSubscribe(int user_num);
 	public List<RoadMapCon> getSubRoadmap(int user_num);
+	public List<QADto> getQA(int user_num);
 
 }

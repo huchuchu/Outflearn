@@ -164,6 +164,11 @@ public class AnswerController {
 	@RequestMapping("QAReplyUpdate")
 	public String QAReplyUpdate(@ModelAttribute QADto dto) {
 		
+		System.out.println(dto.getQa_content() + " : controller");
+		System.out.println(dto.getQa_group_no() + " : qano");
+		System.out.println(dto.getQa_num() + " : qanum");
+		
+		
 		int res = biz.QAReplyUpdate(dto);
 		
 		if(res > 0) {
@@ -174,10 +179,15 @@ public class AnswerController {
 	}
 	
 	@RequestMapping("QAReplyDelete")
-	public String QAReplyDelete(int qa_num) {
+	public String QAReplyDelete(@ModelAttribute QADto dto) {
 		
+		int res = biz.QAReplyDelete(dto);
 		
-		return "QASelectOne";
+		if(res > 0) {
+			return "redirect: QASelectOne?qa_num=" + dto.getQa_num() + "&qa_group_no=" + dto.getQa_group_no();
+		} else {
+			return "redirect: QASelectOne?qa_num=" + dto.getQa_num() + "&qa_group_no=" + dto.getQa_group_no();
+		}
 	}
 	
 }

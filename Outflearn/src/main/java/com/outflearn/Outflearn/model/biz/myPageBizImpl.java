@@ -11,6 +11,7 @@ import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.LiveDto;
+import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.connectUserClass;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
@@ -25,8 +26,8 @@ public class myPageBizImpl implements myPageBiz {
 	private myPageDao dao;
 
 	@Override
-	public List<ClassInfoDto> getWishList(int user_num) {
-		return dao.getWishList(user_num);
+	public List<ClassInfoDto> getBasketClass(int user_num) {
+		return dao.getBasketClass(user_num);
 	}
 
 	@Override
@@ -39,5 +40,29 @@ public class myPageBizImpl implements myPageBiz {
 		return dao.getSubRoadmap(user_num);
 	}
 
+	@Override
+	public List<QADto> getQA(int user_num) {
+		return dao.getQA(user_num);
+	}
+	
+	@Override
+	public List<ClassInfoDto> getPreBasketClass(int user_num) {
+		return dao.getPreBasketClass(user_num);
+	}
+
+	@Override
+	public List<ClassInfoDto> getPreSubscribe(int user_num) {
+		return dao.getPreSubscribe(user_num);
+	}
+
+	@Override
+	public List<RoadMapCon> getPreSubRoadmap(int user_num) {
+		return dao.getPreSubRoadmap(user_num);
+	}
+
+	@Override
+	public List<QADto> getPreQA(int user_num) {
+		return dao.getPreQA(user_num);
+	}
 		
 }

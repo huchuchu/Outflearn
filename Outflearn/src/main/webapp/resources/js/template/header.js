@@ -1,20 +1,20 @@
 $(document).ready(function () {
 	
-	$('#header').css({'position': 'relative', 'top':$('#menu').outerHeight()})
 	$('#menu').css({
 		'position': 'relative',
-		'margin': '0'
+		'margin-bottom': '10px'
 	})
     $(window).scroll(function (event) {
        if ($(window).scrollTop() < 50) {
           $('#menu').css({
              'position': 'relative',
-             'margin': '0'
+             'margin-bottom': '10px'
           });
           $('#header').css({'position': 'relative', 'top': '0'})
        } else {
           $('#menu').css({
              'position': 'fixed',
+             'margin-bottom': '10px',
              'z-index': '9999'
           });
        }

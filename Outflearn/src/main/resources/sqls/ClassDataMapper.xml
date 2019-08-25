@@ -10,20 +10,18 @@
 	</select>
 
 	<!-- 해당 강의 조회 -->
-	<select id="ClassInfoSelectone" parameterType="map"
-		resultType="ClassInfoDto">
-		SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
-	</select>
-
-	<!-- 카테고리에 해당 강좌 조회 -->
-	<select id="CategorySelectList" resultType="ClassInfoDto">
-		SELECT * FROM CLASS_INFO WHERE CLASS_CATEGORY = #{class_category}
-	</select>
-
-	<!-- 장바구니에서 해당 유저가 담은 강의 -->
-	<select id="classInfoSelectListUser" parameterType="int"
-		resultType="ClassInfoDto">
-		SELECT * FROM CLASS_INFO WHERE USER_NUM = #{user_num }
+    <select id="ClassInfoSelectone" parameterType="map" resultType="ClassInfoDto">
+   	  SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
+   </select>
+  
+  	<!-- 카테고리에 해당 강좌 조회 -->
+   	<select id="CategorySelectList" resultType="ClassInfoDto">
+   	  	SELECT * FROM CLASS_INFO WHERE CLASS_CATEGORY = #{class_category}
+   	</select>
+   	
+   	<!-- 장바구니에서 해당 유저가 담은 강의 -->
+	<select id="classInfoSelectListUser" parameterType="int" resultType="ClassInfoDto">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN (SELECT DISTINCT CLASS_NUM FROM BASKET WHERE USER_NUM = #{user_num })
 	</select>
 
 	<!-- 강의 소개 페이지 -->
@@ -33,17 +31,19 @@
 		}, #{class_author }, #{class_intro }, #{class_img }, #{class_live }
 		,0, #{class_price }, 0, #{class_studentlevel })
 	</insert>
-
-
-
+	
+	<!-- 부류 강의 소개 -->
+	<select id="ClassSubName" resultType="ClassInfoDto">
+	SELECT * FROM CLASS_INFO WHERE CLASS_NUM = (SELECT CLASS_NUM FROM CLASS_CATEGORY WHERE SUB_NUM= #{sub_num })
+	</select>
+	
 	<!-- ================== CLASS_DATA 테이블 ================== -->
 
 	<!-- 강좌 챕터 영상 보기 -->
-	<select id="classdataselectone" parameterType="map"
-		resultType="ClassDataDto">
-		SELECT DATA_DATA FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
-	</select>
-
+	<select id="classdataselectone" parameterType="int" resultType="ClassDataDto">
+	  SELECT DATA_DATA FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
+  	</select>
+	
 	<!-- 영상추가 첫번째 페이지 -->
 	<insert id="ClassDataInsert" parameterType="ClassDataDto">
 		INSERT INTO CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SUBHEAD,
@@ -133,43 +133,49 @@
 		VALUES(#{user_num }, #{class_num} )
 	</insert>
 
+	
+	<delete id="classBasketDelete" parameterType="int">
+		DELETE FROM BASKET WHERE CLASS_NUM = #{class_num }
+	</delete>
+	
+	
 	<select id="QASelectList" parameterType="int" resultType="QADto">
-		SELECT
-		* FROM QA WHERE CLASS_NUM = #{class_num}
+		SELECT * FROM QA WHERE CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1
 	</select>
-
-	<insert id="QAInsert" parameterType="QADto">
-		INSERT INTO QA
-		VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname},
-		#{qa_title}, #{qa_content}, QA_GROUP_NO_SQ.NEXTVAL, '1')
-	</insert>
 
 	<select id="QASelectOne" parameterType="int" resultType="QADto">
 		SELECT *
 		FROM QA WHERE QA_NUM = #{qa_num}
 	</select>
-
+	
+	<insert id="QAInsert" parameterType="QADto">
+		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname}, #{qa_title}, #{qa_content}, QA_GROUP_NO_SQ.NEXTVAL, '1')
+	</insert>
+	
+	<delete id="QADelete" parameterType="int">
+		DELETE FROM QA WHERE QA_GROUP_NO = #{qa_group_no}
+	</delete>
+	
 	<select id="QAReply" parameterType="int" resultType="QADto">
 		SELECT *
 		FROM QA WHERE QA_GROUP_NO = #{qa_group_no} ORDER BY QA_GROUP_SQ
 	</select>
 
 	<insert id="QAReplyInsert" parameterType="QADto">
-		INSERT INTO QA
-		VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname},
-		'답글', #{qa_content},
-		(SELECT DISTINCT QA_GROUP_NO FROM QA WHERE QA_GROUP_NO = #{qa_group_no}),
-		QA_GROUP_NO_SQ.NEXTVAL)
+		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname}, '답글', #{qa_content}, 
+										  (SELECT DISTINCT QA_GROUP_NO FROM QA WHERE QA_GROUP_NO = #{qa_group_no}),
+										  (SELECT QA_GROUP_SQ FROM QA WHERE QA_GROUP_SQ = (SELECT MAX(QA_GROUP_SQ) FROM QA WHERE QA_GROUP_NO = #{qa_group_no}) AND QA_GROUP_NO = #{qa_group_no}) + 1)
 	</insert>
 
 	<update id="QAReplyUpdate" parameterType="QADto">
-		UPDATE QA SET
-		QA_CONTENT = ${qa_content} WHERE QA_NUM = #{qa_num} AND QA_GROUP_SQ =
-		#{qa_group_sq}
+		UPDATE QA SET QA_CONTENT = '${qa_content}' WHERE (QA_NUM = #{qa_num}) AND (QA_GROUP_SQ = #{qa_group_sq})	
 	</update>
-
-	<select id="selectListPage" parameterType="map"
-		resultType="ClassInfoDto">
+	
+	<delete id="QAReplyDelete" parameterType="QADto">
+		DELETE FROM QA WHERE QA_GROUP_NO = #{qa_group_no} AND QA_GROUP_SQ = #{qa_group_sq}
+	</delete>
+	
+	<select id="selectListPage" parameterType="map" resultType="ClassInfoDto">
 		SELECT *
 		FROM (SELECT ROWNUM AS RNUM, C.*
 		FROM ( SELECT *
@@ -212,16 +218,39 @@
 		#{recordCountPerPage}
 	</select>
 
-	<select id="selectTotalCount" parameterType="map"
-		resultType="Integer">
+	<select id="selectListPagetwo">
+		SELECT *
+		FROM (SELECT ROWNUM AS RNUM, C.*
+			FROM ( SELECT *
+					FROM CLASS_INFO
+					<if test="txt_search != null">
+					<choose>
+						<when test="searchOption == 'all'">
+							WHERE (
+								(upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%') or
+								(upper(CLASS_AUTHOR) like '%' || upper(#{txt_search})||'%')							
+							)
+						</when>
+						<otherwise>
+							WHERE ${searchOption} like '%' || #{keyword} || '%'
+						</otherwise>
+					</choose>
+					</if>
+						ORDER BY CLASS_NUM DESC
+			) 
+		)
+		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
+	</select>
+
+	<select id="selectTotalCount" parameterType="map" resultType="Integer">
 		SELECT count(*)
 		FROM CLASS_INFO
 		<if test="txt_search != null">
 			WHERE upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%' or
 			upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
-
 		</if>
 	</select>
+	
 	<select id="selectTotalCountTwo" parameterType="map"
 		resultType="Integer">
 		SELECT count(*)
@@ -245,21 +274,28 @@
 	</select>
 
 	<!-- ================== 카테고리 주류, 부류 ================== -->
-	<insert id="mainStreamInsert" parameterType="MainStreamDto">
-		INSERT INTO
-		MAIN_STREAM VALUES(MAIN_SQ.NEXTVAL, #{main_name })
+	<insert id="ClassCategoryInsert" parameterType="hashmap" >
+		INSERT INTO CLASS_CATEGORY VALUES(CLASS_INFO_SQ.CURRVAL , #{main_num }, #{sub_num })
 	</insert>
-
-	<insert id="subStreamInsert" parameterType="SubStreamDto">
-		INSERT INTO
-		SUB_STREAM VALUES(SUB_SQ.NEXTVAL , MAIN_SQ.CURRVAL, #{sub_name })
+	
+	<select id="MainStreamSelectOne" parameterType="int" resultType="subStreamDto">
+		SELECT * FROM SUB_STREAM WHERE MAIN_NUM = #{main_num }
+	</select>
+	
+	<insert id="classCategoryInsert" parameterType="ClassCategoryDto">
+		INSERT INTO CLASS_CATEGORY VALUES(CLASS_INFO_SQ.CURRVAL , MAIN_SQ.CURRVAL, SUB_SQ.CURRVAL)
 	</insert>
-
-	<insert id="classCategoryInsert"
-		parameterType="ClassCategoryDto">
-		INSERT INTO CLASS_CATEGORY VALUES(CLASS_INFO_SQ.CURRVAL
-		, MAIN_SQ.CURRVAL, SUB_SQ.CURRVAL)
-	</insert>
-
+	
+	<select id="SubCountSelectList" resultType="ClassInfoDto">
+		<![CDATA[
+			SELECT * FROM (SELECT * FROM CLASS_INFO ORDER BY CLASS_SUBCOUNT DESC) WHERE ROWNUM <= 6
+		]]>
+	</select>
+	
+	<select id="PopularSelectList" resultType="ClassInfoDto">
+		<![CDATA[
+			SELECT * FROM (SELECT * FROM CLASS_INFO ORDER BY CLASS_RATING DESC) WHERE ROWNUM <= 6
+		]]>
+	</select>
 
 </mapper>

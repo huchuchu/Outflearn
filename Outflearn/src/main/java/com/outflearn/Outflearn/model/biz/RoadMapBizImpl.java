@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
+import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.model.dao.RoadMapDao;
@@ -67,6 +68,36 @@ public class RoadMapBizImpl implements RoadMapBiz {
 		return dao.selectOneRoadMap(roadNum);
 	}
 
+	@Override
+	public List<RoadMapCon> RoadMapConList(String roadNum) {
+		
+		return dao.RoadMapConList(roadNum);
+	}
+
+	@Override
+	public List<ClassInfoDto> RoadClassInfoList(List<Integer> list) {
+		
+		return dao.RoadClassInfoList(list);
+	}
+
+	@Override
+	public int roadMapSubscribeInsert(String roadNum, String userNum) {
+		
+		return dao.roadMapSubscribeInsert(roadNum, userNum);
+	}
+
+	@Override
+	public int updateRoadSubscribe(String roandNum) {
+		
+		return dao.updateRoadSubscribe(roandNum);
+	}
+
+	@Override
+	public int roadJoinChk(String roadNum, String userNum) {
+		
+		return dao.roadJoinChk(roadNum, userNum);
+	}
+	
 	@Override
 	public List<RoadMapInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search,
 			String searchOption) {

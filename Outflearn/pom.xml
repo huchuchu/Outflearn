@@ -247,6 +247,13 @@
 			<artifactId>json</artifactId>
 			<version>20180813</version>
 		</dependency>
+		<!--roadmapdetail에서 필요~!  -->
+		<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	    <version>3.9</version>
+     	</dependency>
+		
 
 
 		<!-- log4jdbc -->
