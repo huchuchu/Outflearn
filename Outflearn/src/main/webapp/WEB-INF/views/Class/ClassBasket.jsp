@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+
 <!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
 <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 
@@ -74,10 +75,8 @@
 										<td data-th="Price">₩${dto.class_price }</td>
 										<td data-th="Price">₩${dto.class_price }</td>
 										<td class="actions">
-												<input type="hidden" name="class_num"
-													value="${dto.class_num }" id="class_num">
-												<input type="button" class="btn btn-info btn-sm"
-													value="강의 삭제" onclick="BasketDelete();">
+												<input type="hidden" name="class_num" value="${dto.class_num }" id="class_num">
+												<input type="button" class="btn btn-info btn-sm" value="강의 삭제" onclick="BasketDeleteOne();">
 											</td>
 									</tr>
 								</tbody>
@@ -98,7 +97,6 @@
 											</c:forEach>
 											<input type="hidden" name="class_price"  value="${sum}">
 											<input type="submit" value="결제하기" class="btn btn-success btn-block">
-											
 										</form:form>
 									</td>
 								</tr>
@@ -112,33 +110,14 @@
 	</div>
 
 
-	
-	
-	<script type="text/javascript">
-	var class_num = $("#class_num").val();
-
-	function BasketDelete() {
-		
-		$.ajax({
-			url : 'basketDelete?class_num=' + class_num,	
-			method : 'post',
-			success:function(data){
-				window.location.reload();
-			},
-			error:function(){
-				alert('에러 발생~~ \n')
-			}
-			
-		});	
-		
-
-	}
-	</script>
 
 	<!-- ==================== FOOTER ==================== -->
 
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
-
+	
+	
+	
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript"
 		src="resources/js/template/jquery.1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
@@ -149,5 +128,27 @@
 	<script type="text/javascript"
 		src="resources/js/template/LectureList.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
+	
+	
+<script type="text/javascript">
+	var class_num = $("#class_num").val();
+
+	function BasketDeleteOne() {
+		
+		$.ajax({
+			url : 'basketDeleteOne?class_num=' + class_num,	
+			method : 'get',
+			success:function(data){
+				window.location.reload();
+			},
+			error:function(){
+				alert('에러 발생~~ \n')
+			}
+			
+		})
+		
+
+	}
+</script>
 </body>
 </html>
