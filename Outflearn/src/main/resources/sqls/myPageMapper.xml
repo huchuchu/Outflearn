@@ -34,4 +34,40 @@
 		<![CDATA[ SELECT * FROM QA WHERE USER_NUM = #{user_num} AND ROWNUM < 6 ORDER BY QA_NUM DESC ]]>
 	</select>
 	
+	<select id="getReqLecturer" resultType="map" >
+		SELECT USER_NUM, REQ_NUM, REQ_PHONE, REQ_PR, REQ_CLASS, USER_ID, USER_NICKNAME, USER_EMAIL FROM REQ_LECTURER JOIN USER_INFO USING (USER_NUM)
+	</select>
+	
+	<select id="getUserList" resultType="map" >
+		SELECT USER_NUM, USER_ID, USER_NICKNAME, USER_AUTHORITY, USER_EMAIL, USER_ENABLED FROM USER_INFO
+	</select>
+	
+	<select id="getPreReqLecturer" resultType="map" >
+		<![CDATA[ SELECT USER_NUM, REQ_NUM, REQ_PHONE, REQ_PR, REQ_CLASS, USER_ID, USER_NICKNAME, USER_EMAIL FROM REQ_LECTURER JOIN USER_INFO USING (USER_NUM) WHERE ROWNUM < 6 ORDER BY REQ_NUM DESC ]]>
+	</select>
+	
+	<select id="getPreUserList" resultType="map" >
+		<![CDATA[ SELECT USER_NUM, USER_ID, USER_NICKNAME, USER_AUTHORITY, USER_EMAIL, USER_ENABLED FROM USER_INFO WHERE ROWNUM < 6 ORDER BY USER_NUM DESC ]]>
+	</select>
+	
+	<insert id="reqLecturer" parameterType="map">
+		INSERT INTO REQ_LECTURER VALUES(REQ_SQ.NEXTVAL, #{lecturerNum}, #{lecturerPhone}, #{lecturerIntro}, #{lecturerClass})
+	</insert>
+	
+	<update id="acceptReq">
+		UPDATE USER_INFO SET USER_AUTHORITY = 'ROLE_TUTOR' WHERE USER_NUM = #{user_num}
+	</update>
+	
+	<delete id="deniReq">
+		DELETE FROM REQ_LECTURER WHERE USER_NUM = #{user_num}
+	</delete>
+	
+	<update id="userEnabled" parameterType="String">
+		UPDATE USER_INFO SET USER_ENABLED = 1 WHERE USER_NUM = #{user_num}
+	</update>
+	
+	<update id="userDisabled" parameterType="String">
+		UPDATE USER_INFO SET USER_ENABLED = 0 WHERE USER_NUM = #{user_num}
+	</update>
+	
 </mapper>

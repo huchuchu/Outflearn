@@ -66,7 +66,7 @@
 					</div>
 					<div id="InsertAfter">
 						<button class="btn-group btn-group-vertical btns" onclick="location.href='basketSelect'">장바구니 이동</button>
-					<div>
+					</div>
 					</div>
 			
 					
@@ -115,10 +115,6 @@
 	
 	<div class="panel panel-default">
 		<h1>강좌 소개</h1>
-<<<<<<< HEAD
-		<div class="form-group">
-=======
->>>>>>> origin/ksw
 			<p>
 				${classIntroduce.class_content }
 			</p>

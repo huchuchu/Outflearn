@@ -46,7 +46,7 @@
 				<div class="col-sm-6 col-md-offset-3">
 
 					<form method="post" action="${pageContext.request.contextPath}/sendLecturerEmail">
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
+						<input type="hidden" name="lecturerNum" value="${userInfo.user_num}">
 
 						<div class="form-group">
 							<div class="form-group">
@@ -67,7 +67,8 @@
 
 						<div class="form-group">
 							<label class="memlabel" for="InputNickname">아웃프런에서 강의하고 싶은 강좌</label>
-							<textarea name="lecturerIntro" id="" cols="30" rows="10" placeholder="공유 해주실 지식의 분야와 소개를 적어주세요. 참고할만한 URL이 있다면 그것도!"></textarea>
+							<textarea name="lecturerClass" id="" cols="30" rows="10"
+								placeholder="공유 해주실 지식의 분야와 소개를 적어주세요. 참고할만한 URL이 있다면 그것도!"></textarea>
 						</div>
 
 						<div class="form-group text-center">

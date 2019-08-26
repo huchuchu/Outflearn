@@ -1,21 +1,16 @@
 package com.outflearn.Outflearn.model.biz;
 
+import java.util.HashMap;
 import java.util.List;
-
-
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
-import com.outflearn.Outflearn.dto.ClassIntroduceDto;
-import com.outflearn.Outflearn.dto.LiveDto;
 import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
-import com.outflearn.Outflearn.dto.connectUserClass;
-import com.outflearn.Outflearn.dto.ClassReviewDto;
-import com.outflearn.Outflearn.model.dao.ClassDataDao;
+import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.dao.myPageDao;
 
 
@@ -63,6 +58,59 @@ public class myPageBizImpl implements myPageBiz {
 	@Override
 	public List<QADto> getPreQA(int user_num) {
 		return dao.getPreQA(user_num);
+	}
+
+	@Override
+	public List<Map<String, String>> getReqLecturer() {
+		return dao.getReqLecturer();
+	}
+
+	@Override
+	public List<Map<String, String>> getUserList() {
+		return dao.getUserList();
+	}
+
+	@Override
+	public List<Map<String, String>> getPreReqLecturer() {
+		return dao.getPreReqLecturer();
+	}
+
+	@Override
+	public List<Map<String, String>> getPreUserList() {
+		return dao.getPreUserList();
+	}
+
+	@Override
+	public int reqLecturer(String lecturerNum, String lecturerPhone, String lecturerIntro, String lecturerClass) {
+		
+		Map<String, String> map =  new HashMap<String, String>();
+		
+		map.put("lecturerNum", lecturerNum);
+		map.put("lecturerPhone", lecturerPhone);
+		map.put("lecturerIntro", lecturerIntro);
+		map.put("lecturerClass", lecturerClass);
+		
+		return dao.reqLecturer(map);
+	}
+
+	@Override
+	public int acceptReq(String user_num) {
+		return dao.acceptReq(user_num);
+	}
+
+	@Override
+	public int deniReq(String user_num) {
+		return dao.deniReq(user_num);
+	}
+
+	@Override
+	public int userEnabled(String user_num) {
+		return dao.userEnabled(user_num);
+	}
+
+	@Override
+	public int userDisabled(String user_num) {
+		return dao.userDisabled(user_num);
 	}
 		
 }

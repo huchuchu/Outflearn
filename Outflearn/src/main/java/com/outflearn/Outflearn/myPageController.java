@@ -1,9 +1,5 @@
 package com.outflearn.Outflearn;
 
-import javax.servlet.http.HttpSession;
-
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +7,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.outflearn.Outflearn.dto.UserInfoDto;
-import com.outflearn.Outflearn.model.biz.ClassDataBiz;
-import com.outflearn.Outflearn.model.biz.RoadMapBiz;
 import com.outflearn.Outflearn.model.biz.myPageBiz;
 
 @Controller
@@ -92,9 +83,77 @@ public class myPageController {
 	}
 	
 	@RequestMapping("sendLecturerEmail")
-	public String sendLecturerEmail() {
+	public String sendLecturerEmail(String lecturerNum, String lecturerPhone, String lecturerIntro, String lecturerClass) {
 		
-		return "";
+		int res = biz.reqLecturer(lecturerNum, lecturerPhone, lecturerIntro, lecturerClass);
+		
+		if(res>0) return "redirect:myPage";
+		return "redirect:reqLecturer";
+		
+	}
+	
+// 관리자	
+	
+	@RequestMapping("adminPage")
+	public String adminPage(Model model) {
+		
+		model.addAttribute("userList", biz.getPreUserList());
+		model.addAttribute("reqList", biz.getPreReqLecturer());
+		return "Member/adminPage";
+	}
+	
+	@RequestMapping("adminUserList")
+	public String adminUserList(Model model) {
+		
+		model.addAttribute("userList", biz.getUserList());
+		return "Member/adminUserList";
+	}
+	
+	@RequestMapping("adminReqLecturer")
+	public String adminReqLecturer(Model model) {
+		
+		model.addAttribute("reqList", biz.getReqLecturer());
+		return "Member/adminReqLecturer";
+	}
+	
+	@RequestMapping("acceptReq")
+	@ResponseBody
+	public boolean acceptReq(String user_num) {
+		
+		int res = biz.acceptReq(user_num);
+		
+		if(res>0) return true;
+		return false;
+	}
+	
+	@RequestMapping("deniReq")
+	@ResponseBody
+	public boolean deniReq(String user_num) {
+		
+		int res = biz.deniReq(user_num);
+		
+		if(res>0) return true;
+		return false;
+	}
+	
+	@RequestMapping("userEnabled")
+	@ResponseBody
+	public boolean userEnabled(String user_num) {
+		
+		int res = biz.userEnabled(user_num);
+		
+		if(res>0) return true;
+		return false;
+	}
+	
+	@RequestMapping("userDisabled")
+	@ResponseBody
+	public boolean userDisabled(String user_num) {
+		
+		int res = biz.userDisabled(user_num);
+		
+		if(res>0) return true;
+		return false;
 	}
 
 }

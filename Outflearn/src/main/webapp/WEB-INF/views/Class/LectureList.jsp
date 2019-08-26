@@ -27,9 +27,9 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script type="text/javascript">
 
-			function PageMove(page, data) {	
-				location.href = "LectureList?page=" + page + "&txt_search=" + $('input#txt_search').val() + "&searchOption=" + $('#searchOption').val();
-			}
+		function PageMove(page, data) {
+			location.href = "LectureList?page=" + page + "&txt_search=" + $('input#txt_search').val() + "&searchOption=" + $('#searchOption').val();
+		}
 
 	</script>
 
@@ -141,16 +141,9 @@
 						<c:choose>
 							<c:when test="${empty classinfo }">
 								<h3>강좌 정보가 없습니다...!!</h3>
-<<<<<<< HEAD
-								<input type="button" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" />
-=======
-								
-								
-								
 								<sec:authorize access="hasRole('ROLE_TUTOR')">
 									<input type="button" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" />
 								</sec:authorize>
->>>>>>> origin/ksw
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${classinfo }" var="dto">
@@ -168,14 +161,9 @@
 										</div>
 									</div>
 								</c:forEach>
-<<<<<<< HEAD
-								<input type="button" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" />
-=======
 								<sec:authorize access="hasRole('ROLE_TUTOR')">
-								<input type="button" value="강의 추가"
-									onclick="location.href='ClassInfoInsertForm'" />
+									<input type="button" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" />
 								</sec:authorize>
->>>>>>> origin/ksw
 							</c:otherwise>
 						</c:choose>
 				</article>
