@@ -11,6 +11,7 @@ import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
+import com.outflearn.Outflearn.dto.RoadUserCombineDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.model.dao.RoadMapDao;
 
@@ -110,15 +111,13 @@ public class RoadMapBizImpl implements RoadMapBiz {
 		return dao.selectTotalCountRoadMap(txt_search, searchOption);
 	}
 
-	@Override
-	public int selectTotalCountTwo(String txt_search, String searchOption, String class_category) {
-		return dao.selectTotalCountRoadMapTwo(txt_search, searchOption, class_category);
-	}
 
 	@Override
-	public List<RoadMapInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search,
-			String searchOption, String class_category) {
-		return dao.selectListPageTwo(firstIndex, recordCountPerPage, txt_search, searchOption, class_category);
+	public List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption) {
+		// TODO Auto-generated method stub
+		return dao.roadMapComList(firstIndex, recordCountPerPage, txt_search, searchOption);
+	}
 
 
 

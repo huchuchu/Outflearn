@@ -149,7 +149,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="C:\Users\song\Desktop\git final\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\Users\song\Desktop\git final\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Outflearn" path="/Outflearn" reloadable="true" source="org.eclipse.jst.jee.server:Outflearn"/></Host>
+      <Context docBase="C:\Users\user1\Desktop\git\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\Users\user1\Desktop\git\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Outflearn" path="/Outflearn" reloadable="true" source="org.eclipse.jst.jee.server:Outflearn"/></Host>
     </Engine>
   </Service>
 </Server>

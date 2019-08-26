@@ -15,6 +15,7 @@ import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
+import com.outflearn.Outflearn.dto.RoadUserCombineDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
 
 @Repository
@@ -235,23 +236,6 @@ public class RoadMapDaoImpl implements RoadMapDao {
 	}
 
 	@Override
-
-	public int selectTotalCountRoadMapTwo(String txt_search, String searchOption, String class_category) {
-		int res = 0;
-		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("searchOption", searchOption);
-		map.put("txt_search", txt_search);
-		map.put("class_category", class_category);
-		
-		res = session.selectOne(NAMESPACE + "selectTotalCountRoadMap", map);
-		return res;
-	}
-
-	@Override
-	public List<RoadMapInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search,
-			String searchOption, String class_category) {
-
 	public int roadJoinChk(String roadNum, String userNum) {
 		int res = 0;
 		
@@ -272,7 +256,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 	@Override
 	public List<RoadMapInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search,
 			String searchOption) {
-
+		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("firstIndex", String.valueOf(firstIndex));
 		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
@@ -297,6 +281,21 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		return res;
 	}
 
+	@Override
+	public List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption) {
 
 
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("firstIndex", String.valueOf(firstIndex));
+		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
+		map.put("txt_search", txt_search);
+		map.put("searchOption", searchOption);
+
+		List<RoadUserCombineDto> list = session.selectList(NAMESPACE + "roadComList", map);
+		
+		return list;
+		
+
+	}
 }

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="road">
 
@@ -73,92 +74,62 @@ SELECT COUNT(*) FROM ROADMAP_SUBSCRIBE WHERE USER_NUM=#{userNum} AND ROADMAP_NUM
 <select id="selectTotalCountRoadMap" parameterType="map"
 		resultType="Integer">
 		SELECT count(*)
-		FROM ROADMAP_INFO
+		FROM ROADMAP_INFO R INNER JOIN  USER_INFO U ON R.USER_NUM = U.USER_NUM
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if test="txt_search != null">
 				<if test="searchOption == 'all'">
 				AND	upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%'
-				OR upper(ROADMAP_NUM) like '%' || upper(#{txt_search}) || '%'
-					
+				OR upper(USER_NICKNAME) like '%' || upper(#{txt_search}) || '%'
+				AND	R.USER_NUM = U.USER_NUM
 				</if>
 				<if test="searchOption == 'roadmap_author'">
-					AND upper(USER_NUM) like '%' || upper(#{txt_search}) || '%'
+					AND upper(USER_NICKNAME) like '%' || upper(#{txt_search}) || '%'
+					AND R.USER_NUM = U.USER_NUM
 				</if>
 				<if test="searchOption == 'roadmap_title'">
 					AND upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%'
+					AND R.USER_NUM = U.USER_NUM
 				</if>
 			</if>
 		</trim>
 		
 	</select>
-<select id="selectListPageRoadMap" parameterType="map"
-		resultType="RoadMapDto">
-		SELECT *
-		FROM (SELECT ROWNUM AS RNUM, C.*
-		FROM ( SELECT *
-		FROM ROADMAP_INFO
-		 <if test="txt_search != null">
-				<if test="searchOption=='all'">
-					WHERE upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%' or
-					upper(USER_NUM) like '%' || upper(#{txt_search}) || '%'
-				</if>
-				<if test="searchOption=='class_author'">
-					WHERE upper(USER_NUM) like '%' || upper(#{txt_search}) || '%'
-				</if>
-				<if test="searchOption=='class_title'">
-					WHERE upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%'
-				</if>
-		</if>
-		ORDER BY ROADMAP_NUM DESC
-		) C
-		)
-		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} +
-		#{recordCountPerPage}
-	</select>
-<select id="selectTotalCountTwo" parameterType="map"
-		resultType="Integer">
-		SELECT count(*)
-		FROM ROADMAP_INFO
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
-			<if test="txt_search != null">
-				<if test="searchOption == 'all'">
-				AND	upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%'
-				OR upper(ROADMAP_NUM) like '%' || upper(#{txt_search}) || '%'
-					
-				</if>
-				<if test="searchOption == 'roadmap_author'">
-					AND upper(USER_NUM) like '%' || upper(#{txt_search}) || '%'
-				</if>
-				<if test="searchOption == 'roadmap_title'">
-					AND upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%'
-				</if>
-			</if>
-		</trim>
-		
-	</select>
-<select id="selectListPageTwo" parameterType="map"
-		resultType="RoadMapDto">
-		SELECT *
-		FROM (SELECT ROWNUM AS RNUM, C.*
-		FROM ( SELECT *
-		FROM ROADMAP_INFO
-		 <if test="txt_search != null">
-				<if test="searchOption=='all'">
-					WHERE upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%' or
-					upper(USER_NUM) like '%' || upper(#{txt_search}) || '%'
-				</if>
-				<if test="searchOption=='class_author'">
-					WHERE upper(USER_NUM) like '%' || upper(#{txt_search}) || '%'
-				</if>
-				<if test="searchOption=='class_title'">
-					WHERE upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%'
-				</if>
-		</if>
-		ORDER BY ROADMAP_NUM DESC
-		) C
-		)
-		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} +
-		#{recordCountPerPage}
-	</select>
+	
 
+<select id="roadComList" parameterType="map"
+      resultType="com.outflearn.Outflearn.dto.RoadUserCombineDto">
+      SELECT ROADMAP_NUM,USER_NUM,ROADMAP_TITLE,ROADMAP_CONTENT,ROADMAP_SUBSCRIBE,ROADMAP_LIKE,ROADMAP_SHARE,MAIN_NUM,USER_NICKNAME
+      FROM (
+      SELECT ROWNUM AS RNUM, C.*
+         FROM ( 
+            SELECT R.ROADMAP_NUM AS ROADMAP_NUM,
+                R.USER_NUM AS USER_NUM,
+                 R.ROADMAP_TITLE AS ROADMAP_TITLE,
+                 R.ROADMAP_CONTENT AS ROADMAP_CONTENT,
+                 R.ROADMAP_SUBSCRIBE AS ROADMAP_SUBSCRIBE,
+                 R.ROADMAP_LIKE AS ROADMAP_LIKE,
+                 R.ROADMAP_SHARE AS ROADMAP_SHARE,
+                 R.MAIN_NUM AS MAIN_NUM,
+                 U.USER_NICKNAME AS USER_NICKNAME
+            FROM ROADMAP_INFO R INNER JOIN  USER_INFO U ON R.USER_NUM = U.USER_NUM
+            <if test="txt_search != null">
+            	<if test="searchOption=='all'">
+              	 WHERE upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%' or
+             	 upper(USER_NICKNAME) like '%' || upper(#{txt_search}) || '%' and
+             	 R.USER_NUM = U.USER_NUM
+            	</if>
+            	<if test="searchOption=='roadmap_author'">
+               	WHERE upper(USER_NICKNAME) like '%' || upper(#{txt_search}) || '%' and
+               	R.USER_NUM = U.USER_NUM
+            	</if>
+            	<if test="searchOption=='roadmap_title'">
+               	WHERE upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%' and
+               	R.USER_NUM = U.USER_NUM
+            </if>
+            </if>
+         ORDER BY R.ROADMAP_NUM DESC
+      ) C
+      )
+      WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
+   </select>
 </mapper>

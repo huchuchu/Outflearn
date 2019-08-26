@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="java.util.List" %>
-<%@page import="com.outflearn.Outflearn.dto.MainStreamDto" %>
-<%@page import="com.outflearn.Outflearn.dto.SubStreamDto" %>
-<%@page import="com.outflearn.Outflearn.model.biz.ClassDataBiz" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,25 +50,39 @@
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">분야별
 							강좌<i class="fas fa-chevron-down"></i></a>
 							<ul class="dropdown-menu" role="menu">
-							   <c:forEach items="${mainList }" var="mainDto">
 								<li id="server" class="dropdown-submenu server">
-									<a href="void:0" class="dropdown dropdown-toggle dropdown-item" data-toggle="dropdown">${mainDto.main_name}
+									<a href="void:0" class="dropdown dropdown-toggle dropdown-item" data-toggle="dropdown">서버&nbsp;
 									<i class="fas fa-chevron-right pull-right"></i></a>
-									<!-- 부류 -->
 									<ul class="dropdown-menu server_list">
 										<li class="dropdown-item">
 										<c:forEach items="${subList }" var="subDto">
-											<c:if test="${mainDto.main_num eq subDto.main_num }">
+										<c:if test="${mainDto.main_num eq subDto.main_num }">
 											<li><a href="SubCategory?sub_num=${subDto.sub_num}" class="nav-link active sub_category">${subDto.sub_name}</a></li>
-											</c:if>
+										</c:if>
 									</c:forEach>
-									
 									</li>
 									</ul>
 								</li>
-								</c:forEach>
-								
-								
+								<li class="dropdown-submenu server">
+									<a href="void:0" class="dropdown dropdown-toggle dropdown-item" data-toggle="dropdown">웹 개발 <i class="fas fa-chevron-right pull-right"></i></a>
+									<ul class="dropdown-menu server_list">
+										<li class="dropdown-item"><a href="void:0">Front End</a></li>
+										<li class="dropdown-item"><a href="void:0">html/css</a></li>
+										<li class="dropdown-item"><a href="void:0">javascript</a></li>
+										<li class="dropdown-item"><a href="void:0">Angular</a></li>
+										<li class="dropdown-item"><a href="void:0">Reactjs</a></li>
+										<li class="dropdown-item"><a href="void:0">Vuejs</a></li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu server">
+									<a href="void:0" class="dropdown dropdown-toggle dropdown-item" data-toggle="dropdown">데이터베이스<i class="fas fa-chevron-right pull-right"></i></a>
+									<ul class="dropdown-menu server_list">
+										<li class="dropdown-item"><a href="void:0">Oracle</a></li>
+										<li class="dropdown-item"><a href="void:0">PL/SQL</a></li>
+										<li class="dropdown-item"><a href="void:0">MySQL</a></li>
+										<li class="dropdown-item"><a href="void:0">MongoDB</a></li>
+									</ul>
+								</li>
 							</ul>							
 					</li>
 					<li><a href="void:0">로드맵 학습</a></li>

@@ -28,7 +28,7 @@
 </head>
 <body>
 
-	<jsp:include page="../header/MainHeader.jsp"></jsp:include>
+	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 
 
 	<!-- body -->
@@ -94,11 +94,9 @@
 										<form:form method="post" action="oauth">
 											<c:forEach items="${classInfoUser }" var="dto">
 												<input type="hidden" name="class_title" value="${dto.class_title }"/>
-												<input type="hidden" name="class_num" value="${dto.class_num }">
 											</c:forEach>
 											<input type="hidden" name="class_price"  value="${sum}">
 											<input type="submit" value="결제하기" class="btn btn-success btn-block">
-											
 										</form:form>
 									</td>
 								</tr>

@@ -10,6 +10,7 @@ import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
+import com.outflearn.Outflearn.dto.RoadUserCombineDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
 
 @Repository
@@ -47,8 +48,6 @@ public interface RoadMapDao {
 	
 	public int selectTotalCountRoadMap(String txt_search, String searchOption);
 
-	public int selectTotalCountRoadMapTwo(String txt_search, String searchOption, String class_category);
-
-	public List<RoadMapInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search,
-			String searchOption, String class_category);
+	public List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption);
 }
