@@ -67,6 +67,30 @@ public class RoadMapBizImpl implements RoadMapBiz {
 		return dao.selectOneRoadMap(roadNum);
 	}
 
+	@Override
+	public List<RoadMapInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption) {
+		return dao.selectListPage(firstIndex, recordCountPerPage, txt_search, searchOption);
+	}
+
+	@Override
+	public int selectTotalCountRoadMap(String txt_search, String searchOption) {
+		
+		return dao.selectTotalCountRoadMap(txt_search, searchOption);
+	}
+
+	@Override
+	public int selectTotalCountTwo(String txt_search, String searchOption, String class_category) {
+		return dao.selectTotalCountRoadMapTwo(txt_search, searchOption, class_category);
+	}
+
+	@Override
+	public List<RoadMapInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption, String class_category) {
+		return dao.selectListPageTwo(firstIndex, recordCountPerPage, txt_search, searchOption, class_category);
+	}
+
+
 
 
 

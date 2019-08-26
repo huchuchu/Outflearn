@@ -60,6 +60,7 @@ public interface ClassDataBiz {
 		public List<ClassInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search, String searchOption);
 		public int selectTotalCountTwo(String txt_search, String searchOption);
 		public ClassIntroduceDto ClassIntroduceSelectOne(int class_num);
+		
 		//질문
 		public List<QADto> QASelectList(int class_num);
 		public QADto QASelectOne(int qa_num);

@@ -24,6 +24,7 @@ import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.model.biz.RoadMapBiz;
+import com.outflearn.Outflearn.service.Pagination;
 
 @Controller
 public class RoadMapController {
@@ -34,24 +35,101 @@ public class RoadMapController {
 	private RoadMapBiz biz;	
 	
 	//로드맵 보기
-	@RequestMapping("/RoadMap")
-	public String roadMapPage(Model model) {
-		
-		List<MainStreamDto> mainStreamList = biz.mainStreamList();		
-		List<RoadMapInfoDto> roadMapList = biz.roadMapList();
-		
-//
-//		System.out.println("stream갯수"+mainStreamList.size());	
-//		System.out.println("roadMap갯수"+roadMapList.size());
-		//조인 -유저네임 맵으로리턴
-		//유저인포 
-		
-		model.addAttribute("roadList", roadMapList);
-		model.addAttribute("mainList", mainStreamList);		
 
+/*
+	@RequestMapping("/RoadMap")
+	public String roadMapPage(Model model, String txt_search, String page, String class_category, String searchOption) {
+			logger.info("txt서치전");
+			
+			
+			int totalCount = biz.selectTotalCountRoadMap(txt_search, searchOption);
+			logger.info("검색어:"+txt_search);
+			logger.info("검색옵션:"+searchOption);
+			logger.info(""+totalCount);
+			
+			int pageNum = (page==null)? 1:Integer.parseInt(page);
+			
+			Pagination pagination = new Pagination();
+			
+			//get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
+			pagination.setPageNo(pageNum);
+			
+			//한 페이지에 나오는 게시물의 개수 
+			pagination.setPageSize(9);
+			pagination.setTotalCount(totalCount);
+			
+			//select해오는 기준을 구함
+			pageNum = (pageNum -1) * pagination.getPageSize();
+			
+			List<MainStreamDto> mainStreamList = biz.mainStreamList();
+			List<RoadMapInfoDto> roadList = biz.selectListPage(pageNum, pagination.getPageSize(), txt_search, searchOption);
+			
+			model.addAttribute("mainList", mainStreamList);
+			model.addAttribute("roadList", roadList);
+			model.addAttribute("pagination", pagination);
+			model.addAttribute("txt_search", txt_search);
+			model.addAttribute("class_category", class_category);
+			model.addAttribute("searchOption", searchOption);
+			
+				
+			if(class_category != null) {
+				System.out.println("구현중");
+			} else {
+				model.addAttribute("mainList", mainStreamList);	
+				model.addAttribute("roadList", biz.selectListPage(pageNum, pagination.getPageSize(), txt_search, searchOption));
+			
+			}
+						
 		return"RoadMap/RoadMapList";
 	}
+*/
 	
+	@RequestMapping("/RoadMap")
+	public String roadMapPage(Model model, String txt_search, String page, String class_category, String searchOption) {
+			logger.info("txt서치전");
+			
+			
+			int totalCount = biz.selectTotalCountTwo(txt_search, searchOption, class_category);
+			logger.info("검색어:"+txt_search);
+			logger.info("검색옵션:"+searchOption);
+			logger.info("카테고리:"+class_category);
+			logger.info(""+totalCount);
+			
+			int pageNum = (page==null)? 1:Integer.parseInt(page);
+			
+			Pagination pagination = new Pagination();
+			
+			//get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
+			pagination.setPageNo(pageNum);
+			
+			//한 페이지에 나오는 게시물의 개수 
+			pagination.setPageSize(9);
+			pagination.setTotalCount(totalCount);
+			
+			//select해오는 기준을 구함
+			pageNum = (pageNum -1) * pagination.getPageSize();
+			
+			List<MainStreamDto> mainStreamList = biz.mainStreamList();
+			List<RoadMapInfoDto> roadList = biz.selectListPageTwo(pageNum, pagination.getPageSize(), txt_search, searchOption, class_category);
+			
+			model.addAttribute("mainList", mainStreamList);
+			model.addAttribute("roadList", roadList);
+			model.addAttribute("pagination", pagination);
+			model.addAttribute("txt_search", txt_search);
+			model.addAttribute("class_category", class_category);
+			model.addAttribute("searchOption", searchOption);
+			
+				
+			if(class_category != null) {
+				System.out.println("구현중");
+			} else {
+				model.addAttribute("mainList", mainStreamList);	
+				model.addAttribute("roadList", biz.selectListPageTwo(pageNum, pagination.getPageSize(), txt_search, searchOption, class_category));
+			
+			}
+						
+		return"RoadMap/RoadMapList";
+	}
 	//로드맵 쓰기 페이지1
 	@RequestMapping("/RoadMapWriteP1")
 	public String roadMapWriteP1() {

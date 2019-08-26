@@ -180,6 +180,7 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int selectTotalCountTwo(String txt_search, String searchOption) {
 		return dao.selectTotalCountTwo(txt_search, searchOption);
 	}
+
 	@Override
 	public List<QADto> QASelectList(int class_num) {
 		return dao.QASelectList(class_num);
@@ -228,6 +229,7 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int QAReplyUpdate(QADto dto) {
 		return dao.QAReplyUpdate(dto);
 	}
+
 
 
 

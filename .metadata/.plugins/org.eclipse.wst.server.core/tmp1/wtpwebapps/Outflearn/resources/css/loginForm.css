@@ -52,7 +52,8 @@ margin-top: -20%;
  	padding:0 2em; 
 	cursor:pointer; 
  	transition:800ms ease all; 
- 	outline:none; 
+ 	outline:none;
+ 	
  } 
  
  #submitBTN:hover{ 

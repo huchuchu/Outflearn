@@ -291,7 +291,6 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		map.put("searchOption", searchOption);
 		
 		List<ClassInfoDto> list = sqlSession.selectList(namespace +"selectListPageTwo", map);
-		System.out.println(list);
 		return list;
 	}
 	
@@ -305,11 +304,10 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		map.put("searchOption", searchOption);
 		map.put("txt_search", txt_search);
 		res = sqlSession.selectOne(namespace + "selectTotalCountTwo", map);
-		System.out.println(txt_search+"다오임플");
-		System.out.println(searchOption);
-		System.out.println(res);
+		
 		return res;
 	}
+	
 	@Override
 	public int ClassReviewUpdateAnswer(int review_num) {
 
@@ -419,6 +417,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		
 		return res;
 	}
+
 
 	
 

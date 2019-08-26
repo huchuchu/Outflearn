@@ -30,4 +30,12 @@ public interface RoadMapBiz {
 	
 	public RoadMapInfoDto selectOneRoadMap(String roadNum);
 
+	public List<RoadMapInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search, String searchOption);
+	
+	public int selectTotalCountRoadMap(String txt_search, String searchOption);
+	
+	public int selectTotalCountTwo(String txt_search, String searchOption, String class_category);
+	
+	public List<RoadMapInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search, String searchOption, String class_category);
+
 }

@@ -60,6 +60,9 @@ function PageMove(page,data) {
  }
 
 </script>
+
+
+
 <body>
 
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
@@ -69,41 +72,37 @@ function PageMove(page,data) {
 			<aside class="col-sm-2">
 				<div id="side_category">
 					<ul class="nav flex-column text-center">
-						<li class="nav-item side_menu"><a href="void:0"
-							class="nav-link active" data-toggle="dropdown">카테고리</a></li>
-						<li class="nav-item all_category"><a href="void:0"
-							id="side_server" class="nav-link active">서버&nbsp;<i
-								class="fas fa-chevron-right"></i></a>
+						<li class="nav-item side_menu"><a href="void:0"	class="nav-link active" data-toggle="dropdown">카테고리</a></li>
+						
+						<li class="nav-item all_category"><a href="void:0" id="side_server" class="nav-link active">서버&nbsp;<i 	class="fas fa-chevron-right"></i></a>
 							<ul id="side_server_menu" class="nav flex-column collapse">
-								<li><a href="void:0" class="nav-link active">BackEnd<input
-										type="hidden" name="" value="backend"></a></li>
+								<li><a href="void:0" class="nav-link active">BackEnd<input type="hidden" name="" value="backend"></a></li>
 								<li><a href="void:0" class="nav-link active">Linux</a></li>
 								<li><a href="void:0" class="nav-link active">Nodejs</a></li>
 								<li><a href="void:0" class="nav-link active">Express</a></li>
 								<li><a href="void:0" class="nav-link active">C#</a></li>
 								<li><a href="void:0" class="nav-link active">MYSQL</a></li>
-							</ul></li>
-						<li class="nav-item all_category"><a href="void:0"
-							id="side_web" class="nav-link active">웹 개발&nbsp;<i
-								class="fas fa-chevron-right"></i></a>
+							</ul>
+						</li>
+						<li class="nav-item all_category"><a href="void:0" id="side_web" class="nav-link active">웹 개발&nbsp;<i class="fas fa-chevron-right"></i></a>
 							<ul id="side_web_menu" class="nav flex-column collapse">
 								<li><a href="void:0" class="nav-link active">html/css</a></li>
 								<li><a href="void:0" class="nav-link active">FrontEnd</a></li>
 								<li><a href="void:0" class="nav-link active">Javascript</a></li>
 								<li><a href="void:0" class="nav-link active">Spring</a></li>
-								<li><a href="LectureList?class_category=카테고리2"
-									class="nav-link active">Java</a></li>
+								<li><a href="LectureList?class_category=카테고리2" class="nav-link active">Java</a></li>
 								<li><a href="void:0" class="nav-link active">Vuejs</a></li>
-							</ul></li>
-						<li class="nav-item all_category"><a href="void:0"
-							id="side_db" class="nav-link active">데이터베이스&nbsp;<i
-								class="fas fa-chevron-right"></i></a>
+							</ul>
+						</li>
+						<li class="nav-item all_category"><a href="void:0" id="side_db" class="nav-link active">데이터베이스&nbsp;<i class="fas fa-chevron-right"></i></a>
 							<ul id="side_db_menu" class="nav flex-column collapse">
 								<li><a href="void:0" class="nav-link active">MYSQL</a></li>
 								<li><a href="void:0" class="nav-link active">MONGODB</a></li>
 								<li><a href="void:0" class="nav-link active">PL/SQL</a></li>
-							</ul></li>
+							</ul>
+						</li>
 					</ul>
+
 				</div>
 				<div id="side_checkbox">
 					<ul class="nav flex-column text-center" style="clear: both">
