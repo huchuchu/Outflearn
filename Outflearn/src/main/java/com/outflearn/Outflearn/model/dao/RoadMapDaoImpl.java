@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
+import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
 
@@ -110,6 +111,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 	}
 
 	// 로드맵 에서 부류로 검색된 class리스트리턴
+	//subNum으로 검색
 	@Override
 	public List<ClassInfoDto> classInfoList(String[] subFilter) {
 
@@ -169,11 +171,108 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		return dto;
 	}
 
+	@Override
+	public List<RoadMapCon> RoadMapConList(String roadNum) {
+		
+		List<RoadMapCon> list = new ArrayList<RoadMapCon>();
+		
+		try {
+		list = session.selectList(NAMESPACE+"roadMapConlist", roadNum);	
+		}catch (Exception e) {
+	    	e.printStackTrace();	
+		}
+		
+	return list;
+	}
+
+	@Override
+	public List<ClassInfoDto> RoadClassInfoList(List<Integer> list) {
+		
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("roadClassList", list);
+		
+		List<ClassInfoDto> resList = new ArrayList<ClassInfoDto>();
+		
+		try {
+			resList = session.selectList(NAMESPACE+"RoadClassInfoList", map);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return resList;
+	}
+
+	@Override
+	public int roadMapSubscribeInsert(String roadNum, String userNum) {
+		
+		int res = 0;
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("userNum",userNum);
+		map.put("roadNum",roadNum);		
+		
+		try {
+			res = session.insert(NAMESPACE+"roadMapSubscribeInsert", map);
+		}catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+			
+		return res;
+	}
+
+	@Override
+	public int updateRoadSubscribe(String roandNum) {
+		
+		int res=0;
+		
+		try{
+			res = session.update(NAMESPACE+"updatesubScribe", roandNum);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+
+	@Override
+
+	public int selectTotalCountRoadMapTwo(String txt_search, String searchOption, String class_category) {
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("txt_search", txt_search);
+		map.put("class_category", class_category);
+		
+		res = session.selectOne(NAMESPACE + "selectTotalCountRoadMap", map);
+		return res;
+	}
+
+	@Override
+	public List<RoadMapInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption, String class_category) {
+
+	public int roadJoinChk(String roadNum, String userNum) {
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String,String>();
+		map.put("userNum",userNum);
+		map.put("roadNum",roadNum);		
+		
+		try {
+			res = session.selectOne(NAMESPACE+"roadJoinChk", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		return res;
+	}
+	
 	//페이징, 검색
 	@Override
 	public List<RoadMapInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search,
 			String searchOption) {
-		
+
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("firstIndex", String.valueOf(firstIndex));
 		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
@@ -193,38 +292,9 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("searchOption", searchOption);
 		map.put("txt_search", txt_search);
-		
 		res = session.selectOne(NAMESPACE + "selectTotalCountRoadMap", map);
 		
 		return res;
-	}
-
-	@Override
-	public int selectTotalCountRoadMapTwo(String txt_search, String searchOption, String class_category) {
-		int res = 0;
-		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("searchOption", searchOption);
-		map.put("txt_search", txt_search);
-		map.put("class_category", class_category);
-		
-		res = session.selectOne(NAMESPACE + "selectTotalCountRoadMap", map);
-		return res;
-	}
-
-	@Override
-	public List<RoadMapInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search,
-			String searchOption, String class_category) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("firstIndex", String.valueOf(firstIndex));
-		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
-		map.put("txt_search", txt_search);
-		map.put("searchOption", searchOption);
-		map.put("class_category", class_category);
-		
-		List<RoadMapInfoDto> list = session.selectList(NAMESPACE + "selectListPageRoadMap", map);
-		
-		return list;	
 	}
 
 

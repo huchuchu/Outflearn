@@ -4,12 +4,16 @@ package com.outflearn.Outflearn;
 
 
 import java.util.ArrayList;
-
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
+
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -18,9 +22,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
+import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.model.biz.RoadMapBiz;
@@ -35,6 +43,14 @@ public class RoadMapController {
 	private RoadMapBiz biz;	
 	
 	//로드맵 보기
+/*	@RequestMapping("/RoadMap")
+	public String roadMapPage(Model model) {
+
+		List<MainStreamDto> mainStreamList = biz.mainStreamList();		
+		List<RoadMapInfoDto> roadMapList = biz.roadMapList();
+		
+		model.addAttribute("roadList", roadMapList);
+		model.addAttribute("mainList", mainStreamList);		
 
 /*
 	@RequestMapping("/RoadMap")
@@ -83,6 +99,51 @@ public class RoadMapController {
 		return"RoadMap/RoadMapList";
 	}
 */
+	@RequestMapping("/RoadMap")
+	public String roadMapPage(Model model, String txt_search, String page, String class_category, String searchOption) {
+			logger.info("txt서치전");
+			
+			
+			int totalCount = biz.selectTotalCountRoadMap(txt_search, searchOption);
+			logger.info("검색어:"+txt_search);
+			logger.info("검색옵션:"+searchOption);
+			logger.info(""+totalCount);
+			
+			int pageNum = (page==null)? 1:Integer.parseInt(page);
+			
+			Pagination pagination = new Pagination();
+			
+			//get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
+			pagination.setPageNo(pageNum);
+			
+			//한 페이지에 나오는 게시물의 개수 
+			pagination.setPageSize(9);
+			pagination.setTotalCount(totalCount);
+			
+			//select해오는 기준을 구함
+			pageNum = (pageNum -1) * pagination.getPageSize();
+			
+			List<MainStreamDto> mainStreamList = biz.mainStreamList();
+			List<RoadMapInfoDto> roadList = biz.selectListPage(pageNum, pagination.getPageSize(), txt_search, searchOption);
+			
+			model.addAttribute("mainList", mainStreamList);
+			model.addAttribute("roadList", roadList);
+			model.addAttribute("pagination", pagination);
+			model.addAttribute("txt_search", txt_search);
+			model.addAttribute("class_category", class_category);
+			model.addAttribute("searchOption", searchOption);
+			
+				
+			if(class_category != null) {
+				System.out.println("구현중");
+			} else {
+				model.addAttribute("mainList", mainStreamList);	
+				model.addAttribute("roadList", biz.selectListPage(pageNum, pagination.getPageSize(), txt_search, searchOption));
+			
+			}
+						
+		return"RoadMap/RoadMapList";
+	}
 	
 	@RequestMapping("/RoadMap")
 	public String roadMapPage(Model model, String txt_search, String page, String class_category, String searchOption) {
@@ -211,6 +272,7 @@ public class RoadMapController {
 		resList = biz.classInfoList(subFilter);
 		System.out.println("컨트롤러로 다시 컴백 :"+ resList.size());
 		
+
 		
 		List<MainStreamDto> mainStreamList = biz.mainStreamList();		
 		List<SubStreamDto> subStreamList = biz.subStreamList();	
@@ -222,15 +284,102 @@ public class RoadMapController {
 		return"RoadMap/SearchForm";
 	}
 	
+	//로드맵 보기
 	@RequestMapping("/roadMapDetail")
-	public String roadMapDetail(@RequestParam String roadNum, Model model) {
-		System.out.println("들어온 번호: "+ roadNum );
-		
+	public String roadMapDetail(@RequestParam String roadNum, Model model, ServletRequest request ) {
+		System.out.println("로드맵번호 번호: "+ roadNum );
+		//로드맵 번호로 로드맵 인포를 받아옴
 		RoadMapInfoDto dto = biz.selectOneRoadMap(roadNum);
-		System.out.println("dto"+dto);
 		
-		model.addAttribute("roadMap", dto);
+		//로드맵 번호로 roamapCon에서 classNum들 받아옴
+		List<RoadMapCon> list = biz.RoadMapConList(roadNum);
+		System.out.println("list"+list);
+		System.out.println("===========================================");
+		//class_no를 list에 담음
+		List<Integer> classNumList = new ArrayList<Integer>();
+		
+		for(int i=0; i<list.size(); i++) {
+			System.out.println(list.get(i).getClass_num());
+			classNumList.add(list.get(i).getClass_num());
+		}
+		
+		System.out.println("classNumList"+classNumList);
+		
+		//class_Num으로 class_infoList받아옴
+		List<ClassInfoDto> resList = biz.RoadClassInfoList(classNumList);
+		System.out.println(resList.size()+"+++++++++++++++++++++");
+		//현재 주소 받기
+		HttpServletRequest req = (HttpServletRequest)request;
+		String Http =StringUtils.defaultString(req.getScheme());
+		int serverPort = req.getServerPort();
+		String serverName = StringUtils.defaultString(req.getServerName());
+		String url = StringUtils.defaultString(req.getRequestURI().toString()); //전체
+		String queryString = StringUtils.defaultString(req.getQueryString());   //?id=admin
+		
+		String URL = Http+"://"+serverName+":"+serverPort+"/"+url+"?"+queryString;
+		System.out.println(URL);
+		
+		
+		
+		model.addAttribute("URL", URL); //현재 주소
+		model.addAttribute("resList", resList);//classInfo
+		model.addAttribute("roadMap", dto); //roadMapInfo
 		return"RoadMap/RoadMapDetail";
+	}
+	
+	//로드맵 구독
+	@RequestMapping("/roadMapJoin")	
+	@ResponseBody
+	public Map<String, Boolean> roadMapJoin(@RequestParam String roadnum, @RequestParam String usernum) {
+		
+	boolean res = false;
+	
+	System.out.println("res+++"+res);
+				
+	int subRes = biz.roadMapSubscribeInsert(roadnum, usernum); //로드맵 구독 insert
+	int roadRes= biz.updateRoadSubscribe(roadnum); //roadmap subscribe update
+	
+	Map<String,Boolean> map = new HashMap<String,Boolean>();
+		
+	if(subRes>0 && roadRes>0) {
+		System.out.println("로드맵 구독 insert & roadmap subscribe update성공 ");
+		res = true;
+		map.put("res",res);
+	}else {
+		System.out.println("로드맵 구독 insert or roadmap subscribe update 실패");		
+		res = false;
+		map.put("res",res);
+		
+	}	
+	
+	System.out.println("res+++"+res);
+	
+		return map;
+	}
+	
+	@RequestMapping("/roadJoinChk")
+	@ResponseBody
+	public Map<String,Boolean> roadJoinChk(@RequestParam String roadnum, @RequestParam String usernum) {
+		System.out.println("roadJoinChk+++");
+		System.out.println(roadnum);
+		System.out.println(usernum);
+		
+		boolean roadChk = false;
+		Map<String, Boolean> map = new HashMap<String,Boolean>();
+				
+		int res = biz.roadJoinChk(roadnum, usernum);
+		System.out.println("res는!!!"+res);
+		
+		if(res>0) {
+			roadChk = true;
+			map.put("roadChk", roadChk);
+		}else {
+			roadChk = false;
+			map.put("roadChk", roadChk);
+		}
+		
+		System.out.println(roadChk);
+		return map;
 	}
 	
 

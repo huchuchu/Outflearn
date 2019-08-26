@@ -8,8 +8,6 @@ var video_data;
 
 $(document).ready(function(){
 	
-	console.log($(`[src="${tag.src}"]`))
-	
 	var playlist_url = '';
 	
 	
@@ -40,7 +38,25 @@ $(document).ready(function(){
     	url: 'LecturePlayList',
     	success: function(playlist) {
     		console.log('성공!!!' + playlist)
-    		playlist = "https://www.googleapis.com/youtube/v3/playlistItems?playlistId=" + playlist + "&part=contentDetails,snippet&key=AIzaSyAKpVZhMIKzF0zAD17yeVygQWNfL7MCCzc";
+    		var play_id = new Array()
+    		
+    		for(var i = 0; i < playlist.length; i++) {
+    			if(playlist[i].indexOf("v=") != -1){
+            		
+            		play_id[i] = play_id[i].split('v=', 2)[1]
+                	playOne[i] = play_id[i]
+            		playlist = "https://www.googleapis.com/youtube/v3/videos?id= " + play_id[i] + "&part=contentDetails,snippet&key=AIzaSyAKpVZhMIKzF0zAD17yeVygQWNfL7MCCzc";
+                	getPlayList(playlist)
+                	
+            	} else if(playlist[i].indexOf("list") != -1) {
+            		
+            		play_id[i] = play_id[i].split('list=', 2)[1]
+            		playlist_id[i] = play_id[i]
+            		playlist = "https://www.googleapis.com/youtube/v3/playlistItems?playlistId=" + play_id[i] + "&part=contentDetails,snippet&maxResults=5&key=AIzaSyAKpVZhMIKzF0zAD17yeVygQWNfL7MCCzc";
+                	getPlayList(playlist)
+                	
+            	}
+    		}
     		getPlayList(playlist)
     		
     	},

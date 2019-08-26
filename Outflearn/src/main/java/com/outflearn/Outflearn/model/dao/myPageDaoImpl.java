@@ -1,24 +1,14 @@
 package com.outflearn.Outflearn.model.dao;
 
-import java.sql.SQLWarning;
-
-import java.util.ArrayList;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
-import com.outflearn.Outflearn.dto.ClassIntroduceDto;
-import com.outflearn.Outflearn.dto.LiveDto;
+import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
-import com.outflearn.Outflearn.dto.connectUserClass;
-import com.outflearn.Outflearn.dto.ClassReviewDto;
 
 @Repository
 public class myPageDaoImpl implements myPageDao {
@@ -34,14 +24,42 @@ public class myPageDaoImpl implements myPageDao {
 
 
 	@Override
-	public List<ClassInfoDto> getWishList(int user_num) {
-		return sqlSession.selectList(namespace + "getWishList", user_num);
+	public List<ClassInfoDto> getBasketClass(int user_num) {
+		return sqlSession.selectList(namespace + "getBasketClass", user_num);
 	}
 
 
 	@Override
 	public List<RoadMapCon> getSubRoadmap(int user_num) {
 		return sqlSession.selectList(namespace + "getSubRoadmap", user_num);
+	}
+	
+	@Override
+	public List<QADto> getQA(int user_num) {
+		return sqlSession.selectList(namespace + "getQA", user_num);
+	}
+
+	@Override
+	public List<ClassInfoDto> getPreBasketClass(int user_num) {
+		return sqlSession.selectList(namespace + "getPreBasketClass", user_num);
+	}
+
+
+	@Override
+	public List<ClassInfoDto> getPreSubscribe(int user_num) {
+		return sqlSession.selectList(namespace + "getPreSubscribe", user_num);
+	}
+
+
+	@Override
+	public List<RoadMapCon> getPreSubRoadmap(int user_num) {
+		return sqlSession.selectList(namespace + "getPreSubRoadmap", user_num);
+	}
+
+
+	@Override
+	public List<QADto> getPreQA(int user_num) {
+		return sqlSession.selectList(namespace + "getPreQA", user_num);
 	}
 	
 }

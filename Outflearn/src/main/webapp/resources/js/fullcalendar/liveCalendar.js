@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 plugins: ['interaction', 'dayGrid', 'timeGrid'],
                 defaultView: 'dayGridMonth',
-                defaultDate: '2019-08-07',
                 eventLimit: true,
                 views: {
                     timeGrid: {
@@ -75,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     title: data.class_title,
                                     html:
                                         `
+                                    <img src="/Outflearn/resources/uploadImage/${data.class_img}" alt="이미지가 없어!">
                                     <p>강좌소개 : ${data.class_intro}</p>
                                     <p>가격 : ${data.class_price}</p>
                                     <button onclick="wishClass(${data.class_num})">찜하기</button>

@@ -38,8 +38,10 @@ public class myPageController {
 		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		model.addAttribute("userInfo", dto);
-		model.addAttribute("wishClass", biz.getWishList(dto.getUser_num()));
-		model.addAttribute("subClass", biz.getSubscribe(dto.getUser_num()));
+		model.addAttribute("basketClass", biz.getPreBasketClass(dto.getUser_num()));
+		model.addAttribute("subClass", biz.getPreSubscribe(dto.getUser_num()));
+		model.addAttribute("subRoadmap", biz.getPreSubRoadmap(dto.getUser_num()));
+		model.addAttribute("preQA", biz.getPreQA(dto.getUser_num()));
 
 		return "Member/myPage";
 	}
@@ -53,26 +55,20 @@ public class myPageController {
 		return "Member/listenClass";
 	}
 	
-	@RequestMapping("wishClass")
-	public String wishClass(Model model) {
-		
-		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		model.addAttribute("wishClass", biz.getSubscribe(dto.getUser_num()));
-		
-		return "Member/wishClass";
-	}
-	
 	@RequestMapping("subRoadmap")
 	public String subRoadmap(Model model) {
 		
 		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("subRoadmap", biz.getSubRoadmap(dto.getUser_num()));
 		
 		return "Member/subRoadmap";
 	}
 	
 	@RequestMapping("myQuestion")
 	public String myQuestion(Model model) {
+		
+		UserInfoDto dto = (UserInfoDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("myQA", biz.getQA(dto.getUser_num()));
 		
 		return "Member/myQuestion";
 	}
@@ -85,12 +81,6 @@ public class myPageController {
 		model.addAttribute("userInfo", dto);
 		
 		return "Member/configProfile";
-	}
-	
-	@RequestMapping("configAlarm")
-	public String configAlarm() {
-		
-		return "Member/configAlarm";
 	}
 
 }

@@ -22,6 +22,7 @@ public interface ClassDataBiz {
 		public ClassInfoDto ClassInfoSelectOne(int class_num);
 		public List<ClassInfoDto>  classInfoSelectListUser(int user_num);
 		public int ClassInfoInsert(ClassInfoDto dto);
+		public List<ClassInfoDto> ClassSubName(int sub_num);
 		
 	
 		// 강좌 소개 - CLASS_INTRODUCE 테이블
@@ -31,7 +32,7 @@ public interface ClassDataBiz {
 		
 		// 강좌 데이터 -  CLASS_DATA 테이블
 		public List <ClassDataDto> ClassDataSelectList();
-		public ClassDataDto ClassDataSelectOne(int class_num);
+		public List<ClassDataDto> ClassDataSelectOne(int class_num);
 		public int ClassDataInsert(ClassDataDto dto);		
 		public int ClassChapterDataInsert(ClassDataDto dto);
 		
@@ -50,9 +51,10 @@ public interface ClassDataBiz {
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);
 		
 		// 주류, 부류 - MAIN_STREAM , SUB_STREAM
-		public int mainStreamInsert(MainStreamDto dto);
-		public int subStreamInsert(SubStreamDto dto);
-		public int ClassCategoryInsert(ClassCategoryDto dto);
+		//public int mainStreamInsert(MainStreamDto dto);
+		//public int subStreamInsert(SubStreamDto dto);
+		public List<SubStreamDto> MainStreamSelectOne(int main_num);
+		public int ClassCategoryInsert(int main_num, int sub_num);
 	
 		//페이징
 		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search );
@@ -66,6 +68,12 @@ public interface ClassDataBiz {
 		public QADto QASelectOne(int qa_num);
 		public List<QADto> QAReply(int qa_group_no);
 		public int QAInsert(QADto dto);
+		public int QADelete(int qa_group_no);
 		public int QAReplyInsert(QADto dto);
 		public int QAReplyUpdate(QADto dto);
+		public int QAReplyDelete(QADto dto);
+		
+		// 메인화면 리스트
+		public List<ClassInfoDto> SubCountSelectList();
+		public List<ClassInfoDto> PopularReviewSelectList();
 }
