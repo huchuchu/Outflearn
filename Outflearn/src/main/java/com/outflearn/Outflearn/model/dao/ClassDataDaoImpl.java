@@ -78,16 +78,20 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	
 	@Override
 	public List<ClassInfoDto> ClassSubName(int sub_num) {
-		System.out.println("왜 안와??" + sub_num);
-		
-		
+				
 		List<ClassInfoDto> list = sqlSession.selectList(namespace + "ClassSubName", sub_num); 
 
-		
-		System.out.println("여기오니??");
 		return list;
 	}
+	
 
+	@Override
+	public int ClassInfoUpdateSub(int class_num) {
+		
+		int res = sqlSession.update(namespace + "ClassInfoUpdateSub" , class_num); 
+		
+		return res;
+	}	
 
 // --------------------------------------------------- 강좌 내용(CLASS_INTRODUCE)
 	@Override
@@ -183,11 +187,11 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 
 	@Override
-	public int classBasketDelete(int class_num) {
+	public int classBasketDelete(int user_num) {
 		
 		int res = 0;
 		
-		res = sqlSession.delete(namespace + "classBasketDelete", class_num); 
+		res = sqlSession.delete(namespace + "classBasketDelete", user_num); 
 		
 		return res;
 	}
@@ -362,7 +366,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return list;
 	}	
 	
-
+/*		
 	@Override
 	public int mainStreamInsert(MainStreamDto dto) {
 		
@@ -472,6 +476,22 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		
 		return list;
 	}
+	
+	// 구독
+	@Override
+	public int classInsertSubscribe(int user_num, int class_num) {
+
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("user_num", user_num);
+		map.put("class_num", class_num);
+		
+		int list = sqlSession.insert(namespace + "classInsertSubscribe", map); 
+		
+		return list;
+	}
+
+
 
 	@Override
 	public int QADelete(int qa_group_no) {

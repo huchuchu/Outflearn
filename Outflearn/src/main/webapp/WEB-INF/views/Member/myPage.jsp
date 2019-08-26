@@ -78,8 +78,11 @@
         <div class="side_category live">
           <ul class="nav flex-column text-center">
             <li class="nav-item side_menu">
-              <a class="configLiveRoom" href="void:0">방송하기</a>
-                <p>강사만 보이게</p>
+              <a href="void:0">LIVE</a>
+              <ul class="inner_menu">
+                <li><a class="configLiveRoom" href="void:0">방송하기</a></li>
+                <li><a href="void:0">방송 스케줄</a></li>
+              </ul>
             </li>
           </ul>
         </div>

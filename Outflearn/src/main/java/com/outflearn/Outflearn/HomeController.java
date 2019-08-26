@@ -72,12 +72,12 @@ public class HomeController {
 */
 //	장바구니 유저정보
 	@RequestMapping("basket")
-	public String basket(@ModelAttribute ClassInfoDto dto, Model model, int class_num, Authentication auth) {
+	@ResponseBody
+	public int basket(@ModelAttribute ClassInfoDto dto, Model model, int class_num, Authentication auth) {
 		logger.info("basket");
 		
 		// 닉네임
 		// 회원 정보
-		System.out.println(auth.getPrincipal());
 		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
 		String user_nickname = uDto.getUser_nickname();
 		int user_num = uDto.getUser_num();
@@ -102,11 +102,13 @@ public class HomeController {
 		model.addAttribute("classInfoUser", biz.classInfoSelectListUser(user_num));
 		
 		// 장바구니 담기
-		int res = biz.classBasketInsert(dto);
-		model.addAttribute("classNum", dto.getClass_num());
-		System.out.println("안녕");
 		
-		return "Class/LectureDetail";
+		model.addAttribute("classNum", dto.getClass_num());
+		
+		
+		
+		
+		return biz.classBasketInsert(dto);
 		
 	}
 	
@@ -127,7 +129,7 @@ public class HomeController {
 //	장바구니 삭제
 	@ResponseBody
 	@RequestMapping("basketDelete")
-	public int basketDelete(@RequestParam(name="class_num") int class_num) {
+	public int basketDelete(int class_num) {
 		logger.info("basketDelete");	
 		
 		
@@ -217,6 +219,14 @@ public class HomeController {
 		// 질문 리스트
 		model.addAttribute("classQuestion", biz.QASelectList(class_num));
 		System.out.println(biz.QASelectList(class_num) + " : 질문들");
+		
+		// 부류, 주류
+	    List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();      
+	    List<SubStreamDto> subStreamList = Rbiz.subStreamList();   
+	     
+	      
+	    model.addAttribute("mainList", mainStreamList);	
+	    model.addAttribute("subList", subStreamList);  
 		
 		return "Class/LectureDetail";
 	}
