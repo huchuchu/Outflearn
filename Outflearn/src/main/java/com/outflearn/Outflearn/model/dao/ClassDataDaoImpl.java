@@ -14,12 +14,8 @@ import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
-import com.outflearn.Outflearn.dto.LiveDto;
-import com.outflearn.Outflearn.dto.MainStreamDto;
-import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.dto.QADto;
-import com.outflearn.Outflearn.dto.ClassReviewDto;
-import com.outflearn.Outflearn.dto.LiveDto;
+import com.outflearn.Outflearn.dto.SubStreamDto;
 
 @Repository
 public class ClassDataDaoImpl implements ClassDataDao {
@@ -79,6 +75,19 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 		return res;
 	}
+	
+	@Override
+	public List<ClassInfoDto> ClassSubName(int sub_num) {
+		System.out.println("왜 안와??" + sub_num);
+		
+		
+		List<ClassInfoDto> list = sqlSession.selectList(namespace + "ClassSubName", sub_num); 
+
+		
+		System.out.println("여기오니??");
+		return list;
+	}
+
 
 // --------------------------------------------------- 강좌 내용(CLASS_INTRODUCE)
 	@Override
@@ -133,16 +142,13 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 
 	@Override
-	public ClassDataDto ClassDataSelectOne(int class_num) {
+	public List<ClassDataDto> ClassDataSelectOne(int class_num) {
 
-		ClassDataDto dto = new ClassDataDto();
+		List<ClassDataDto> list = new ArrayList<ClassDataDto>();
 
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("class_num", class_num);
-		System.out.println("daoImpl : " + class_num);
-		dto = sqlSession.selectOne(namespace + "classdataselectone", map);
+		list = sqlSession.selectList(namespace + "classdataselectone", class_num);
 
-		return dto;
+		return list;
 	}
 
 //  유튜브 영상
@@ -254,6 +260,19 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 
 	//페이징
+			
+	@Override
+	public int selectTotalCount(String txt_search) {
+		
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("txt_search", txt_search);
+		res = sqlSession.selectOne(namespace + "selectTotalCount", map);
+		
+		return res;
+	}
+	
 	@Override
 	public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search) {
 		
@@ -261,21 +280,42 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		map.put("firstIndex", String.valueOf(firstIndex));
 		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
 		map.put("txt_search", txt_search);
+//		map.put("searchOption", searchOption);
 		
 		List<ClassInfoDto> list = sqlSession.selectList(namespace + "selectListPage", map);
 		return list;
 	}
-
+	
 	@Override
-	public int selectTotalCount(String txt_search) {
+	public List<ClassInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("firstIndex", String.valueOf(firstIndex));
+		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
+		map.put("txt_search", txt_search );
+		map.put("searchOption", searchOption);
+		
+		List<ClassInfoDto> list = sqlSession.selectList(namespace +"selectListPageTwo", map);
+		System.out.println(list);
+		return list;
+	}
+	
+	
+	@Override
+	public int selectTotalCountTwo(String txt_search, String searchOption) {
+		
 		int res = 0;
 		
 		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
 		map.put("txt_search", txt_search);
-		res = sqlSession.selectOne(namespace + "selectTotalCount", map);
+		res = sqlSession.selectOne(namespace + "selectTotalCountTwo", map);
+		System.out.println(txt_search+"다오임플");
+		System.out.println(searchOption);
+		System.out.println(res);
 		return res;
 	}
-		
 	@Override
 	public int ClassReviewUpdateAnswer(int review_num) {
 
@@ -296,7 +336,37 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 	
+	
+	@Override
+	public List<SubStreamDto> MainStreamSelectOne(int main_num) {
 		
+		List<SubStreamDto> list = new ArrayList<SubStreamDto>();
+
+		try {
+			list = sqlSession.selectList(namespace + "MainStreamSelectOne", main_num);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+	
+	@Override
+	public int ClassCategoryInsert(int main_num, int sub_num) {
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("main_num", main_num);
+		map.put("sub_num", sub_num);
+		
+		int list = sqlSession.insert(namespace + "ClassCategoryInsert", map); 
+		
+		return list;
+	}	
+	
+/*		
+=======
+>>>>>>> origin/syh
 	@Override
 	public int mainStreamInsert(MainStreamDto dto) {
 		
@@ -313,6 +383,8 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 
+*/
+	
 	@Override
 	public List<QADto> QASelectList(int class_num) {
 		
@@ -335,12 +407,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return dto;
 	}
 	
-	@Override
-	public int ClassCategoryInsert(ClassCategoryDto dto) {
 	
-		int res = sqlSession.insert(namespace + "classCategoryInsert", dto); 
-		return res;
-	}
 
 	@Override
 	public List<QADto> QAReply(int qa_group_no) {
@@ -381,8 +448,48 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	public int QAReplyUpdate(QADto dto) {
 		
 		int res = 0;
+		System.out.println(dto.getQa_content() + " : daoImpl");
+		System.out.println(dto.getQa_num() + " : daoimpl qanum");
+		System.out.println(dto.getQa_group_no() + " : daoimpl groupnoS");
+		System.out.println(dto.getQa_group_sq() + " : daoimpl groupsq");
 		
 		res = sqlSession.update(namespace + "QAReplyUpdate", dto);
+		
+		return res;
+	}
+
+	@Override
+	public List<ClassInfoDto> SubCountSelectList() {
+		
+		List<ClassInfoDto> list = new ArrayList<ClassInfoDto>();
+		
+		list = sqlSession.selectList(namespace + "SubCountSelectList", list);
+		
+		return list;
+	}
+	
+	@Override
+	public List<ClassInfoDto> PopularReviewSelectList() {
+		
+		List<ClassInfoDto> list = new ArrayList<ClassInfoDto>();
+		
+		list = sqlSession.selectList(namespace + "PopularReviewSelectList", list);
+		
+		return list;
+	}
+
+	@Override
+	public int QADelete(int qa_group_no) {
+		
+		int res = sqlSession.delete(namespace + "QADelete", qa_group_no);
+		
+		return res;
+	}
+
+	@Override
+	public int QAReplyDelete(QADto dto) {
+		
+		int res = sqlSession.delete(namespace + "QAReplyDelete", dto);
 		
 		return res;
 	}

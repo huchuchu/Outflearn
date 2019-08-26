@@ -97,14 +97,12 @@
 
 				<div class="input-group">
 					<h3>실시간 여부</h3>
-					<input type="text" class="form-control" name="class_live"
-						placeholder="Y or N 입력해주세요.">
+					<input type="text" class="form-control" name="class_live" placeholder="Y or N 입력해주세요.">
 				</div>
 
 				<div class="form-group">
 					<h3>가격</h3>
-					<input type="text" class="form-control" name="class_price"
-						placeholder="숫자만 입력해주세요.">
+					<input type="text" class="form-control" name="class_price" placeholder="숫자만 입력해주세요.">
 				</div>
 
 				<div class="input-group col-xs-4">
@@ -118,29 +116,19 @@
 
 				<div class="input-group col-xs-4">
 					<h3>주류</h3>
-					<select name="main_name" id="select1" class="alert alert-success" onchange="itemChange()">
-						<option value="서버">서버</option>
-						<option value="웹 개발">웹 개발</option>
-						<option value="데이터 베이스">데이터 베이스</option>
+					<select name="main_num" id="select1" class="alert alert-success" onchange="itemChange(this.value)">
+						<option value="1">서버</option>
+						<option value="2">웹 개발</option>
+						<option value="3">데이터 베이스</option>
 					</select>
 				</div>
 
 				<div class="input-group col-xs-4">
 					<h3>부류</h3>
-					<select id="select2" class="alert alert-success" name="sub_name">
+					<select id="select2" class="alert alert-success" name="sub_num">
 						
 					</select>
 				</div>
-
-
-
-
-
-
-
-
-
-
 
 
 				<div class="form-group">
@@ -155,15 +143,11 @@
 		<!-- Footer Section -->
 		<jsp:include page="../footer/Footer.jsp"></jsp:include>
 		<script type="text/javascript">
-			var server = [ "Back End", "Linux", "Node.js", "Express.js",
-				"C#" ];
-			var web = [ "Front End", "html/css", "javascript", "Angular",
-				"React.js", "Vue.js" ];
 			
-			var db = [ "Oracle", "PL/SQL", "MySQL", "MongoDB" ];
+		// 초기에 server 주류를 보여주기 위해서
+			var server = [ "Back End", "Linux", "Node.js", "Express.js", "C#" ];
 			
 			$(document).ready(function() {
-				
 				
 				for (var count = 0; count < server.length; count++) {
 					var option = $("<option value= "+ server[count] + " > " + server[count] + "</option>");
@@ -171,30 +155,27 @@
 				}
 			})
 		
-			function itemChange() {
-
-				var select1 = $('#select1').val();
-				
-				var changeItem;
-
-				if (select1 == "서버") {
-					$('#select2').empty();
-					changeItem = server;
-				} else if (select1 == "웹 개발") {
-					$('#select2').empty();
-					changeItem = web;
-					
-				} else if (select1 == "데이터 베이스") {
-					$('#select2').empty();
-					changeItem = db;
-				}
-
 			
+			function itemChange(main_num) {
+				
+				$.ajax({
+					url : 'ClassCategory?main_num='+main_num,	
+					method : 'get',
+					success:function(data){
+						
+					var option = '' 
+					for (var i = 0; i < data.length; i++) {
+					option += ("<option value= "+ data[i].sub_num + " > " + data[i].sub_name + "</option>");
+					$('#select2').html(option);
+					}
 
-				for (var count = 0; count < changeItem.length; count++) {
-					var option = $("<option value= "+ changeItem[count] + " > " + changeItem[count] + "</option>");
-					$('#select2').append(option);
-				}
+					},
+					error:function(){
+						alert('에러 발생~~ \n')
+					}
+					
+				});	
+				
 		
 			}
 		</script>

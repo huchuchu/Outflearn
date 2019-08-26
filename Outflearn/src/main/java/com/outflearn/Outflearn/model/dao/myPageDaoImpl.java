@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 
 @Repository
@@ -32,7 +33,11 @@ public class myPageDaoImpl implements myPageDao {
 	public List<RoadMapCon> getSubRoadmap(int user_num) {
 		return sqlSession.selectList(namespace + "getSubRoadmap", user_num);
 	}
-
+	
+	@Override
+	public List<QADto> getQA(int user_num) {
+		return sqlSession.selectList(namespace + "getQA", user_num);
+	}
 
 	@Override
 	public List<ClassInfoDto> getPreBasketClass(int user_num) {
@@ -49,6 +54,12 @@ public class myPageDaoImpl implements myPageDao {
 	@Override
 	public List<RoadMapCon> getPreSubRoadmap(int user_num) {
 		return sqlSession.selectList(namespace + "getPreSubRoadmap", user_num);
+	}
+
+
+	@Override
+	public List<QADto> getPreQA(int user_num) {
+		return sqlSession.selectList(namespace + "getPreQA", user_num);
 	}
 	
 }

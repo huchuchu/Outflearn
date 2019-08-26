@@ -50,7 +50,7 @@
               <a href="void:0">내 강좌</a>
               <ul class="inner_menu">
                 <li><a href="listenClass">수강중인 강좌</a></li>
-                <li><a href="basketClass" class="selectMenu">장바구니</a></li>
+                <li><a href="basketSelect" class="selectedMenu">장바구니</a></li>
               </ul>
             </li>
 
@@ -79,8 +79,11 @@
         <div class="side_category live">
           <ul class="nav flex-column text-center">
             <li class="nav-item side_menu">
-              <a class="configLiveRoom" href="void:0">방송하기</a>
-              <p>강사만 보이게</p>
+              <a href="void:0">LIVE</a>
+              <ul class="inner_menu">
+                <li><a class="configLiveRoom" href="void:0">방송하기</a></li>
+                <li><a href="void:0">방송 스케줄</a></li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -115,6 +118,7 @@
   <script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
   <script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
   <script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
+  <script type="text/javascript" src="resources/js/utils/myPage.js"></script>
 </body>
 
 </html>
