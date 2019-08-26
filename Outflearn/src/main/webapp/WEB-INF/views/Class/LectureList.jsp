@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
@@ -145,8 +146,12 @@
 						<c:choose>
 							<c:when test="${empty classinfo }">
 								<h3>강좌 정보가 없습니다...!!</h3>
-								<input type="button" value="강의 추가"
-									onclick="location.href='ClassInfoInsertForm'" />
+								
+								
+								
+								<sec:authorize access="hasRole('ROLE_TUTOR')">
+									<input type="button" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" />
+								</sec:authorize>
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${classinfo }" var="dto">
@@ -164,8 +169,10 @@
 										</div>
 									</div>
 								</c:forEach>
+								<sec:authorize access="hasRole('ROLE_TUTOR')">
 								<input type="button" value="강의 추가"
 									onclick="location.href='ClassInfoInsertForm'" />
+								</sec:authorize>
 							</c:otherwise>
 						</c:choose>
 				</article>

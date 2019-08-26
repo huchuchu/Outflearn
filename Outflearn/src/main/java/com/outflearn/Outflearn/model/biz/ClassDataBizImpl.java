@@ -100,7 +100,12 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		
 		return dao.ClassChapterDataInsert(dto);
 	}
-
+	
+	@Override
+	public int ClassInfoUpdateSub(int class_num) {
+		
+		return dao.ClassInfoUpdateSub(class_num);
+	}
 //	-------------------------------------------------장바구니(BASKET)
 	@Override
 	public int classBasketInsert(ClassInfoDto dto) {
@@ -109,9 +114,9 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 
 	@Override
-	public int classBasketDelete(int class_num) {
+	public int classBasketDelete(int user_num) {
 		
-		return dao.classBasketDelete(class_num);
+		return dao.classBasketDelete(user_num);
 	}
 	
 //	--------------------------------------------------- 댓글
@@ -200,21 +205,6 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return dao.MainStreamSelectOne(main_num);
 	}
 	
-	/* 주류
-	@Override
-	public int mainStreamInsert(MainStreamDto dto) {
-		
-		return dao.mainStreamInsert(dto);
-	}
-	*/
-	/* 부류
-	@Override
-	public int subStreamInsert(SubStreamDto dto) {
-		
-		return dao.subStreamInsert(dto);
-	}
-	*/
-	
 	@Override
 	public int ClassCategoryInsert(int main_num, int sub_num) {
 	
@@ -239,6 +229,16 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int QAReplyInsert(QADto dto) {
 		return dao.QAReplyInsert(dto);
 	}
+	
+	// 구독
+
+	@Override
+	public int classInsertSubscribe(int user_num, int class_num) {
+	
+		return dao.classInsertSubscribe(user_num, class_num);
+	}
+
+	
 
 
 

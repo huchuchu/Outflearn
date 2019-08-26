@@ -33,6 +33,10 @@
 	SELECT * FROM CLASS_INFO WHERE CLASS_NUM = (SELECT CLASS_NUM FROM CLASS_CATEGORY WHERE SUB_NUM= #{sub_num })
 	</select>
 	
+	<!-- 구독자 수정 -->
+	<select id="ClassInfoUpdateSub" parameterType="int">
+	update class_info set CLASS_SUBCOUNT = (select CLASS_SUBCOUNT from class_info where class_num = #{class_num }) + 1 where class_num = #{class_num }
+	</select>
 	
 	<!-- ================== CLASS_DATA 테이블 ================== -->
 	 
@@ -103,7 +107,7 @@
 
 	
 	<delete id="classBasketDelete" parameterType="int">
-		DELETE FROM BASKET WHERE CLASS_NUM = #{class_num }
+		DELETE FROM BASKET WHERE USER_NUM = #{user_num }
 	</delete>
 	
 	
@@ -189,5 +193,11 @@
 	<select id="MainStreamSelectOne" parameterType="int" resultType="subStreamDto">
 		SELECT * FROM SUB_STREAM WHERE MAIN_NUM = #{main_num }
 	</select>
+	
+	<!-- ================== 구독 ================== -->
+	<insert id="classInsertSubscribe" parameterType="hashmap">
+		INSERT INTO SUBSCRIBE VALUES(#{user_num }, #{class_num })
+	</insert>
+	
 	
 </mapper>

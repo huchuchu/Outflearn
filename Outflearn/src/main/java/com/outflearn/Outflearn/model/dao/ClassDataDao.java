@@ -24,6 +24,7 @@ public interface ClassDataDao {
 		public List<ClassInfoDto>  classInfoSelectListUser(int user_num);
 		public int ClassInfoInsert(ClassInfoDto dto);
 		public List<ClassInfoDto> ClassSubName(int sub_num);
+		public int ClassInfoUpdateSub(int class_num);
 			
 		
 		// 강좌 소개 - CLASS_INTRODUCE 테이블
@@ -39,7 +40,7 @@ public interface ClassDataDao {
 		
 		// 장바구니 - BASKET 테이블
 		public int classBasketInsert(ClassInfoDto dto);
-		public int classBasketDelete(int class_num);
+		public int classBasketDelete(int user_num);
 			
 		// 댓글 - CLASS_REVIEW 테이블
 		public List <ClassReviewDto> ClassReviewSelectList(int class_num);
@@ -58,8 +59,6 @@ public interface ClassDataDao {
 		public int selectTotalCount(String searchOption, String txt_search);
 		
 		// 주류, 부류 - MAIN_STREAM , SUB_STREAM
-		//public int mainStreamInsert(MainStreamDto dto);
-		//public int subStreamInsert(SubStreamDto dto);
 		public List<SubStreamDto> MainStreamSelectOne(int main_num);
 		public int ClassCategoryInsert(int main_num, int sub_num);
 		public ClassIntroduceDto ClassIntroduceSelectOne(int class_num);
@@ -70,4 +69,7 @@ public interface ClassDataDao {
 		public List<QADto> QAReply(int qa_group_no); 
 		public int QAInsert(QADto dto);
 		public int QAReplyInsert(QADto dto);
+		
+		// 구독
+		public int classInsertSubscribe(int user_num, int class_num);
 }

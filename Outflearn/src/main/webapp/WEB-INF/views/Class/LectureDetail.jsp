@@ -59,12 +59,14 @@
 				<div id="box">
 					<div id="course">
 						<h4>${classinfo.class_price }원</h4>
-						<button type="button" class="btn-group btn-group-vertical btns">바로
-							수강신청</button>
-						<form:form action="basket" method="post">
-							<input type="hidden" name="class_num" value="${class_num }">
-							<input type="submit" value="장바구니 담기" class="btn-group btn-group-vertical btns" >
-						</form:form>
+					<div id="InsertBefore">	
+						<input type="hidden" name="class_num" value="${classinfo.class_num }" id="class_num">
+						<button class="btn-group btn-group-vertical btns" onclick="classinsert();">바로 수강신청</button>
+						<button class="btn-group btn-group-vertical btns" onclick="classinsert();">장바구니 담기</button>
+					</div>
+					<div id="InsertAfter">
+						<button class="btn-group btn-group-vertical btns" onclick="location.href='basketSelect'">장바구니 이동</button>
+					<div>
 					</div>
 			
 					
@@ -113,13 +115,10 @@
 	
 	<div class="panel panel-default">
 		<h1>강좌 소개</h1>
-			<div class="form-group">
-					<p>
-					${classIntroduce.class_content }
-					</p>
-			</div>
-			
-	
+			<p>
+				${classIntroduce.class_content }
+			</p>
+		</div>
 	</div>
 
 	<div id="page-switch" class="nav-page">
@@ -284,7 +283,25 @@
 	</div>
 	
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
-
+	<script type="text/javascript">
+	var class_num = $("#class_num").val();
+	
+	function classinsert(){
+		$.ajax({
+			url : 'basket?class_num=' + class_num,
+			method : 'get',
+			success:function(data){
+				$("#InsertBefore").hide();
+		        $("#InsertAfter").show();
+			
+			},
+			error:function(){
+				alert('에러 발생~~ \n')
+			}
+		})
+	}
+	</script>
+	
 
 	<script type="text/javascript" src="resources/js/ClassReview.js"></script>
 	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>

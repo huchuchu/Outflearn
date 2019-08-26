@@ -28,7 +28,7 @@
 </head>
 <body>
 
-	<jsp:include page="../header/MainHeader.jsp"></jsp:include>
+	<jsp:include page="../views/header/LectureListHeader.jsp"></jsp:include>
 
 
 	<!-- body -->
@@ -55,7 +55,7 @@
 							</thead>
 							
 							<c:set var="sum" value="0" />
-							<c:forEach items="${classInfoUser }" var="dto">
+							<c:forEach items="${classInfoUser }" var="dto" varStatus="status">
 								<tbody>
 									<tr>
 										<td data-th="Product">
@@ -81,7 +81,7 @@
 											</td>
 									</tr>
 								</tbody>
-							<c:set var="sum" value="${sum + dto.class_price }" />
+							<c:set var="sum" value="${sum + (dto.class_price * status.count )}" />
 							</c:forEach>
 
 
@@ -90,17 +90,7 @@
 									<td colspan="2" class="hidden-xs"></td>
 									<td class="hidden-xs text-center"><strong>총합
 											<fmt:formatNumber  value="${sum}" />원</strong></td>
-									<td>
-										<form:form method="post" action="oauth">
-											<c:forEach items="${classInfoUser }" var="dto">
-												<input type="hidden" name="class_title" value="${dto.class_title }"/>
-												<input type="hidden" name="class_num" value="${dto.class_num }">
-											</c:forEach>
-											<input type="hidden" name="class_price"  value="${sum}">
-											<input type="submit" value="결제하기" class="btn btn-success btn-block">
-											
-										</form:form>
-									</td>
+									<td></td>
 								</tr>
 							</tfoot>
 						</table>
@@ -112,7 +102,9 @@
 	</div>
 
 
-	
+	<form:form method="post" action="oauth">
+		<input type="submit" value="결제하기" class="btn btn-success btn-block">
+	</form:form>
 	
 	<script type="text/javascript">
 	var class_num = $("#class_num").val();
@@ -135,9 +127,10 @@
 	}
 	</script>
 
+
 	<!-- ==================== FOOTER ==================== -->
 
-	<jsp:include page="../footer/Footer.jsp"></jsp:include>
+	<jsp:include page="../views/footer/Footer.jsp"></jsp:include>
 
 	<script type="text/javascript"
 		src="resources/js/template/jquery.1.11.1.js"></script>
