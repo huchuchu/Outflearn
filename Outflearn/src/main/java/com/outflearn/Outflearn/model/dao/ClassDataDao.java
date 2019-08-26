@@ -41,6 +41,7 @@ public interface ClassDataDao {
 		// 장바구니 - BASKET 테이블
 		public int classBasketInsert(ClassInfoDto dto);
 		public int classBasketDelete(int user_num);
+		public int classBasketDeleteOne(int class_num);
 			
 		// 댓글 - CLASS_REVIEW 테이블
 		public List <ClassReviewDto> ClassReviewSelectList(int class_num);

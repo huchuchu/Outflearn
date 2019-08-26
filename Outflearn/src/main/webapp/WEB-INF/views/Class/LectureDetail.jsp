@@ -66,7 +66,7 @@
 					</div>
 					<div id="InsertAfter">
 						<button class="btn-group btn-group-vertical btns" onclick="location.href='basketSelect'">장바구니 이동</button>
-					<div>
+					</div>
 					</div>
 			
 					

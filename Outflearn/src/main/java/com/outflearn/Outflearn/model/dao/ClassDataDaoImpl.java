@@ -190,11 +190,19 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 
 	@Override
-	public int classBasketDelete(int user_num) {
+	public int classBasketDelete(int class_num) {
 		
 		int res = 0;
 		
-		res = sqlSession.delete(namespace + "classBasketDelete", user_num); 
+		res = sqlSession.delete(namespace + "classBasketDelete", class_num); 
+		
+		return res;
+	}
+	
+	@Override
+	public int classBasketDeleteOne(int class_num) {
+
+		int res = sqlSession.delete(namespace + "classBasketDeleteOne", class_num); 
 		
 		return res;
 	}
@@ -435,6 +443,8 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		
 		return list;
 	}
+
+
 
 
 

@@ -114,10 +114,19 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 
 	@Override
+	public int classBasketDeleteOne(int class_num) {
+
+		return dao.classBasketDeleteOne(class_num);
+	}
+	
+	
+	@Override
 	public int classBasketDelete(int user_num) {
 		
 		return dao.classBasketDelete(user_num);
 	}
+	
+
 	
 //	--------------------------------------------------- 댓글
 	@Override
@@ -237,6 +246,7 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	
 		return dao.classInsertSubscribe(user_num, class_num);
 	}
+
 
 	
 

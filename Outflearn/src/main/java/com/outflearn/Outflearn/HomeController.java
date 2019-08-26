@@ -1,6 +1,7 @@
 package com.outflearn.Outflearn;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -55,10 +56,7 @@ public class HomeController {
 		return "home";
 	}
 
-/*	ClassInfo
 
-	
-*/
 //	장바구니 유저정보
 	@RequestMapping("basket")
 	@ResponseBody
@@ -115,15 +113,15 @@ public class HomeController {
 	}
 	
 
-//	장바구니 삭제
+//	장바구니 해당 강의 삭제
 	@ResponseBody
-	@RequestMapping("basketDelete")
-	public int basketDelete(int class_num) {
+	@RequestMapping("basketDeleteOne")
+	public int basketDeleteOne(int class_num) {
 		logger.info("basketDelete");	
 		
-		
-		return biz.classBasketDelete(class_num);
+		return biz.classBasketDeleteOne(class_num);
 	}
+	
 	
 	@RequestMapping("/LectureList")
 	public String LectureListPage(Model model, String txt_search, String page, String class_category) {
