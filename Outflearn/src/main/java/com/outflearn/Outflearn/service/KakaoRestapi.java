@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -17,8 +18,11 @@ import org.springframework.web.client.RestTemplate;
 
 import com.outflearn.Outflearn.LoginController;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.UserInfoDto;
+import com.outflearn.Outflearn.model.biz.ClassDataBiz;
 @Service
 public class KakaoRestapi {
+	
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	private static final String HOST = "https://kapi.kakao.com";
@@ -66,6 +70,7 @@ public class KakaoRestapi {
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
+	
 		
 		return "kakaoPaySuccess";
 		
