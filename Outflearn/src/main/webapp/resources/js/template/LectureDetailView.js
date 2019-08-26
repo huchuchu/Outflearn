@@ -22,7 +22,7 @@ $(document).ready(function(){
         		   	<div id="lectureyoutube"></div>
         		   </div>`
         	)
-        	console.log(video_data)
+        	console.log(video_data, "이거뭔데")
         	
 
         	
@@ -98,7 +98,7 @@ function getPlayList(video_list) {
         dataType: 'JSON',
         url: video_list,
         success: function (vi_list) {
-
+        	console.log(vi_list, "이거는 뭐꼬")
            for(var i = 0; i < vi_list.items.length; i++) {
         	   var video_title = vi_list.items[i].snippet.title
         	   var video = vi_list.items[i].snippet.resourceId.videoId

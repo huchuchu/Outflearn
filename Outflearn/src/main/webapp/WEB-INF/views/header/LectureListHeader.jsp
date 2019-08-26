@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,14 +89,15 @@
 					<li><a href="void:0">라이브</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"><i class="far fa-user">&nbsp;문희수</i>
-							<div class="dropdown-menu" role="menu"
-								aria-expanded="navbarDropdown">
-								<a href="void:0">로그아웃</a>
-							</div> </a></li>
-					<li><a href="void:0">로그인</a></li>
-					<li><a href="void:0">회원가입</a></li>
+					<sec:authorize access="isAnonymous()">
+          				<li><a href="/Outflearn/loginform">로그인</a></li>
+          				<li><a href="/Outflearn/registerform.do">회원가입</a></li>
+          			</sec:authorize>
+          			<sec:authorize access="isAuthenticated()">
+            			<li><a href="/Outflearn/myPage">마이페이지</a></li>
+            			<li><a href="/Outflearn/MemberInfoUpdateForm.do">회원정보 수정</a></li>
+          			<li><a href="/Outflearn/logout">로그아웃</a></li>  
+          			</sec:authorize>
 				</ul>
 			</div>
 		</div>

@@ -49,7 +49,7 @@
 					</c:when>
 				<c:otherwise>
 					<div class="form-group">
-						<c:forEach items="${classQuestionReply }" var="dto" begin="2">
+						<c:forEach items="${classQuestionReply }" var="dto" begin="1">
 							<div class="panel student_question_panel">
 								<div class="form-group question_content">
 									<p class="question_title">작성자 : ${dto.user_nickname }</p>

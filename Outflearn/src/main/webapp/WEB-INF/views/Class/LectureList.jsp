@@ -33,10 +33,10 @@
 		
 		var chlidren = $('#server1').chiln
 		
-		for(var count = 0; count < server1.chlidren());
+		for(var count = 0; count < server1.chlidren())
 		
 		$.ajax({
-		    url:'classCategory, //request 보낼 서버의 경로
+		    url:'classCategory', //request 보낼 서버의 경로
 		    type:'post', // 메소드(get, post, put 등)
 		    success: function(data) {
 		        //서버로부터 정상적으로 응답이 왔을 때 실행
@@ -171,9 +171,6 @@ function list(page,data) {
 								</div>
 							</h2>
 						</span>
-						<div>
-							<span class="label label-default">Python</span>
-						</div>
 						<c:choose>
 							<c:when test="${empty classinfo }">
 								<h3>강좌 정보가 없습니다...!!</h3>
