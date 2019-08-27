@@ -16,6 +16,7 @@ public interface myPageDao {
 	public List<ClassInfoDto> getPreSubscribe(int user_num);
 	public List<RoadMapCon> getPreSubRoadmap(int user_num);
 	public List<QADto> getPreQA(int user_num);
+	public List<ClassInfoDto> getPreMyClass(int user_num);
 	
 	public List<ClassInfoDto> getBasketClass(int user_num);
 	public List<ClassInfoDto> getSubscribe(int user_num);
@@ -27,6 +28,7 @@ public interface myPageDao {
 //강사
 	
 	public int setLiveSchedule(Map<String, String> map);
+	public List<ClassInfoDto> myClass(int user_num);
 	
 //관리자
 	

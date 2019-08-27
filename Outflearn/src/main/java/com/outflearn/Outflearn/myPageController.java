@@ -33,6 +33,7 @@ public class myPageController {
 		model.addAttribute("subClass", biz.getPreSubscribe(dto.getUser_num()));
 		model.addAttribute("subRoadmap", biz.getPreSubRoadmap(dto.getUser_num()));
 		model.addAttribute("preQA", biz.getPreQA(dto.getUser_num()));
+		model.addAttribute("myClass", biz.getPreMyClass(dto.getUser_num()));
 
 		if((auth.getAuthorities()+"").equals("[ROLE_TUTOR]")){
 			
@@ -111,11 +112,11 @@ public class myPageController {
 	}
 	
 	@RequestMapping("myClass")
-	public String myClass(Authentication auth) {
+	public String myClass(Authentication auth, Model model) {
 		
 		UserInfoDto userInfo = (UserInfoDto) auth.getPrincipal();
 		
-		
+		model.addAttribute("myClass", biz.myClass(userInfo.getUser_num()));
 		
 		return "Member/myClass";
 	}

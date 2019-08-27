@@ -103,11 +103,11 @@
                 <div class="boardBox">
                   <h4 class="boxTitle">게시한 강좌</h4>
                    <c:choose>
-                  	<c:when test="${empty subClass }">
+                  	<c:when test="${empty myClass }">
                   		<h5>수강중인 강좌가 없습니다...ㅠㅠ</h5>
                   	</c:when>
                   	<c:otherwise>
-                  		<c:forEach items="${subClass }" var="item">
+                  		<c:forEach items="${myClass }" var="item">
 		                    <p>강좌명 : ${item.class_title}</p>
 		                </c:forEach>
                   	</c:otherwise>

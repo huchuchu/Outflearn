@@ -74,4 +74,12 @@
 		INSERT INTO LIVE VALUES(LIVE_SQ.NEXTVAL, #{setClass}, #{setTitle}, #{setAuthor}, #{setDate})
 	</insert>
 	
+	<select id="myClass" resultType="ClassInfoDto" parameterType="int">
+		SELECT * FROM CLASS_INFO WHERE USER_NUM = #{user_num}
+	</select>
+	
+	<select id="getPreMyClass" resultType="ClassInfoDto" parameterType="int">
+		<![CDATA[ SELECT * FROM CLASS_INFO WHERE USER_NUM = #{user_num} AND ROWNUM < 6 ORDER BY CLASS_NUM DESC ]]>
+	</select>
+	
 </mapper>
