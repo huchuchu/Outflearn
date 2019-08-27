@@ -22,6 +22,10 @@ public interface myPageBiz {
 		
 		public int reqLecturer(String lecturerNum, String lecturerPhone, String lecturerIntro, String lecturerClass);
 		
+//강사
+		
+		public int setLiveSchedule(String setClass, String setTitle, String setDate, String repeatDate, String setAuthor);
+		
 //관리자
 		
 		public List<Map<String, String>> getReqLecturer();

@@ -59,6 +59,37 @@ public class myPageBizImpl implements myPageBiz {
 	public List<QADto> getPreQA(int user_num) {
 		return dao.getPreQA(user_num);
 	}
+	
+	@Override
+	public int reqLecturer(String lecturerNum, String lecturerPhone, String lecturerIntro, String lecturerClass) {
+		
+		Map<String, String> map =  new HashMap<String, String>();
+		
+		map.put("lecturerNum", lecturerNum);
+		map.put("lecturerPhone", lecturerPhone);
+		map.put("lecturerIntro", lecturerIntro);
+		map.put("lecturerClass", lecturerClass);
+		
+		return dao.reqLecturer(map);
+	}
+	
+//강사
+	
+	@Override
+	public int setLiveSchedule(String setClass, String setTitle, String setDate, String repeatDate, String setAuthor) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("setClass", setClass);
+		map.put("setTitle", setTitle);
+		map.put("setDate", setDate);
+		map.put("repeatDate", repeatDate);
+		map.put("setAuthor", setAuthor);
+		
+		return dao.setLiveSchedule(map);
+	}
+	
+//관리자	
 
 	@Override
 	public List<Map<String, String>> getReqLecturer() {
@@ -78,19 +109,6 @@ public class myPageBizImpl implements myPageBiz {
 	@Override
 	public List<Map<String, String>> getPreUserList() {
 		return dao.getPreUserList();
-	}
-
-	@Override
-	public int reqLecturer(String lecturerNum, String lecturerPhone, String lecturerIntro, String lecturerClass) {
-		
-		Map<String, String> map =  new HashMap<String, String>();
-		
-		map.put("lecturerNum", lecturerNum);
-		map.put("lecturerPhone", lecturerPhone);
-		map.put("lecturerIntro", lecturerIntro);
-		map.put("lecturerClass", lecturerClass);
-		
-		return dao.reqLecturer(map);
 	}
 
 	@Override

@@ -24,6 +24,10 @@ public interface myPageDao {
 	
 	public int reqLecturer(Map<String, String> map);
 	
+//강사
+	
+	public int setLiveSchedule(Map<String, String> map);
+	
 //관리자
 	
 	public List<Map<String, String>> getReqLecturer();

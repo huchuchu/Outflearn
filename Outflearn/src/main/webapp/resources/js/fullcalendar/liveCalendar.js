@@ -1,3 +1,11 @@
+function handleCriticalError() {
+    Swal.fire({
+        type: 'error',
+        title: '심각한 오류 발생!',
+        text: '관리자에게 문의 주세요.'
+    })
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 
     var calendarEl = document.getElementById('calendar');
@@ -50,20 +58,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         eventLimit: 5
                     }
                 },
-                /*
-                 	user_num : 1
-                    class_author: user_num
-                    class_category: "카테고리"
-                    class_intro: "강좌소개"
-                    class_live: "Y"
-                    class_num: 1
-                    class_price: 0
-                    class_rating: 0
-                    class_studentlevel: "상급자"
-                    class_subcount: 0
-                    class_title: "제목"
-                    */
-
                 eventClick: function (info) {
                     $.ajax({
                         url: `livePopup?live_num=${info.event.id}`,
@@ -74,11 +68,11 @@ document.addEventListener('DOMContentLoaded', function () {
                                     title: data.class_title,
                                     html:
                                         `
-                                    <img src="/Outflearn/resources/uploadImage/${data.class_img}" alt="이미지가 없어!">
+                                    <img class="card-img" src="/Outflearn/resources/uploadImage/${data.class_img}" alt="이미지가 없어!">
                                     <p>강좌소개 : ${data.class_intro}</p>
                                     <p>가격 : ${data.class_price}</p>
-                                    <button onclick="wishClass(${data.class_num})">찜하기</button>
-                                    <button onclick="buyClass(${data.class_num})">구매하기</button>
+                                    <button onclick="inBasket(${data.class_num},'${data.class_title}')">장바구니</button>
+                                    <button onclick="buyClass(${data.class_title},${data.class_price},${data.class_num})">구매하기</button>
                                     `
                                 })
                             } else {
@@ -110,19 +104,40 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 });
 
-function wishClass(class_num) {
+function inBasket(class_num, class_title) {
     $.ajax({
-        url: `addWishClass?class_num=${class_num}`,
+        url: `basket?class_num=${class_num}`,
         method: 'get',
-        success: function (data) {
-            console.log(data);
+        success: function (res) {
+            if (res > 0) {
+                Swal.fire({
+                    type: 'info',
+                    title: `${class_title}이 장바구니에 담겼습니다.`
+                })
+            } else {
+                Swal.fire({
+                    type: 'warning',
+                    title: `오류가 발생하였습니다.`,
+                    text: `${class_title}을 장바구니에 담는 도중 오류가 발생했습니다. 다시 한번 시도해주세요.`,
+                    footer: '혹은 관리자에게 문의바랍니다.'
+                })
+            }
         },
         error: function (err) {
-            console.log(err);
+            handleCriticalError()
         }
     })
 }
 
-function buyClass() {
+function buyClass(class_title, class_price, class_num) {
+    $.ajax({
+        url: `oauth?class_title=${class_title}&class_price=${class_price}&class_num=${class_num}`,
+        method: 'post',
+        success: function (data) {
 
+        },
+        error: function (err) {
+            handleCriticalError()
+        }
+    })
 }

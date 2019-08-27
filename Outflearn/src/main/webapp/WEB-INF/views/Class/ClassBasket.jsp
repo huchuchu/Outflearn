@@ -139,6 +139,7 @@
 			url : 'basketDeleteOne?class_num=' + class_num,	
 			method : 'get',
 			success:function(data){
+				alert(data)
 				window.location.reload();
 			},
 			error:function(){

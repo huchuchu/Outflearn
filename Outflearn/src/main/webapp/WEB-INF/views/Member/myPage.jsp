@@ -49,6 +49,9 @@
             <li class="nav-item side_menu">
               <a href="void:0">내 강좌</a>
               <ul class="inner_menu">
+                <sec:authorize access="hasRole('ROLE_TUTOR')">
+                  <li><a href="myClass">게시한 강좌</a></li>
+                </sec:authorize>
                 <li><a href="listenClass">수강중인 강좌</a></li>
                 <li><a href="basketSelect">장바구니</a></li>
               </ul>
@@ -75,17 +78,19 @@
           </ul>
         </div>
 
-        <div class="side_category live">
-          <ul class="nav flex-column text-center">
-            <li class="nav-item side_menu">
-              <a href="void:0">LIVE</a>
-              <ul class="inner_menu">
-                <li><a class="configLiveRoom" href="void:0">방송하기</a></li>
-                <li><a href="void:0">방송 스케줄</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+        <sec:authorize access="hasRole('ROLE_TUTOR')">
+          <div class="side_category live">
+            <ul class="nav flex-column text-center">
+              <li class="nav-item side_menu">
+                <a href="void:0">LIVE</a>
+                <ul class="inner_menu">
+                  <li><a class="configLiveRoom" href="void:0">방송하기</a></li>
+                  <li><a id="setLiveSchedule" href="void:0">방송 스케줄</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </sec:authorize>
 
       </aside>
 
@@ -95,19 +100,41 @@
         </div>
         <article>
           <div class="page-body">
+
+            <sec:authorize access="hasRole('ROLE_TUTOR')">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="boardBox">
+                    <h4 class="boxTitle">게시한 강좌</h4>
+                    <c:choose>
+                      <c:when test="${empty subClass }">
+                        <h5>수강중인 강좌가 없습니다...ㅠㅠ</h5>
+                      </c:when>
+                      <c:otherwise>
+                        <c:forEach items="${subClass }" var="item">
+                          <p>강좌명 : ${item.class_title}</p>
+                        </c:forEach>
+                      </c:otherwise>
+                    </c:choose>
+                  </div>
+                </div>
+              </div>
+            </sec:authorize>
+
+
             <div class="row">
               <div class="col-sm-12">
                 <div class="boardBox">
                   <h4 class="boxTitle">수강중인 강좌</h4>
                   <c:choose>
-                  	<c:when test="${empty subClass }">
-                  		<h5>수강중인 강좌가 없습니다...ㅠㅠ</h5>
-                  	</c:when>
-                  	<c:otherwise>
-                  		<c:forEach items="${subClass }" var="item">
-		                    <p>강좌명 : ${item.class_title}</p>
-		                </c:forEach>
-                  	</c:otherwise>
+                    <c:when test="${empty subClass }">
+                      <h5>수강중인 강좌가 없습니다...ㅠㅠ</h5>
+                    </c:when>
+                    <c:otherwise>
+                      <c:forEach items="${subClass }" var="item">
+                        <p>강좌명 : ${item.class_title}</p>
+                      </c:forEach>
+                    </c:otherwise>
                   </c:choose>
                 </div>
               </div>
@@ -132,16 +159,16 @@
               <div class="col-sm-6">
                 <div class="boardBox">
                   <h4 class="boxTitle">장바구니</h4>
-	                  <c:choose>
-	                  	<c:when test="${empty basketClass }">
-	                  		<h5>장바구니가 비었습니다...ㅠㅠ</h5>
-	                  	</c:when>
-	                  	<c:otherwise>
-	                  		<c:forEach items="${basketClass }" var="item">
-                    			<p>강좌명 : ${item.class_title}</p>
-                 			 </c:forEach>
-	                  	</c:otherwise>
-	                  </c:choose>
+                  <c:choose>
+                    <c:when test="${empty basketClass }">
+                      <h5>장바구니가 비었습니다...ㅠㅠ</h5>
+                    </c:when>
+                    <c:otherwise>
+                      <c:forEach items="${basketClass }" var="item">
+                        <p>강좌명 : ${item.class_title}</p>
+                      </c:forEach>
+                    </c:otherwise>
+                  </c:choose>
                 </div>
               </div>
 
@@ -152,32 +179,32 @@
               <div class="col-sm-6">
                 <div class="boardBox">
                   <h4 class="boxTitle">참여중인 로드맵</h4>
-	                  <c:choose>
-	                  	<c:when test="${empty subRoadmap }">
-	                  		<h5>참여중인 로드맵이 없습니다...ㅠㅠ</h5>
-	                  	</c:when>
-	                  	<c:otherwise>
-	                  		<c:forEach items="${subRoadmap }" var="item">
-                    			<p>로드맵 : ${item.roadmap_title}</p>
-                 			 </c:forEach>
-	                  	</c:otherwise>
-	                  </c:choose>
+                  <c:choose>
+                    <c:when test="${empty subRoadmap }">
+                      <h5>참여중인 로드맵이 없습니다...ㅠㅠ</h5>
+                    </c:when>
+                    <c:otherwise>
+                      <c:forEach items="${subRoadmap }" var="item">
+                        <p>로드맵 : ${item.roadmap_title}</p>
+                      </c:forEach>
+                    </c:otherwise>
+                  </c:choose>
                 </div>
               </div>
 
               <div class="col-sm-6">
                 <div class="boardBox">
                   <h4 class="boxTitle">최근 내 질문</h4>
-	                  <c:choose>
-	                  	<c:when test="${empty preQA }">
-	                  		<h5>질문이 없습니다...ㅠㅠ</h5>
-	                  	</c:when>
-	                  	<c:otherwise>
-	                  		<c:forEach items="${preQA }" var="item">
-                    			<p>질문명 : ${item.qa_title}</p>
-                 			 </c:forEach>
-	                  	</c:otherwise>
-	                  </c:choose>
+                  <c:choose>
+                    <c:when test="${empty preQA }">
+                      <h5>질문이 없습니다...ㅠㅠ</h5>
+                    </c:when>
+                    <c:otherwise>
+                      <c:forEach items="${preQA }" var="item">
+                        <p>질문명 : ${item.qa_title}</p>
+                      </c:forEach>
+                    </c:otherwise>
+                  </c:choose>
                 </div>
               </div>
 

@@ -103,7 +103,6 @@ public class HomeController {
 		
 		
 		
-		
 		return biz.classBasketInsert(dto);
 		
 	}
@@ -190,7 +189,7 @@ public class HomeController {
 
 	@RequestMapping("/LectureDetail")
 	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session, Authentication auth) {
-
+		
 		logger.info("/LectureDetail");
 		session.setAttribute("info_num", class_num);
 		model.addAttribute("class_num", class_num);

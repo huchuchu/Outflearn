@@ -34,6 +34,10 @@ public class myPageController {
 		model.addAttribute("subRoadmap", biz.getPreSubRoadmap(dto.getUser_num()));
 		model.addAttribute("preQA", biz.getPreQA(dto.getUser_num()));
 
+		if((auth.getAuthorities()+"").equals("[ROLE_TUTOR]")){
+			
+		}
+		
 		return "Member/myPage";
 	}
 	
@@ -90,6 +94,30 @@ public class myPageController {
 		if(res>0) return "redirect:myPage";
 		return "redirect:reqLecturer";
 		
+	}
+	
+// 강사
+	
+	@RequestMapping("setLiveSchedule")
+	@ResponseBody
+	public boolean setLiveSchedule(String setClass, String setTitle, String setDate, String repeatDate, Authentication auth) {
+		
+		UserInfoDto userInfo = (UserInfoDto) auth.getPrincipal();
+		
+		int res = biz.setLiveSchedule(setClass, setTitle, setDate, repeatDate, userInfo.getUser_nickname());
+		
+		if(res > 0) return true;
+		return false;
+	}
+	
+	@RequestMapping("myClass")
+	public String myClass(Authentication auth) {
+		
+		UserInfoDto userInfo = (UserInfoDto) auth.getPrincipal();
+		
+		
+		
+		return "Member/myClass";
 	}
 	
 // 관리자	

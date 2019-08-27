@@ -13,10 +13,6 @@
             font: 13px Helvetica, Arial;
         }
 
-        form {
-        
-        }
-
         form input {
             background-color : #fff;
             padding: 10px;
@@ -155,6 +151,10 @@
         
         #otherClassInfo{
         	padding: 15px;
+        }
+
+        .card-img{
+            width: 100%;
         }
 
         @media ( max-width :1080px){

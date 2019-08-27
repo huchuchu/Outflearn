@@ -54,6 +54,7 @@
 	<script src='resources/js/fullcalendar/timegrid/main.js'></script>
 
 	<script type="text/javascript" src="resources/js/fullcalendar/liveCalendar.js"></script>
+	<link rel="stylesheet" href="resources/js/broadcast/css/main.css" />
 
 </head>
 

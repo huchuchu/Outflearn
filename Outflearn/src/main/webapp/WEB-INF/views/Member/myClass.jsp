@@ -50,9 +50,9 @@
               <a href="void:0">내 강좌</a>
               <ul class="inner_menu">
                 <sec:authorize access="hasRole('ROLE_TUTOR')">
-                  <li><a href="myClass">게시한 강좌</a></li>
+                  <li><a href="myClass" class="selectMenu">게시한 강좌</a></li>
                 </sec:authorize>
-                <li><a href="listenClass" class="selectMenu">수강중인 강좌</a></li>
+                <li><a href="listenClass">수강중인 강좌</a></li>
                 <li><a href="basketSelect">장바구니</a></li>
               </ul>
             </li>
@@ -101,7 +101,7 @@
             <div class="row">
               <div class="col-sm-12">
                 <div class="boardBox">
-                  <h4 class="boxTitle">수강중인 강좌</h4>
+                  <h4 class="boxTitle">게시한 강좌</h4>
                    <c:choose>
                   	<c:when test="${empty subClass }">
                   		<h5>수강중인 강좌가 없습니다...ㅠㅠ</h5>

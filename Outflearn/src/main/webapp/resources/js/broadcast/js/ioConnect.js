@@ -8,7 +8,7 @@ try {
         text: '제성합니다... ㅠㅠ',
         showCancelButton: true,
         confirmButtonText: '이동',
-        cancleButtonText: '취소',
+        cancelButtonText: '취소',
     })
         .then((result) => {
             if (result.value) {
@@ -20,7 +20,8 @@ try {
                 })
                     .then((result) => {
                         if (result.value) {
-                            location.href = 'https://192.168.10.139:3000/certification'
+                            // location.href = 'https://192.168.10.139:3000/certification'
+                            location.href = 'https://localhost:3000/certification'
                         }
                     })
             } else {

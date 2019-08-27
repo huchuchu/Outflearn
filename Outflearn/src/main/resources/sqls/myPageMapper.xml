@@ -70,4 +70,8 @@
 		UPDATE USER_INFO SET USER_ENABLED = 0 WHERE USER_NUM = #{user_num}
 	</update>
 	
+	<insert id="setLiveSchedule" parameterType="map">
+		INSERT INTO LIVE VALUES(LIVE_SQ.NEXTVAL, #{setClass}, #{setTitle}, #{setAuthor}, #{setDate})
+	</insert>
+	
 </mapper>

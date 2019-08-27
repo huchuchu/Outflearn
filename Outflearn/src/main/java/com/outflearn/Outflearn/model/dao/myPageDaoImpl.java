@@ -57,6 +57,20 @@ public class myPageDaoImpl implements myPageDao {
 	public List<QADto> getPreQA(int user_num) {
 		return sqlSession.selectList(namespace + "getPreQA", user_num);
 	}
+	
+	@Override
+	public int reqLecturer(Map<String, String> map) {
+		return sqlSession.insert(namespace + "reqLecturer", map);
+	}
+	
+//강사
+	
+	@Override
+	public int setLiveSchedule(Map<String, String> map) {
+		return sqlSession.insert(namespace + "setLiveSchedule", map);
+	}
+	
+//관리자	
 
 	@Override
 	public List<Map<String, String>> getReqLecturer() {
@@ -76,11 +90,6 @@ public class myPageDaoImpl implements myPageDao {
 	@Override
 	public List<Map<String, String>> getPreUserList() {
 		return sqlSession.selectList(namespace + "getPreUserList");
-	}
-
-	@Override
-	public int reqLecturer(Map<String, String> map) {
-		return sqlSession.insert(namespace + "reqLecturer", map);
 	}
 
 	@Override

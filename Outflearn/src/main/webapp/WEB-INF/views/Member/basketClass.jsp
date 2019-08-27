@@ -49,8 +49,11 @@
             <li class="nav-item side_menu">
               <a href="void:0">내 강좌</a>
               <ul class="inner_menu">
+                <sec:authorize access="hasRole('ROLE_TUTOR')">
+                  <li><a href="myClass">게시한 강좌</a></li>
+                </sec:authorize>
                 <li><a href="listenClass">수강중인 강좌</a></li>
-                <li><a href="basketSelect" class="selectedMenu">장바구니</a></li>
+                <li><a href="basketSelect" class="selectMenu">장바구니</a></li>
               </ul>
             </li>
 
