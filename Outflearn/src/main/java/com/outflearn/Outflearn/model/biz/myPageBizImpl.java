@@ -59,6 +59,11 @@ public class myPageBizImpl implements myPageBiz {
 	public List<QADto> getPreQA(int user_num) {
 		return dao.getPreQA(user_num);
 	}
+
+	@Override
+	public List<ClassInfoDto> getPreMyClass(int user_num) {
+		return dao.getPreMyClass(user_num);
+	}
 	
 	@Override
 	public int reqLecturer(String lecturerNum, String lecturerPhone, String lecturerIntro, String lecturerClass) {
@@ -87,6 +92,11 @@ public class myPageBizImpl implements myPageBiz {
 		map.put("setAuthor", setAuthor);
 		
 		return dao.setLiveSchedule(map);
+	}
+	
+	@Override
+	public List<ClassInfoDto> myClass(int user_num) {
+		return dao.myClass(user_num);
 	}
 	
 //관리자	

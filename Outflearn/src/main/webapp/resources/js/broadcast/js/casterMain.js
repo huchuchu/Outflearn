@@ -41,7 +41,7 @@ socket.on('createdRoom', function (room, liveTime) {
     console.log(`방 생성 ${room}`);
     $('#liveStartTime').text(liveTime)
     startCast()
-    appendMsg('server', `${room}방이 생성되었습니다.`)
+    appendMsg('server', `방이 생성되었습니다.`)
 })
 
 socket.on('joinedUser', function (id) {
@@ -311,18 +311,6 @@ $(function () {
 
     //FUNCTION
 
-    $(document).on('click', '.nameSpace', function () {
-        $('.clickMenu').css('display', 'none')
-        $(this).append($('<div class="clickMenu">').text('귓속말'))
-    })
-
-    $(document).on('click', function (e) {
-        if (!$(e.target).is('.nameSpace') && !$(e.target).is('.clickMenu')) {
-            $('.clickMenu').css('display', 'none')
-        }
-    })
-
-
     function noEvent() {
         if ((event.keyCode == 116) || (event.ctrlKey && (event.keyCode == 78 || event.keyCode == 82))) {
             Swal.fire({
@@ -333,7 +321,19 @@ $(function () {
                 cancleButtonText: '취소'
             })
                 .then((result) => {
-                	result.value ? location.reload() : false
+                    result.value ? location.reload() : false
+                })
+            return false;
+        } else if ((event.keyCode == 8)) {
+            Swal.fire({
+                type: 'warning',
+                title: '뒤로가기시 방이 터져요... ㅠㅠ',
+                showCancelButton: true,
+                confirmButtonText: '그래도 뒤로가기!',
+                cancleButtonText: '취소'
+            })
+                .then((result) => {
+                    result.value ? history.back() : false
                 })
             return false;
         }

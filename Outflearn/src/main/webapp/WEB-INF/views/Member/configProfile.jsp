@@ -110,7 +110,9 @@
                     <c:if test="${grade eq '[ROLE_ADMIN]'}"> 어드민이에요 </c:if>
                     <c:if test="${grade eq '[ROLE_TUTOR]'}"> 강사에요 </c:if>
                   </p>
-                  <button onclick="location.href='reqLecturer'">'강사'하기</button>
+                  <c:if test="${grade eq '[ROLE_USER]'}">
+                    <button onclick="location.href='reqLecturer'">'강사'하기</button>
+                  </c:if>
                 </div>
               </div>
             </div>

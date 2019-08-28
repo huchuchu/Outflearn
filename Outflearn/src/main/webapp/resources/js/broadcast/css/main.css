@@ -108,14 +108,6 @@
             color: #999999;
         }
 
-        #messages p.nameSpace:hover{
-            cursor: grab;
-        }
-
-        #messages p.nameSpace:active{
-            cursor: grabbing;
-        }
-
         #messages li.other{
         	background: white;
             float: left;
@@ -134,14 +126,6 @@
             text-align: center;
             max-width: 100%;
             background: green;
-        }
-
-        .clickMenu{
-            position: absolute;
-            background-color: #fff;
-            width: 100px;
-            height: 25px;
-            left:50px;
         }
         
         #thisClassInfo{
