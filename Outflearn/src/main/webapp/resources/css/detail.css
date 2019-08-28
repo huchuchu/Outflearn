@@ -199,3 +199,8 @@ td > h4 {
     	text-align: center;
     }
 }
+
+#id {
+   display: none;
+}
+

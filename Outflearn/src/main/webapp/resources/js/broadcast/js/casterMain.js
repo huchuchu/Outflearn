@@ -1,5 +1,4 @@
 // var
-
 var localStream
 var remoteStream
 
@@ -29,17 +28,20 @@ var sdpConstraints = {
 var name = $('#userInfo').attr("name")
 var room = $('#userInfo').attr("room")
 
-var socket = io.connect('https://localhost:3000');
+//var socket = io.connect('https://192.168.10.139:3000', { rejectUnauthorized: false });
+// var socket = io.connect('https://localhost:3000');
+// var socket = io.connect('http://192.168.10.139:3000');
 
 if (room !== "") {
     socket.emit('casterJoin', room, name)
     console.log('casterJoin 메세지 서버에 전송', room);
 }
 
-socket.on('createdRoom', function (room) {
+socket.on('createdRoom', function (room, liveTime) {
     console.log(`방 생성 ${room}`);
+    $('#liveStartTime').text(liveTime)
     startCast()
-    appendMsg('server', `${room}방이 생성되었습니다.`)
+    appendMsg('server', `방이 생성되었습니다.`)
 })
 
 socket.on('joinedUser', function (id) {
@@ -266,6 +268,12 @@ function requestTurn(turnURL) {
 
 // Chat
 
+function ScrollToBottom() {
+    var objDiv = document.getElementById("chat");
+    objDiv.scrollTop = objDiv.scrollHeight;
+}
+
+
 function appendMsg(_class, _msg, _name) {
     var text;
     if (_name) {
@@ -274,6 +282,7 @@ function appendMsg(_class, _msg, _name) {
         text = `<p>${_msg}</p>`
     }
     $('#messages').append($(`<li class=${_class}>`).html(text));
+    ScrollToBottom()
 }
 
 $(function () {
@@ -302,26 +311,34 @@ $(function () {
 
     //FUNCTION
 
-    $(document).on('click', '.nameSpace', function () {
-        $('.clickMenu').css('display', 'none')
-        $(this).append($('<div class="clickMenu">').text('귓속말'))
-    })
-
-    $(document).on('click', function (e) {
-        if (!$(e.target).is('.nameSpace') && !$(e.target).is('.clickMenu')) {
-            $('.clickMenu').css('display', 'none')
-        }
-    })
-
     function noEvent() {
-        if (event.keyCode == 116) {
-            event.keyCode = 2;
+        if ((event.keyCode == 116) || (event.ctrlKey && (event.keyCode == 78 || event.keyCode == 82))) {
+            Swal.fire({
+                type: 'warning',
+                title: '새로고침시 방이 터져요... ㅠㅠ',
+                showCancelButton: true,
+                confirmButtonText: '그래도 새로고침!',
+                cancleButtonText: '취소'
+            })
+                .then((result) => {
+                    result.value ? location.reload() : false
+                })
             return false;
-        }
-        else if (event.ctrlKey && (event.keyCode == 78 || event.keyCode == 82)) {
+        } else if ((event.keyCode == 8)) {
+            Swal.fire({
+                type: 'warning',
+                title: '뒤로가기시 방이 터져요... ㅠㅠ',
+                showCancelButton: true,
+                confirmButtonText: '그래도 뒤로가기!',
+                cancleButtonText: '취소'
+            })
+                .then((result) => {
+                    result.value ? history.back() : false
+                })
             return false;
         }
     }
+
     document.onkeydown = noEvent;
 
 })

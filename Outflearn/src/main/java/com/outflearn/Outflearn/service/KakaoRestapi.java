@@ -28,7 +28,7 @@ public class KakaoRestapi {
 	private KakaoPayReadyVo kakaoPayReadyVo;
 	private KakaoPayApprovalVO kakaoPayApprovalVO;
 	
-		public String kakaoPayReady() {
+		public String kakaoPayReady(String class_title, int class_price) {
 			
 		RestTemplate restTemplate = new RestTemplate();
 		
@@ -44,11 +44,11 @@ public class KakaoRestapi {
 		params.add("cid", "TC0ONETIME");
 		params.add("partner_order_id", "partner_order_id");
 		params.add("partner_user_id", "partner_user_id");
-		params.add("item_name", "자바강좌");
+		params.add("item_name", class_title);
 		params.add("quantity", "1");
-		params.add("total_amount", "2000");
+		params.add("total_amount", String.valueOf(class_price));
 		params.add("tax_free_amount", "100");
-		params.add("approval_url", "http://localhost:8787/Outflearn/Utils/kakaoPaySuccess");
+		params.add("approval_url", "http://localhost:8787/Outflearn/kakaoPaySuccess");
 		params.add("cancel_url", "http://localhost:8787/Outflearn/kakaoPayCancel");
 		params.add("fail_url", "http://localhost:8787/kakaoPaySuccessFail");
 		

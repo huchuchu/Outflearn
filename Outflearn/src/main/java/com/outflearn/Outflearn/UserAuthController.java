@@ -1,6 +1,7 @@
 package com.outflearn.Outflearn;
 
 import java.math.BigInteger;
+
 import java.nio.file.AccessDeniedException;
 import java.security.SecureRandom;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -66,6 +68,9 @@ public class UserAuthController {
 		System.out.println("auth test 1 : " + auth);
 		System.out.println("아이디: "+auth.getName());
 		System.out.println("등급: "+auth.getAuthorities());
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		
+		System.out.println(securityContext);
 		
 		
 		System.out.println("========================================");
@@ -75,6 +80,9 @@ public class UserAuthController {
 		System.out.println(email);
 		System.out.println(dto.getAuthorities());
 		
+		System.out.println(dto.isEnabled()+"=============================================");
+		
+		System.out.println("비번"+dto.getPassword());		
 
 		return "test01";
 	}
@@ -95,8 +103,11 @@ public class UserAuthController {
 //		return "redirect:loginform";
 //	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("sulkiki")
 	public String Sulkiki() {
+		
+		
 		
 		return"test02";
 	}
@@ -181,6 +192,8 @@ public class UserAuthController {
 		session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
 		
 	}
+	
+	
 	
 
 	

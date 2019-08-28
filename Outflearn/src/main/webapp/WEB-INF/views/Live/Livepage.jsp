@@ -6,11 +6,11 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 	<title>Outflearn</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
 
 	<!-- Favicons
               ================================================== -->
@@ -54,6 +54,7 @@
 	<script src='resources/js/fullcalendar/timegrid/main.js'></script>
 
 	<script type="text/javascript" src="resources/js/fullcalendar/liveCalendar.js"></script>
+	<link rel="stylesheet" href="resources/js/broadcast/css/main.css" />
 
 </head>
 
@@ -115,8 +116,10 @@
 	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
 
+	<!-- <script src="https://192.168.10.139:3000/socket.io/socket.io.js"></script> -->
 	<script src="https://localhost:3000/socket.io/socket.io.js"></script>
 	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+	<script src="resources/js/broadcast/js/ioConnect.js"></script>
 	<script src="resources/js/broadcast/js/roomList.js"></script>
 
 </body>

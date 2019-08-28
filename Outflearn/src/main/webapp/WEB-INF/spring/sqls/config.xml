@@ -17,6 +17,7 @@
 		<typeAlias type="com.outflearn.Outflearn.dto.SubStreamDto" alias="subStreamDto"/>
 		<typeAlias type="com.outflearn.Outflearn.dto.ClassCategoryDto" alias="ClassCategoryDto"/>
 		<typeAlias type="com.outflearn.Outflearn.dto.QADto" alias="QADto" />
+		<typeAlias type="com.outflearn.Outflearn.dto.reqLecturer" alias="reqLecturer" />
 	</typeAliases>
 	
 	

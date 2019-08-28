@@ -41,7 +41,7 @@ public class UserAuthenticationService implements UserDetailsService {
 		 
 		Map<String, Object> user = sqlsession.selectOne("auth.selectUser", user_id);
 		//비밀번호 체크로직은 시큐리티안에 숨어있음 , 따라서 id만 보내도 id pw 모두 체크하여 일치하면 map으로 정보가 넘어옴 
-		
+
 		System.out.println("loadUserByUsername::::::::: 1");
 		System.out.println("id: "+user_id);
 		System.out.println("user"+user);

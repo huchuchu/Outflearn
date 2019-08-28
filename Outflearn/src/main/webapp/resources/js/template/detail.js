@@ -32,7 +32,7 @@ $(document).ready(function () {
     var video_id = new Array()
     var playOne = new Array()
     var playlist_id = new Array()
-    
+
     if ($('.nav-tabs > li > a').text().indexOf('대쉬보드') != -1) {
         $(".nav-tabs > li > a:contains('대쉬보드')").css({ 'border-bottom': '2px solid #6473ff' });
         $.ajax({
@@ -155,7 +155,7 @@ function DashboardHeader() {
 }
 
 function DashboardOne(video_list, playlist_id) {
-	$.ajax({
+    $.ajax({
         type: 'GET',
         dataType: 'JSON',
         url: video_list,
@@ -179,9 +179,9 @@ function DashboardOne(video_list, playlist_id) {
                    	<td>${duration}</td>`
             );
 
-        	min += parseInt(duration.split(' : ')[0]);
+            min += parseInt(duration.split(' : ')[0]);
             sec += parseInt(duration.split(' : ')[1]);
-            
+
             hour_sum = hour_sum + hour
             minite_sum = minite_sum + min
             second_sum = second_sum + sec
@@ -202,7 +202,7 @@ function DashboardOne(video_list, playlist_id) {
 }
 
 function DashboardList(video_list, playlist_id) {
-	$.ajax({
+    $.ajax({
         type: 'GET',
         dataType: 'JSON',
         url: video_list,
@@ -216,52 +216,52 @@ function DashboardList(video_list, playlist_id) {
         	
             for (var i = 0; i < vi_list.items.length; i++) {
 
-            	count++;
-            	
+                count++;
+
                 var video_title = vi_list.items[i].snippet.title;
                 var video_id = vi_list.items[i].snippet.resourceId.videoId;
                 var duration = getVideos(video_id);
 
                 $('.youtube').append(
                     `<tr class='youtube_data'>
-                    	<td><i class=\"far fa-clock\"></i></td>
-                    	<td><a href='LectureDetailView?DATA_DATA=${video_id}'>${video_title}</a></td>
-                    	<td>${duration}</td>
-                    	<td>${duration}</td>`
+                       <td><i class=\"far fa-clock\"></i></td>
+                       <td><a href='LectureDetailView?DATA_DATA=${video_id}'>${video_title}</a></td>
+                       <td>${duration}</td>
+                       <td>${duration}</td>`
                 );
-                
+
                 min += parseInt(duration.split(' : ')[0]);
                 sec += parseInt(duration.split(' : ')[1]);
-                
-//                hour_sum = hour_sum + hour
-//                minite_sum = minite_sum + min
-//                second_sum = second_sum + sec
-                
-                if(min > 59) {
-                	hour_sum ++;
-                	min -= 60;
+
+                //                hour_sum = hour_sum + hour
+                //                minite_sum = minite_sum + min
+                //                second_sum = second_sum + sec
+
+                if (min > 59) {
+                    hour_sum++;
+                    min -= 60;
                 }
-                
-                if(sec > 59) {
-                	minite_sum ++;
-                	sec = sec - 60;
+
+                if (sec > 59) {
+                    minite_sum++;
+                    sec = sec - 60;
                 }
             }
-            
-            if(isNaN(sec) && isNaN(minite_sum)) {
-            	timer = "총 " + hour + "시간 ";
-            } else if(isNaN(sec) || isNaN(minite_sum)) {
-            	if(isNaN(sec)) {
-            		timer = "총 " + hour_sum + "시간 " +  minite_sum + "분 ";
-            	} else {
-            		timer = "총 " + hour_sum + "시간 " + sec + "초";
-            	}
+
+            if (isNaN(sec) && isNaN(minite_sum)) {
+                timer = "총 " + hour + "시간 ";
+            } else if (isNaN(sec) || isNaN(minite_sum)) {
+                if (isNaN(sec)) {
+                    timer = "총 " + hour_sum + "시간 " + minite_sum + "분 ";
+                } else {
+                    timer = "총 " + hour_sum + "시간 " + sec + "초";
+                }
             } else {
-            	timer = "총 " + hour_sum + "시간 " +  minite_sum + "분 " + sec + "초";
+                timer = "총 " + hour_sum + "시간 " + minite_sum + "분 " + sec + "초";
             }
-            
+
             count_sum = count_sum + count
-            
+
             $('#count').html(`${count_sum} 개 수업`)
             $('#timer').html(`${timer}`)
             $('#playlist').append("</table></div>")
@@ -278,24 +278,24 @@ function DashboardList(video_list, playlist_id) {
 function ReviewAnswer() {
     $('#playlist').append(
         `<div class="modal fade" id="myModal3" role="dialog">
-		    <div class="modal-dialog">
-		    
-		      <!-- Modal content-->
-		      <div class="modal-content">
-		        <div class="modal-header">
-		          <button type="button" class="close" data-dismiss="modal">×</button>
-		          <h4 class="modal-title">Static Backdrop</h4>
-		        </div>
-		        <div class="modal-body">
-		          <p>You cannot click outside of this modal to close it.</p>
-		        </div>
-		        <div class="modal-footer">
-		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        </div>
-		      </div>
-		      
-		    </div>
-		  </div>`
+          <div class="modal-dialog">
+          
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Static Backdrop</h4>
+              </div>
+              <div class="modal-body">
+                <p>You cannot click outside of this modal to close it.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+            
+          </div>
+        </div>`
     )
 }
 

@@ -85,13 +85,7 @@
 					naverLogin.init();
 				</script>
 				</div>
-	
-              
-			
-			<br/><br/>	
-            <a href="void:0"><img alt=""
-                  src="${pageContext.request.contextPath}/resources/img/loginIMG/naverLogin.png"></a>
-			<a href="">깃허브 로그인</a>
+
               <!-- 로그인 폼 끝 -->
 			
             </div>

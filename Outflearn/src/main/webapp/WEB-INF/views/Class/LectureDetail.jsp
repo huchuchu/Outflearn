@@ -23,7 +23,6 @@
 	crossorigin="anonymous">
 
 <!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
@@ -196,11 +195,11 @@
 								<div>=======작성된 글이 없습니다=======</div>
 						</c:when>
 						<c:otherwise>
-							<div class="form-group row panel">
+							<div class="form-group row panel container review-container">
 								<c:forEach items="${classReview }" var="dto">
 									<c:choose>
 										<c:when test="${dto.review_titletab eq '0'}">
-											<div class="row">
+											<div class="row panel">
 											<div class="col-sm-1 col-md-1"></div>
 											<div class="row">
 												<div class="row">
@@ -232,29 +231,20 @@
 												</div>
 											</div>
 											<div class="container reply-div row">
-												<div class="summernote"></div>
-												<div class="pull-right ">
-													<c:choose>
-												<c:when test="${empty ReviewReply }">
+												
 													<form:form action="Reply" method="post">
 														<input type="hidden" name="class_num" value="${dto.class_num }">
 														<input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
 														<input type="hidden" name="review_num" value="${dto.review_num }">
 														<input type="hidden" name="review_groupno" value="${dto.review_groupno }">
 														<input type="hidden" name="review_groupsq" value="${dto.review_groupsq }">
-															<div class="col-sm-2 col-md-2">
-																<input type="submit" value="작 성">
+														<div class="row">
+															<textarea class="summernote" name="review_content"></textarea>
+															<div class="col-sm-2 col-md-2 pull-right">
+																<input type="submit" class="btn btn-default" value="작 성">
 															</div>
+														</div>
 													</form:form>
-												</c:when>
-
-												<c:otherwise>
-													<div class="row">
-														<div class="col-sm-10 col-md-10">${ReviewReply.review_content }</div>
-													</div>
-												</c:otherwise>
-											</c:choose>
-												</div>
 											</div>
 										</div>
 										</c:when>
@@ -311,7 +301,6 @@
 													</div>
 												</c:otherwise>
 											</c:choose>
-
 										</td>
 									</tr>
 								</c:forEach>

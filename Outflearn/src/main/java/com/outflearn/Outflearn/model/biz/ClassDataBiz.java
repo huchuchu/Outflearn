@@ -22,6 +22,7 @@ public interface ClassDataBiz {
 		public ClassInfoDto ClassInfoSelectOne(int class_num);
 		public List<ClassInfoDto>  classInfoSelectListUser(int user_num);
 		public int ClassInfoInsert(ClassInfoDto dto);
+		public List<ClassInfoDto> ClassSubName(int sub_num);
 		
 	
 		// 강좌 소개 - CLASS_INTRODUCE 테이블
@@ -37,7 +38,8 @@ public interface ClassDataBiz {
 		
 		// 장바구니 - BASKET 테이블
 		public int classBasketInsert(ClassInfoDto dto);
-		public int classBasketDelete(int class_num);
+		public int classBasketDelete(int user_num);
+		public int classBasketDeleteOne(int class_num);
 		
 		// 댓글 - CLASS_REVIEW 테이블
 		public List <ClassReviewDto> ClassReviewSelectList(int class_num);
@@ -50,15 +52,20 @@ public interface ClassDataBiz {
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);
 		
 		// 주류, 부류 - MAIN_STREAM , SUB_STREAM
-		public int mainStreamInsert(MainStreamDto dto);
-		public int subStreamInsert(SubStreamDto dto);
-		public int ClassCategoryInsert(ClassCategoryDto dto);
+		//public int mainStreamInsert(MainStreamDto dto);
+		//public int subStreamInsert(SubStreamDto dto);
+		public List<SubStreamDto> MainStreamSelectOne(int main_num);
+		public int ClassCategoryInsert(int main_num, int sub_num);
 	
 		//페이징
 		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search );
 		public int selectTotalCount(String txt_search);
-		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search , String searchOption);
-		public int selectTotalCount(String searchOption, String txt_search);
+		public List<ClassInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search, String searchOption);
+		public int selectTotalCountTwo(String txt_search, String searchOption);
+		public List<ClassInfoDto> selectListPageStream(int firstIndex, int recordCountPerPage, String txt_sesarch, String searchOption, int sub_num);
+		public int selectTotalCountStream(String txt_search, String searchOption, int sub_num);
+		
+		
 		public ClassIntroduceDto ClassIntroduceSelectOne(int class_num);
 		
 		//질문
@@ -78,4 +85,8 @@ public interface ClassDataBiz {
 		// LectureDetail Dashboard 리스트
 		public List<ClassReviewDto> ReviewList(int class_num);
 		public List<QADto> QAList(int class_num);
+		// 구독
+		public int classInsertSubscribe(int user_num, int class_num);
+		// 결제 후 강의 장바구니 삭제
+		public int ClassBuyAfter(int class_num, int user_num);
 }

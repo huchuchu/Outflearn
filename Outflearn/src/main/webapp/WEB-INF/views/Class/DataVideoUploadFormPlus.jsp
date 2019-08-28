@@ -83,7 +83,7 @@
 			<li class="nav-link active"><h3>강의 소개</h3></li>
 			<li class="nav-link active"><h3>강의 내용</h3></li>
 			<li class="nav-link active"><h3>영상 소개</h3></li>
-			<li class="list-group-item-success"><h3>영상 추가</h3></li>
+			<li class="list-group-item-info"><h3>영상 추가</h3></li>
 		</ul>
 		<div class="col-sm-6 col-el-8">
 
@@ -109,16 +109,16 @@
 				</div>
 				<div class="form-group">
 					<div class="data">
-						<input type="file" name="file" /> 
+						<input type="file" name="file" style="color: #6372ff;" /> 
 						<input type="button" value="완료" class="success2" />
 					</div>
 				</div>
 
 
 				<div class="form-group">
-					<input type="submit" class="add_field_button btn btn-success btn-md" value="작성 후 클릭" onclick="clearalert();" />
-					<input type="button" class="add_field_button btn btn-success btn-md" value="뒤로" onclick="location.href='BackDataVideoUploadForm'" /> 
-					<input type="button" class="add_field_button btn btn-success btn-md" value="게시판 넘기기 " onclick="location.href='LectureList'">
+					<input type="submit" class="btn btn-primary" value="작성 후 클릭" onclick="clearalert();" />
+					<input type="button" class="btn btn-primary" value="뒤로" onclick="location.href='BackDataVideoUploadForm'" /> 
+					<input type="button" class="btn btn-primary" value="게시판 넘기기 " onclick="location.href='LectureList'">
 				</div>
 
 			</form:form>

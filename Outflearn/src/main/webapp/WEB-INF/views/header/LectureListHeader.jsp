@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
@@ -53,12 +54,13 @@
 									<a href="void:0" class="dropdown dropdown-toggle dropdown-item" data-toggle="dropdown">서버&nbsp;
 									<i class="fas fa-chevron-right pull-right"></i></a>
 									<ul class="dropdown-menu server_list">
-										<li class="dropdown-item"><a href="void:0">Back End</a></li>
-										<li class="dropdown-item"><a href="void:0">Linux</a></li>
-										<li class="dropdown-item"><a href="void:0">Nodejs</a></li>
-										<li class="dropdown-item"><a href="void:0">Express</a></li>
-										<li class="dropdown-item"><a href="void:0">C#</a></li>
-										<li class="dropdown-item"><a href="void:0">MYSQL</a></li>
+										<li class="dropdown-item">
+										<c:forEach items="${subList }" var="subDto">
+										<c:if test="${mainDto.main_num eq subDto.main_num }">
+											<li><a href="SubCategory?sub_num=${subDto.sub_num}" class="nav-link active sub_category">${subDto.sub_name}</a></li>
+										</c:if>
+									</c:forEach>
+									</li>
 									</ul>
 								</li>
 								<li class="dropdown-submenu server">

@@ -34,11 +34,19 @@ $("#loginform").submit(function(){
 
 	
 	if(ID=="" || ID==null){	
-	Swal.fire('아이디를 입력해주세요')
+		Swal.fire({
+			  type: 'error',
+			  title: '아이드를 입력해주세요'
+			   
+			})
 //		alert("아이디를 입력해주세요");
 		return false;
 	}else if(PW=="" || PW==null){
-		Swal.fire('비밀번호를 입력해주세요')
+		Swal.fire({
+			  type: 'error',
+			  title: '비밀번호를 입력해주세요'
+			   
+			})
 //		alert("비밀번호를 입력해주세요");
 		return false;
 	}else {

@@ -49,8 +49,11 @@
             <li class="nav-item side_menu">
               <a href="void:0">내 강좌</a>
               <ul class="inner_menu">
+                <sec:authorize access="hasRole('ROLE_TUTOR')">
+                  <li><a href="myClass">게시한 강좌</a></li>
+                </sec:authorize>
                 <li><a href="listenClass">수강중인 강좌</a></li>
-                <li><a href="wishClass">위시리스트</a></li>
+                <li><a href="basketSelect">장바구니</a></li>
               </ul>
             </li>
 
@@ -69,7 +72,6 @@
               <a href="void:0">설정</a>
               <ul class="inner_menu">
                 <li><a href="configProfile" class="selectMenu">프로필 설정</a></li>
-                <li><a href="configAlarm">알림 설정</a></li>
               </ul>
             </li>
 
@@ -79,8 +81,11 @@
         <div class="side_category live">
           <ul class="nav flex-column text-center">
             <li class="nav-item side_menu">
-              <a class="configLiveRoom" href="void:0">방송하기</a>
-              <p>강사만 보이게</p>
+              <a href="void:0">LIVE</a>
+              <ul class="inner_menu">
+                <li><a class="configLiveRoom" href="void:0">방송하기</a></li>
+                <li><a href="void:0">방송 스케줄</a></li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -97,11 +102,20 @@
               <div class="col-sm-12">
                 <div class="boardBox">
                   <h4 class="boxTitle">프로필 설정</h4>
-
+                  <p>닉네임 : ${userInfo.user_nickname}</p>
+                  <p>이메일 : ${userInfo.user_email}</p>
+                  <p>등급 :
+                    <sec:authentication property="principal.Authorities" var="grade" />
+                    <c:if test="${grade eq '[ROLE_USER]'}"> 유저에요 </c:if>
+                    <c:if test="${grade eq '[ROLE_ADMIN]'}"> 어드민이에요 </c:if>
+                    <c:if test="${grade eq '[ROLE_TUTOR]'}"> 강사에요 </c:if>
+                  </p>
+                  <c:if test="${grade eq '[ROLE_USER]'}">
+                    <button onclick="location.href='reqLecturer'">'강사'하기</button>
+                  </c:if>
                 </div>
               </div>
             </div>
-
 
           </div>
         </article>
@@ -115,6 +129,7 @@
   <script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
   <script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
   <script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
+  <script type="text/javascript" src="resources/js/utils/myPage.js"></script>
 </body>
 
 </html>
