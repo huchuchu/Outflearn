@@ -59,6 +59,7 @@ public interface RoadMapDao {
 	public List<Integer> SubBaList(String userNum);
 	
 	public int AddToCart(List<String>cartArray, String userNum);
-	
-	
+
+	public List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption);
 }

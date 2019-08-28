@@ -54,6 +54,7 @@
 	<script src='resources/js/fullcalendar/timegrid/main.js'></script>
 
 	<script type="text/javascript" src="resources/js/fullcalendar/liveCalendar.js"></script>
+	<link rel="stylesheet" href="resources/js/broadcast/css/main.css" />
 
 </head>
 
@@ -115,9 +116,8 @@
 	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
 
-	<!-- <script src="http://192.168.10.139:3000/socket.io/socket.io.js"></script> -->
-	<script src="https://192.168.10.139:3000/socket.io/socket.io.js"></script>
-	<!-- <script src="https://localhost:3000/socket.io/socket.io.js"></script> -->
+	<!-- <script src="https://192.168.10.139:3000/socket.io/socket.io.js"></script> -->
+	<script src="https://localhost:3000/socket.io/socket.io.js"></script>
 	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 	<script src="resources/js/broadcast/js/ioConnect.js"></script>
 	<script src="resources/js/broadcast/js/roomList.js"></script>

@@ -30,5 +30,8 @@ $(document).ready(function () {
 		$('.server_list').hide()
 	})
 	
+	$('.bs-btn').on('click', function() {
+		$('.collapse').collapse('toggle')
+	})
 })
 

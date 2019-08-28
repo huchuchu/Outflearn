@@ -38,7 +38,8 @@ public interface ClassDataBiz {
 		
 		// 장바구니 - BASKET 테이블
 		public int classBasketInsert(ClassInfoDto dto);
-		public int classBasketDelete(int class_num);
+		public int classBasketDelete(int user_num);
+		public int classBasketDeleteOne(int class_num);
 		
 		// 댓글 - CLASS_REVIEW 테이블
 		public List <ClassReviewDto> ClassReviewSelectList(int class_num);
@@ -61,7 +62,12 @@ public interface ClassDataBiz {
 		public int selectTotalCount(String txt_search);
 		public List<ClassInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search, String searchOption);
 		public int selectTotalCountTwo(String txt_search, String searchOption);
+		public List<ClassInfoDto> selectListPageStream(int firstIndex, int recordCountPerPage, String txt_sesarch, String searchOption, int sub_num);
+		public int selectTotalCountStream(String txt_search, String searchOption, int sub_num);
+		
+		
 		public ClassIntroduceDto ClassIntroduceSelectOne(int class_num);
+		
 		//질문
 		public List<QADto> QASelectList(int class_num);
 		public QADto QASelectOne(int qa_num);
@@ -75,4 +81,12 @@ public interface ClassDataBiz {
 		// 메인화면 리스트
 		public List<ClassInfoDto> SubCountSelectList();
 		public List<ClassInfoDto> PopularReviewSelectList();
+		
+		// LectureDetail Dashboard 리스트
+		public List<ClassReviewDto> ReviewList(int class_num);
+		public List<QADto> QAList(int class_num);
+		// 구독
+		public int classInsertSubscribe(int user_num, int class_num);
+		// 결제 후 강의 장바구니 삭제
+		public int ClassBuyAfter(int class_num, int user_num);
 }

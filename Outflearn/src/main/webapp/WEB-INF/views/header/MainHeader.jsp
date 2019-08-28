@@ -46,8 +46,8 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-center">
-          <li><a href="LectureList?txt_search=&searchOption=all">강좌 둘러보기</a></li>
-          <li><a href="RoadMap">로드맵 학습</a></li>
+          <li><a href="LectureList?txt_search=&searchOption=all&sub_num=0">강좌 둘러보기</a></li>
+          <li><a href="RoadMap?txt_search=&searchOption=all">로드맵 학습</a></li>
           <li><a href="introOutflearn">아웃프런 소개</a></li>
           <li><a href="Livepage">라이브</a></li>
         </ul>
@@ -61,7 +61,12 @@
           <li><a href="/Outflearn/registerform.do">회원가입</a></li>
           </sec:authorize>
           <sec:authorize access="isAuthenticated()">
-            <li><a href="/Outflearn/myPage">마이페이지</a></li>
+          	<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_TUTOR')">
+	            <li><a href="/Outflearn/myPage">마이페이지</a></li>
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+	            <li><a href="/Outflearn/adminPage">관리자페이지</a></li>
+			</sec:authorize>
             <li><a href="/Outflearn/MemberInfoUpdateForm.do">회원정보 수정</a></li>
           <li><a href="/Outflearn/logout">로그아웃</a></li>  
           </sec:authorize>

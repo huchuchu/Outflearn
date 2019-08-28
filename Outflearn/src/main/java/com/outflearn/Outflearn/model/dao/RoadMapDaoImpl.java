@@ -1,6 +1,7 @@
 package com.outflearn.Outflearn.model.dao;
 
 import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -374,6 +375,21 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		return res;
 	}
 
+	@Override
+	public List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption) {
 
 
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("firstIndex", String.valueOf(firstIndex));
+		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
+		map.put("txt_search", txt_search);
+		map.put("searchOption", searchOption);
+
+		List<RoadUserCombineDto> list = session.selectList(NAMESPACE + "roadComList", map);
+		
+		return list;
+		
+
+	}
 }

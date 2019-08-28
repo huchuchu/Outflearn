@@ -3493,9 +3493,9 @@ input[type="button"].btn-block {
 .fade.in {
   opacity: 1;
 }
-.collapse {
-  display: none;
-}
+/* .collapse { */
+/*   display: none; */
+/* } */
 .collapse.in {
   display: block;
 }
@@ -4325,12 +4325,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-toggle:focus {
   outline: 0;
 }
-.navbar-toggle .icon-bar {
-  display: block;
-  width: 22px;
-  height: 2px;
-  border-radius: 1px;
-}
+
 .navbar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
 }
@@ -4450,6 +4445,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
   .navbar-form .form-group:last-child {
     margin-bottom: 0;
+  }
+  
+  .collapse {
+  	display:none;
   }
 }
 @media (min-width: 768px) {
@@ -6773,4 +6772,15 @@ button.close {
     display: none !important;
   }
 }
+
+@media (max-width: 1024px) {
+	.navbar-toggle .icon-bar {
+  		display: block;
+  		width: 22px;
+  		height: 2px;
+  		border-radius: 1px;
+	}
+}
+
+
 /*# sourceMappingURL=bootstrap.css.map */

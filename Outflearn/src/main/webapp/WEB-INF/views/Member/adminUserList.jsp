@@ -41,52 +41,19 @@
 
         <div class="side_category">
           <ul class="nav flex-column text-center">
+          
+            <li class="nav-item side_menu select">
+              <a href="adminPage" >대시보드</a>
+            </li>
 
             <li class="nav-item side_menu select">
-              <a href="myPage">대시보드</a>
+              <a href="adminUserList" class="selectMenu" >회원 목록</a>
             </li>
 
             <li class="nav-item side_menu">
-              <a href="void:0">내 강좌</a>
-              <ul class="inner_menu">
-                <sec:authorize access="hasRole('ROLE_TUTOR')">
-                  <li><a href="myClass">게시한 강좌</a></li>
-                </sec:authorize>
-                <li><a href="listenClass" class="selectMenu">수강중인 강좌</a></li>
-                <li><a href="basketSelect">장바구니</a></li>
-              </ul>
+              <a href="adminReqLecturer">'강사' 신청</a>
             </li>
 
-            <li class="nav-item side_menu">
-              <a href="void:0">로드맵</a>
-              <ul class="inner_menu">
-                <li><a href="subRoadmap">참여중인 로드맵</a></li>
-              </ul>
-            </li>
-
-            <li class="nav-item side_menu">
-              <a href="myQuestion">내 질문</a>
-            </li>
-
-            <li class="nav-item side_menu">
-              <a href="void:0">설정</a>
-              <ul class="inner_menu">
-                <li><a href="configProfile">프로필 설정</a></li>
-              </ul>
-            </li>
-
-          </ul>
-        </div>
-
-        <div class="side_category live">
-          <ul class="nav flex-column text-center">
-            <li class="nav-item side_menu">
-              <a href="void:0">LIVE</a>
-              <ul class="inner_menu">
-                <li><a class="configLiveRoom" href="void:0">방송하기</a></li>
-                <li><a href="void:0">방송 스케줄</a></li>
-              </ul>
-            </li>
           </ul>
         </div>
 
@@ -94,28 +61,56 @@
 
       <div class="col-sm-10">
         <div class="page-header">
-          <h1 id="page-header-content">내 강좌</h1>
+          <h1 id="page-header-content">'회원' 목록</h1>
         </div>
         <article>
           <div class="page-body">
+          
             <div class="row">
               <div class="col-sm-12">
                 <div class="boardBox">
-                  <h4 class="boxTitle">수강중인 강좌</h4>
-                   <c:choose>
-                  	<c:when test="${empty subClass }">
-                  		<h5>수강중인 강좌가 없습니다...ㅠㅠ</h5>
+                  <h4 class="boxTitle">'회원' 목록</h4>
+                  <c:choose>
+                  	<c:when test="${empty userList }">
+                  		<h5>회원이 없다뇨!</h5>
                   	</c:when>
-                  	<c:otherwise>
-                  		<c:forEach items="${subClass }" var="item">
-		                    <p>강좌명 : ${item.class_title}</p>
-		                </c:forEach>
-                  	</c:otherwise>
+                    <c:otherwise>
+                      <table class="table table-hover table-condensed">
+                        <thead>
+                          <tr>
+                            <th>번호</th>
+                            <th>아이디</th>
+                            <th>닉네임</th>
+                            <th>이메일</th>
+                            <th>등급</th>
+                            <th>활성화(Y,N)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <c:forEach items="${userList }" var="item">
+                            <tr>
+                              <td>${item.USER_NUM}</td>
+                              <td>${item.USER_ID}</td>
+                              <td>${item.USER_NICKNAME}</td>
+                              <td>${item.USER_EMAIL}</td>
+                              <td>
+                                <c:if test="${item.USER_AUTHORITY eq 'ROLE_USER'}"> 유저에요 </c:if>
+                                <c:if test="${item.USER_AUTHORITY eq 'ROLE_ADMIN'}"> 어드민이에요 </c:if>
+                                <c:if test="${item.USER_AUTHORITY eq 'ROLE_TUTOR'}"> 강사에요 </c:if>
+                              </td>
+                              <td>
+                                <c:if test="${item.USER_ENABLED eq '1' }"><button onclick="userDisabled(${item.USER_NUM})">Y</button></c:if>
+                                <c:if test="${item.USER_ENABLED eq '0' }"><button onclick="userEnabled(${item.USER_NUM})">N</button></c:if>
+                              </td>
+                            </tr>
+                          </c:forEach>
+                        </tbody>
+                      </table>
+                    </c:otherwise>
                   </c:choose>
                 </div>
               </div>
             </div>
-
 
           </div>
         </article>
@@ -130,6 +125,7 @@
   <script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
   <script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
   <script type="text/javascript" src="resources/js/utils/myPage.js"></script>
+
 </body>
 
 </html>

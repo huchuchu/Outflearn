@@ -278,17 +278,6 @@ $(function () {
 
     //FUNCTION
 
-    $(document).on('click', '.nameSpace', function () {
-        $('.clickMenu').css('display', 'none')
-        $(this).append($('<div class="clickMenu">').text('귓속말'))
-    })
-
-    $(document).on('click', function (e) {
-        if (!$(e.target).is('.nameSpace') && !$(e.target).is('.clickMenu')) {
-            $('.clickMenu').css('display', 'none')
-        }
-    })
-
     $('.card').on('click', function (e) {
         e.preventDefault()
         Swal.fire({

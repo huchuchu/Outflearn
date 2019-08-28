@@ -5,12 +5,31 @@ $(function(){
 			var review_content = $(this).siblings('input[name=review_content]').val()
 			alert(review_content)
 			
-			$(this).parent().siblings(`#c${board_no }`).html(`<input type="text" name="review_content" value="${review_content }">`
-					)
-					$(this).text('저장')
-					$(this).attr('onclick', `d(${board_no})`)
-			
+			$(this).parent().siblings(`#c${board_no }`).html(`<input type="text" name="review_content" class="summernote" value="${review_content }">`)
+			$(this).text('저장')
+			$(this).attr('onclick', `d(${board_no})`)
 		});
+		
+		$('.summernote').summernote({
+			height: 200,
+			width: 400,
+			toolbar: false,
+			  codemirror: { 
+				  theme: 'monokai'
+		   }
+		})
+		
+		$('.note-editor').addClass('col-sm-10 col-md-10')
+		
+		$('.review-reply-btn').hide()
+		$('.reply-div').hide()
+		
+		$('.ReviewReply').on('click', function() {
+			if($(this).text() == '답글') {
+				$(this).parents('.btn-rows').next().toggle()
+			}
+		})
+		
 	})
 
 	function d(board_no){

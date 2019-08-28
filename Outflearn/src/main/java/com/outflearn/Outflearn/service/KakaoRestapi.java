@@ -48,7 +48,7 @@ public class KakaoRestapi {
 		params.add("quantity", "1");
 		params.add("total_amount", String.valueOf(class_price));
 		params.add("tax_free_amount", "100");
-		params.add("approval_url", "http://localhost:8787/Outflearn/Utils/kakaoPaySuccess");
+		params.add("approval_url", "http://localhost:8787/Outflearn/kakaoPaySuccess");
 		params.add("cancel_url", "http://localhost:8787/Outflearn/kakaoPayCancel");
 		params.add("fail_url", "http://localhost:8787/kakaoPaySuccessFail");
 		

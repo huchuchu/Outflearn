@@ -78,23 +78,22 @@
 
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 
-	<div class="form-group">
-		<h1>영상 소개</h1>
-	</div>
-
-
 	<div class="row">
 		<ul id="side_border"
 			class="nav flex-column col-sm-2 col-el-2 text-center">
 			<li class="nav-link active"><h3>강의 소개</h3></li>
 			<li class="nav-link active"><h3>강의 내용</h3></li>
-			<li class="list-group-item-success"><h3>영상 소개</h3></li>
+			<li class="list-group-item-info"><h3>영상 소개</h3></li>
 			<li class="nav-link active"><h3>영상 추가</h3></li>
 		</ul>
 		<div class="col-sm-6 col-el-8">
 
 		<form:form action="DataVideoUpload" method="post" enctype="multipart/form-data">
-		
+				
+				<div class="input-group">
+					<h3 style="text-decoration: underline;"></h3>
+				</div>
+				
 				<div class="form-group">
 					<h3>소제목</h3>
 					<input type="text" name="data_subhead" class="form-control" placeholder="소제목을 입력해주세요.">
@@ -114,22 +113,26 @@
 					<h3>영상 업로드(유튜브 영상 링크 또는 파일 업로드 하나만 선택)</h3>
 				<div class="youTube">
 					<input type="text" name="data_data" class="form-control" placeholder="유튜브 주소를 입력해주세요."/>
-					<input type="button" value="완료" class="success1"/>
+					<input type="button" value="완료" class="success1" style="color: #6372ff;"/>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="data">
-					<input type="file" name="file"/>
-					<input type="button" value="완료" class="success2"/>
+					<input type="file" name="file" style="color: #6372ff;"/>
+					<input type="button" value="완료" class="success2" style="color: #6372ff;"/>
 				</div>
 			</div>
 			
 
 				<div class="form-group">
-					<input type="submit" class="add_field_button btn btn-success btn-md" value="작성 후 클릭" onclick="clearalert();" /> 
-					<input type="button" class="add_field_button btn btn-success btn-md" value="게시판 넘기기 " onclick="location.href='LectureList'"> 
-					<input type="button" class="add_field_button btn btn-success btn-md pull-right" value="뒤로 가기" onclick="backclassinfo();" />
+					<input type="submit" class="btn btn-primary" value="작성 후 클릭" onclick="clearalert();" /> 
+					<input type="button" class="btn btn-primary" value="게시판 넘기기 " onclick="location.href='LectureList'"> 
+					<input type="button" class="btn btn-primary" value="뒤로 가기" onclick="backclassinfo();" />
 				</div>
+				
+			<div class="col-sm">
+				<input type="button" value="가이드 라인" onclick="GuideLine();" class="btn btn-primary">
+			</div>
 
 			</form:form>
 		</div>

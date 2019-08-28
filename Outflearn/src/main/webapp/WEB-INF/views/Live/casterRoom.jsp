@@ -53,13 +53,12 @@
                     <p id="classIntro">강좌소개 : ${room.class_intro}</p>
                 </div>
             </div>
-x1        </div>
+          </div>
     </div>
 
     <!-- This file is automatically added/served when running "node index.js". -->
-    <!-- <script src="http://192.168.10.139:3000/socket.io/socket.io.js"></script> -->
-    <script src="https://192.168.10.139:3000/socket.io/socket.io.js"></script>
-    <!-- <script src="https://localhost:3000/socket.io/socket.io.js"></script> -->
+    <!-- <script src="https://192.168.10.139:3000/socket.io/socket.io.js"></script> -->
+    <script src="https://localhost:3000/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     

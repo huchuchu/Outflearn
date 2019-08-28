@@ -18,3 +18,23 @@ div.form-group {
 	float: left;
 	margin-right: 1rem;
 }
+
+.qa-line {
+	width: 100%;
+	height: 1px;
+	background-color: #acacac;
+	margin-bottom: 3rem;
+}
+
+.qa-line:last-child {
+	height: 0px;
+}
+
+.modal-dialog {
+	position: absolute;
+	top: 25%;
+}
+
+#QAReply-insert-form {
+	margin-bottom: 3rem;
+}

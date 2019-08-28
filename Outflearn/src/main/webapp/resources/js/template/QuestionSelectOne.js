@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	
 	$('.summernote').summernote({
-		height: 150,
+		height: 300,
 		  codemirror: { 
 			  theme: 'monokai'
 	   }

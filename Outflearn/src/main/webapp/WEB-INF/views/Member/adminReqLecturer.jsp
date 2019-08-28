@@ -43,45 +43,17 @@
           <ul class="nav flex-column text-center">
 
             <li class="nav-item side_menu select">
-              <a href="myPage">대시보드</a>
+              <a href="adminPage">대시보드</a>
+            </li>
+
+            <li class="nav-item side_menu select">
+              <a href="adminUserList">회원 목록</a>
             </li>
 
             <li class="nav-item side_menu">
-              <a href="void:0">내 강좌</a>
-              <ul class="inner_menu">
-                <li><a href="listenClass">수강중인 강좌</a></li>
-                <li><a href="basketClass">장바구니</a></li>
-              </ul>
+              <a href="adminReqLecturer" class="selectMenu">'강사' 신청</a>
             </li>
 
-            <li class="nav-item side_menu">
-              <a href="void:0">로드맵</a>
-              <ul class="inner_menu">
-                <li><a href="subRoadmap">참여중인 로드맵</a></li>
-              </ul>
-            </li>
-
-            <li class="nav-item side_menu">
-              <a href="myQuestion">내 질문</a>
-            </li>
-
-            <li class="nav-item side_menu">
-              <a href="void:0">설정</a>
-              <ul class="inner_menu">
-                <li><a href="configProfile">프로필 설정</a></li>
-                <li><a href="configAlarm" class="selectMenu">알림 설정</a></li>
-              </ul>
-            </li>
-
-          </ul>
-        </div>
-
-        <div class="side_category live">
-          <ul class="nav flex-column text-center">
-            <li class="nav-item side_menu">
-              <a class="configLiveRoom" href="void:0">방송하기</a>
-              <p>강사만 보이게</p>
-            </li>
           </ul>
         </div>
 
@@ -89,19 +61,54 @@
 
       <div class="col-sm-10">
         <div class="page-header">
-          <h1 id="page-header-content">설정</h1>
+          <h1 id="page-header-content">'강사' 신청</h1>
         </div>
         <article>
           <div class="page-body">
+
             <div class="row">
               <div class="col-sm-12">
                 <div class="boardBox">
-                  <h4 class="boxTitle">알람 설정</h4>
-
+                  <h4 class="boxTitle">'강사' 신청 목록</h4>
+                  <c:choose>
+                    <c:when test="${empty reqList }">
+                      <h5>신청이 없다뇨!</h5>
+                    </c:when>
+                    <c:otherwise>
+                      <table class="table table-hover table-condensed">
+                        <thead>
+                          <tr>
+                            <th>번호</th>
+                            <th>닉네임</th>
+                            <th>이메일</th>
+                            <th>전화번호</th>
+                            <th>간단 소개</th>
+                            <th>강좌 정보</th>
+                            <th>승인</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <c:forEach items="${reqList }" var="item">
+                            <tr>
+                              <td>${item.USER_NUM}</td>
+                              <td>${item.USER_NICKNAME}</td>
+                              <td>${item.USER_EMAIL}</td>
+                              <td>${item.REQ_PHONE}</td>
+                              <td>${item.REQ_PR}</td>
+                              <td>${item.REQ_CLASS}</td>
+                              <td>
+                                <input type="button" onclick="acceptReq(${item.USER_NUM})" value="Y">
+                                <input type="button" onclick="deniReq(${item.USER_NUM})"  value="N">
+                              </td>
+                            </tr>
+                          </c:forEach>
+                        </tbody>
+                      </table>
+                    </c:otherwise>
+                  </c:choose>
                 </div>
               </div>
             </div>
-
 
           </div>
         </article>
@@ -115,6 +122,8 @@
   <script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
   <script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
   <script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
+  <script type="text/javascript" src="resources/js/utils/myPage.js"></script>
+
 </body>
 
 </html>

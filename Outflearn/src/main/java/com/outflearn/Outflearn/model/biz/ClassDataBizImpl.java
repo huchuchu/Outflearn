@@ -109,10 +109,19 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 
 	@Override
-	public int classBasketDelete(int class_num) {
-		
-		return dao.classBasketDelete(class_num);
+	public int classBasketDeleteOne(int class_num) {
+
+		return dao.classBasketDeleteOne(class_num);
 	}
+	
+	
+	@Override
+	public int classBasketDelete(int user_num) {
+		
+		return dao.classBasketDelete(user_num);
+	}
+	
+
 	
 //	--------------------------------------------------- 댓글
 	@Override
@@ -243,9 +252,17 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return dao.QAReplyUpdate(dto);
 	}
 
+	// 구독
 	@Override
 	public List<ClassInfoDto> SubCountSelectList() {
 		return dao.SubCountSelectList();
+	}
+	
+	// 결제 후 강의 장바구니 삭제
+	@Override
+	public int ClassBuyAfter(int class_num, int user_num) {
+	
+		return dao.ClassBuyAfter(class_num, user_num);
 	}
 
 	@Override
@@ -261,5 +278,31 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	@Override
 	public int QAReplyDelete(QADto dto) {
 		return dao.QAReplyDelete(dto);
+	}
+
+	@Override
+	public int selectTotalCountStream(String txt_search, String searchOption, int sub_num) {
+		return dao.selectTotalCountStream(txt_search, searchOption, sub_num);
+	}
+
+	@Override
+	public List<ClassInfoDto> selectListPageStream(int firstIndex, int recordCountPerPage, String txt_sesarch,
+			String searchOption, int sub_num) {
+		return dao.selectListPageStream(firstIndex, recordCountPerPage, txt_sesarch, searchOption, sub_num);
+	}
+	
+	@Override
+	public List<ClassReviewDto> ReviewList(int class_num) {
+		return dao.ReviewList(class_num);
+	}
+
+	@Override
+	public List<QADto> QAList(int class_num) {
+		return dao.QAList(class_num);
+	}
+
+	@Override
+	public int classInsertSubscribe(int user_num, int class_num) {
+		return dao.classInsertSubscribe(user_num, class_num);
 	}
 }

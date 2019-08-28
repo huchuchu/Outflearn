@@ -58,4 +58,6 @@ public interface RoadMapBiz {
 	
 	public int AddToCart(List<String>cartArray, String userNum);
 
+	public List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption);
 }
