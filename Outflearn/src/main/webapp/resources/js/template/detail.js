@@ -5,10 +5,31 @@ var second_sum = 0
 
 $(document).ready(function () {
 
-    rating_star($('#rating').val())
-
-    var _class_num = $('#selectone').val()
+	avg_rating($('#rating').val(), $('#rating-tag'))
+	
+    var ReviewStar = document.querySelectorAll(".review-star")
+    
+    var classes = Array.prototype.map.call(ReviewStar, function(element) {
+        return element.value
+    });
+	
+    for(var i = 0; i < classes.length; i++) {
+        rating_star(classes[i], $('.show-star')[i])
+    }
+    
+    var review_rating = document.querySelectorAll(".review_rating")
+    
+    var ReviewRating = Array.prototype.map.call(review_rating, function(element) {
+    	return element.value
+    })
+    
+    for(var i = 0; i < ReviewRating.length; i++) {
+    	console.log(ReviewRating[i])
+    	rating_star(ReviewRating[i], $('.reviews_rating')[i])
+    }
+    
     var playlist = ''
+    var video_id = new Array()
     var playOne = new Array()
     var playlist_id = new Array()
     
@@ -19,25 +40,26 @@ $(document).ready(function () {
             url: 'DetailDashBoard',
             success: function (play_id) {
             	DashboardHeader()
-            
+            	
                 for(var i = 0; i < play_id.length; i++) {
-                	
+                	video_id[i] = play_id[i];
                 	if(play_id[i].indexOf("v=") != -1){
                 		
                 		play_id[i] = play_id[i].split('v=', 2)[1]
 	                	playOne[i] = play_id[i]
                 		playlist = "https://www.googleapis.com/youtube/v3/videos?id= " + play_id[i] + "&part=contentDetails,snippet&key=AIzaSyAKpVZhMIKzF0zAD17yeVygQWNfL7MCCzc";
 	                	DashboardOne(playlist, playOne[i])
-	                	
                 	} else if(play_id[i].indexOf("list") != -1) {
                 		
                 		play_id[i] = play_id[i].split('list=', 2)[1]
                 		playlist_id[i] = play_id[i]
                 		playlist = "https://www.googleapis.com/youtube/v3/playlistItems?playlistId=" + play_id[i] + "&part=contentDetails,snippet&maxResults=5&key=AIzaSyAKpVZhMIKzF0zAD17yeVygQWNfL7MCCzc";
+                		console.log(playlist)
 	                	DashboardList(playlist, playlist_id[i])
 	                	
                 	}
                 }
+            	
             },
             error: function (err) {
                 console.log('실패!!')
@@ -58,16 +80,37 @@ $(document).ready(function () {
         $('div#page-switch > div').hide()
         $($(this).attr('href')).show()
 
-        console.log($(this).attr('href') + " : this attr href")
-
         if ($(this).text() == '대쉬보드') {
         	DashboardHeader()
+        	for(var i = 0; i < video_id.length; i++) {
+                var play_id = new Array()
+                if(video_id[i].indexOf("v=") != -1){
+                	
+                	play_id[i] = video_id[i].split('v=', 2)[1]
+	                playOne[i] = play_id[i]
+                	playlist = "https://www.googleapis.com/youtube/v3/videos?id= " + play_id[i] + "&part=contentDetails,snippet&key=AIzaSyAKpVZhMIKzF0zAD17yeVygQWNfL7MCCzc";
+	                DashboardOne(playlist, playOne[i])
+	                	
+                } else if(video_id[i].indexOf("list") != -1) {
+                	play_id[i] = video_id[i].split('list=', 2)[1]
+                	playlist_id[i] = play_id[i]
+                	playlist = "https://www.googleapis.com/youtube/v3/playlistItems?playlistId=" + play_id[i] + "&part=contentDetails,snippet&maxResults=5&key=AIzaSyAKpVZhMIKzF0zAD17yeVygQWNfL7MCCzc";
+	               	DashboardList(playlist, playlist_id[i])
+	                
+                }
+            }
+        	
+        	count_sum = 0
+        	hour_sum = 0
+        	minite_sum = 0
+        	second_sum = 0
+        	
         } else if ($(this).text() == '질문&답변') {
             ReviewAnswer()
         }
     })
 
-    $('#main, #dashboard').css({ 'width': '75%' })
+    $('#main, #playlist').css({ 'width': '86%' })
     $('#box').css({ 'top': $('#menu').height() * 2 })
 
     $('.reply_group').hide()
@@ -76,20 +119,38 @@ $(document).ready(function () {
     $("#Question-btn").on('click', function () {
         $("#QuestionForm").modal({ backdrop: "static" })
     });
+    
+    if($(window).outerWidth() < 1025) {
+    	$('#box').css({'top': '0'})
+    	$('#box').find('.btns').css({'border':'none'})
+    	$('#study_btn').removeClass('col-md-3')
+    } else {
+    	$('#box').css({'top': $('#menu').height() * 2})
+    	$('#box').find('.btns').css({'border':'1px solid #acacac'})
+    	$('#study_btn').addClass('col-md-3')
+    }
+    
+    $(window).resize(function() {
+    	if($(window).outerWidth() < 1025) {
+        	$('#box').css({'top': '0'})
+        	$('#box').find('.btns').css({'border':'none'})
+        	$('#study_btn').removeClass('col-md-3')
+        } else {
+        	$('#box').css({'top': $('#menu').height() * 2})
+        	$('#box').find('.btns').css({'border':'1px solid #acacac'})
+        	$('#study_btn').addClass('col-md-3')
+        }
+    })
+    
 })
 
 function DashboardHeader() {
-	$('#dashboard').empty()
-	$('#dashboard').html(
-    "<div class='page-header'><h1>유튜브</h1></div>" + 
-    "<div class='table-responsive-lg'>" + 
-    "<table class='table'>" +
-    "<tr class='text-center'>" + 
-    "<th>youtube title</th>" +
-    "<th>startAt</th>" +
-    "<th>endAt</th>" +
-    "<th>regdate</th>" +
-    "</tr>"
+	$('#playlist').html(
+	`<div class='panel panel-default table-div'>
+    <div class='page-header'><h1>유튜브</h1></div>
+    <div class='table-responsive-lg'>
+    <table class='table youtube'>
+    </div>`
 	)
 }
 
@@ -99,7 +160,6 @@ function DashboardOne(video_list, playlist_id) {
         dataType: 'JSON',
         url: video_list,
         success: function (vi_list) {
-        	console.log(video_list, ' : ')
 
         	var count = 0;
         	var timer = 0;
@@ -111,7 +171,7 @@ function DashboardOne(video_list, playlist_id) {
         	var video_title = vi_list.items[0].snippet.title
             var duration = getVideos(video_id);
         	
-        	$('.table').append(
+        	$('.youtube').append(
                 `<tr class='youtube_data'>
                 	<td><i class=\"far fa-clock\"></i></td>
                   	<td><a href='LectureDetailView?DATA_DATA=${video_id}'>${video_title}</a></td>
@@ -130,7 +190,7 @@ function DashboardOne(video_list, playlist_id) {
         
         $('#count').html(`${count_sum} 개 수업`)
         $('#timer').html(`${timer}`)
-        $('#dashboard').append("</table></div>")
+        $('#playlist').append("</table></div>")
         	
             count_sum++
 
@@ -147,9 +207,6 @@ function DashboardList(video_list, playlist_id) {
         dataType: 'JSON',
         url: video_list,
         success: function (vi_list) {
-        	$('#jumbo_row > img').attr('src', vi_list.items[0].snippet.thumbnails.high.url)
-        	
-        	
         	
         	var count = 0;
         	var timer = 0;
@@ -165,7 +222,7 @@ function DashboardList(video_list, playlist_id) {
                 var video_id = vi_list.items[i].snippet.resourceId.videoId;
                 var duration = getVideos(video_id);
 
-                $('.table').append(
+                $('.youtube').append(
                     `<tr class='youtube_data'>
                     	<td><i class=\"far fa-clock\"></i></td>
                     	<td><a href='LectureDetailView?DATA_DATA=${video_id}'>${video_title}</a></td>
@@ -207,7 +264,9 @@ function DashboardList(video_list, playlist_id) {
             
             $('#count').html(`${count_sum} 개 수업`)
             $('#timer').html(`${timer}`)
-            $('#dashboard').append("</table></div>")
+            $('#playlist').append("</table></div>")
+            
+            
 
         },
         error: function (err) {
@@ -217,7 +276,7 @@ function DashboardList(video_list, playlist_id) {
 }
 
 function ReviewAnswer() {
-    $('#dashboard').append(
+    $('#playlist').append(
         `<div class="modal fade" id="myModal3" role="dialog">
 		    <div class="modal-dialog">
 		    
@@ -276,31 +335,61 @@ function splitTime(duration) {
         return splitDu;
     }
 }
+ 
+function rating_star(rating, rating_tag) {
+	
+	var star = parseFloat(rating)
+	if (star > 0 && star <= 0.5) {
+	    return rating_tag.innerHTML = `<span><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`
+	} else if (star > 0.5 && star <= 1) {
+	    return rating_tag.innerHTML = `<span><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`
+	} else if (star > 1 && star <= 1.5) {
+	    return rating_tag.innerHTML = `<span><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`
+	} else if (star > 1.5 && star <= 2) {
+	    return rating_tag.innerHTML = `<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`
+	} else if (star > 2 && star <= 2.5) {
+	    return rating_tag.innerHTML = `<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`
+	} else if (star > 2.5 && star <= 3) {
+	    return rating_tag.innerHTML = `<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`
+	} else if (star > 3 && star <= 3.5) {
+	    return rating_taginnerHTML = `<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i></span>`
+	} else if (star > 3.5 && star <= 4) {
+	    return rating_tag.innerHTML = `<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span>`
+	} else if (star > 4 && star <= 4.5) {
+	    return rating_tag.innerHTML = `<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>`
+	} else if (star > 4.5 && star <= 5) {
+		return rating_tag.innerHTML = `<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>`
+	} else {
+		return rating_tag.innerHTML = `<span><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`
+	}
+}
 
-function rating_star(rating) {
-    if (rating >= 0 && rating < 0.5) {
-        return $('#rating-tag').prepend(`<span><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="fas fa-star-half-alt"></i></span>`)
-    } else if (rating >= 0.5 && rating < 1) {
-        return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
-    } else if (rating >= 1 && rating < 1.5) {
-        return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
-    } else if (rating >= 1.5 && rating < 2) {
-        return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
-    } else if (rating >= 2 && rating < 2.5) {
-        return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
-    } else if (rating >= 2.5 && rating < 3) {
-        return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
-    } else if (rating >= 3 && rating < 3.5) {
-        return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i></span>`)
-    } else if (rating >= 3.5 && rating < 4) {
-        return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span>`)
-    } else if (rating >= 4 && rating < 4.5) {
-        return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>`)
-    } else if (rating >= 4.5 && rating <= 5) {
-        return $('#rating-tag').prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>`)
-    } else {
-        return $('#rating-tag').prepend(`별점 없음.`)
-    }
+function avg_rating(rating, rating_tag) {
+	
+	var star = parseFloat(rating)
+	if (star > 0 && star <= 0.5) {
+	    return rating_tag.prepend(`<span><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
+	} else if (star > 0.5 && star <= 1) {
+	    return rating_tag.prepend(`<span><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
+	} else if (star > 1 && star <= 1.5) {
+	    return rating_tag.prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
+	} else if (star > 1.5 && star <= 2) {
+	    return rating_tag.prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
+	} else if (star > 2 && star <= 2.5) {
+	    return rating_tag.prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
+	} else if (star > 2.5 && star <= 3) {
+	    return rating_tag.prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
+	} else if (star > 3 && star <= 3.5) {
+	    return rating_tag.prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i></span>`)
+	} else if (star > 3.5 && star <= 4) {
+	    return rating_tag.prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span>`)
+	} else if (star > 4 && star <= 4.5) {
+	    return rating_tag.prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>`)
+	} else if (star > 4.5 && star <= 5) {
+		return rating_tag.prepend(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>`)
+	} else {
+		return rating_tag.prepend(`<span><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>`)
+	}
 }
 
 function ReviewReply() {

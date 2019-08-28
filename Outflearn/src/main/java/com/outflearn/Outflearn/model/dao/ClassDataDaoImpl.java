@@ -450,4 +450,32 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 
+	@Override
+	public List<ClassReviewDto> ReviewList(int class_num) {
+		
+		List<ClassReviewDto> list = new ArrayList<ClassReviewDto>();
+		
+		try {
+			list = sqlSession.selectList(namespace + "ReviewList", class_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<QADto> QAList(int class_num) {
+		
+		List<QADto> list = new ArrayList<QADto>();
+		
+		try {
+			list = sqlSession.selectList(namespace + "QAList", class_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
 }

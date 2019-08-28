@@ -49,7 +49,7 @@
 					</c:when>
 				<c:otherwise>
 					<div class="form-group">
-						<c:forEach items="${classQuestionReply }" var="dto" begin="1">
+						<c:forEach items="${classQuestionReply }" var="dto">
 							<div class="panel student_question_panel">
 								<div class="form-group question_content">
 									<p class="question_title">작성자 : ${dto.user_nickname }</p>
@@ -75,12 +75,13 @@
 									</div>
 								</div>
 							</div>
+							<div class="qa-line"></div>
 						</c:forEach>
 					</div>
 				</c:otherwise>
 			</c:choose>
 			<div>
-				<form:form action="QAReplyInsert">
+				<form:form id="QAReply-insert-form" action="QAReplyInsert">
 					<input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
 					<input type="hidden" name="user_nickname" value='<sec:authentication property="principal.user_nickname"/>'>
 					<input type="hidden" name="class_num" value="${classQuestion.class_num }">
@@ -91,6 +92,9 @@
 					<button type="submit" class="btn btn-default">답글 입력</button>
 				</form:form>
 			</div>
+			</div>
+			<div class="col-sm-3 col-md-3">
+				<a type="button" class="btn btn-default" href="LectureDetail?class_num=${classQuestion.class_num}">이전 페이지로 가기</a>
 			</div>
 		</div>
 	</div>
