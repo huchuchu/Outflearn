@@ -72,6 +72,8 @@ public class HomeController {
 	public int basket(@ModelAttribute ClassInfoDto dto, Model model, int class_num, Authentication auth) {
 		logger.info("basket");
 		
+
+		
 		// 닉네임
 		// 회원 정보
 		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();

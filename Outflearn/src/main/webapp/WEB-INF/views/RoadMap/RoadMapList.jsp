@@ -39,7 +39,7 @@ function PageMove(page,data) {
 	<!-- Header  -->
 	<!-- 베너 -->
 	
-		<div class="container">
+		<div class="container">		
 		<div class="row">
 			<aside class="col-sm-2">
 				 <div class="form-group">
@@ -73,10 +73,12 @@ function PageMove(page,data) {
 							</li>
 					    </ul>
 					</div>
+					<div style="text-align: center; margin-top: 3%;">
 					   <a href="" class="filter_reset">
-					   <i class="far fa-sync-alt"></i>
-					   &nbsp;&nbsp;필터초기화
+					   <i class="far fa-times-circle"></i>
+					   <span>필터초기화</span>   
 					   </a>
+					 </div>  
 				</aside>
 				
 			<div class="col-sm-10">
@@ -105,11 +107,11 @@ function PageMove(page,data) {
 					<div class="page-body">
 
 						<c:choose>
-							<c:when test="${empty roadList }">
+							<c:when test="${empty comList }">
 								<h3>강좌 정보가 없습니다...!!</h3>
 							</c:when>
 							<c:otherwise>
-								<c:forEach items="${ roadList }" var="roadDto">
+								<c:forEach items="${ comList }" var="roadDto">
 									<div class="card">
 										<a class="hidden_link" href="roadMapDetail?roadNum=${roadDto.roadmap_num }">
 										<div class="content_area">
@@ -118,7 +120,7 @@ function PageMove(page,data) {
 											</div>
 											<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 											<div class="bottom_content">
-												<p>by ${roadDto.user_num }</p>
+												<p>by ${roadDto.user_nickname }</p>
 												<div class="social_item">
 													<div class="social_item">
 														<i class="fas fa-user"></i>

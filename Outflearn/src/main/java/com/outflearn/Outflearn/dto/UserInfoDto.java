@@ -44,6 +44,15 @@ public class UserInfoDto extends User {
 	}
 	
 	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return super.isEnabled();
+	}
+
+
+
+
+	@Override
 	public Collection<GrantedAuthority> getAuthorities() {
 		
 		return super.getAuthorities();

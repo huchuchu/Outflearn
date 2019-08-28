@@ -1,10 +1,11 @@
 package com.outflearn.Outflearn.model.dao;
 
 import java.util.ArrayList;
-
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -15,6 +16,7 @@ import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
+import com.outflearn.Outflearn.dto.RoadUserCombineDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
 
 @Repository
@@ -57,7 +59,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 	@Override
 	public int insertroadNclass(String[] class_num, String seq) {
 
-		System.out.println("insert roadNClassDao입장::::::::");
+		System.out.println("insert roadNClassDao입장:::");
 
 		for (String res : class_num) {
 			System.out.println(res);
@@ -140,6 +142,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		return list;
 	}
 
+	//로드맵 리스트
 	@Override
 	public List<RoadMapInfoDto> roadMapList() {
 		
@@ -172,9 +175,9 @@ public class RoadMapDaoImpl implements RoadMapDao {
 	}
 
 	@Override
-	public List<RoadMapCon> RoadMapConList(String roadNum) {
+	public List<Integer> RoadMapConList(String roadNum) {
 		
-		List<RoadMapCon> list = new ArrayList<RoadMapCon>();
+		List<Integer> list = new ArrayList<Integer>();
 		
 		try {
 		list = session.selectList(NAMESPACE+"roadMapConlist", roadNum);	
@@ -226,7 +229,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		int res=0;
 		
 		try{
-			res = session.update(NAMESPACE+"updatesubScribe", roandNum);
+			res = session.update(NAMESPACE+"updateSubscribe", roandNum);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -276,6 +279,97 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		map.put("searchOption", searchOption);
 		map.put("txt_search", txt_search);
 		res = session.selectOne(NAMESPACE + "selectTotalCountRoadMap", map);
+		
+		return res;
+	}
+
+	@Override
+	public int roadMapSubscribeDelete(String roadNum, String userNum) {
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String,String>();
+		map.put("userNum",userNum);
+		map.put("roadNum",roadNum);			
+		
+		try {
+			res = session.delete(NAMESPACE+"roadMapSubscribeDelete", map);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}	
+		
+		return res;
+	}
+
+	@Override
+	public int deleteRoadSubscribe(String roadNum) {
+		int res = 0;
+		
+		try {
+			res = session.update(NAMESPACE+"deleteSubScribe", roadNum);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+
+	@Override
+	public List<RoadUserCombineDto> roadMapComList() {
+		
+		List<RoadUserCombineDto> list = new ArrayList<RoadUserCombineDto>();
+		try {
+			list = session.selectList(NAMESPACE+"roadComList");
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return list;
+	}
+
+	@Override
+	public RoadUserCombineDto roadMapComSelectOne(String roadNum) {
+		
+		RoadUserCombineDto dto = new RoadUserCombineDto();
+		
+		try {
+			dto = session.selectOne(NAMESPACE+"roadComOne", roadNum);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return dto;
+	}
+
+	@Override
+	public List<Integer> SubBaList(String userNum) {
+		
+		List<Integer> list = new ArrayList<Integer>();
+		
+		try {
+			list = session.selectList(NAMESPACE+"SubBaList", userNum);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int AddToCart(List<String> cartArray, String userNum) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userNum", userNum);
+		map.put("cartArray", cartArray);	
+		
+		int res = 0;
+		
+		try {
+			res = session.insert(NAMESPACE+"AddToCart", map);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}	
 		
 		return res;
 	}
