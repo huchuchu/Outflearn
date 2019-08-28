@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
@@ -40,71 +41,27 @@
 							<div class="col-md-8">
 								<div class="row">
 									<p>분야별 강좌</p>
+								
+								
 									<div class="col-md-4">
-										<p>서버</p>
+									
+										<c:forEach items="${mainList }" var="mainDto">
+											<div style="float: left">
+										<p>${mainDto.main_name}</p>
 										<ul class="sitemap-list">
+										  <c:forEach items="${subList }" var="subDto">
+										  	<c:if test="${mainDto.main_num eq subDto.main_num }">
 											<li>
-												<p>- <a href="">Back End</a></p>
+												<p>- <a href="SubCategory?sub_num=${subDto.sub_num}" class="nav-link active sub_category">${subDto.sub_name}</a></p>
 											</li>
-											<li>
-												<p>- <a href="">Linux</a></p>
-											</li>
-											<li>
-												<p>- <a href="">Nodejs</a></p>
-											</li>
-											<li>
-												<p>- <a href="">Expressjs</a></p>
-											</li>
-											<li>
-												<p>- <a href="">C#</a></p>
-											</li>
-											<li>
-												<p>- <a href="">MYSQL</a></p>
-											</li>
-										</ul>
+												</c:if>
+										 </c:forEach>
+										 </ul>
+										 </div>
+										</c:forEach>
+										
 									</div>
-									<div class="col-md-4">
-										<p>웹개발</p>
-										<ul class="sitemap-list">
-											<li>
-												<p>- <a href="">Front End</a></p>
-											</li>
-											<li>
-												<p>- <a href="">html/css</a></p>
-											</li>
-											<li>
-												<p>- <a href="">javascript</a></p>
-											</li>
-											<li>
-												<p>- <a href="">Angular</a></p>
-											</li>
-											<li>
-												<p>- <a href="">Reactjs</a></p>
-											</li>
-											<li>
-												<p>- <a href="">Vuejs</a></p>
-											</li>
-										</ul>
-									</div>
-									<div class="col-md-4">
-										<p>데이터베이스</p>
-										<ul class="sitemap-list">
-											<li>
-												<p>- <a href="">Oracle</a></p>
-											</li>
-											<li>
-												<p>- <a href="">PL/SQL</a></p>
-											</li>
-											<li>
-												<p>- <a href="">MySQL</a></p>
-											</li>
-											<li>
-												<p>- <a href="">MongoDB</a></p>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
+									
 							<div class="col-md-3">
 								<ul>
 									<li class="contact-nav-menu">

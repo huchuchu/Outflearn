@@ -30,7 +30,7 @@
 	
 	<!-- 부류 강의 소개 -->
 	<select id="ClassSubName" resultType="ClassInfoDto">
-	SELECT * FROM CLASS_INFO WHERE CLASS_NUM = (SELECT CLASS_NUM FROM CLASS_CATEGORY WHERE SUB_NUM= #{sub_num })
+	SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN (SELECT CLASS_NUM FROM CLASS_CATEGORY WHERE SUB_NUM= #{sub_num })
 	</select>
 	
 	<!-- 구독자 수정 -->
@@ -205,6 +205,12 @@
 	<insert id="classInsertSubscribe" parameterType="hashmap">
 		INSERT INTO SUBSCRIBE VALUES(#{user_num }, #{class_num })
 	</insert>
+	
+	<!-- ================== 장바구니 구매 유무 ================== -->
+	<select id="ClassBuyAfter" parameterType="hashmap" resultType="Integer">
+	SELECT COUNT(*) FROM SUBSCRIBE WHERE CLASS_NUM = #{class_num } AND USER_NUM = #{user_num }
+	</select>
+
 	
 	
 </mapper>

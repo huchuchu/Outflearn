@@ -150,7 +150,7 @@
 								
 								
 								<sec:authorize access="hasRole('ROLE_TUTOR')">
-									<input type="button" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" />
+									<input type="button" class="btn btn-primary" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" />
 								</sec:authorize>
 							</c:when>
 							<c:otherwise>
@@ -170,8 +170,7 @@
 									</div>
 								</c:forEach>
 								<sec:authorize access="hasRole('ROLE_TUTOR')">
-								<input type="button" value="강의 추가"
-									onclick="location.href='ClassInfoInsertForm'" />
+									<input type="button" class="btn btn-primary" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" />
 								</sec:authorize>
 							</c:otherwise>
 						</c:choose>
@@ -208,21 +207,6 @@
 
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 
-	<script type="text/javascript">
-			
-					
-				$('.sub_category').on('click', function() {
-					var sub_num = $(this).attr('id')
-					classsubname(sub_num)
-				})
-				
-				
-				function classsubname(sub_num) {
-					
-					location.href='home';
-
-				}
-			</script>
 
 	<script type="text/javascript"
 		src="resources/js/template/jquery.1.11.1.js"></script>

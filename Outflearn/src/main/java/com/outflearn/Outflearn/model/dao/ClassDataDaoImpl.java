@@ -443,6 +443,20 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		
 		return list;
 	}
+	
+	// 결제 후 강의 장바구니 삭제
+	@Override
+	public int ClassBuyAfter(int class_num, int user_num) {
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("user_num", user_num);
+		map.put("class_num", class_num);
+		
+		int list = sqlSession.selectOne(namespace + "ClassBuyAfter", map); 
+		
+		return list;
+		
+	}
 
 
 
