@@ -35,6 +35,8 @@ public class KakaoPayController {
 	@RequestMapping(value="oauth", method=RequestMethod.POST)
 	public String kakaoPay(String class_title, int class_price) {
 		
+		
+		
 		return "redirect:"+kakaopay.kakaoPayReady(class_title, class_price);
 	}
 	

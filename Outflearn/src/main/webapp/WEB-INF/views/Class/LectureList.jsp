@@ -57,7 +57,7 @@
 									<li>
 										<c:forEach items="${subList }" var="subDto">
 											<c:if test="${mainDto.main_num eq subDto.main_num }">
-									<li><a href="SubCategory?txt_search=${txt_search }&searchOption=all&sub_num=${subDto.sub_num}"
+									<li><a href="LectureList?txt_search=${txt_search }&searchOption=all&sub_num=${subDto.sub_num}"
 											class="nav-link active sub_category">${subDto.sub_name}</a></li>
 										<input type="hidden" class="nav-link active sub_category" name="sub_category" id="sub_category"
 										value="${subDto.sub_num }" >

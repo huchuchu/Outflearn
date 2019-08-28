@@ -77,49 +77,53 @@ public class HomeController {
 //  ----------------- LectureList ----------------- 시작
 
 	// 모든 강의 보기
-	@RequestMapping("/LectureList")
-	public String LectureListPage(Model model, String txt_search, String page, String class_category) {
-		logger.info("txt서치전");
-		int totalCount = biz.selectTotalCount(txt_search);
-		logger.info("" + totalCount);
+	@RequestMapping("LectureList")
+	   public String CLassSubName(Model model, int sub_num, String txt_search, String page, String searchOption) {
+	      logger.info("SubCategory");
+	      logger.info("txt서치전");
 
-		int pageNum = (page == null) ? 1 : Integer.parseInt(page);
+	      // int totalCount = biz.selectTotalCount(txt_search);
+	      int totalCount = biz.selectTotalCountStream(txt_search, searchOption, sub_num);
+	      logger.info("sub num:"+sub_num);
+	      logger.info("텍스트서치:" + txt_search);
+	      logger.info("서치옵션:" + searchOption);
+	      logger.info("찾은 강좌수:" + totalCount);
 
-		Pagination pagination = new Pagination();
+	      int pageNum = (page == null) ? 1 : Integer.parseInt(page);
 
-		// get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
-		pagination.setPageNo(pageNum);
+	      Pagination pagination = new Pagination();
 
-		// 한 페이지에 나오는 게시물의 개수
-		pagination.setPageSize(9);
-		pagination.setTotalCount(totalCount);
+	      // get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
+	      pagination.setPageNo(pageNum);
 
-		// select해오는 기준을 구함
-		pageNum = (pageNum - 1) * pagination.getPageSize();
+	      // 한 페이지에 나오는 게시물의 개수
+	      pagination.setPageSize(9);
+	      pagination.setTotalCount(totalCount);
 
-		List<ClassInfoDto> list = biz.selectListPage(pageNum, pagination.getPageSize(), txt_search);
+	      // select해오는 기준을 구함
+	      pageNum = (pageNum - 1) * pagination.getPageSize();
 
-		model.addAttribute("classinfo", list);
-		model.addAttribute("pagination", pagination);
-		model.addAttribute("txt_search", txt_search);
-		model.addAttribute("class_category", class_category);
+	      List<ClassInfoDto> list = biz.selectListPageStream(pageNum, pagination.getPageSize(), txt_search, searchOption, sub_num);
 
-		// 부류, 주류
-		List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
-		List<SubStreamDto> subStreamList = Rbiz.subStreamList();
+	      // 부류, 주류
+	      List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
+	      List<SubStreamDto> subStreamList = Rbiz.subStreamList();
 
-		model.addAttribute("mainList", mainStreamList);
-		model.addAttribute("subList", subStreamList);
+	      logger.info("서브리스트:" + subStreamList.size());
+	      logger.info("메인리스트:" + mainStreamList.size());
 
-		if (class_category != null) {
-			model.addAttribute("classinfo", biz.CategorySelectList(class_category));
-		} else {
-			model.addAttribute("classinfo", biz.selectListPage(pageNum, pagination.getPageSize(), txt_search));
-		}
+	      model.addAttribute("classinfo", list);
+	      model.addAttribute("pagination", pagination);
+	      model.addAttribute("txt_search", txt_search);
+	      model.addAttribute("searchOption", searchOption);
+	      model.addAttribute("sub_num", sub_num);
 
-		return "Class/LectureList";
+	      model.addAttribute("mainList", mainStreamList);
+	      model.addAttribute("subList", subStreamList);
+	      //model.addAttribute("classinfo",biz.ClassSubName(sub_num));
 
-	}
+	      return "Class/LectureList";
+	   }
 
 	// 부류 카테고리 클릭하면 해당 강의 보여주기
 	@RequestMapping("SubCategory")
@@ -196,6 +200,12 @@ public class HomeController {
 		// 질문 리스트
 		model.addAttribute("classQuestion", biz.QASelectList(class_num));
 
+	    // 대쉬보드 리뷰 리스트
+	    model.addAttribute("ReviewList", biz.ReviewList(class_num));
+	               
+	    // 대쉬보드 질문 리스트
+	    model.addAttribute("QAList", biz.QAList(class_num));
+		
 		// 부류, 주류
 		List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
 		List<SubStreamDto> subStreamList = Rbiz.subStreamList();
