@@ -39,7 +39,7 @@ function PageMove(page,data) {
 	<!-- Header  -->
 	<!-- 베너 -->
 	
-		<div class="container">
+		<div class="container">		
 		<div class="row">
 			<aside class="col-sm-2">
 				 <div class="form-group">
@@ -73,10 +73,12 @@ function PageMove(page,data) {
 							</li>
 					    </ul>
 					</div>
+					<div style="text-align: center; margin-top: 3%;">
 					   <a href="" class="filter_reset">
-					   <i class="far fa-sync-alt"></i>
-					   &nbsp;&nbsp;필터초기화
+					   <i class="far fa-times-circle"></i>
+					   <span>필터초기화</span>   
 					   </a>
+					 </div>  
 				</aside>
 				
 			<div class="col-sm-10">

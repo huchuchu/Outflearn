@@ -72,8 +72,10 @@ public class HomeController {
 */
 //	장바구니 유저정보
 	@RequestMapping("basket")
-	public String basket(@ModelAttribute ClassInfoDto dto, Model model, int class_num, Authentication auth) {
+	public String basket(@ModelAttribute ClassInfoDto dto, Model model, int  class_num, Authentication auth) {
 		logger.info("basket");
+		
+
 		
 		// 닉네임
 		// 회원 정보

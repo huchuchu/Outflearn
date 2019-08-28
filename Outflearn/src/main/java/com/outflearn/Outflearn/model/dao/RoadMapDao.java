@@ -55,4 +55,10 @@ public interface RoadMapDao {
 	public List<RoadMapInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search, String searchOption);
 	
 	public int selectTotalCountRoadMap(String txt_search, String searchOption);
+	
+	public List<Integer> SubBaList(String userNum);
+	
+	public int AddToCart(List<String>cartArray, String userNum);
+	
+	
 }

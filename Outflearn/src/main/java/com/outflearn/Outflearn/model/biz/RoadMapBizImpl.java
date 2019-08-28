@@ -135,6 +135,18 @@ public class RoadMapBizImpl implements RoadMapBiz {
 		return dao.selectTotalCountRoadMap(txt_search, searchOption);
 	}
 
+	@Override
+	public List<Integer> SubBaList(String userNum) {
+	
+		return dao.SubBaList(userNum);
+	}
+
+	@Override
+	public int AddToCart(List<String> cartArray, String userNum) {
+		
+		return dao.AddToCart(cartArray, userNum);
+	}
+
 
 
 

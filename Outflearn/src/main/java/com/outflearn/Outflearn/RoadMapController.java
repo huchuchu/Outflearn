@@ -5,6 +5,7 @@ package com.outflearn.Outflearn;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -26,8 +30,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
@@ -35,6 +38,7 @@ import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.RoadUserCombineDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
+import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.RoadMapBiz;
 import com.outflearn.Outflearn.service.Pagination;
 
@@ -46,12 +50,12 @@ public class RoadMapController {
 	@Inject
 	private RoadMapBiz biz;	
 	
-	//로드맵 보기
-/*	@RequestMapping("/RoadMap")
+	//로드맵리스트 보기
+	@RequestMapping("/RoadMap")
 	public String roadMapPage(Model model) {
 
 		List<MainStreamDto> mainStreamList = biz.mainStreamList();		
-		List<RoadMapInfoDto> roadMapList = biz.roadMapList();		
+//		List<RoadMapInfoDto> roadMapList = biz.roadMapList();		
 		List<RoadUserCombineDto> roadComList = biz.roadMapComList();
 //		System.out.println("stream갯수"+mainStreamList.size());	
 //		System.out.println("roadMap갯수"+roadMapList.size());
@@ -60,59 +64,56 @@ public class RoadMapController {
 		System.out.println("comList+++"+roadComList.size());
 		model.addAttribute("comList", roadComList);
 //		model.addAttribute("roadList", roadMapList);
-		List<RoadMapInfoDto> roadMapList = biz.roadMapList();
-		
-		model.addAttribute("roadList", roadMapList);
 		model.addAttribute("mainList", mainStreamList);		
 
 		return"RoadMap/RoadMapList";
 	}
-*/
-	@RequestMapping("/RoadMap")
-	public String roadMapPage(Model model, String txt_search, String page, String class_category, String searchOption) {
-			logger.info("txt서치전");
-			
-			
-			int totalCount = biz.selectTotalCountRoadMap(txt_search, searchOption);
-			logger.info("검색어:"+txt_search);
-			logger.info("검색옵션:"+searchOption);
-			logger.info(""+totalCount);
-			
-			int pageNum = (page==null)? 1:Integer.parseInt(page);
-			
-			Pagination pagination = new Pagination();
-			
-			//get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
-			pagination.setPageNo(pageNum);
-			
-			//한 페이지에 나오는 게시물의 개수 
-			pagination.setPageSize(9);
-			pagination.setTotalCount(totalCount);
-			
-			//select해오는 기준을 구함
-			pageNum = (pageNum -1) * pagination.getPageSize();
-			
-			List<MainStreamDto> mainStreamList = biz.mainStreamList();
-			List<RoadMapInfoDto> roadList = biz.selectListPage(pageNum, pagination.getPageSize(), txt_search, searchOption);
-			
-			model.addAttribute("mainList", mainStreamList);
-			model.addAttribute("roadList", roadList);
-			model.addAttribute("pagination", pagination);
-			model.addAttribute("txt_search", txt_search);
-			model.addAttribute("class_category", class_category);
-			model.addAttribute("searchOption", searchOption);
-			
-				
-			if(class_category != null) {
-				System.out.println("구현중");
-			} else {
-				model.addAttribute("mainList", mainStreamList);	
-				model.addAttribute("roadList", biz.selectListPage(pageNum, pagination.getPageSize(), txt_search, searchOption));
-			
-			}
-						
-		return"RoadMap/RoadMapList";
-	}
+
+//	@RequestMapping("/RoadMap")
+//	public String roadMapPage(Model model, String txt_search, String page, String class_category, String searchOption) {
+//			logger.info("txt서치전");
+//			
+//			
+//			int totalCount = biz.selectTotalCountRoadMap(txt_search, searchOption);
+//			logger.info("검색어:"+txt_search);
+//			logger.info("검색옵션:"+searchOption);
+//			logger.info(""+totalCount);
+//			
+//			int pageNum = (page==null)? 1:Integer.parseInt(page);
+//			
+//			Pagination pagination = new Pagination();
+//			
+//			//get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
+//			pagination.setPageNo(pageNum);
+//			
+//			//한 페이지에 나오는 게시물의 개수 
+//			pagination.setPageSize(9);
+//			pagination.setTotalCount(totalCount);
+//			
+//			//select해오는 기준을 구함
+//			pageNum = (pageNum -1) * pagination.getPageSize();
+//			
+//			List<MainStreamDto> mainStreamList = biz.mainStreamList();
+//			List<RoadMapInfoDto> roadList = biz.selectListPage(pageNum, pagination.getPageSize(), txt_search, searchOption);
+//			
+//			model.addAttribute("mainList", mainStreamList);
+//			model.addAttribute("roadList", roadList);
+//			model.addAttribute("pagination", pagination);
+//			model.addAttribute("txt_search", txt_search);
+//			model.addAttribute("class_category", class_category);
+//			model.addAttribute("searchOption", searchOption);
+//			
+//				
+//			if(class_category != null) {
+//				System.out.println("구현중");
+//			} else {
+//				model.addAttribute("mainList", mainStreamList);	
+//				model.addAttribute("roadList", biz.selectListPage(pageNum, pagination.getPageSize(), txt_search, searchOption));
+//			
+//			}
+//						
+//		return"RoadMap/RoadMapList";
+//	}
 	
 	//로드맵 쓰기 페이지1
 	@RequestMapping("/RoadMapWriteP1")
@@ -151,20 +152,21 @@ public class RoadMapController {
 	public String roadNclass(@RequestParam String[] class_num, @RequestParam String seq)  {
 		
 		System.out.println("roadNclass 입장:::::::");
-		System.out.println("class_num===="+class_num);
 		System.out.println("class_num.length"+class_num.length);
 		System.out.println("roadmap 번호"+seq);
 		
 		
 		for(String res : class_num) {
-			System.out.println("컨트롤러");
-			System.out.println(res);
+			System.out.println("들어온classNum"+res);
 		}
 		
 		
-		biz.insertroadNclass(class_num, seq);
+		int res = biz.insertroadNclass(class_num, seq);
 		
-		System.out.println("인서트 성공!");	
+		if(res>0) {
+			System.out.println("인서트 성공!");	
+		}
+		
 		
 		return"RoadMap/RoadMapList";
 	}
@@ -175,10 +177,8 @@ public class RoadMapController {
 		
 		List<MainStreamDto> mainStreamList = biz.mainStreamList();		
 		List<SubStreamDto> subStreamList = biz.subStreamList();	
-		
-		System.out.println(subStreamList.size());
-		System.out.println(mainStreamList.size());
-		
+
+		//부모창으로 값 전달을 위해 부모창 번호와 같이 넘어옴(클릭한 버튼의 id값)
 		model.addAttribute("btnIdVal", btnIdVal);
 		model.addAttribute("mainList", mainStreamList);
 		model.addAttribute("subList", subStreamList);
@@ -207,39 +207,122 @@ public class RoadMapController {
 		return"RoadMap/SearchForm";
 	}
 	
-	//로드맵 보기
-	
+	//로드맵 보기	
 	@RequestMapping("/roadMapDetail")
 	public String roadMapDetail(@RequestParam String roadNum, Model model, ServletRequest request ) {
 		System.out.println("로드맵번호 번호: "+ roadNum );
 		//로드맵 번호로 로드맵 인포를 받아옴	
-		RoadUserCombineDto dto = biz.roadMapComSelectOne(roadNum);
+		RoadUserCombineDto dto = biz.roadMapComSelectOne(roadNum);		
 		
-		//roandmap_con에서 roadmap_num으로 classnum List 받아옴
+		//roandmap_con에서 roadmap_num으로 classnum List 받아옴 
 		List<Integer> classNumList = biz.RoadMapConList(roadNum);
 		System.out.println("classNumList+++"+classNumList);
 		
 		//class_Num으로 class_infoList받아옴
 		List<ClassInfoDto> resList = biz.RoadClassInfoList(classNumList);
-		System.out.println(resList.size()+"+++++++++++++++++++++");
+		System.out.println("classInfoSize+++"+resList.size());
 		
 		//현재 주소 받기
 		HttpServletRequest req = (HttpServletRequest)request;
 		String Http =StringUtils.defaultString(req.getScheme());
 		int serverPort = req.getServerPort();
 		String serverName = StringUtils.defaultString(req.getServerName());
-		String url = StringUtils.defaultString(req.getRequestURI().toString()); //전체
-		String queryString = StringUtils.defaultString(req.getQueryString());   //?id=admin
+		String url = StringUtils.defaultString(req.getRequestURI().toString()); 
+		String queryString = StringUtils.defaultString(req.getQueryString());   
 		
 		String URL = Http+"://"+serverName+":"+serverPort+url+"?"+queryString;
-		System.out.println(URL);
+		System.out.println("로드맵페이지URL"+URL);			
 
+		SecurityContext securityContext = SecurityContextHolder.getContext();
 		
+		//로그인 구독 여부,장바구니여부 
+		//1.로드맵 구독여부 판별(기본값 false)
+		boolean roadChk = false;
 		
+	
+		//2.장바구니
+		//===> 1)outerJoin으로 basket과 subscribe의 리스트값을 받아오기
+		//     2)classNum에서 위의 값 제거
+		//     3)남은 번호의 classInfo 받아와서 넘기기
+		List<ClassInfoDto> basketList = new ArrayList<ClassInfoDto>();
+				
+		if(securityContext.getAuthentication().getPrincipal() == "anonymousUser") { //로그인 안된 유저라면
+			System.out.println("로그인안된유저");
+			System.out.println(securityContext);
+			System.out.println("로그인 안된 유저입니다 flase인가요?"+roadChk);
+			
+		}else {//로그인 된 유저라면 
+			System.out.println("로그인된유저");
+			UserInfoDto userdto = (UserInfoDto) securityContext.getAuthentication().getPrincipal();
+			int userNum = userdto.getUser_num();
+			//1.로드맵 구독여부 판별	
+			int res = biz.roadJoinChk(roadNum, String.valueOf(userNum));
+			if(res>0) {
+				roadChk = true;
+				System.out.println("구독유저입니다true인가요?"+roadChk);
+				
+				//1.user_num으로 subscribe의 class_num과 basket의 class_num을 가져옴->outerJoin사용
+				List<Integer> SubBaList = new ArrayList<Integer>();
+				SubBaList = biz.SubBaList(String.valueOf(userNum));
+				System.out.println("SubBaList==="+SubBaList);
+											
+				//2.classNumlist에서 subBaList와 겹치는 부분을 삭제
+				classNumList.removeAll(SubBaList);
+				System.out.println("겹치는 부분 삭제하고 남은 classNumList==="+classNumList);
+				
+				//3.classNumList에   subBaList값을 제거하고도 남은 classNum이 있다면 그것의 정보를 가져온다				
+				if(classNumList.size()>0) {
+					basketList = biz.RoadClassInfoList(classNumList);
+					System.out.println("basketList의 사이즈: "+basketList.size());
+					
+					//4.가격이0원이면 제외한다
+					for(Iterator<ClassInfoDto> it = basketList.iterator(); it.hasNext(); ) {
+						ClassInfoDto test = it.next();
+						if(test.getClass_price()==0) {
+							it.remove();
+						}
+					}
+
+				}
+				
+			}else {
+
+				System.out.println("구독하지않은 유저입니다 false인가요?"+roadChk);
+			}
+		}
+		
+		System.out.println("최종확인 roadChk==="+roadChk);
+		System.out.println("최종확인 basketList==="+basketList);
+		model.addAttribute("basketList", basketList); //장바구니 리스트
+		model.addAttribute("roadChk", roadChk); //로드맵 구독 여부
 		model.addAttribute("URL", URL); //현재 주소
 		model.addAttribute("resList", resList);//classInfo
 		model.addAttribute("roadMap", dto); //roadMapInfo
 		return"RoadMap/RoadMapDetail";
+	}
+	
+
+	@RequestMapping("/roadJoinChk")
+	@ResponseBody
+	public Map<String,Boolean> roadJoinChk(@RequestParam String roadnum, @RequestParam String usernum) {
+		System.out.println("roadJoinChk+++");
+			
+		boolean roadChk = false;
+		Map<String, Boolean> map = new HashMap<String,Boolean>();
+				
+		int res = biz.roadJoinChk(roadnum, usernum);
+		System.out.println("res는!!!"+res);
+		
+		if(res>0) {
+			roadChk = true;
+			map.put("roadChk", roadChk);
+		}else {
+			roadChk = false;
+			map.put("roadChk", roadChk);
+		}
+		
+		System.out.println(roadChk);
+		return map;
 	}
 	
 	//로드맵 구독
@@ -247,6 +330,8 @@ public class RoadMapController {
 	@RequestMapping("/roadMapJoin")	
 	@ResponseBody
 	public Map<String, Boolean> roadMapJoin(@RequestParam String roadnum, @RequestParam String usernum) {
+		
+	System.out.println("로드맵 구독 들어옴");
 		
 	boolean res = false;
 	
@@ -273,31 +358,7 @@ public class RoadMapController {
 		return map;
 	}
 	
-	@PreAuthorize("isAuthenticated()")
-	@RequestMapping("/roadJoinChk")
-	@ResponseBody
-	public Map<String,Boolean> roadJoinChk(@RequestParam String roadnum, @RequestParam String usernum) {
-		System.out.println("roadJoinChk+++");
-		System.out.println(roadnum);
-		System.out.println(usernum);
-		
-		boolean roadChk = false;
-		Map<String, Boolean> map = new HashMap<String,Boolean>();
-				
-		int res = biz.roadJoinChk(roadnum, usernum);
-		System.out.println("res는!!!"+res);
-		
-		if(res>0) {
-			roadChk = true;
-			map.put("roadChk", roadChk);
-		}else {
-			roadChk = false;
-			map.put("roadChk", roadChk);
-		}
-		
-		System.out.println(roadChk);
-		return map;
-	}
+
 	@RequestMapping("/roadUnsubscribe")
 	@ResponseBody
 	public Map<String, Boolean> roadUnsubscribe(@RequestParam String roadnum, @RequestParam String usernum){
@@ -322,6 +383,45 @@ public class RoadMapController {
 		System.out.println("+++++"+res);
 		return map;
 	}
+	//카카오링크 콜백== 더해야함 //공인IP만 지원 ! 콜백 포기!!
+	@RequestMapping("/link/callback")
+	public Boolean kakaocallBack(@RequestParam String key) {
+		
+		System.out.println("콜백 들어옴!!");		
+
+		return null;
+	}
 	
+	//로드맵 구독할 때 로그인 안한사용자 로그인시키고 roadmapDetail로 리다이렉트시킴
+	@PreAuthorize("isAuthenticated()")
+	@RequestMapping("/beforeRoadSub")
+	public String beforRoadSub(@RequestParam String roadnum,RedirectAttributes redirectAttributes) {	
+				
+		redirectAttributes.addAttribute("roadNum", roadnum);
+		return"redirect:roadMapDetail";
+	}
+	
+	//로드맵에서 장바구니 넣기
+	@RequestMapping("/AddToCart")
+	@ResponseBody
+	public Map<String, Boolean>  AddToCart(@RequestParam(value="array[]")List<String> cartArray, @RequestParam String usernum ) {
+		System.out.println("장바구니 들어온 class_num=="+cartArray);
+		System.out.println("장바구니 들어온 user_num=="+usernum);
+		
+		Map<String,Boolean> map = new HashMap<String,Boolean>();
+		boolean cartRes = false;
+		
+		int res = biz.AddToCart(cartArray, usernum);
+		if(res>0) {
+			System.out.println("장바구니에 잘 들어감");
+			cartRes= true;
+			map.put("cartRes", cartRes);
+		}else {
+			System.out.println("장바구니에 안들어감");
+			map.put("cartRes", cartRes);
+		}		
+		
+		return map;
+	}
 
 }

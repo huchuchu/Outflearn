@@ -142,5 +142,21 @@ SELECT R.ROADMAP_NUM, R.USER_NUM, R.ROADMAP_TITLE, R.ROADMAP_CONTENT, R.ROADMAP_
 		WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} +
 		#{recordCountPerPage}
 	</select>
+	
+<select id="SubBaList" parameterType="String" resultType="java.lang.Integer">
+
+SELECT * FROM 
+(SELECT CLASS_NUM FROM SUBSCRIBE WHERE USER_NUM = #{userNum})a FULL OUTER JOIN
+(SELECT CLASS_NUM FROM BASKET WHERE USER_NUM=#{userNum})b USING(CLASS_NUM)
+
+</select>	
+
+
+<insert id="AddToCart" parameterType="map">
+<foreach collection="cartArray" item="item" open="INSERT ALL" separator=" " close="SELECT*FROM DUAL" >
+INTO BASKET
+VALUES(#{userNum},#{item})
+</foreach>
+</insert>
 
 </mapper>

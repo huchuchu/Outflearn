@@ -68,6 +68,9 @@ public class UserAuthController {
 		System.out.println("auth test 1 : " + auth);
 		System.out.println("아이디: "+auth.getName());
 		System.out.println("등급: "+auth.getAuthorities());
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		
+		System.out.println(securityContext);
 		
 		
 		System.out.println("========================================");
@@ -77,6 +80,9 @@ public class UserAuthController {
 		System.out.println(email);
 		System.out.println(dto.getAuthorities());
 		
+		System.out.println(dto.isEnabled()+"=============================================");
+		
+		System.out.println("비번"+dto.getPassword());		
 
 		return "test01";
 	}

@@ -54,4 +54,8 @@ public interface RoadMapBiz {
 	
 	public int selectTotalCountRoadMap(String txt_search, String searchOption);
 
+	public List<Integer> SubBaList(String userNum);
+	
+	public int AddToCart(List<String>cartArray, String userNum);
+
 }

@@ -21,7 +21,7 @@
 	<http auto-config="true" use-expressions="true" >
 		<intercept-url pattern="/loginform" access="isAnonymous()"/>
 <!-- 		<intercept-url pattern="/sulkiki" access="isAuthenticated()"/> -->
-<!-- 		<intercept-url pattern="/roadMapJoin" access="isAuthenticated()"/> -->
+		<intercept-url pattern="/roadMapJoin" access="isAuthenticated()"/>
 		<intercept-url pattern="/tutor/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_TUTOR')"/>
 		<intercept-url pattern="/user/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_TUTOR', 'ROLE_USER')"/>
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>

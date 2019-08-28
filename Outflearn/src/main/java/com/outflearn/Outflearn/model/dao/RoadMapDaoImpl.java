@@ -1,10 +1,11 @@
 package com.outflearn.Outflearn.model.dao;
 
 import java.util.ArrayList;
-
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -58,7 +59,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 	@Override
 	public int insertroadNclass(String[] class_num, String seq) {
 
-		System.out.println("insert roadNClassDao입장::::::::");
+		System.out.println("insert roadNClassDao입장:::");
 
 		for (String res : class_num) {
 			System.out.println(res);
@@ -337,7 +338,40 @@ public class RoadMapDaoImpl implements RoadMapDao {
 			e.printStackTrace();
 		}
 		
+		
+		
 		return dto;
+	}
+
+	@Override
+	public List<Integer> SubBaList(String userNum) {
+		
+		List<Integer> list = new ArrayList<Integer>();
+		
+		try {
+			list = session.selectList(NAMESPACE+"SubBaList", userNum);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int AddToCart(List<String> cartArray, String userNum) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userNum", userNum);
+		map.put("cartArray", cartArray);	
+		
+		int res = 0;
+		
+		try {
+			res = session.insert(NAMESPACE+"AddToCart", map);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}	
+		
+		return res;
 	}
 
 
