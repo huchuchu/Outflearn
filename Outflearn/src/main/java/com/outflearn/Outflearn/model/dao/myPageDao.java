@@ -29,6 +29,7 @@ public interface myPageDao {
 	
 	public int setLiveSchedule(Map<String, String> map);
 	public List<ClassInfoDto> myClass(int user_num);
+	public int deleteClass(String class_num);
 	
 //관리자
 	

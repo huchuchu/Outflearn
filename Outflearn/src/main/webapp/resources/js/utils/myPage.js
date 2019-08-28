@@ -136,6 +136,53 @@ function handleError() {
         })
 }
 
+function handleCriticalError() {
+    Swal.fire({
+        type: 'error',
+        title: '심각한 오류 발생!',
+        text: '관리자에게 문의 주세요.'
+    })
+}
+
+function deleteClass(class_num, class_title) {
+    Swal.fire({
+        type: 'warning',
+        title: `${class_title}을 정말 삭제하시겠습니까?`,
+        text: '복구는 불가능합니다.',
+        confirmButtonText: '삭제',
+        showCancelButton: true,
+        showCloseButton: true
+    })
+        .then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: `deleteClass?class_num=${class_num}`,
+                    success: function (bool) {
+                        if (bool) {
+                            Swal.fire({
+                                type: 'success',
+                                title: '정상 처리 되셨습니다.'
+                            })
+                                .then((result) => {
+                                    location.reload()
+                                })
+                        } else {
+                            Swal.fire({
+                                type: 'error',
+                                title: '처리 중에 오류가 발생했습니다.',
+                                text: '다시 한번 시도해주세요.',
+                                footer: '혹은 관리자에게 문의 바랍니다.'
+                            })
+                        }
+                    },
+                    error: function (err) {
+                        handleCriticalError()
+                    }
+                })
+            }
+        })
+}
+
 
 $(function () {
     $('.configLiveRoom').on('click', function () {

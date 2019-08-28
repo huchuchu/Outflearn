@@ -72,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                     <p>강좌소개 : ${data.class_intro}</p>
                                     <p>가격 : ${data.class_price}</p>
                                     <button onclick="inBasket(${data.class_num},'${data.class_title}')">장바구니</button>
-                                    <button onclick="buyClass(${data.class_title},${data.class_price},${data.class_num})">구매하기</button>
                                     `
                                 })
                             } else {
@@ -122,19 +121,6 @@ function inBasket(class_num, class_title) {
                     footer: '혹은 관리자에게 문의바랍니다.'
                 })
             }
-        },
-        error: function (err) {
-            handleCriticalError()
-        }
-    })
-}
-
-function buyClass(class_title, class_price, class_num) {
-    $.ajax({
-        url: `oauth?class_title=${class_title}&class_price=${class_price}&class_num=${class_num}`,
-        method: 'post',
-        success: function (data) {
-
         },
         error: function (err) {
             handleCriticalError()

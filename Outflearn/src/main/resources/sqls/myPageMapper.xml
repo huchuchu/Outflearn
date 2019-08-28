@@ -82,4 +82,8 @@
 		<![CDATA[ SELECT * FROM CLASS_INFO WHERE USER_NUM = #{user_num} AND ROWNUM < 6 ORDER BY CLASS_NUM DESC ]]>
 	</select>
 	
+	<delete id="deleteClass" parameterType="String">
+		DELETE FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
+	</delete>
+	
 </mapper>

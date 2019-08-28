@@ -33,10 +33,9 @@ public class myPageController {
 		model.addAttribute("subClass", biz.getPreSubscribe(dto.getUser_num()));
 		model.addAttribute("subRoadmap", biz.getPreSubRoadmap(dto.getUser_num()));
 		model.addAttribute("preQA", biz.getPreQA(dto.getUser_num()));
-		model.addAttribute("myClass", biz.getPreMyClass(dto.getUser_num()));
 
 		if((auth.getAuthorities()+"").equals("[ROLE_TUTOR]")){
-			
+			model.addAttribute("myClass", biz.getPreMyClass(dto.getUser_num()));
 		}
 		
 		return "Member/myPage";
@@ -119,6 +118,16 @@ public class myPageController {
 		model.addAttribute("myClass", biz.myClass(userInfo.getUser_num()));
 		
 		return "Member/myClass";
+	}
+	
+	@RequestMapping("deleteClass")
+	@ResponseBody
+	public boolean deleteClass(String class_num) {
+		
+		int res = biz.deleteClass(class_num);
+		
+		if(res > 0) return true;
+		return false;
 	}
 	
 // 관리자	

@@ -102,15 +102,39 @@
               <div class="col-sm-12">
                 <div class="boardBox">
                   <h4 class="boxTitle">게시한 강좌</h4>
-                   <c:choose>
-                  	<c:when test="${empty myClass }">
-                  		<h5>수강중인 강좌가 없습니다...ㅠㅠ</h5>
-                  	</c:when>
-                  	<c:otherwise>
-                  		<c:forEach items="${myClass }" var="item">
-		                    <p>강좌명 : ${item.class_title}</p>
-		                </c:forEach>
-                  	</c:otherwise>
+                  <c:choose>
+                    <c:when test="${empty myClass }">
+                      <h5>게시한 강좌가 없습니다...ㅠㅠ</h5>
+                    </c:when>
+                    <c:otherwise>
+
+                      <table class="table table-hover table-condensed">
+                        <thead>
+                          <tr>
+                            <th style="width: 80%">강좌</th>
+                            <th style="width: 10%" class="text-center">구독</th>
+                            <th style="width: 10%" class="text-right">강좌 삭제</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <c:forEach items="${myClass }" var="item">
+                            <tr>
+                              <td>
+                                <div class="col-sm-2 hidden-xs">
+                                  <img src="${pageContext.request.contextPath }/resources/uploadImage/${item.class_img}"
+                                    class="img-responsive">
+                                </div>
+                                <div class="col-sm-10 text-right">
+                                  <h4>${item.class_title}</h4>
+                                </div>
+                              </td>
+                              <td class="text-center">${item.class_subcount}명</td>
+                              <td class="text-right"><button onclick="deleteClass(${item.class_num}, '${item.class_title }')">X</button></td>
+                            </tr>
+                          </c:forEach>
+                        </tbody>
+                      </table>
+                    </c:otherwise>
                   </c:choose>
                 </div>
               </div>

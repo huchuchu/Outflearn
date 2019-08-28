@@ -118,66 +118,66 @@
 										<c:otherwise>
 											<div>
 
-													<table id="cart" class="table table-hover table-condensed">
-														<thead>
-															<tr>
-																<th style="width: 50%">강좌</th>
-																<th style="width: 40%">가격</th>
-																<th style="width: 20%">총합</th>
-															</tr>
-														</thead>
+												<table id="cart" class="table table-hover table-condensed">
+													<thead>
+														<tr>
+															<th style="width: 50%">강좌</th>
+															<th style="width: 40%">가격</th>
+															<th style="width: 20%">총합</th>
+														</tr>
+													</thead>
 
-														<c:set var="sum" value="0" />
-														<c:forEach items="${classInfoUser }" var="dto">
-															<tbody>
-																<tr>
-																	<td data-th="Product">
-																		<div class="row">
-																			<div class="col-sm-2 hidden-xs">
-																				<img src="${pageContext.request.contextPath }/resources/uploadImage/${dto.class_img }"
-																					alt="..." class="img-responsive" />
-																			</div>
-																			<div class="col-sm-10">
-																				<h4 class="nomargin">${dto.class_title }
-																				</h4>
-																				<p>(수강기한:무제한)</p>
-																			</div>
-																		</div>
-																	</td>
-																	<td data-th="Price">₩${dto.class_price }</td>
-																	<td data-th="Price">₩${dto.class_price }</td>
-																	<td class="actions">
-																		<input type="hidden" name="class_num"
-																			value="${dto.class_num }" id="class_num">
-																		<input type="button" class="btn btn-info btn-sm"
-																			value="강의 삭제" onclick="BasketDeleteOne();">
-																	</td>
-																</tr>
-															</tbody>
-															<c:set var="sum" value="${sum + dto.class_price }" />
-														</c:forEach>
-														<tfoot>
+													<c:set var="sum" value="0" />
+													<c:forEach items="${classInfoUser }" var="dto">
+														<tbody>
 															<tr>
-																<td colspan="3" class="hidden-xs text-right"><strong>총합
-																		<fmt:formatNumber value="${sum}" />원</strong>
+																<td data-th="Product">
+																	<div class="row">
+																		<div class="col-sm-2 hidden-xs">
+																			<img src="${pageContext.request.contextPath }/resources/uploadImage/${dto.class_img }"
+																				alt="..." class="img-responsive" />
+																		</div>
+																		<div class="col-sm-10">
+																			<h4 class="nomargin">${dto.class_title }
+																			</h4>
+																			<p>(수강기한:무제한)</p>
+																		</div>
+																	</div>
 																</td>
-																<td>
-																	<form:form method="post" action="oauth">
-																		<c:forEach items="${classInfoUser }" var="dto">
-																			<input type="hidden" name="class_title"
-																				value="${dto.class_title }" />
-																			<input type="hidden" name="class_num"
-																				value="${dto.class_num }">
-																		</c:forEach>
-																		<input type="hidden" name="class_price"
-																			value="${sum}">
-																		<input type="submit" value="결제하기"
-																			class="btn btn-success btn-block">
-																	</form:form>
+																<td data-th="Price">₩${dto.class_price }</td>
+																<td data-th="Price">₩${dto.class_price }</td>
+																<td class="actions">
+																	<input type="hidden" name="class_num"
+																		value="${dto.class_num }" id="class_num">
+																	<input type="button" class="btn btn-info btn-sm"
+																		value="강의 삭제" onclick="BasketDeleteOne();">
 																</td>
 															</tr>
-														</tfoot>
-													</table>
+														</tbody>
+														<c:set var="sum" value="${sum + dto.class_price }" />
+													</c:forEach>
+													<tfoot>
+														<tr>
+															<td colspan="3" class="hidden-xs text-right"><strong>총합
+																	<fmt:formatNumber value="${sum}" />원</strong>
+															</td>
+															<td>
+																<form:form method="post" action="oauth">
+																	<c:forEach items="${classInfoUser }" var="dto">
+																		<input type="hidden" name="class_title"
+																			value="${dto.class_title }" />
+																		<input type="hidden" name="class_num"
+																			value="${dto.class_num }">
+																	</c:forEach>
+																	<input type="hidden" name="class_price"
+																		value="${sum}">
+																	<input type="submit" value="결제하기"
+																		class="btn btn-success btn-block">
+																</form:form>
+															</td>
+														</tr>
+													</tfoot>
+												</table>
 
 											</div>
 										</c:otherwise>

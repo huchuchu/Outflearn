@@ -99,6 +99,11 @@ public class myPageBizImpl implements myPageBiz {
 		return dao.myClass(user_num);
 	}
 	
+	@Override
+	public int deleteClass(String class_num) {
+		return dao.deleteClass(class_num);
+	}
+	
 //관리자	
 
 	@Override

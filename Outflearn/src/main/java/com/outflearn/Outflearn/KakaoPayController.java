@@ -49,7 +49,7 @@ public class KakaoPayController {
 		return "redirect:"+kakaopay.kakaoPayReady(class_title, class_price);
 	}
 	
-	@RequestMapping(value="Utils/kakaoPaySuccess")
+	@RequestMapping(value="kakaoPaySuccess")
 	public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, Authentication auth) {
 		logger.info("kakaoPaySuccess get");
 		logger.info("kakaoPaySuccess pg_token : " + pg_token);
@@ -62,6 +62,6 @@ public class KakaoPayController {
 		// 장바구니 삭제
 		biz.classBasketDelete(user_num);
 		
-		model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
 	}
+	
 }

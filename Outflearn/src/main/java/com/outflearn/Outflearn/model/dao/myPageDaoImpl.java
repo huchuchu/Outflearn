@@ -80,6 +80,11 @@ public class myPageDaoImpl implements myPageDao {
 		return sqlSession.selectList(namespace + "myClass", user_num);
 	}
 	
+	@Override
+	public int deleteClass(String class_num) {
+		return sqlSession.delete(namespace + "deleteClass", class_num);
+	}
+	
 //관리자	
 
 	@Override
