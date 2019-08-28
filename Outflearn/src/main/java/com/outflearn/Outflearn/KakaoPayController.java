@@ -1,6 +1,5 @@
 package com.outflearn.Outflearn;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,18 +33,8 @@ public class KakaoPayController {
 	
 	
 	@RequestMapping(value="oauth", method=RequestMethod.POST)
-	public String kakaoPay(String class_title, int class_price, Authentication auth, int [] class_num) {
-		// 회원
-		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
-		int user_num = uDto.getUser_num();
-		System.out.println(class_num.length + "111111111111");
+	public String kakaoPay(String class_title, int class_price) {
 		
-	
-		for(int i = 0; i < class_num.length;  i++) {
-		// 구독 테이블 입력
-		biz.classInsertSubscribe(user_num, class_num[i]);
-		biz.ClassInfoUpdateSub(class_num[i]);
-		}
 		return "redirect:"+kakaopay.kakaoPayReady(class_title, class_price);
 	}
 	

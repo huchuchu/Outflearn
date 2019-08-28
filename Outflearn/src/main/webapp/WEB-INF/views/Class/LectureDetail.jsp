@@ -283,25 +283,7 @@
 	</div>
 	
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
-	<script type="text/javascript">
-	var class_num = $("#class_num").val();
-	
-	function classinsert(){
-		$.ajax({
-			url : 'basket?class_num=' + class_num,
-			method : 'get',
-			success:function(data){
-				$("#InsertBefore").hide();
-		        $("#InsertAfter").show();
-			
-			},
-			error:function(){
-				alert('에러 발생~~ \n')
-			}
-		})
-	}
-	</script>
-	
+
 
 	<script type="text/javascript" src="resources/js/ClassReview.js"></script>
 	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>

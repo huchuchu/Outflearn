@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
@@ -27,10 +26,12 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script type="text/javascript">
 
-		function PageMove(page, data) {
-			location.href = "LectureList?page=" + page + "&txt_search=" + $('input#txt_search').val() + "&searchOption=" + $('#searchOption').val();
-		}
-
+			function PageMove(page, data) {	
+				location.href = "LectureList?page=" + page + 
+								"&txt_search=" + $('input#txt_search').val() + 
+								"&searchOption=" + $('#searchOption').val() +
+								"&sub_num=" + data;
+			} 
 	</script>
 
 
@@ -39,7 +40,7 @@
 <body>
 
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
-
+	
 	<div class="container">
 		<div class="row">
 			<aside class="col-sm-2">
@@ -56,8 +57,10 @@
 									<li>
 										<c:forEach items="${subList }" var="subDto">
 											<c:if test="${mainDto.main_num eq subDto.main_num }">
-									<li><a href="SubCategory?sub_num=${subDto.sub_num}"
+									<li><a href="SubCategory?txt_search=${txt_search }&searchOption=all&sub_num=${subDto.sub_num}"
 											class="nav-link active sub_category">${subDto.sub_name}</a></li>
+										<input type="hidden" class="nav-link active sub_category" name="sub_category" id="sub_category"
+										value="${subDto.sub_num }" >
 									</c:if>
 						</c:forEach>
 						</li>
@@ -113,11 +116,12 @@
 						</div>
 						<div class="w300" style="padding-right:10px">
 							<input type="text" class="form-control form-control-sm" name="txt_search" id="txt_search"
-								value="${txt_search }" placeholder="검색하기">
+								 placeholder="검색하기" value="${txt_search }">
+							<input type="hidden" id="txt_search" value="${txt_search }">
 						</div>
 						<div>
 							<button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch"
-								onclick="javascript:PageMove(${pagination.pageNo});">검색</button>
+								onclick="javascript:PageMove(${pagination.pageNo}, '${sub_num }');">검색</button>
 						</div>
 					</div>
 					<p class="input-group col-sm-4 pull-right"></p>
@@ -171,28 +175,26 @@
 		</div>
 	</div>
 	<!-- Pagination -->
+	
 	<div class="text-center form-group form-inline">
-		<a href="javascript:PageMove(${pagination.firstPageNo})" class="button previous">&laquo;</a> <a
-			href="javascript:PageMove(${pagination.prevPageNo})" class="button previous">&lt;</a>
+		<a href="javascript:PageMove(${pagination.firstPageNo},'${sub_num }')" class="button previous">&laquo;</a> <a
+			href="javascript:PageMove(${pagination.prevPageNo},'${sub_num }')" class="button previous">&lt;</a>
 		<div class="pages">
 			<c:forEach var="i" begin="${pagination.startPageNo}" end="${pagination.endPageNo}" step="1">
 				<c:choose>
 					<c:when test="${i eq pagination.pageNo}">
-						<a href="javascript:PageMove(${i})" class="active">${i}</a>
+						<a href="javascript:PageMove(${i},'${sub_num }')" class="active">${i}</a>
 					</c:when>
 					<c:otherwise>
-						<a href="javascript:PageMove(${i})">${i}</a>
+						<a href="javascript:PageMove(${i},'${sub_num }')">${i}</a>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 		</div>
-		<a href="javascript:PageMove(${pagination.nextPageNo})" class="button_next">&gt;</a> <a
-			href="javascript:PageMove(${pagination.finalPageNo})" class="button_next">&raquo;</a>
+		<a href="javascript:PageMove(${pagination.nextPageNo},'${sub_num }')" class="button_next">&gt;</a> <a
+			href="javascript:PageMove(${pagination.finalPageNo},'${sub_num }')" class="button_next">&raquo;</a>
 	</div>
-	<a href="javascript:PageMove(${pagination.nextPageNo})" class="button_next">&gt;</a> <a
-		href="javascript:PageMove(${pagination.finalPageNo})" class="button_next">&raquo;</a>
-	</div>
-	<!-- ==================== FOOTER ==================== -->
+		<!-- ==================== FOOTER ==================== -->
 
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 

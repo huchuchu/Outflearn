@@ -148,6 +148,12 @@ public class RoadMapBizImpl implements RoadMapBiz {
 	}
 
 
+	@Override
+	public List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption) {
+		// TODO Auto-generated method stub
+		return dao.roadMapComList(firstIndex, recordCountPerPage, txt_search, searchOption);
+	}
 
 
 
