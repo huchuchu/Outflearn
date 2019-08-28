@@ -145,7 +145,7 @@
 							<c:when test="${empty classinfo }">
 								<h3>강좌 정보가 없습니다...!!</h3>
 								<sec:authorize access="hasRole('ROLE_TUTOR')">
-									<input type="button" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" />
+									<input type="button" class="btn btn-primary" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" />
 								</sec:authorize>
 							</c:when>
 							<c:otherwise>
@@ -165,7 +165,7 @@
 									</div>
 								</c:forEach>
 								<sec:authorize access="hasRole('ROLE_TUTOR')">
-									<input type="button" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" />
+									<input type="button" class="btn btn-primary" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" />
 								</sec:authorize>
 							</c:otherwise>
 						</c:choose>

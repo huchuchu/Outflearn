@@ -252,9 +252,17 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return dao.QAReplyUpdate(dto);
 	}
 
+	// 구독
 	@Override
 	public List<ClassInfoDto> SubCountSelectList() {
 		return dao.SubCountSelectList();
+	}
+	
+	// 결제 후 강의 장바구니 삭제
+	@Override
+	public int ClassBuyAfter(int class_num, int user_num) {
+	
+		return dao.ClassBuyAfter(class_num, user_num);
 	}
 
 	@Override
@@ -291,5 +299,10 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	@Override
 	public List<QADto> QAList(int class_num) {
 		return dao.QAList(class_num);
+	}
+
+	@Override
+	public int classInsertSubscribe(int user_num, int class_num) {
+		return dao.classInsertSubscribe(user_num, class_num);
 	}
 }

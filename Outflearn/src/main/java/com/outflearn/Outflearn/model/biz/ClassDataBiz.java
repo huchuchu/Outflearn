@@ -85,4 +85,8 @@ public interface ClassDataBiz {
 		// LectureDetail Dashboard 리스트
 		public List<ClassReviewDto> ReviewList(int class_num);
 		public List<QADto> QAList(int class_num);
+		// 구독
+		public int classInsertSubscribe(int user_num, int class_num);
+		// 결제 후 강의 장바구니 삭제
+		public int ClassBuyAfter(int class_num, int user_num);
 }

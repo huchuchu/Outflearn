@@ -37,8 +37,7 @@
 
 	<!-- 부류 강의 소개 -->
 	<select id="ClassSubName" resultType="ClassInfoDto">
-		SELECT * FROM CLASS_INFO WHERE CLASS_NUM = (SELECT CLASS_NUM FROM
-		CLASS_CATEGORY WHERE SUB_NUM = #{sub_num })
+	SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN (SELECT CLASS_NUM FROM CLASS_CATEGORY WHERE SUB_NUM= #{sub_num })
 	</select>
 
 	<!-- ================== CLASS_DATA 테이블 ================== -->
@@ -410,11 +409,20 @@
 			SELECT * FROM CLASS_REVIEW WHERE CLASS_NUM = #{class_num} AND ROWNUM <= 5 ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
 		]]>
 	</select>
+
+	<!-- ================== 장바구니 구매 유무 ================== -->
+	<select id="ClassBuyAfter" parameterType="hashmap" resultType="Integer">
+	SELECT COUNT(*) FROM SUBSCRIBE WHERE CLASS_NUM = #{class_num } AND USER_NUM = #{user_num }
+	</select>
 	
 	<select id="QAList" resultType="QADto" parameterType="int">
 		<![CDATA[
 			SELECT * FROM QA WHERE CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1 AND ROWNUM <= 5 ORDER BY QA_GROUP_SQ DESC
 		]]>
 	</select>
+	
+	<insert id="classInsertSubscribe" parameterType="hashmap">
+      INSERT INTO SUBSCRIBE VALUES(#{user_num }, #{class_num })
+	</insert>
 
 </mapper>
