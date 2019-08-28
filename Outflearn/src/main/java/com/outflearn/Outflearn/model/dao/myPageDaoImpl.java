@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
+import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.UserInfoDto;
 
 @Repository
@@ -83,6 +84,16 @@ public class myPageDaoImpl implements myPageDao {
 	@Override
 	public int deleteClass(String class_num) {
 		return sqlSession.delete(namespace + "deleteClass", class_num);
+	}
+	
+	@Override
+	public List<RoadMapInfoDto> myRoadmap(int user_num) {
+		return sqlSession.selectList(namespace + "myRoadmap", user_num);
+	}
+	
+	@Override
+	public int deleteRoadmap(String roadmap_num) {
+		return sqlSession.delete(namespace + "deleteRoadmap", roadmap_num);
 	}
 	
 //관리자	

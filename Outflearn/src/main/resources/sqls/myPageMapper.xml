@@ -86,4 +86,12 @@
 		DELETE FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
 	</delete>
 	
+	<select id="myRoadmap" parameterType="int" resultType="RoadMapDto">
+		SELECT * FROM ROADMAP_INFO WHERE USER_NUM = #{user_num}
+	</select>
+	
+	<delete id="deleteRoadmap" parameterType="String">
+		DELETE FROM ROADMAP_INFO WHERE ROADMAP_NUM = #{roadmap_num}
+	</delete>
+	
 </mapper>

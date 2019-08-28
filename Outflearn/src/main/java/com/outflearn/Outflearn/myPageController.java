@@ -130,6 +130,25 @@ public class myPageController {
 		return false;
 	}
 	
+	@RequestMapping("myRoadmap")
+	public String myRoadmap(Authentication auth, Model model) {
+		
+		UserInfoDto userInfo = (UserInfoDto) auth.getPrincipal();
+		model.addAttribute("myRoadmap", biz.myRoadmap(userInfo.getUser_num()));
+		
+		return "Member/myRoadmap";
+	}
+	
+	@RequestMapping("deleteRoadmap")
+	@ResponseBody
+	public boolean deleteRoadmap(String roadmap_num) {
+		
+		int res = biz.deleteRoadmap(roadmap_num);
+		
+		if(res > 0) return true;
+		return false;
+	}
+	
 // 관리자	
 	
 	@RequestMapping("adminPage")
