@@ -159,7 +159,13 @@ public class HomeController {
 		// 질문 리스트
 		model.addAttribute("classQuestion", biz.QASelectList(class_num));
 		System.out.println(biz.QASelectList(class_num) + " : 질문들");
-
+		
+		// 대쉬보드 질문 리스트
+		model.addAttribute("ReviewList", biz.ReviewList(class_num));
+		
+		// 대쉬보드 리뷰 리스트
+		model.addAttribute("QAList", biz.QAList(class_num));
+		
 		return "Class/LectureDetail";
 	}
 
@@ -455,12 +461,11 @@ public class HomeController {
 
 		int size = 0;
 
-		for (ClassDataDto temp : data_dto) {
-
+		for(ClassDataDto temp : data_dto){
 			array[size++] = temp.getData_data();
-			System.out.println(temp.getData_data() + " : controller");
-
 		}
+		
+		System.out.println(array[0]);
 
 		return array;
 	}

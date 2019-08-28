@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,18 +34,17 @@
 		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
+				<button type="button" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle collapsed bs-btn">
+					<span class="sr-only">Toggle navigation</span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand page-scroll" href="home" style="color: #6372ff">OUTFLEARN</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1">
+			<div class="collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-center">
 					<li class="dropdown"><a href="void:0" class="dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">분야별
@@ -90,14 +90,15 @@
 					<li><a href="void:0">라이브</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"><i class="far fa-user">&nbsp;문희수</i>
-							<div class="dropdown-menu" role="menu"
-								aria-expanded="navbarDropdown">
-								<a href="void:0">로그아웃</a>
-							</div> </a></li>
-					<li><a href="void:0">로그인</a></li>
-					<li><a href="void:0">회원가입</a></li>
+					<sec:authorize access="isAnonymous()">
+          				<li><a href="/Outflearn/loginform">로그인</a></li>
+          				<li><a href="/Outflearn/registerform.do">회원가입</a></li>
+          			</sec:authorize>
+          			<sec:authorize access="isAuthenticated()">
+            			<li><a href="/Outflearn/myPage">마이페이지</a></li>
+            			<li><a href="/Outflearn/MemberInfoUpdateForm.do">회원정보 수정</a></li>
+          			<li><a href="/Outflearn/logout">로그아웃</a></li>  
+          			</sec:authorize>
 				</ul>
 			</div>
 		</div>

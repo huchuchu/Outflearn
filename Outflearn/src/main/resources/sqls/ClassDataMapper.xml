@@ -115,15 +115,12 @@
 		DELETE FROM
 		CLASS_REVIEW WHERE REVIEW_NUM = #{review_num }
 	</delete>
-
-	<insert id="classReviewInsertAnswer"
-		parameterType="classReviewDto">
-		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM.NEXTVAL,
-		#{class_num}, #{user_num}, #{review_content}, #{user_star},
-		(SELECT
-		REVIEW_GROUPNO FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}),
-		(SELECT REVIEW_GROUPSQ FROM CLASS_REVIEW WHERE REVIEW_NUM =
-		#{review_num}) + 1, 0)
+	
+	<insert id="classReviewInsertAnswer" parameterType="classReviewDto">
+		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star},
+										(SELECT REVIEW_GROUPNO FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}),
+										(SELECT REVIEW_GROUPSQ FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1, 
+										(SELECT REVIEW_TITLETAB FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1) 
 	</insert>
 
 	<update id="classReviewUpdateAnswer" parameterType="int">
@@ -405,6 +402,18 @@
 	<select id="PopularSelectList" resultType="ClassInfoDto">
 		<![CDATA[
 			SELECT * FROM (SELECT * FROM CLASS_INFO ORDER BY CLASS_RATING DESC) WHERE ROWNUM <= 6
+		]]>
+	</select>
+	
+	<select id="ReviewList" resultType="classReviewDto" parameterType="int">
+		<![CDATA[
+			SELECT * FROM CLASS_REVIEW WHERE CLASS_NUM = #{class_num} AND ROWNUM <= 5 ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
+		]]>
+	</select>
+	
+	<select id="QAList" resultType="QADto" parameterType="int">
+		<![CDATA[
+			SELECT * FROM QA WHERE CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1 AND ROWNUM <= 5 ORDER BY QA_GROUP_SQ DESC
 		]]>
 	</select>
 

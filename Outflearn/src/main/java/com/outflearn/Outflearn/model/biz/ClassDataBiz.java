@@ -81,4 +81,8 @@ public interface ClassDataBiz {
 		// 메인화면 리스트
 		public List<ClassInfoDto> SubCountSelectList();
 		public List<ClassInfoDto> PopularReviewSelectList();
+		
+		// LectureDetail Dashboard 리스트
+		public List<ClassReviewDto> ReviewList(int class_num);
+		public List<QADto> QAList(int class_num);
 }

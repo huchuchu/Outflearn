@@ -282,4 +282,14 @@ public class ClassDataBizImpl implements ClassDataBiz {
 			String searchOption, int sub_num) {
 		return dao.selectListPageStream(firstIndex, recordCountPerPage, txt_sesarch, searchOption, sub_num);
 	}
+	
+	@Override
+	public List<ClassReviewDto> ReviewList(int class_num) {
+		return dao.ReviewList(class_num);
+	}
+
+	@Override
+	public List<QADto> QAList(int class_num) {
+		return dao.QAList(class_num);
+	}
 }

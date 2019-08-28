@@ -141,7 +141,6 @@
 								</div>
 							</h2>
 						</span>
-
 						<c:choose>
 							<c:when test="${empty classinfo }">
 								<h3>강좌 정보가 없습니다...!!</h3>
