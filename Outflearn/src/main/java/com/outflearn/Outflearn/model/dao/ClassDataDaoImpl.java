@@ -280,7 +280,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		map.put("firstIndex", String.valueOf(firstIndex));
 		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
 		map.put("txt_search", txt_search);
-//		map.put("searchOption", searchOption);
+
 		
 		List<ClassInfoDto> list = sqlSession.selectList(namespace + "selectListPage", map);
 		return list;
@@ -311,11 +311,57 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		map.put("searchOption", searchOption);
 		map.put("txt_search", txt_search);
 		res = sqlSession.selectOne(namespace + "selectTotalCountTwo", map);
-		System.out.println(txt_search+"다오임플");
+		System.out.println(txt_search+"다오임플투");
 		System.out.println(searchOption);
 		System.out.println(res);
 		return res;
 	}
+	
+	@Override
+	public List<ClassInfoDto> selectListPageStream(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption, int sub_num) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("firstIndex", String.valueOf(firstIndex));
+		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
+		if(txt_search.equals("") || txt_search == null) {
+			map.put("txt_search", null);
+		} else {
+			map.put("txt_search", txt_search);			
+		}
+		map.put("searchOption", searchOption);
+		
+		if(sub_num == 0) {
+			map.put("sub_num", String.valueOf(0));
+		}else {
+			map.put("sub_num", String.valueOf(sub_num));
+		}
+		List<ClassInfoDto> list = sqlSession.selectList(namespace + "selectListPageStream", map);
+		
+		return list;
+	}
+
+	@Override
+	public int selectTotalCountStream(String txt_search, String searchOption, int sub_num) {
+		
+		int res = 0;
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		if(txt_search.equals("") || txt_search == null) {
+			map.put("txt_search", null);
+		} else {
+			map.put("txt_search", txt_search);			
+		}
+				
+			map.put("sub_num", String.valueOf(sub_num));
+		
+		
+		res = sqlSession.selectOne(namespace + "selectTotalCountStream", map);
+		System.out.println("sub_num dao:"+sub_num);
+		System.out.println("다오임플카운트스트림");
+		System.out.println("dao res:"+res);
+		return res;
+	}
+
 	@Override
 	public int ClassReviewUpdateAnswer(int review_num) {
 
@@ -493,5 +539,6 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		
 		return res;
 	}
+
 
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.io.File;
 
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -44,9 +43,9 @@ public class HomeController {
 
 	@Autowired
 	public ClassDataBiz biz;
-	
+
 	@Inject
-	private RoadMapBiz Rbiz;	
+	private RoadMapBiz Rbiz;
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -54,7 +53,7 @@ public class HomeController {
 	public String home(Model model) {
 
 		model.addAttribute("SubCount", biz.SubCountSelectList());
-		
+
 		return "home";
 	}
 
@@ -62,19 +61,20 @@ public class HomeController {
 	public String tohome(Model model) {
 
 		model.addAttribute("SubCount", biz.SubCountSelectList());
-		
+
 		return "home";
 	}
 
-/*	ClassInfo
-
-	
-*/
+	/*
+	 * ClassInfo
+	 * 
+	 * 
+	 */
 //	장바구니 유저정보
 	@RequestMapping("basket")
 	public String basket(@ModelAttribute ClassInfoDto dto, Model model, int class_num, Authentication auth) {
 		logger.info("basket");
-		
+
 		// 닉네임
 		// 회원 정보
 		System.out.println(auth.getPrincipal());
@@ -82,116 +82,110 @@ public class HomeController {
 		String user_nickname = uDto.getUser_nickname();
 		int user_num = uDto.getUser_num();
 		model.addAttribute("user_nickname", user_nickname);
-		
+
 		// 강좌 소개
 		model.addAttribute("classinfo", biz.ClassInfoSelectOne(class_num));
 		System.out.println(biz.ClassInfoSelectOne(class_num));
 		// 댓글
 		model.addAttribute("classReview", biz.ClassReviewSelectList(class_num));
 		System.out.println(biz.ClassReviewSelectList(class_num));
-		
+
 		// 강의 소개
 		model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
 		System.out.println(biz.ClassIntroduceSelectList(class_num));
-		
+
 		// 질문 리스트
 		model.addAttribute("classQuestion", biz.QASelectList(class_num));
 		System.out.println(biz.QASelectList(class_num) + " : 질문들");
-		
+
 		dto.setUser_num(uDto.getUser_num());
 		model.addAttribute("classInfoUser", biz.classInfoSelectListUser(user_num));
-		
+
 		// 장바구니 담기
 		int res = biz.classBasketInsert(dto);
 		model.addAttribute("classNum", dto.getClass_num());
 		System.out.println("안녕");
-		
+
 		return "Class/LectureDetail";
-		
+
 	}
-	
+
 	@RequestMapping("basketSelect")
 	public String basketSelect(@ModelAttribute ClassInfoDto dto, Model model, Authentication auth) {
 		logger.info("basket");
-		
+
 		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
 		int user_num = uDto.getUser_num();
-		
+
 		dto.setUser_num(uDto.getUser_num());
 		model.addAttribute("classInfoUser", biz.classInfoSelectListUser(user_num));
-		
+
 		return "Class/ClassBasket";
 	}
-	
 
 //	장바구니 삭제
 	@ResponseBody
 	@RequestMapping("basketDelete")
-	public int basketDelete(@RequestParam(name="class_num") int class_num) {
-		logger.info("basketDelete");	
-		
-		
+	public int basketDelete(@RequestParam(name = "class_num") int class_num) {
+		logger.info("basketDelete");
+
 		return biz.classBasketDelete(class_num);
 	}
-	
+
+	/*
 	@RequestMapping("/LectureList")
-	public String LectureListPage(Model model, String txt_search, String page, String class_category, String searchOption) {
+	public String LectureListPage(Model model, String txt_search, String page, String class_category,
+			String searchOption) {
 		logger.info("txt서치전");
-		
-		//int totalCount = biz.selectTotalCount(txt_search);
+
+		// int totalCount = biz.selectTotalCount(txt_search);
 		int totalCount = biz.selectTotalCountTwo(txt_search, searchOption);
-		logger.info("텍스트서치:"+txt_search);
-		logger.info("서치옵션:"+searchOption);
-		logger.info(""+totalCount);
-		
-		int pageNum = (page==null)? 1:Integer.parseInt(page);
-		
+		logger.info("텍스트서치:" + txt_search);
+		logger.info("서치옵션:" + searchOption);
+		logger.info("" + totalCount);
+
+		int pageNum = (page == null) ? 1 : Integer.parseInt(page);
+
 		Pagination pagination = new Pagination();
-		
-		//get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
+
+		// get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
 		pagination.setPageNo(pageNum);
-		
-		//한 페이지에 나오는 게시물의 개수 
+
+		// 한 페이지에 나오는 게시물의 개수
 		pagination.setPageSize(9);
 		pagination.setTotalCount(totalCount);
-		
-		//select해오는 기준을 구함
-		pageNum = (pageNum -1) * pagination.getPageSize();
-		
-		//List<ClassInfoDto> list = biz.selectListPage(pageNum, pagination.getPageSize(), txt_search);
+
+		// select해오는 기준을 구함
+		pageNum = (pageNum - 1) * pagination.getPageSize();
+
+		// List<ClassInfoDto> list = biz.selectListPage(pageNum,
+		// pagination.getPageSize(), txt_search);
 		List<ClassInfoDto> list = biz.selectListPageTwo(pageNum, pagination.getPageSize(), txt_search, searchOption);
-		
+
 		model.addAttribute("classinfo", list);
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("txt_search", txt_search);
 		model.addAttribute("class_category", class_category);
 		model.addAttribute("searchOption", searchOption);
-		
-		// 부류, 주류
-	     List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();      
-	     List<SubStreamDto> subStreamList = Rbiz.subStreamList();   
-	      
-	      System.out.println(subStreamList.size());
-	      System.out.println(mainStreamList.size());
-	      
-	      model.addAttribute("mainList", mainStreamList);	
-	      model.addAttribute("subList", subStreamList);      
-	
-		if(class_category != null) {
-			model.addAttribute("classinfo", biz.CategorySelectList(class_category));
-			
-		} else {
-			//model.addAttribute("classinfo", biz.selectListPage(pageNum, pagination.getPageSize(), txt_search));
-			model.addAttribute("classinfo", biz.selectListPageTwo(pageNum, pagination.getPageSize(), txt_search, searchOption));
-		
-		}
-		
-		return "Class/LectureList";
-		
-	}
 
+		// 부류, 주류
+		List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
+		List<SubStreamDto> subStreamList = Rbiz.subStreamList();
+
+		System.out.println(subStreamList.size());
+		System.out.println(mainStreamList.size());
+
+		model.addAttribute("mainList", mainStreamList);
+		model.addAttribute("subList", subStreamList);
+
+
+		return "Class/LectureList";
+
+	}
+*/
 	@RequestMapping("/LectureDetail")
-	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session, Authentication auth) {
+	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session,
+			Authentication auth) {
 
 		logger.info("/LectureDetail");
 		session.setAttribute("info_num", class_num);
@@ -202,26 +196,24 @@ public class HomeController {
 		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
 		String user_nickname = uDto.getUser_nickname();
 		model.addAttribute("user_nickname", user_nickname);
-		
+
 		// 강좌 소개
 		model.addAttribute("classinfo", biz.ClassInfoSelectOne(class_num));
 		System.out.println(biz.ClassInfoSelectOne(class_num));
 		// 댓글
 		model.addAttribute("classReview", biz.ClassReviewSelectList(class_num));
 		System.out.println(biz.ClassReviewSelectList(class_num));
-		
+
 		// 강의 소개
 		model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
 		System.out.println(biz.ClassIntroduceSelectList(class_num));
-		
+
 		// 질문 리스트
 		model.addAttribute("classQuestion", biz.QASelectList(class_num));
 		System.out.println(biz.QASelectList(class_num) + " : 질문들");
-		
+
 		return "Class/LectureDetail";
 	}
-	
-	
 
 	@RequestMapping("DetailDashBoard")
 	@ResponseBody
@@ -230,14 +222,13 @@ public class HomeController {
 		int info_num = (int) session.getAttribute("info_num");
 
 		List<ClassDataDto> dto = biz.ClassDataSelectOne(info_num);
-		
 
 		String[] array = new String[dto.size()];
 
 		int size = 0;
 
-		for(ClassDataDto temp : dto){
-			
+		for (ClassDataDto temp : dto) {
+
 			array[size++] = temp.getData_data();
 			System.out.println(temp.getData_data() + " : controller");
 
@@ -248,7 +239,7 @@ public class HomeController {
 
 	@RequestMapping("Livepage")
 	public String Livepage() {
-		
+
 		return "Live/Livepage";
 	}
 
@@ -270,16 +261,14 @@ public class HomeController {
 //	ClassInfoInsertForm.jsp - > ClassIntroduceInsertForm.jsp  CLASS_DATA DB 저장
 	@RequestMapping("ClassIntroduceInsertForm")
 	public String ClassIntroduceInsertForm(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassInfoDto dto,
-			@RequestParam(name="main_num") int main_num, @RequestParam(name="sub_num") int sub_num ) {
+			@RequestParam(name = "main_num") int main_num, @RequestParam(name = "sub_num") int sub_num) {
 		logger.info("ClassIntroduceInsertForm");
 		System.out.println("아예안오니");
-		
+
 		System.out.println(main_num + "웅" + sub_num + "이다.");
-		
-	
-	
+
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
-	
+
 		String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
 		File dir = new File(path);
 		if (!dir.isDirectory()) {
@@ -315,25 +304,24 @@ public class HomeController {
 				e.printStackTrace();
 			}
 		}
-		
+
 		// 주류, 부류
-		
+
 		ClassCategoryDto cDto = new ClassCategoryDto();
 		int cRes = biz.ClassCategoryInsert(main_num, sub_num);
 		System.out.println(cRes);
 
 		return "Class/ClassIntroduceInsertForm";
 	}
-	
+
 	// 카테고리
 	@ResponseBody
 	@RequestMapping("ClassCategory")
 	public List<SubStreamDto> ClassCategory(@RequestParam("main_num") int main_num) {
 		logger.info("ClassCategory");
-		
+
 		return biz.MainStreamSelectOne(main_num);
-	}	
-	
+	}
 
 	@RequestMapping("DataVideoUploadForm")
 	public String DataVideoUploadForm(@ModelAttribute ClassIntroduceDto dto, Model model) {
@@ -353,15 +341,15 @@ public class HomeController {
 	public String DataVideoUpload(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto, Model model)
 			throws FileNotFoundException {
 		logger.info("DataVideoUpload");
-		
+
 		if (dto.getData_data() == null) {
-	         List<MultipartFile> fileList = mtfRequest.getFiles("file");
-	         System.out.println("안녕!!!");
-	         String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
-	         File dir = new File(path);
-	         if (!dir.isDirectory()) {
-	            dir.mkdirs();
-	         }
+			List<MultipartFile> fileList = mtfRequest.getFiles("file");
+			System.out.println("안녕!!!");
+			String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
+			File dir = new File(path);
+			if (!dir.isDirectory()) {
+				dir.mkdirs();
+			}
 
 			for (MultipartFile mf : fileList) {
 				String originFileName = mf.getOriginalFilename(); // 원본 파일 명
@@ -392,15 +380,15 @@ public class HomeController {
 				String a = dto.getData_data();
 				String b = "";
 				System.out.println(a);
-				if(a.contains("v=")) {
+				if (a.contains("v=")) {
 					b = a.split("\\?")[1];
-					if(b.contains("&")) {
+					if (b.contains("&")) {
 						b = b.substring(0, b.indexOf("&"));
 					}
 					System.out.println(b);
 				} else if (a.contains("list=")) {
 					b = a.split("\\?")[1];
-					if(b.contains("&")) {
+					if (b.contains("&")) {
 						b = b.substring(0, b.indexOf("&"));
 					}
 					System.out.println(b);
@@ -412,7 +400,6 @@ public class HomeController {
 
 		}
 
-		
 		int res = biz.ClassDataInsert(dto);
 
 		if (res > 0) {
@@ -421,8 +408,6 @@ public class HomeController {
 			return "Class/DataVideoUploadFormPlus";
 		}
 	}
-		
-
 
 //	DataVideoUploadFormPlus - > DataVideoUploadFormPlus 한 챕터에 영상 추가
 	@RequestMapping("DataVideoUploadPlus")
@@ -450,7 +435,7 @@ public class HomeController {
 				System.out.println("originFileName : " + originFileName);
 				System.out.println("fileSize : " + fileSize);
 				int res = 0;
-				
+
 				try {
 					mf.transferTo(new File(data_data_path));
 
@@ -469,15 +454,15 @@ public class HomeController {
 				String a = dto.getData_data();
 				String b = "";
 
-				if(a.contains("v=")) {
+				if (a.contains("v=")) {
 					b = a.split("\\?")[1];
-					if(b.contains("&")) {
+					if (b.contains("&")) {
 						b = b.substring(0, b.indexOf("&"));
 					}
 					System.out.println(b);
 				} else if (a.contains("list=")) {
 					b = a.split("\\?")[1];
-					if(b.contains("&")) {
+					if (b.contains("&")) {
 						b = b.substring(0, b.indexOf("&"));
 					}
 					System.out.println(b);
@@ -487,10 +472,10 @@ public class HomeController {
 
 			}
 		}
-		
-		System.out.println(dto.getData_sq()+ "###");
-		System.out.println(dto.getData_title()+ "###");
-		System.out.println(dto.getData_data()+ "###");
+
+		System.out.println(dto.getData_sq() + "###");
+		System.out.println(dto.getData_title() + "###");
+		System.out.println(dto.getData_data() + "###");
 
 		int res = biz.ClassChapterDataInsert(dto);
 
@@ -522,8 +507,8 @@ public class HomeController {
 
 		int size = 0;
 
-		for(ClassDataDto temp : data_dto){
-			
+		for (ClassDataDto temp : data_dto) {
+
 			array[size++] = temp.getData_data();
 			System.out.println(temp.getData_data() + " : controller");
 
@@ -536,20 +521,51 @@ public class HomeController {
 	public String introOutflearn() {
 		return "introOutflearn";
 	}
-	
-	@RequestMapping("SubCategory")
-	public String CLassSubName(Model model,int sub_num) {
+
+	@RequestMapping("LectureList")
+	public String CLassSubName(Model model, int sub_num, String txt_search, String page, String searchOption) {
 		logger.info("SubCategory");
-		
-		 // 부류, 주류
-	     List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();      
-	     List<SubStreamDto> subStreamList = Rbiz.subStreamList();   
-	      
-	     model.addAttribute("mainList", mainStreamList);	
-	     model.addAttribute("subList", subStreamList);      
-		
-		 model.addAttribute("classinfo",biz.ClassSubName(sub_num));
-		
+		logger.info("txt서치전");
+
+		// int totalCount = biz.selectTotalCount(txt_search);
+		int totalCount = biz.selectTotalCountStream(txt_search, searchOption, sub_num);
+		logger.info("sub num:"+sub_num);
+		logger.info("텍스트서치:" + txt_search);
+		logger.info("서치옵션:" + searchOption);
+		logger.info("찾은 강좌수:" + totalCount);
+
+		int pageNum = (page == null) ? 1 : Integer.parseInt(page);
+
+		Pagination pagination = new Pagination();
+
+		// get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
+		pagination.setPageNo(pageNum);
+
+		// 한 페이지에 나오는 게시물의 개수
+		pagination.setPageSize(9);
+		pagination.setTotalCount(totalCount);
+
+		// select해오는 기준을 구함
+		pageNum = (pageNum - 1) * pagination.getPageSize();
+
+		List<ClassInfoDto> list = biz.selectListPageStream(pageNum, pagination.getPageSize(), txt_search, searchOption, sub_num);
+
+		// 부류, 주류
+		List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
+		List<SubStreamDto> subStreamList = Rbiz.subStreamList();
+
+		logger.info("서브리스트:" + subStreamList.size());
+		logger.info("메인리스트:" + mainStreamList.size());
+
+		model.addAttribute("classinfo", list);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("txt_search", txt_search);
+		model.addAttribute("searchOption", searchOption);
+		model.addAttribute("sub_num", sub_num);
+
+		model.addAttribute("mainList", mainStreamList);
+		model.addAttribute("subList", subStreamList);
+		//model.addAttribute("classinfo",biz.ClassSubName(sub_num));
 
 		return "Class/LectureList";
 	}

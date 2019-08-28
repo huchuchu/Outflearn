@@ -56,6 +56,8 @@ public interface ClassDataDao {
 		public int selectTotalCount(String txt_search);
 		public List<ClassInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search, String searchOption);
 		public int selectTotalCountTwo(String txt_search, String searchOption);
+		public List<ClassInfoDto> selectListPageStream(int firstIndex, int recordCountPerPage, String txt_sesarch, String searchOption, int sub_num);
+		public int selectTotalCountStream(String txt_search, String searchOption, int sub_num);
 		
 		// 주류, 부류 - MAIN_STREAM , SUB_STREAM
 		//public int mainStreamInsert(MainStreamDto dto);

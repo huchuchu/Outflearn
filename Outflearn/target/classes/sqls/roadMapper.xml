@@ -71,6 +71,7 @@ SELECT COUNT(*) FROM ROADMAP_SUBSCRIBE WHERE USER_NUM=#{userNum} AND ROADMAP_NUM
 </select>
 
 <!--  페이징, 검색 -->
+<!-- 로드맵 -->
 <select id="selectTotalCountRoadMap" parameterType="map"
 		resultType="Integer">
 		SELECT count(*)

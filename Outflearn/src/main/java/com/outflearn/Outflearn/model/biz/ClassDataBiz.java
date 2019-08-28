@@ -61,7 +61,12 @@ public interface ClassDataBiz {
 		public int selectTotalCount(String txt_search);
 		public List<ClassInfoDto> selectListPageTwo(int firstIndex, int recordCountPerPage, String txt_search, String searchOption);
 		public int selectTotalCountTwo(String txt_search, String searchOption);
+		public List<ClassInfoDto> selectListPageStream(int firstIndex, int recordCountPerPage, String txt_sesarch, String searchOption, int sub_num);
+		public int selectTotalCountStream(String txt_search, String searchOption, int sub_num);
+		
+		
 		public ClassIntroduceDto ClassIntroduceSelectOne(int class_num);
+		
 		//질문
 		public List<QADto> QASelectList(int class_num);
 		public QADto QASelectOne(int qa_num);

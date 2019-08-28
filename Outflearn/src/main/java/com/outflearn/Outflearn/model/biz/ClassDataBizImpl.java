@@ -262,4 +262,15 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int QAReplyDelete(QADto dto) {
 		return dao.QAReplyDelete(dto);
 	}
+
+	@Override
+	public int selectTotalCountStream(String txt_search, String searchOption, int sub_num) {
+		return dao.selectTotalCountStream(txt_search, searchOption, sub_num);
+	}
+
+	@Override
+	public List<ClassInfoDto> selectListPageStream(int firstIndex, int recordCountPerPage, String txt_sesarch,
+			String searchOption, int sub_num) {
+		return dao.selectListPageStream(firstIndex, recordCountPerPage, txt_sesarch, searchOption, sub_num);
+	}
 }
