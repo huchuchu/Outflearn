@@ -13,20 +13,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Outflearn</title>
 
-<!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
-<script src="https://kit.fontawesome.com/27cb20e940.js"></script>
+	<!-- css -->
+	<link rel="stylesheet" href="resources/css/myPage.css">
 
 <!-- css -->
 <link rel="stylesheet" href="resources/css/myPage.css">
 
-<!-- Bootstrap -->
-<link rel="stylesheet" type="text/css"
-	href="resources/css/bootstrap.css">
-<link rel="stylesheet" type="text/css"
-	href="resources/fonts/font-awesome/css/font-awesome.css">
+	<!-- Stylesheet ================================================== -->
+	<link rel="stylesheet" type="text/css" href="resources/css/style.css">
 
-<!-- Stylesheet ================================================== -->
-<link rel="stylesheet" type="text/css" href="resources/css/style.css">
+	<!-- Sweet Alert2 -->
+	<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
+	<script src='resources/js/sweetalert/sweetalert2.min.js'></script>
 
 <!-- Sweet Alert2 -->
 <link href='resources/js/sweetalert/sweetalert2.min.css'

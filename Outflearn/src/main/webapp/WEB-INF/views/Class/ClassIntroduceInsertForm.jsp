@@ -85,7 +85,7 @@
 			<form:form name="ClassIntroduceMyform" action="DataVideoUploadForm" method="post" enctype="multipart/form-data">
 			
 			<div class="input-group">
-				<h1>강의 내용 </h1>
+				<h1 style="text-decoration: underline;">강의 내용 </h1>
 			</div>
 			
 			<div class="form-group">
@@ -98,6 +98,7 @@
 			</div>
 	</form:form>
 			</div>
+
 			</div>
 	
 	

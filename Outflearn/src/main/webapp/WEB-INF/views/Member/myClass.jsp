@@ -60,9 +60,7 @@
             <li class="nav-item side_menu">
               <a href="void:0">로드맵</a>
               <ul class="inner_menu">
-                <sec:authorize access="hasRole('ROLE_TUTOR')">
-                  <li><a href="myRoadmap">게시한 로드맵</a></li>
-                </sec:authorize>
+                <li><a href="myRoadmap">게시한 로드맵</a></li>
                 <li><a href="subRoadmap">참여중인 로드맵</a></li>
               </ul>
             </li>
@@ -81,19 +79,17 @@
           </ul>
         </div>
 
-        <sec:authorize access="hasRole('ROLE_TUTOR')">
-          <div class="side_category live">
-            <ul class="nav flex-column text-center">
-              <li class="nav-item side_menu">
-                <a href="void:0">LIVE</a>
-                <ul class="inner_menu">
-                  <li><a class="configLiveRoom" href="void:0">방송하기</a></li>
-                  <li><a id="setLiveSchedule" href="void:0">방송 스케줄</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </sec:authorize>
+        <div class="side_category live">
+          <ul class="nav flex-column text-center">
+            <li class="nav-item side_menu">
+              <a href="void:0">LIVE</a>
+              <ul class="inner_menu">
+                <li><a class="configLiveRoom" href="void:0">방송하기</a></li>
+                <li><a href="void:0">방송 스케줄</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
 
       </aside>
 
@@ -107,6 +103,7 @@
               <div class="col-sm-12">
                 <div class="boardBox">
                   <h4 class="boxTitle">게시한 강좌</h4>
+
                   <table class="table table-hover table-condensed">
                     <thead>
                       <tr>

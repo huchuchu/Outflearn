@@ -78,7 +78,7 @@
 				<input type="hidden" name="user_num" value="${user_num }">
 
 				<div class="input-group">
-					<h1>강의 소개</h1>
+					<h1 style="text-decoration: underline;">강의 소개</h1>
 				</div>
 
 				<div class="form-group">
