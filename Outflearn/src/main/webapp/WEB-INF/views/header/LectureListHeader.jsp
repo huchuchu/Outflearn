@@ -85,9 +85,9 @@
 								</li>
 							</ul>							
 					</li>
-					<li><a href="void:0">로드맵 학습</a></li>
-					<li><a href="void:0">아웃프런 소개</a></li>
-					<li><a href="void:0">라이브</a></li>
+					<li><a href="RoadMap?txt_search=&searchOption=all">로드맵 학습</a></li>
+					<li><a href="introOutflearn">아웃프런 소개</a></li>
+					<li><a href="Livepage">라이브</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<sec:authorize access="isAnonymous()">

@@ -158,7 +158,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		
 		return list;
 	}
-
+	//roandMap selectOne
 	@Override
 	public RoadMapInfoDto selectOneRoadMap(String roadNum) {
 		
@@ -174,7 +174,8 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		
 		return dto;
 	}
-
+	
+	//로드맵번호로 로드맵con에서 classNum들 받아오기
 	@Override
 	public List<Integer> RoadMapConList(String roadNum) {
 		
@@ -188,7 +189,8 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		
 	return list;
 	}
-
+	
+	//클래스 번호들로 클래스 info리스트 받아오기
 	@Override
 	public List<ClassInfoDto> RoadClassInfoList(List<Integer> list) {
 		
@@ -205,7 +207,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		
 		return resList;
 	}
-
+	//로드맵구독테이블에 추가 
 	@Override
 	public int roadMapSubscribeInsert(String roadNum, String userNum) {
 		
@@ -223,7 +225,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 			
 		return res;
 	}
-
+	//로드맵info에서 구독자수+1
 	@Override
 	public int updateRoadSubscribe(String roandNum) {
 		
@@ -237,7 +239,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		
 		return res;
 	}
-
+	//로드맵 구독여부 체크
 	@Override
 	public int roadJoinChk(String roadNum, String userNum) {
 		int res = 0;
@@ -270,7 +272,8 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		
 		return list;
 	}
-
+	
+	
 	@Override
 	public int selectTotalCountRoadMap(String txt_search, String searchOption) {
 		
@@ -283,7 +286,8 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		
 		return res;
 	}
-
+	
+	//로드맵구독 테이블에서 구독자 삭제
 	@Override
 	public int roadMapSubscribeDelete(String roadNum, String userNum) {
 		int res = 0;
@@ -300,7 +304,8 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		
 		return res;
 	}
-
+	
+	//로드맵info테이블에서 구독자수 -1
 	@Override
 	public int deleteRoadSubscribe(String roadNum) {
 		int res = 0;
@@ -313,7 +318,8 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		
 		return res;
 	}
-
+	
+	//로드맵인포+닉네임 리스트
 	@Override
 	public List<RoadUserCombineDto> roadMapComList() {
 		
@@ -327,7 +333,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		
 		return list;
 	}
-
+	//로드맵인포+닉네임 selectOne
 	@Override
 	public RoadUserCombineDto roadMapComSelectOne(String roadNum) {
 		
@@ -343,7 +349,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		
 		return dto;
 	}
-
+	//ourterJoin으로 구독+장바구니강좌 리스트 가져오기
 	@Override
 	public List<Integer> SubBaList(String userNum) {
 		
@@ -392,4 +398,40 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		
 
 	}
+
+	//로드맵 1p수정(update)
+	@Override
+	public int roadMapUpdate(RoadMapInfoDto dto) {
+		
+		int res = 0;
+		
+		try {
+			res = session.update(NAMESPACE+"roadMapUpdate", dto);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	//로드맵2P 수정전에 삭제
+	@Override
+	public int DeleteroadConBeforeUpdate(String roadNum) {
+		
+		int res = 0;
+				
+		try {
+			res = session.delete(NAMESPACE+"DeleteroadConBeforeUpdate", roadNum);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return res;
+	}
+
+
+
+	
+	
+	
 }

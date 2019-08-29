@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,7 @@
 <title>Insert title here</title>
 
 <style type="text/css">
-#classInfoTable, #BTNarea{
+#classInfoTable{
 text-align: center;
 }
 .forP{
@@ -31,7 +32,7 @@ width: 100%;
 <!-- Header  -->
 <jsp:include page="../header/MainHeader.jsp"></jsp:include>
 <!-- Header  -->
-
+<input type="hidden" id="resSize" value="<c:out value="${fn:length(resList) }"/>">
 <div class="container">
 	<div class="row" style="margin-top: 2%;">
 		<div class="col-md-12">
@@ -45,12 +46,33 @@ width: 100%;
 		<!-- 세션추가 -->			 
 			<button title="강의 추가" class="btn btn-success" type="button" id="targer" onclick="addSession(this);">
 				<i class="far fa-plus-square fa-1x"></i>
-			</button>
-			<form action="roadNclass" method="post" id="classInfoForm">
+			</button>			
+			<form action="roadNclassUpdate" method="post" id="classInfoForm">
+			<input type="hidden" name="chkVal" id="chkVal" value="">
 			<input type="hidden" name="seq" value="${roadSeq }">			
 			<table id="classInfoTable" class="table" >
-			
 				<tbody id="addtr">
+				<c:choose>
+					<c:when test="${!empty resList }">
+					<c:forEach items="${resList }" var="resDto" varStatus="status">
+					<tr>
+						<td>
+						<input type="text" name="class_title" readonly="readonly" id="real${status.count}" value="${resDto.class_title }">
+						<input type="hidden" name="class_num"  readonly="readonly" id="test${status.count}" value="${resDto.class_num }">
+						</td>
+						<td>
+						<button title="강의 찾기" type="button" class="btn btn-success forP" onclick="searchClass(this.id)" id="${status.count}"><i class="fas fa-search-plus"></i></button>
+						<button title="맨 위로" type="button" class="btn btn-success forP" onclick="moveTop(this)" ><i class="fas fa-angle-double-up"></i></button>
+						<button title="위로" type="button" class="btn btn-success forP" onclick="moveUp(this)"><i class="fas fa-angle-up"></i></button>
+						<button title="아래로" type="button" class="btn btn-success forP" onclick="moveDown(this)"><i class="fas fa-angle-down"></i></button>
+						<button title="맨 아래로" type="button" class="btn btn-success forP" onclick="moveBottom(this)"><i class="fas fa-angle-double-down"></i></button>
+						<button title="삭제"  type="button" class="btn btn-success forP" onclick="deleteLine(this)"><i class="far fa-trash-alt"></i></button>						
+						</td>
+					
+					</tr>					
+					</c:forEach>
+					</c:when>
+					<c:otherwise>				
 					<tr>
 						<td>
 						<input type="text"  name="class_title" readonly="readonly" id="real1" >
@@ -63,23 +85,39 @@ width: 100%;
 						<button title="아래로" type="button" class="btn btn-success forP" onclick="moveDown(this)"><i class="fas fa-angle-down"></i></button>
 						<button title="맨 아래로" type="button" class="btn btn-success forP" onclick="moveBottom(this)"><i class="fas fa-angle-double-down"></i></button>
 						<button title="삭제"  type="button" class="btn btn-success forP" onclick="deleteLine(this)"><i class="far fa-trash-alt"></i></button>
-						</td>
-												
-					</tr>			
+						</td>				
+					</tr>				
+					</c:otherwise>
+				</c:choose>
+				
+				
+			
 				</tbody>				
-			</table>
+			</table>	
+
 		</form>
+		
+		
+		
+		
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-12" id="BTNarea">
-			 
-			<button class="btn btn-success" type="button" onclick="location.href='RoadMapUpdate_p1?roadNum=${roadSeq }'">
-				<i class="fas fa-arrow-left"></i><span>로드맵1p수정</span> 
-			</button> 
-			<button class="btn btn-success"  id="submitBtn">
-			<span>제출하기</span><i class="fas fa-arrow-right"></i>
-			</button>
+		<c:choose>
+			<c:when test="${!empty resList }">		
+				<button class="btn btn-success"  id="modifyBtn">
+				<span>수정하기</span>
+				</button>			
+			</c:when>
+			<c:otherwise>		
+				<button class="btn btn-success"  id="submitBtn">
+				<span>등록하기</span>
+				</button>			
+			</c:otherwise>
+		</c:choose>
+		
+
 		</div>
 	</div>
 </div>
@@ -94,6 +132,8 @@ $(window).on("beforeunload", function(){
 
 
 $("#submitBtn").click(function(){
+	
+	document.getElementById("chkVal").value="submit";
 	
 	var length = $("input[name='class_title']").length;
 	var roadNum = $("input[name='seq']").val();
@@ -122,10 +162,48 @@ $("#submitBtn").click(function(){
 	}
 });
 
+$("#modifyBtn").click(function(){
+	
+	document.getElementById("chkVal").value="modify";
+	
+	var length = $("input[name='class_title']").length;
+	var roadNum = $("input[name='seq']").val();
+
+	
+	if(roadNum =="" || roadNum ==null){
+		Swal.fire({
+			  type: 'error',
+			  title: '로드맵 소개하기를 <br/>먼저 작성해주세요'				   
+			})	
+		return false;	
+	}
+	
+	if(length<4){
+		Swal.fire({
+			  type: 'error',
+			  title: '강의 영상을 4개이상 등록해주세요!'				   
+			})		
+	}
+	
+	var beforeChk = EmptyChk();
+	
+	if(beforeChk == true && length>=4 && roadNum !="" && roadNum !=null ){
+		checkUnload = false;
+		document.getElementById('classInfoForm').submit();
+	}
+});
+
+
+
 </script>
 <script type="text/javascript" >
 
-var Cnt = 2;
+var ressize = document.getElementById("resSize").value;
+//alert(ressize);
+ressize *=1;
+
+var Cnt = ressize+1;
+//alert(Cnt);
 
 function addSession(){
 //	alert("cnt="+Cnt);
