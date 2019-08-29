@@ -116,8 +116,6 @@
 	
 	
 	
-	
-	
 	<select id="QASelectList" parameterType="int" resultType="QADto">
 		SELECT * FROM QA WHERE CLASS_NUM = #{class_num}
 	</select>

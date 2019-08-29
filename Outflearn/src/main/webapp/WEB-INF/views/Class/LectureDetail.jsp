@@ -106,13 +106,13 @@
 				<li class="nav-item ">
 					<a class="nav-link" href="#LectureIntroduce">강좌소개</a>
 				</li>
-				<sec:authorize access="hasRole('USER')">
+				<sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_TUTOR')">
 				<li class="nav-item ">
 					<a class="nav-link" href="#review">수강후기</a>
 				</li>
 				</sec:authorize>
 				
-				<sec:authorize access="hasRole('USER')">
+				<sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_TUTOR')">
 					<li class="nav-item ">
 						<a class="nav-link" href="#Question">질문&답변</a>
 					</li>

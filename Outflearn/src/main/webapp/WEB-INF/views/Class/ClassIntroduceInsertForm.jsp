@@ -41,6 +41,10 @@
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 	
+	<!-- Sweet Alert2 -->
+	<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
+	<script src='resources/js/sweetalert/sweetalert2.min.js'></script>
+	
 	<script type="text/javascript">
 	(function($){
 		   $(document).ready(function() {
@@ -78,10 +82,10 @@
 				</li>
 			</ul>
 				<div class="col-sm-6 col-el-8">
-			<form:form action="DataVideoUploadForm" method="post" enctype="multipart/form-data">
+			<form:form name="ClassIntroduceMyform" action="DataVideoUploadForm" method="post" enctype="multipart/form-data">
 			
 			<div class="input-group">
-				<h1 style="text-decoration: underline;">강의 내용 </h1>
+				<h1>강의 내용 </h1>
 			</div>
 			
 			<div class="form-group">
@@ -89,14 +93,14 @@
 			</div>
 	
 			<div class="form-group">
-				<input type="submit" class="btn btn-primary" value="다음"> 
-				<input type="button" class="btn btn-primary" onclick="location.href='LectureList'" value="취소">
+				<input type="button" class="btn btn-primary" value="다음" onclick="Control();"> 
+				<input type="button" value="가이드 라인" onclick="ClassIntroduceGuideLine();" class="btn btn-primary">
 			</div>
 	</form:form>
 			</div>
 				
 			<div class="col-sm">
-				<input type="button" value="가이드 라인" onclick="GuideLine();" class="btn btn-primary">
+		
 			</div>
 			</div>
 	
@@ -107,9 +111,24 @@
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 	
 	<script type="text/javascript">
-		function GuideLine(){
-			 var url = "GuideLine";
-	         var name = "GuideLine";
+	
+	function Control() {
+		ClassIntroduceMyform = document.ClassIntroduceMyform;
+		if (ClassIntroduceMyform.class_content.value == "") {
+			Swal.fire({
+				type : 'error',
+				title : '실패...',
+				text : '강의 내용을 모두 입력해주세요.',
+			})
+		} else{
+		ClassIntroduceMyform.submit();
+		}
+	}
+	
+	
+		function ClassIntroduceGuideLine(){
+			 var url = "ClassIntroduceGuideLine";
+	         var name = "ClassIntroduceGuideLine";
 	         var option = "width = 800, height = 800, top = 100, left = 200, location = no"
 	         window.open(url, name, option);
 		}
