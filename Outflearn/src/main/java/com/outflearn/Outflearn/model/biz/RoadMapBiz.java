@@ -60,4 +60,9 @@ public interface RoadMapBiz {
 
 	public List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
 			String searchOption);
+	
+	public int roadMapUpdate(RoadMapInfoDto dto);
+	
+	public int DeleteroadConBeforeUpdate(String roadNum);
+	
 }

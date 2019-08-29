@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -78,11 +79,13 @@ text-align: center;
 	<div class="row">
 		<div class="col-md-12">	
 			<div id="mid_right">	
-			  	 <form action="roadInsert" method="post" id="roadMapForm">
+			  	 <form action="roadUpdate" method="post" id="roadMapForm">
 					 <!-- hidden : 사용자 번호 -->
+					 <input type="hidden" name="roadmap_num" value="${dto.roadmap_num }">
 					 <input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
+					 <input type="hidden" name="chkVal" id="chkVal" value="">
 					 <div class="form-group cen">
-					  <input type="text" name="roadmap_title" id="roadmap_title" class="form-control" style="width: 60%;" placeholder="로드맵 제목을 입력해주세요">  
+					  <input type="text" name="roadmap_title" id="roadmap_title" class="form-control" style="width: 60%;" value="${dto.roadmap_title }" >  
 					  <select name="main_num" class="form-control" id="main_num" style="width: 20%;">
 					   	<option value="1">서버</option>
 					  	<option value="2">웹 개발</option>
@@ -90,19 +93,28 @@ text-align: center;
 					  </select>
 					  </div>			
 					  <div id="heyhey">
-					    <textarea id="summernote" name="roadmap_content"></textarea>    
+					    <textarea id="summernote" name="roadmap_content" >${dto.roadmap_content }</textarea>    
 					  </div>
 				 </form>
 
-				</div> 
+			</div> 
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-12" >
-				<button class="btn btn-success" type="button" id="submitBtn">
-			<span>다음 페이지</span><i class="fas fa-arrow-right" style="margin-left: 5%;"></i>
-			</button>	
-			</div>
+			<c:choose>
+				<c:when test="${Chk eq true }">
+					<button class="btn btn-success " type="button" id="submitBtn" >
+						<span>수정 후 강의 등록</span><i class="fas fa-arrow-right" style="margin-left: 5%;"></i>
+					</button>					
+				</c:when>
+				<c:otherwise>
+					<button class="btn btn-success " type="button" id="modifyBtn">
+						<span>수정 완료</span>
+					</button>				
+				</c:otherwise>
+			</c:choose>
+		</div>
 	</div>
 </div>
 
@@ -116,9 +128,12 @@ $(window).on("beforeunload", function(){
 
 $(function(){
 	$("#submitBtn").click(function(){
-		var title = $("input[name=roadmap_title]").val();
-		var content = $("#summernote").val();
 		
+		document.getElementById("chkVal").value="submit";
+		
+		var title = $("input[name=roadmap_title]").val();
+//		var content = $("#summernote").val();
+		var content = $(".note-editable card-block").val();
 		if(title=="" || title==null){
 			Swal.fire({
 				  type: 'error',
@@ -140,6 +155,41 @@ $(function(){
 			document.getElementById('roadMapForm').submit();
 		}
 	})
+
+	
+	$("#modifyBtn").click(function(){
+	
+	document.getElementById("chkVal").value="modify";
+	
+	var title = $("input[name=roadmap_title]").val();
+	var content = $("#summernote").val();
+	
+	if(title=="" || title==null){
+		Swal.fire({
+			  type: 'error',
+			  title: '제목을 입력해주세요'
+			   
+			})
+		
+		
+	}else if(content=="" || content==null){
+		Swal.fire({
+			  type: 'error',
+			  title: '내용을 입력해주세요'
+			   
+			})
+		
+		
+	}else{
+		checkUnload = false;
+		document.getElementById('roadMapForm').submit();
+	}
+})
+	
+	
+	
+	
+	
 })
 
 

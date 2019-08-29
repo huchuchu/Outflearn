@@ -66,7 +66,7 @@ public class HomeController {
 
 		return "home";
 	}
-
+	
 	@RequestMapping("basketDelete")
 	public int basketDelete(@RequestParam(name = "class_num") int class_num) {
 		logger.info("basketDelete");
@@ -575,7 +575,7 @@ public class HomeController {
 		return biz.classBasketDeleteOne(class_num);
 	}
 
-	// ----------------- Basket ----------------- 끝
+// ----------------- Basket ----------------- 끝
 
 	@RequestMapping("DetailDashBoard")
 	@ResponseBody
@@ -629,6 +629,8 @@ public class HomeController {
 		for (ClassDataDto temp : data_dto) {
 			array[size++] = temp.getData_data();
 		}
+		
+		System.out.println(array[0]);
 
 		System.out.println(array[0]);
 

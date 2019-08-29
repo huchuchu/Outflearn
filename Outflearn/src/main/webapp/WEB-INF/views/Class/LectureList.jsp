@@ -168,6 +168,7 @@
 		</div>
 	</div>
 	<!-- Pagination -->
+	
 	<div class="text-center form-group form-inline">
 		<a href="javascript:PageMove(${pagination.firstPageNo},'${sub_num }')" class="button previous">&laquo;</a> <a
 			href="javascript:PageMove(${pagination.prevPageNo},'${sub_num }')" class="button previous">&lt;</a>

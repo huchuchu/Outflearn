@@ -10,18 +10,21 @@
 	</select>
 
 	<!-- 해당 강의 조회 -->
-    <select id="ClassInfoSelectone" parameterType="map" resultType="ClassInfoDto">
-   	  SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
-   </select>
-  
-  	<!-- 카테고리에 해당 강좌 조회 -->
-   	<select id="CategorySelectList" resultType="ClassInfoDto">
-   	  	SELECT * FROM CLASS_INFO WHERE CLASS_CATEGORY = #{class_category}
-   	</select>
-   	
-   	<!-- 장바구니에서 해당 유저가 담은 강의 -->
-	<select id="classInfoSelectListUser" parameterType="int" resultType="ClassInfoDto">
-		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN (SELECT DISTINCT CLASS_NUM FROM BASKET WHERE USER_NUM = #{user_num })
+	<select id="ClassInfoSelectone" parameterType="map"
+		resultType="ClassInfoDto">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
+	</select>
+
+	<!-- 카테고리에 해당 강좌 조회 -->
+	<select id="CategorySelectList" resultType="ClassInfoDto">
+		SELECT * FROM CLASS_INFO WHERE CLASS_CATEGORY = #{class_category}
+	</select>
+
+	<!-- 장바구니에서 해당 유저가 담은 강의 -->
+	<select id="classInfoSelectListUser" parameterType="int"
+		resultType="ClassInfoDto">
+		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN (SELECT
+		DISTINCT CLASS_NUM FROM BASKET WHERE USER_NUM = #{user_num })
 	</select>
 
 
@@ -41,7 +44,7 @@
 	<select id="ClassInfoUpdateSub" parameterType="int">
 	update class_info set CLASS_SUBCOUNT = (select CLASS_SUBCOUNT from class_info where class_num = #{class_num }) + 1 where class_num = #{class_num }
 	</select>
-	
+
 	<!-- ================== CLASS_DATA 테이블 ================== -->
 
 	<!-- 강좌 챕터 영상 보기 -->
@@ -155,22 +158,46 @@
 		FROM QA WHERE QA_NUM = #{qa_num}
 	</select>
 
+	<insert id="QAInsert" parameterType="QADto">
+		INSERT INTO QA
+		VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname},
+		#{qa_title}, #{qa_content}, QA_GROUP_NO_SQ.NEXTVAL, '1')
+	</insert>
+
+	<delete id="QADelete" parameterType="int">
+		DELETE FROM QA WHERE
+		QA_GROUP_NO = #{qa_group_no}
+	</delete>
+
 	<select id="QAReply" parameterType="int" resultType="QADto">
 		SELECT *
 		FROM QA WHERE QA_GROUP_NO = #{qa_group_no} ORDER BY QA_GROUP_SQ
 	</select>
 	
-	<insert id="QAInsert" parameterType="QADto">
-		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{qa_title}, #{qa_content}, QA_GROUP_NO_SQ.NEXTVAL, '1')
-	</insert>
-	
 	<insert id="QAReplyInsert" parameterType="QADto">
-		INSERT INTO QA VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname}, '답글', #{qa_content}, 
-										  (SELECT DISTINCT QA_GROUP_NO FROM QA WHERE QA_GROUP_NO = #{qa_group_no}),
-										  #{qa_group_sq} + 1)
+		INSERT INTO QA
+		VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname},
+		'답글', #{qa_content},
+		(SELECT DISTINCT QA_GROUP_NO FROM QA WHERE QA_GROUP_NO = #{qa_group_no}),
+		(SELECT QA_GROUP_SQ FROM QA WHERE QA_GROUP_SQ = (SELECT
+		MAX(QA_GROUP_SQ) FROM QA WHERE QA_GROUP_NO = #{qa_group_no}) AND
+		QA_GROUP_NO = #{qa_group_no}) + 1)
 	</insert>
-	
-	<select id="selectListPage" parameterType="map" resultType="ClassInfoDto">
+
+	<update id="QAReplyUpdate" parameterType="QADto">
+		UPDATE QA SET
+		QA_CONTENT = '${qa_content}' WHERE (QA_NUM = #{qa_num}) AND
+		(QA_GROUP_SQ = #{qa_group_sq})
+	</update>
+
+	<delete id="QAReplyDelete" parameterType="QADto">
+		DELETE FROM QA WHERE
+		QA_GROUP_NO = #{qa_group_no} AND QA_GROUP_SQ = #{qa_group_sq}
+	</delete>
+
+	<!-- 페이징, 검색 및 리스트 -->
+	<select id="selectListPage" parameterType="map"
+		resultType="ClassInfoDto">
 		SELECT *
 		FROM (SELECT ROWNUM AS RNUM, C.*
 		FROM ( SELECT *
@@ -195,29 +222,28 @@
 		resultType="ClassInfoDto">
 		SELECT *
 		FROM (SELECT ROWNUM AS RNUM, C.*
-			FROM ( SELECT *
-					FROM CLASS_INFO
-					<if test="txt_search != null">
-					<choose>
-						<when test="searchOption == 'all'">
-							WHERE (
-								(upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%') or
-								(upper(CLASS_AUTHOR) like '%' || upper(#{txt_search})||'%')							
-							)
-						</when>
-						<otherwise>
-							WHERE ${searchOption} like '%' || #{keyword} || '%'
-						</otherwise>
-					</choose>
-					</if>
-						ORDER BY CLASS_NUM DESC
-			) 
+		FROM ( SELECT *
+		FROM CLASS_INFO
+		
+		<if test="txt_search != null">
+			<if test="searchOption=='all'">
+				WHERE upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%' or
+				upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
+			</if>
+			<if test="searchOption=='class_author'">
+				WHERE upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
+			</if>
+			<if test="searchOption=='class_title'">
+				WHERE upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%'
+			</if>
+		</if>
+		ORDER BY CLASS_NUM DESC
+		) C
 		)
 		WHERE RNUM BETWEEN #{firstIndex} + 1 AND
 		#{firstIndex} +
 		#{recordCountPerPage}
 	</select>
-
 
 	<select id="selectTotalCount" parameterType="map"
 		resultType="Integer">
@@ -349,25 +375,41 @@
 
 	</select>
 	<!-- ================== 카테고리 주류, 부류 ================== -->
-	<insert id="ClassCategoryInsert" parameterType="hashmap" >
-		INSERT INTO CLASS_CATEGORY VALUES(CLASS_INFO_SQ.CURRVAL , #{main_num }, #{sub_num })
+	<insert id="ClassCategoryInsert" parameterType="hashmap">
+		INSERT
+		INTO CLASS_CATEGORY VALUES(CLASS_INFO_SQ.CURRVAL , #{main_num },
+		#{sub_num })
 	</insert>
-	
-	<select id="MainStreamSelectOne" parameterType="int" resultType="subStreamDto">
+
+	<select id="MainStreamSelectOne" parameterType="int"
+		resultType="subStreamDto">
 		SELECT * FROM SUB_STREAM WHERE MAIN_NUM = #{main_num }
 	</select>
-	
-	<!-- ================== 구독 ================== -->
-	<insert id="classInsertSubscribe" parameterType="hashmap">
-		INSERT INTO SUBSCRIBE VALUES(#{user_num }, #{class_num })
+
+	<insert id="classCategoryInsert"
+		parameterType="ClassCategoryDto">
+		INSERT INTO CLASS_CATEGORY VALUES(CLASS_INFO_SQ.CURRVAL
+		, MAIN_SQ.CURRVAL, SUB_SQ.CURRVAL)
 	</insert>
+
+	<select id="SubCountSelectList" resultType="ClassInfoDto">
+		<![CDATA[
+			SELECT * FROM (SELECT * FROM CLASS_INFO ORDER BY CLASS_SUBCOUNT DESC) WHERE ROWNUM <= 6
+		]]>
+	</select>
+
+	<select id="PopularSelectList" resultType="ClassInfoDto">
+		<![CDATA[
+			SELECT * FROM QA WHERE CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1 AND ROWNUM <= 5 ORDER BY QA_GROUP_SQ DESC
+		]]>
+	</select>
 	
 	<select id="ReviewList" resultType="classReviewDto" parameterType="int">
 		<![CDATA[
 			SELECT * FROM CLASS_REVIEW WHERE CLASS_NUM = #{class_num} AND ROWNUM <= 5 ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
 		]]>
 	</select>
-	
+
 	<!-- ================== 장바구니 구매 유무 ================== -->
 	<select id="ClassBuyAfter" parameterType="hashmap" resultType="Integer">
 	SELECT COUNT(*) FROM SUBSCRIBE WHERE CLASS_NUM = #{class_num } AND USER_NUM = #{user_num }
@@ -379,12 +421,8 @@
 		]]>
 	</select>
 	
-	<select id="SubCountSelectList" resultType="ClassInfoDto">
-      <![CDATA[
-         SELECT * FROM (SELECT * FROM CLASS_INFO ORDER BY CLASS_SUBCOUNT DESC) WHERE ROWNUM <= 6
-      ]]>
-   </select>
-   
-	
-	
+	<insert id="classInsertSubscribe" parameterType="hashmap">
+      INSERT INTO SUBSCRIBE VALUES(#{user_num }, #{class_num })
+	</insert>
+
 </mapper>
