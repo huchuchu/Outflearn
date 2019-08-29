@@ -208,7 +208,106 @@
 	<select id="ClassBuyAfter" parameterType="hashmap" resultType="Integer">
 	SELECT COUNT(*) FROM SUBSCRIBE WHERE CLASS_NUM = #{class_num } AND USER_NUM = #{user_num }
 	</select>
+	
+	<select id="SubCountSelectList" resultType="ClassInfoDto">
+      <![CDATA[
+         SELECT * FROM (SELECT * FROM CLASS_INFO ORDER BY CLASS_SUBCOUNT DESC) WHERE ROWNUM <= 6
+      ]]>
+   </select>
+   
+   <select id="selectTotalCountStream" parameterType="map"
+      resultType="Integer">
+      SELECT count(*)
+      FROM CLASS_INFO
+      
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+         <if test="sub_num == 0">
+            <if test="txt_search != null">
+               <if test="searchOption == 'all'">
+               AND upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%'
+               OR upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
 
+               </if>
+               <if test="searchOption == 'class_author'">
+               AND upper(CLASS_AUTHOR) like '%' || upper(#{txt_search})
+               || '%'
+               </if>
+               <if test="searchOption == 'class_title'">
+               AND upper(CLASS_TITLE) like '%' || upper(#{txt_search})
+               || '%'
+               </if>
+            </if>
+         </if>
+         
+         <if test="sub_num !=0 ">
+         AND CLASS_NUM IN (SELECT CLASS_NUM FROM CLASS_CATEGORY WHERE SUB_NUM = #{sub_num })
+            <if test="txt_search != null">
+               <if test="searchOption == 'all'">
+               AND upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%'
+               OR upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
+
+               </if>
+               <if test="searchOption == 'class_author'">
+               AND upper(CLASS_AUTHOR) like '%' || upper(#{txt_search})
+               || '%'
+               </if>
+               <if test="searchOption == 'class_title'">
+               AND upper(CLASS_TITLE) like '%' || upper(#{txt_search})
+               || '%'
+               </if>
+            </if>
+         </if>
+            
+         
+      </trim>
+
+   </select>
+   
+   <select id="selectListPageStream" parameterType="map"
+      resultType="ClassInfoDto">
+      SELECT *
+      FROM (SELECT ROWNUM AS RNUM, C.*
+      FROM ( SELECT *
+      FROM CLASS_INFO
+      <where>
+         <if test="sub_num == 0 ">
+            <if test="txt_search != null">
+               <if test="searchOption=='all'">
+               and upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%' or
+               upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
+               </if>
+               <if test="searchOption=='class_author'">
+               and upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
+               </if>
+               <if test="searchOption=='class_title'">
+               and upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%'
+               </if>
+            </if>
+         </if>
+         
+         <if test="sub_num !=0">
+         AND CLASS_NUM IN (SELECT CLASS_NUM FROM   CLASS_CATEGORY WHERE SUB_NUM = #{sub_num })
+         <if test="txt_search != null">
+            <if test="searchOption=='all'">
+            and upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%' or
+            upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
+            </if>
+            <if test="searchOption=='class_author'">
+            and upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
+            </if>
+            <if test="searchOption=='class_title'">
+            and upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%'
+            </if>
+         </if>
+         </if>
+      </where>
+      ORDER BY CLASS_NUM DESC
+      ) C
+      )
+      WHERE RNUM BETWEEN #{firstIndex} + 1 AND
+      #{firstIndex} +
+      #{recordCountPerPage}
+   </select>
 	
 	
 </mapper>

@@ -87,6 +87,14 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		System.out.println("여기오니??");
 		return list;
 	}
+	
+	@Override
+	public int ClassInfoUpdateSub(int class_num) {
+		
+		int res = sqlSession.update(namespace + "ClassInfoUpdateSub" , class_num); 
+		
+		return res;
+	}	
 
 
 // --------------------------------------------------- 강좌 내용(CLASS_INTRODUCE)
