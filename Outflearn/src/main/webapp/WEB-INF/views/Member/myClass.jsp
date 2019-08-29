@@ -107,22 +107,25 @@
               <div class="col-sm-12">
                 <div class="boardBox">
                   <h4 class="boxTitle">게시한 강좌</h4>
-                  <c:choose>
-                    <c:when test="${empty myClass }">
-                      <h5>게시한 강좌가 없습니다...ㅠㅠ</h5>
-                    </c:when>
-                    <c:otherwise>
-
-                      <table class="table table-hover table-condensed">
-                        <thead>
+                  <table class="table table-hover table-condensed">
+                    <thead>
+                      <tr>
+                        <th style="width: 70%">강좌</th>
+                        <th style="width: 10%" class="text-center">구독</th>
+                        <th style="width: 10%" class="text-center">강좌 수정</th>
+                        <th style="width: 10%" class="text-right">강좌 삭제</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <c:choose>
+                        <c:when test="${empty myClass }">
                           <tr>
-                            <th style="width: 70%">강좌</th>
-                            <th style="width: 10%" class="text-center">구독</th>
-                            <th style="width: 10%" class="text-center">강좌 수정</th>
-                            <th style="width: 10%" class="text-right">강좌 삭제</th>
+                            <td colspan="4" class="text-center">
+                              <h5>게시한 강좌가 없습니다...ㅠㅠ</h5>
+                            </td>
                           </tr>
-                        </thead>
-                        <tbody>
+                        </c:when>
+                        <c:otherwise>
                           <c:forEach items="${myClass }" var="item">
                             <tr>
                               <td>
@@ -135,14 +138,21 @@
                                 </div>
                               </td>
                               <td class="text-center">${item.class_subcount}명</td>
-                              <td class="text-center"><button >수정</button></td>
-                              <td class="text-right"><button onclick="deleteClass(${item.class_num}, '${item.class_title }')">삭제</button></td>
+                              <td class="text-center"><button
+                                  onclick="updateClass(${item.class_num}, '${item.class_title }')">수정</button></td>
+                              <td class="text-right"><button
+                                  onclick="deleteClass(${item.class_num}, '${item.class_title }')">삭제</button></td>
                             </tr>
                           </c:forEach>
-                        </tbody>
-                      </table>
-                    </c:otherwise>
-                  </c:choose>
+                        </c:otherwise>
+                      </c:choose>
+                      <tr>
+                        <td colspan="4" class="text-center">
+                          <button onclick="location.href='ClassInfoInsertForm'">강좌 추가</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
