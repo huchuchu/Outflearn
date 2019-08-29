@@ -46,8 +46,7 @@
 <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 
 <!-- Sweet Alert2 -->
-<link href='resources/js/sweetalert/sweetalert2.min.css'
-	rel='stylesheet' />
+<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
 <script src='resources/js/sweetalert/sweetalert2.min.js'></script>
 
 </head>
@@ -79,7 +78,7 @@
 				<input type="hidden" name="user_num" value="${user_num }">
 
 				<div class="input-group">
-					<h1 style="text-decoration: underline;">강의 소개</h1>
+					<h1>강의 소개</h1>
 				</div>
 
 				<div class="form-group">
