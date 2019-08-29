@@ -224,19 +224,20 @@
 		FROM (SELECT ROWNUM AS RNUM, C.*
 		FROM ( SELECT *
 		FROM CLASS_INFO
-		
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
 		<if test="txt_search != null">
 			<if test="searchOption=='all'">
-				WHERE upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%' or
+				AND upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%' or
 				upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
 			</if>
 			<if test="searchOption=='class_author'">
-				WHERE upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
+				AND upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
 			</if>
 			<if test="searchOption=='class_title'">
-				WHERE upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%'
+				AND upper(CLASS_TITLE) like '%' || upper(#{txt_search}) || '%'
 			</if>
 		</if>
+		</trim>
 		ORDER BY CLASS_NUM DESC
 		) C
 		)
@@ -249,11 +250,13 @@
 		resultType="Integer">
 		SELECT count(*)
 		FROM CLASS_INFO
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
 		<if test="txt_search != null">
-			WHERE upper(CLASS_TITLE) like '%' || upper(#{txt_search})
+			AND upper(CLASS_TITLE) like '%' || upper(#{txt_search})
 			|| '%' or
 			upper(CLASS_AUTHOR) like '%' || upper(#{txt_search}) || '%'
 		</if>
+		</trim>
 	</select>
 
 	<select id="selectTotalCountTwo" parameterType="map"
@@ -374,6 +377,38 @@
 		</trim>
 
 	</select>
+	
+	<select id="selectListPageQA" parameterType="map"
+		resultType="QADto">
+		SELECT *
+		FROM (SELECT ROWNUM AS RNUM, C.*
+		FROM ( SELECT *
+		FROM QA
+		<where>
+			AND  CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1
+			<if test="txt_search != null">
+				AND upper(QA_TITLE) like '%' || upper(#{txt_search}) || '%' or
+				upper(QA_CONTENT) like '%' || upper(#{txt_search}) || '%'
+			</if>
+		</where>
+		ORDER BY CLASS_NUM DESC
+		) C
+		)
+		WHERE RNUM BETWEEN #{firstIndex} + 1 AND
+		#{firstIndex} +
+		#{recordCountPerPage}
+	</select>
+	
+	<select id="selectTotalCountQA" parameterType="map"
+		resultType="Integer">
+		SELECT count(*)
+		FROM QA WHERE CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1
+		<if test="txt_search != null">
+			AND upper(QA_TITLE) like '%' || upper(#{txt_search})
+			|| '%' or
+			upper(QA_CONTENT) like '%' || upper(#{txt_search}) || '%'
+		</if>
+	</select>
 	<!-- ================== 카테고리 주류, 부류 ================== -->
 	<insert id="ClassCategoryInsert" parameterType="hashmap">
 		INSERT
@@ -424,5 +459,7 @@
 	<insert id="classInsertSubscribe" parameterType="hashmap">
       INSERT INTO SUBSCRIBE VALUES(#{user_num }, #{class_num })
 	</insert>
+
+	<!-- ================== 장바구니 구매 유무 ================== -->
 
 </mapper>

@@ -188,6 +188,10 @@ td > h4 {
 	font-size: 1.5rem;
 }
 
+ul.pagination li {
+	float: left;
+}
+
 @media (max-width: 1024px) {
 
 	#jumbo_row {

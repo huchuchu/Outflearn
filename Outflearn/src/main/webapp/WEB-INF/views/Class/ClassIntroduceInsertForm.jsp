@@ -2,11 +2,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<!-- Favicons ================================================== -->
+	<!-- Favicons ================================================== --> 
 	<link rel="shortcut icon" href="resources/img/favicon.ico" type="image/x-icon">
 	<link rel="apple-touch-icon" href="resources/img/apple-touch-icon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="resources/img/apple-touch-icon-72x72.png">

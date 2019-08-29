@@ -130,9 +130,9 @@ public class RoadMapBizImpl implements RoadMapBiz {
 	}
 
 	@Override
-	public int selectTotalCountRoadMap(String txt_search, String searchOption) {
+	public int selectTotalCountRoadMap(String txt_search, String searchOption, int main_num) {
 		
-		return dao.selectTotalCountRoadMap(txt_search, searchOption);
+		return dao.selectTotalCountRoadMap(txt_search, searchOption , main_num);
 	}
 
 	@Override
@@ -150,9 +150,9 @@ public class RoadMapBizImpl implements RoadMapBiz {
 
 	@Override
 	public List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
-			String searchOption) {
+			String searchOption , int main_num) {
 		// TODO Auto-generated method stub
-		return dao.roadMapComList(firstIndex, recordCountPerPage, txt_search, searchOption);
+		return dao.roadMapComList(firstIndex, recordCountPerPage, txt_search, searchOption, main_num);
 	}
 
 	@Override

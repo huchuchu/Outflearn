@@ -52,17 +52,17 @@ public interface RoadMapBiz {
 
 	public List<RoadMapInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search, String searchOption);
 	
-	public int selectTotalCountRoadMap(String txt_search, String searchOption);
+	public int selectTotalCountRoadMap(String txt_search, String searchOption, int main_num);
 
 	public List<Integer> SubBaList(String userNum);
 	
 	public int AddToCart(List<String>cartArray, String userNum);
-
-	public List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
-			String searchOption);
 	
 	public int roadMapUpdate(RoadMapInfoDto dto);
 	
 	public int DeleteroadConBeforeUpdate(String roadNum);
+
+	List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
+			String searchOption, int main_num);
 	
 }
