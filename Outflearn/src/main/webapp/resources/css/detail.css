@@ -8,6 +8,7 @@ div.row {
 
 input.btn, button.btn {
 	margin-right: 0.5rem;
+	float: right;
 }
 
 .note-editor {
@@ -165,8 +166,22 @@ input.btn, button.btn {
 	cursor: pointer;
 }
 
-td > h4 {
-	font-size: 1.5rem;
+#review {
+	padding-top: 2rem;
+}
+
+.review-container {
+	max-width: 900px;
+}
+
+div.panel-set {
+	border: 1px solid #fffcca;
+	padding: 1rem;
+	margin-bottom: 1rem;
+}
+
+.review-btn-div {
+	display: inline-block;
 }
 
 @media (max-width: 1024px) {

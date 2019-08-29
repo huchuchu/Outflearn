@@ -196,6 +196,12 @@ public class HomeController {
 		// 질문 리스트
 		model.addAttribute("classQuestion", biz.QASelectList(class_num));
 
+		// 대쉬보드 리뷰 리스트
+		model.addAttribute("ReviewList", biz.ReviewList(class_num));
+					
+		// 대쉬보드 질문 리스트
+		model.addAttribute("QAList", biz.QAList(class_num));
+		
 		// 부류, 주류
 		List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
 		List<SubStreamDto> subStreamList = Rbiz.subStreamList();
