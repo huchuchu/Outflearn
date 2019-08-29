@@ -549,10 +549,16 @@ public class HomeController {
 	}
 
 	// 강의 소개 가이드 라인
-	@RequestMapping("GuideLine")
-	public String GuideLine() {
+	@RequestMapping("ClassIntroduceGuideLine")
+	public String ClassIntroduceGuideLine() {
 
 		return "Class/ClassIntroduceGuideLine";
+	}
+	
+	@RequestMapping("DataVideoGuideLine")
+	public String DataVideoGuideLine() {
+		
+		return "Class//DataVideoGuideLine";	
 	}
 
 // ----------------- CLass ----------------- 끝
