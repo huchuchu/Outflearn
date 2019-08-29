@@ -98,10 +98,6 @@
 			</div>
 	</form:form>
 			</div>
-				
-			<div class="col-sm">
-		
-			</div>
 			</div>
 	
 	
@@ -111,6 +107,7 @@
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 	
 	<script type="text/javascript">
+	
 	
 	function Control() {
 		ClassIntroduceMyform = document.ClassIntroduceMyform;
