@@ -40,7 +40,7 @@
 <body>
 
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
-
+	
 	<div class="container">
 		<div class="row">
 			<aside class="col-sm-2">
@@ -116,7 +116,7 @@
 						</div>
 						<div class="w300" style="padding-right:10px">
 							<input type="text" class="form-control form-control-sm" name="txt_search" id="txt_search"
-								placeholder="검색하기" value="${txt_search }">
+								 placeholder="검색하기" value="${txt_search }">
 							<input type="hidden" id="txt_search" value="${txt_search }">
 						</div>
 						<div>
@@ -168,7 +168,6 @@
 		</div>
 	</div>
 	<!-- Pagination -->
-
 	<div class="text-center form-group form-inline">
 		<a href="javascript:PageMove(${pagination.firstPageNo},'${sub_num }')" class="button previous">&laquo;</a> <a
 			href="javascript:PageMove(${pagination.prevPageNo},'${sub_num }')" class="button previous">&lt;</a>
@@ -187,7 +186,7 @@
 		<a href="javascript:PageMove(${pagination.nextPageNo},'${sub_num }')" class="button_next">&gt;</a> <a
 			href="javascript:PageMove(${pagination.finalPageNo},'${sub_num }')" class="button_next">&raquo;</a>
 	</div>
-	<!-- ==================== FOOTER ==================== -->
+		<!-- ==================== FOOTER ==================== -->
 
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 

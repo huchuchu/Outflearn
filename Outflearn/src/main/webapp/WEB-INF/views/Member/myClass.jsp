@@ -60,9 +60,6 @@
             <li class="nav-item side_menu">
               <a href="void:0">로드맵</a>
               <ul class="inner_menu">
-                <sec:authorize access="hasRole('ROLE_TUTOR')">
-                  <li><a href="myRoadmap">게시한 로드맵</a></li>
-                </sec:authorize>
                 <li><a href="subRoadmap">참여중인 로드맵</a></li>
               </ul>
             </li>
@@ -81,19 +78,17 @@
           </ul>
         </div>
 
-        <sec:authorize access="hasRole('ROLE_TUTOR')">
-          <div class="side_category live">
-            <ul class="nav flex-column text-center">
-              <li class="nav-item side_menu">
-                <a href="void:0">LIVE</a>
-                <ul class="inner_menu">
-                  <li><a class="configLiveRoom" href="void:0">방송하기</a></li>
-                  <li><a id="setLiveSchedule" href="void:0">방송 스케줄</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </sec:authorize>
+        <div class="side_category live">
+          <ul class="nav flex-column text-center">
+            <li class="nav-item side_menu">
+              <a href="void:0">LIVE</a>
+              <ul class="inner_menu">
+                <li><a class="configLiveRoom" href="void:0">방송하기</a></li>
+                <li><a href="void:0">방송 스케줄</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
 
       </aside>
 
@@ -107,25 +102,21 @@
               <div class="col-sm-12">
                 <div class="boardBox">
                   <h4 class="boxTitle">게시한 강좌</h4>
-                  <table class="table table-hover table-condensed">
-                    <thead>
-                      <tr>
-                        <th style="width: 70%">강좌</th>
-                        <th style="width: 10%" class="text-center">구독</th>
-                        <th style="width: 10%" class="text-center">강좌 수정</th>
-                        <th style="width: 10%" class="text-right">강좌 삭제</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <c:choose>
-                        <c:when test="${empty myClass }">
+                  <c:choose>
+                    <c:when test="${empty myClass }">
+                      <h5>게시한 강좌가 없습니다...ㅠㅠ</h5>
+                    </c:when>
+                    <c:otherwise>
+
+                      <table class="table table-hover table-condensed">
+                        <thead>
                           <tr>
-                            <td colspan="4" class="text-center">
-                              <h5>게시한 강좌가 없습니다...ㅠㅠ</h5>
-                            </td>
+                            <th style="width: 80%">강좌</th>
+                            <th style="width: 10%" class="text-center">구독</th>
+                            <th style="width: 10%" class="text-right">강좌 삭제</th>
                           </tr>
-                        </c:when>
-                        <c:otherwise>
+                        </thead>
+                        <tbody>
                           <c:forEach items="${myClass }" var="item">
                             <tr>
                               <td>
@@ -138,21 +129,13 @@
                                 </div>
                               </td>
                               <td class="text-center">${item.class_subcount}명</td>
-                              <td class="text-center"><button
-                                  onclick="updateClass(${item.class_num}, '${item.class_title }')">수정</button></td>
-                              <td class="text-right"><button
-                                  onclick="deleteClass(${item.class_num}, '${item.class_title }')">삭제</button></td>
+                              <td class="text-right"><button onclick="deleteClass(${item.class_num}, '${item.class_title }')">X</button></td>
                             </tr>
                           </c:forEach>
-                        </c:otherwise>
-                      </c:choose>
-                      <tr>
-                        <td colspan="4" class="text-center">
-                          <button onclick="location.href='ClassInfoInsertForm'">강좌 추가</button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                        </tbody>
+                      </table>
+                    </c:otherwise>
+                  </c:choose>
                 </div>
               </div>
             </div>

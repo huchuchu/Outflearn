@@ -10,7 +10,7 @@
 		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM SUBSCRIBE WHERE USER_NUM = #{user_num})
 	</select>
 	
-	<select id="getSubRoadmap" resultType="RoadMapDto" parameterType="int">
+	<select id="getSubRoadmap" resultType="ClassInfoDto" parameterType="int">
 		SELECT * FROM ROADMAP_INFO WHERE ROADMAP_NUM IN(SELECT ROADMAP_NUM FROM ROADMAP_SUBSCRIBE WHERE USER_NUM = #{user_num})
 	</select>
 	

@@ -120,6 +120,10 @@ $(document).ready(function () {
         $("#QuestionForm").modal({ backdrop: "static" })
     });
     
+    $('#Review-btn').on('click', function() {
+    	$('#ReviewForm').modal({backdrop: 'static'})
+    })
+    
     if($(window).outerWidth() < 1025) {
     	$('#box').css({'top': '0'})
     	$('#box').find('.btns').css({'border':'none'})

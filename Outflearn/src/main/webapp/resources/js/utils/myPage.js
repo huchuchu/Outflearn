@@ -235,7 +235,6 @@ function updateRoadmap(roadmap_num, roadmap_title) {
     })
 }
 
-
 $(function () {
     $('.configLiveRoom').on('click', function () {
         $.ajax({

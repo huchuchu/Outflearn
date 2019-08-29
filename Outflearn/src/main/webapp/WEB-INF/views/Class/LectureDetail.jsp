@@ -23,7 +23,6 @@
 	crossorigin="anonymous">
 
 <!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
@@ -205,8 +204,8 @@
 		</div>
 
 		<!-- 리뷰 -->
-		<div id="review" class="nav-page">
-			<div class="panel panel-default">
+		<div id="review" class="">
+			<div class="panel panel-default review-container container">
 				<h1>수강 후기</h1>
 				<div>
 					<c:choose>
@@ -214,25 +213,24 @@
 								<div>=======작성된 글이 없습니다=======</div>
 						</c:when>
 						<c:otherwise>
-							<div class="form-group row panel">
+							<div class="form-group row review-container">
 								<c:forEach items="${classReview }" var="dto">
 									<c:choose>
 										<c:when test="${dto.review_titletab eq '0'}">
-											<div class="row">
+											<div class="row panel panel-set">
 											<div class="col-sm-1 col-md-1"></div>
 											<div class="row">
 												<div class="row">
-													<div class="form-group col-sm-2 col-md-3 reviews_rating"><input type="hidden" class="review_rating" value="${dto.user_star  }"></div>
-													<div class="col-sm-3 col-md-3 user_name">${user_nickname }</div>
+													<div class="col-sm-2 col-md-2 user_name">${user_nickname }</div>
+													<div class="form-group col-sm-2 col-md-2 reviews_rating"><input type="hidden" class="review_rating" value="${dto.user_star  }"></div>
 												</div>
-												<div class="col-sm-4 col-md-4"></div>
+												<div class="col-sm-3 col-md-3"></div>
 												<div id="c" class="col-sm-3 col-md-3">
 													<div class="form-group">${dto.review_content }</div>
 												</div>
 											</div>
 											<div align="right" id="answerOfAnswer${dto.review_num  }" class="row btn-rows">
-												<div class="col-sm-2 col-md-2 pull-right"></div>
-												<div class="col-sm-3 col-md-3 pull-right">
+												<div class="pull-right col-sm-12 col-md-12">
 													<form:form action="LectureDetailAnswerDelete" method="post">
 														<input type="hidden" name="class_num" value="${classinfo.class_num }">
 														<input type="hidden" name="review_num" value="${dto.review_num }">
@@ -250,56 +248,48 @@
 												</div>
 											</div>
 											<div class="container reply-div row">
-												<div class="summernote"></div>
-												<div class="pull-right ">
-													<c:choose>
-												<c:when test="${empty ReviewReply }">
+												
 													<form:form action="Reply" method="post">
 														<input type="hidden" name="class_num" value="${dto.class_num }">
 														<input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
 														<input type="hidden" name="review_num" value="${dto.review_num }">
 														<input type="hidden" name="review_groupno" value="${dto.review_groupno }">
 														<input type="hidden" name="review_groupsq" value="${dto.review_groupsq }">
-															<div class="col-sm-2 col-md-2">
-																<input type="submit" value="작 성">
+														<div class="row">
+															<textarea class="summernote" name="review_content"></textarea>
+															<div class="col-sm-2 col-md-2 pull-right">
+																<input type="submit" class="btn btn-default" value="작 성">
 															</div>
+														</div>
 													</form:form>
-												</c:when>
-
-												<c:otherwise>
-													<div class="row">
-														<div class="col-sm-10 col-md-10">${ReviewReply.review_content }</div>
-													</div>
-												</c:otherwise>
-											</c:choose>
-												</div>
 											</div>
 										</div>
 										</c:when>
 										<c:otherwise>
-											<tr>
-												<td></td>
-												<td>
-													<div class="form-group">${user_nickname }</div>
-												</td>
-												<td id="c">
-													<div class="form-group">${dto.review_content }</div>
-												</td>
-											</tr>
-											<tr align="right" id="answerOfAnswer${dto.review_num  }">
-												<td>
+										<div class="row">
+										<div class="panel panel-set col-sm-11 col-md-11 pull-right">
+											<div class="row">
+												<div class="form-group col-sm-2 col-md-2">${user_nickname }</div>
+												<div id="c">
+													<div class="form-group col-sm-10 col-md-10">${dto.review_content }</div>
+												</div>
+											</div>
+											<div id="answerOfAnswer${dto.review_num  }">
+												<div>
 													<form:form action="LectureDetailAnswerDelete" method="post">
 														<input type="hidden" name="class_num" value="${classinfo.class_num }">
 														<input type="hidden" name="review_num" value="${dto.review_num }">
-														<input type="submit" class="btn btn-default" value="삭제">
+														<input type="submit" class="btn btn-default pull-right" value="삭제">
 													</form:form>
-												</td>
-												<td id="a">
+												</div>
+												<div id="a">
 													<input type="hidden" name="review_content" value="${dto.review_content }"> 
 													<input type="hidden" name="review_num" value="${dto.review_num }">
-													<button type="button" class="btn btn-default" id="b">수정</button>
-												</td>
-											</tr>
+													<button type="button" class="btn btn-default pull-right" id="b">수정</button>
+												</div>
+											</div>
+										</div>
+										</div>
 										</c:otherwise>
 									</c:choose>
 									<tr class="row reply_group">
@@ -329,7 +319,6 @@
 													</div>
 												</c:otherwise>
 											</c:choose>
-
 										</td>
 									</tr>
 								</c:forEach>
@@ -338,15 +327,11 @@
 					</c:choose>
 				</div>
 			</div>
-
-			<section>
-				<div class="form-group">
-					<form:form action="LectureDetailAnswerForm">
-						<input type="hidden" name="class_num" value="${classinfo.class_num }">
-						<td><input type="submit" value="댓글쓰기" /></td>
-					</form:form>
+			<div class="text-center">
+				<div class="form-group review-btn-div">
+					<button type="button" id="Review-btn" class="btn btn-primary">리뷰작성</button>
 				</div>
-			</section>
+			</div>
 		</div>
 		
 		<!-- 질문답변 -->

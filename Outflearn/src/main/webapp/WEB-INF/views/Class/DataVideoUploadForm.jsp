@@ -179,6 +179,10 @@
 					<input type="button" value="가이드 라인" onclick="DataVideoGuideLine();" class="btn btn-primary"> 
 					<input type="button" class="btn btn-primary" value="강의 목록 " onclick="location.href='LectureList'">
 				</div>
+				
+			<div class="col-sm">
+				<input type="button" value="가이드 라인" onclick="GuideLine();" class="btn btn-primary">
+			</div>
 
 
 			</form:form>
