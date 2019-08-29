@@ -362,9 +362,21 @@
 		INSERT INTO SUBSCRIBE VALUES(#{user_num }, #{class_num })
 	</insert>
 	
+	<select id="ReviewList" resultType="classReviewDto" parameterType="int">
+		<![CDATA[
+			SELECT * FROM CLASS_REVIEW WHERE CLASS_NUM = #{class_num} AND ROWNUM <= 5 ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
+		]]>
+	</select>
+	
 	<!-- ================== 장바구니 구매 유무 ================== -->
 	<select id="ClassBuyAfter" parameterType="hashmap" resultType="Integer">
 	SELECT COUNT(*) FROM SUBSCRIBE WHERE CLASS_NUM = #{class_num } AND USER_NUM = #{user_num }
+	</select>
+	
+	<select id="QAList" resultType="QADto" parameterType="int">
+		<![CDATA[
+			SELECT * FROM QA WHERE CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1 AND ROWNUM <= 5 ORDER BY QA_GROUP_SQ DESC
+		]]>
 	</select>
 	
 	<select id="SubCountSelectList" resultType="ClassInfoDto">
