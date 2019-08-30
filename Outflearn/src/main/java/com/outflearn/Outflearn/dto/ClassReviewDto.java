@@ -10,7 +10,7 @@ public class ClassReviewDto {
 	private int review_groupno;
 	private int review_groupsq;
 	private int review_titletab;
-	
+	private String user_nickname;
 	
 	
 	public ClassReviewDto() {
@@ -19,7 +19,7 @@ public class ClassReviewDto {
 
 
 	public ClassReviewDto(int review_num, int class_num, int user_num, String review_content, int user_star,
-			int review_groupno, int review_groupsq, int review_titletab) {
+			int review_groupno, int review_groupsq, int review_titletab, String user_nickname) {
 		super();
 		this.review_num = review_num;
 		this.class_num = class_num;
@@ -29,6 +29,7 @@ public class ClassReviewDto {
 		this.review_groupno = review_groupno;
 		this.review_groupsq = review_groupsq;
 		this.review_titletab = review_titletab;
+		this.user_nickname = user_nickname;
 	}
 
 
@@ -110,9 +111,15 @@ public class ClassReviewDto {
 	public void setReview_titletab(int review_titletab) {
 		this.review_titletab = review_titletab;
 	}
-		
 
 
-	
-	
+	public String getUser_nickname() {
+		return user_nickname;
+	}
+
+
+	public void setUser_nickname(String user_nickname) {
+		this.user_nickname = user_nickname;
+	}
+
 }

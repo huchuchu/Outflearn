@@ -6,11 +6,13 @@ var second_sum = 0
 $(document).ready(function () {
 
 	avg_rating($('#rating').val(), $('#rating-tag'))
+	
     var ReviewStar = document.querySelectorAll(".review-star")
     
     var classes = Array.prototype.map.call(ReviewStar, function(element) {
         return element.value
     });
+	
     for(var i = 0; i < classes.length; i++) {
         rating_star(classes[i], $('.show-star')[i])
     }
@@ -185,18 +187,35 @@ $(document).ready(function () {
         e.stopPropagation();
     };
     
-    $('form').bind('submit', submitAction)
-    console.log($('output > b').text())
+    $('form#Review').bind('submit', submitAction)
     $('.input').on('click', function() {
-    	console.log($(this).text())
-    	if($('output > b').text() == '0') {
+    	
+    	$('#user_star').attr('value', $('output').text())
+    	
+    	if($('output').text() == '0') {
         	alert("별점을 주세요.")
-        	$('form').bind('submit', submitAction)
-        } else if($('output > b').text() != '0') {
-        	$('form').unbind()
+        	$('form#Review').bind('submit', submitAction)
+        } else if($('output').text() != '0') {
+        	$('form#Review').unbind()
         }
     })
     
+    $('.review-reply-update').on('click', function() {
+    	$('#ReviewUpdateForm').modal({ backdrop: "static" })
+    })
+    
+    $('form#ReviewUpdate').bind('submit', submitAction)
+    $('.input').on('click', function() {
+    	
+    	$('#user_star-update').attr('value', $('output#review-rating-update').text())
+    	
+    	if($('output#review-rating-update').text() == '0') {
+        	alert("별점을 주세요.")
+        	$('form#ReviewUpdate').bind('submit', submitAction)
+        } else if($('output.update').text() != '0') {
+        	$('form#ReviewUpdate').unbind()
+        }
+    })
 })
 
 function DashboardHeader() {
@@ -206,7 +225,7 @@ function DashboardHeader() {
     <div class='table-responsive-lg'>
     <table class='table youtube'>
     </div>`
-   )
+	)
 }
 
 function DashboardOne(video_list, playlist_id) {
@@ -228,10 +247,10 @@ function DashboardOne(video_list, playlist_id) {
         	
         	$('.youtube').append(
                 `<tr class='youtube_data'>
-                   <td><i class=\"far fa-clock\"></i></td>
-                     <td><a href='LectureDetailView?DATA_DATA=${video_id}'>${video_title}</a></td>
-                      <td>${duration}</td>
-                      <td>${duration}</td>`
+                	<td><i class=\"far fa-clock\"></i></td>
+                  	<td><a href='LectureDetailView?DATA_DATA=${video_id}'>${video_title}</a></td>
+                   	<td>${duration}</td>
+                   	<td>${duration}</td>`
             );
 
             min += parseInt(duration.split(' : ')[0]);
@@ -288,9 +307,9 @@ function DashboardList(video_list, playlist_id) {
                 min += parseInt(duration.split(' : ')[0]);
                 sec += parseInt(duration.split(' : ')[1]);
 
-                // hour_sum = hour_sum + hour
-                // minite_sum = minite_sum + min
-                // second_sum = second_sum + sec
+                //                hour_sum = hour_sum + hour
+                //                minite_sum = minite_sum + min
+                //                second_sum = second_sum + sec
 
                 if (min > 59) {
                     hour_sum++;

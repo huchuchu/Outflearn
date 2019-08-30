@@ -266,11 +266,11 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 
 	@Override
-	public int ClassReviewDelete(int review_num) {
+	public int ClassReviewDelete(ClassReviewDto dto) {
 
 		int res = 0;
 
-		res = sqlSession.delete(namespace + "classReviewDelete", review_num);
+		res = sqlSession.delete(namespace + "classReviewDelete", dto);
 
 		return res;
 	}

@@ -1,8 +1,6 @@
-/*별점 : .star-input*/
-/*출처 : http://codepen.io/naradesign/pen/zxPbOw*/
 var starRating = function(){
 var $star = $(".star-input"),
-    $result = $star.find("output>b");
+    $result = $star.find("output");
 	
   	$(document)
 	.on("focusin", ".star-input>.input", 

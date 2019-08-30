@@ -47,7 +47,7 @@ public interface ClassDataBiz {
 		public ClassReviewDto ClassReviewSelectOne(int review_num);
 		public int ClassReviewInsert(ClassReviewDto dto);
 		public int ClassReviewUpdate(ClassReviewDto dto);
-		public int ClassReviewDelete(int review_num);
+		public int ClassReviewDelete(ClassReviewDto dto);
 		
 		public int ClassReviewAnswer(ClassReviewDto dto, int parentBoard_no);
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);

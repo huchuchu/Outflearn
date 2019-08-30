@@ -48,7 +48,7 @@ public interface ClassDataDao {
 		public ClassReviewDto ClassReviewSelectOne(int review_num);
 		public int ClassReviewInsert(ClassReviewDto dto);
 		public int ClassReviewUpdate(ClassReviewDto dto);
-		public int ClassReviewDelete(int review_num);
+		public int ClassReviewDelete(ClassReviewDto dto);
 			
 		public int ClassReviewUpdateAnswer(int review_num);
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);
