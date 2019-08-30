@@ -94,4 +94,8 @@
 		DELETE FROM ROADMAP_INFO WHERE ROADMAP_NUM = #{roadmap_num}
 	</delete>
 	
+	<update id="updateNickname" parameterType="String">
+		UPDATE USER_INFO SET USER_NICKNAME = #{user_nickname} WHERE USER_NUM = #{user_num}
+	</update>
+	
 </mapper>

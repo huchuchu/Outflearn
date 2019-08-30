@@ -69,6 +69,12 @@ public class myPageDaoImpl implements myPageDao {
 		return sqlSession.insert(namespace + "reqLecturer", map);
 	}
 	
+	@Override
+	public int updateNickname(Map<String, Object> map) {
+		
+		return sqlSession.update(namespace + "updateNickname", map);
+	}
+	
 //강사
 	
 	@Override

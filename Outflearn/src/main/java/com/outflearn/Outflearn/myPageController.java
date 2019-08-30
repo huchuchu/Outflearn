@@ -107,9 +107,15 @@ public class myPageController {
 	}
 	
 	@RequestMapping(value="updateNickname")
-	public String updateNickname(String nickname) {
+	@ResponseBody
+	public boolean updateNickname(String nickname, Authentication auth) {
 		
-		return "";
+		UserInfoDto userInfo = (UserInfoDto) auth.getPrincipal();
+		
+		int res = biz.updateNickname(nickname, userInfo.getUser_num());
+		
+		if(res > 0) return true;
+		return false;
 	}
 	
 	@RequestMapping(value = "updateEmail", method=RequestMethod.POST)
