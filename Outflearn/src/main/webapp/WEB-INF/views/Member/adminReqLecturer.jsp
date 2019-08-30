@@ -98,7 +98,7 @@
                               <td>${item.REQ_CLASS}</td>
                               <td>
                                 <input type="button" onclick="acceptReq(${item.USER_NUM})" value="Y">
-                                <input type="button" onclick="deniReq(${item.USER_NUM})"  value="N">
+                                <input type="button" onclick="deniReq(${item.USER_NUM})" value="N">
                               </td>
                             </tr>
                           </c:forEach>

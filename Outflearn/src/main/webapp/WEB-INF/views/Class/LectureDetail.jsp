@@ -248,7 +248,6 @@
 												</div>
 											</div>
 											<div class="container reply-div row">
-												
 													<form:form action="Reply" method="post">
 														<input type="hidden" name="class_num" value="${dto.class_num }">
 														<input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
@@ -376,6 +375,24 @@
 						<input type="hidden" name="class_num" value="${classinfo.class_num }">
 						<input type="hidden" name="user_num" value='${user_num }'>
 						<input type="hidden" name="user_nickname" value='${user_nickname }'>
+						<p><input type="text" placeholder="제목을 입력해주세요." name="qa_title" class="form-control"></p>
+						<p><textarea rows="20" cols="60" name="qa_content"></textarea></p>
+						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+						<button type="submit" class="btn btn-default">작성</button>
+					</form:form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="QuestionForm" role="dialog">
+    	<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<form:form action="QuestionInsert">
+						<input type="hidden" name="class_num" value="${classinfo.class_num }">
+						<input type="hidden" name="user_num" value="${user_num }">
+						<input type="hidden" name="user_nickname" value="${user_nickname }">
 						<p><input type="text" placeholder="제목을 입력해주세요." name="qa_title" class="form-control"></p>
 						<p><textarea rows="20" cols="60" name="qa_content"></textarea></p>
 						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>

@@ -31,7 +31,7 @@
 	<script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 
 	<!-- 여기서부터는 써머노트  라이브러리 구간입니다.-->
-	
+
 	<!-- include libraries(jQuery, bootstrap) -->
 	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
@@ -40,115 +40,116 @@
 	<!-- include summernote css/js -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
-	
+
 	<!-- Sweet Alert2 -->
 	<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
 	<script src='resources/js/sweetalert/sweetalert2.min.js'></script>
-	
+
 	<script type="text/javascript">
-	(function($){
-		   $(document).ready(function() {
-		      $('#summernote').summernote({
-		             placeholder: 'content',
-		              minHeight: 370,
-		              maxHeight: null,
-		              focus: true, 
-		              lang : 'ko-KR'
-		        });
-		      });
-		   
+		(function ($) {
+			$(document).ready(function () {
+				$('#summernote').summernote({
+					placeholder: 'content',
+					minHeight: 370,
+					maxHeight: null,
+					focus: true,
+					lang: 'ko-KR'
+				});
+			});
+
 		})(jQuery);
 	</script>
 
 	<!-- 여기까지가 써머노트  라이브러리 구간입니다.-->
 </head>
+
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-	
-		<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
-	
+
+	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
+
 	<div class="row">
-			<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">
-				<li class="nav-link active">
-					<h3>강의 소개</h3>
-				</li>
-				<li class="list-group-item-info">
-					<h3>강의 내용</h3>
-				</li>
-				<li class="nav-link active">
-					<h3>영상 소개</h3>
-				</li>
-				<li class="nav-link active">
-					<h3>영상 추가</h3>
-				</li>
-			</ul>
-				<div class="col-sm-6 col-el-8">
-			<form:form name="ClassIntroduceMyform" action="DataVideoUploadForm" method="post" enctype="multipart/form-data">
-			
-			<div class="input-group">
-				<h1 style="text-decoration: underline;">강의 내용 </h1>
-			</div>
-			
-			<div class="form-group">
-				<textarea id="summernote" name="class_content"></textarea>
-			</div>
-	
-			<div class="form-group">
-				<input type="button" class="btn btn-primary" value="다음" onclick="Control();"> 
-				<input type="button" value="가이드 라인" onclick="ClassIntroduceGuideLine();" class="btn btn-primary">
-			</div>
-	</form:form>
-			</div>
-				
-			<div class="col-sm">
-			</div>
-			</div>
-	
-	
-	
-			
-<!-- Footer Section -->
+		<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">
+			<li class="nav-link active">
+				<h3>강의 소개</h3>
+			</li>
+			<li class="list-group-item-info">
+				<h3>강의 내용</h3>
+			</li>
+			<li class="nav-link active">
+				<h3>영상 소개</h3>
+			</li>
+			<li class="nav-link active">
+				<h3>영상 추가</h3>
+			</li>
+		</ul>
+		<div class="col-sm-6 col-el-8">
+			<form:form name="ClassIntroduceMyform" action="DataVideoUploadForm" method="post"
+				enctype="multipart/form-data">
+
+				<div class="input-group">
+					<h1 style="text-decoration: underline;">강의 내용 </h1>
+				</div>
+
+				<div class="form-group">
+					<textarea id="summernote" name="class_content"></textarea>
+				</div>
+
+				<div class="form-group">
+					<input type="button" class="btn btn-primary" value="다음" onclick="Control();">
+					<input type="button" value="가이드 라인" onclick="ClassIntroduceGuideLine();" class="btn btn-primary">
+				</div>
+			</form:form>
+		</div>
+
+	</div>
+
+
+
+
+	<!-- Footer Section -->
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
-	
+
 	<script type="text/javascript">
-	
-	function Control() {
-		ClassIntroduceMyform = document.ClassIntroduceMyform;
-		if (ClassIntroduceMyform.class_content.value == "") {
-			Swal.fire({
-				type : 'error',
-				title : '실패...',
-				text : '강의 내용을 모두 입력해주세요.',
-			})
-		} else{
-		ClassIntroduceMyform.submit();
+
+
+		function Control() {
+			ClassIntroduceMyform = document.ClassIntroduceMyform;
+			if (ClassIntroduceMyform.class_content.value == "") {
+				Swal.fire({
+					type: 'error',
+					title: '실패...',
+					text: '강의 내용을 모두 입력해주세요.',
+				})
+			} else {
+				ClassIntroduceMyform.submit();
+			}
 		}
-	}
-	
-	
-		function ClassIntroduceGuideLine(){
-			 var url = "ClassIntroduceGuideLine";
-	         var name = "ClassIntroduceGuideLine";
-	         var option = "width = 800, height = 800, top = 100, left = 200, location = no"
-	         window.open(url, name, option);
+
+
+		function ClassIntroduceGuideLine() {
+			var url = "ClassIntroduceGuideLine";
+			var name = "ClassIntroduceGuideLine";
+			var option = "width = 800, height = 800, top = 100, left = 200, location = no"
+			window.open(url, name, option);
 		}
-		
+
 		function noEvent() {
 			if (event.keyCode == 116) {
-			event.keyCode= 2;
-			return false;
+				event.keyCode = 2;
+				return false;
 			}
-			else if(event.ctrlKey && (event.keyCode==78 || event.keyCode == 82))
-			{
-			return false;
+			else if (event.ctrlKey && (event.keyCode == 78 || event.keyCode == 82)) {
+				return false;
 			}
-			}
-			document.onkeydown = noEvent;
+		}
+		document.onkeydown = noEvent;
 	</script>
-	
+
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
 	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
 </body>
+
 </html>
