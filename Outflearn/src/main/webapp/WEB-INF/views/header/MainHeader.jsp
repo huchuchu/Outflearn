@@ -52,7 +52,10 @@
           <li><a href="Livepage">라이브</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-
+            <li class="dropdown"><a href="void:0" class="dropdown-toggle" data-toggle="dropdown"><i class="far fa-user" style="color: #6372ff "></i><div class="dropdown-menu" role="menu" aria-expanded="navbarDropdown">
+              <a href="RoadMapWriteP1">로드맵 작성하기</a>
+              <a href="RoadMapWriteP2">로드맵 작성하기2</a>
+            </div></a></li>
           <sec:authorize access="isAnonymous()">
           <li><a href="/Outflearn/loginform">로그인</a></li>
           <li><a href="/Outflearn/registerform.do">회원가입</a></li>

@@ -27,7 +27,6 @@
 		DISTINCT CLASS_NUM FROM BASKET WHERE USER_NUM = #{user_num })
 	</select>
 
-
 	<!-- 강의 소개 페이지 -->
 	<insert id="ClassInfoDtoInsert" parameterType="ClassInfoDto">
 		INSERT INTO
@@ -35,23 +34,20 @@
 		}, #{class_author }, #{class_intro }, #{class_img }, #{class_live }
 		,0, #{class_price }, 0, #{class_studentlevel })
 	</insert>
+
 	<!-- 부류 강의 소개 -->
 	<select id="ClassSubName" resultType="ClassInfoDto">
 	SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN (SELECT CLASS_NUM FROM CLASS_CATEGORY WHERE SUB_NUM= #{sub_num })
-	</select>
-	
-	<!-- 구독자 수정 -->
-	<select id="ClassInfoUpdateSub" parameterType="int">
-	update class_info set CLASS_SUBCOUNT = (select CLASS_SUBCOUNT from class_info where class_num = #{class_num }) + 1 where class_num = #{class_num }
 	</select>
 
 	<!-- ================== CLASS_DATA 테이블 ================== -->
 
 	<!-- 강좌 챕터 영상 보기 -->
-	<select id="classdataselectone" parameterType="map" resultType="ClassDataDto">
-	  SELECT DATA_DATA FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
-  	</select>
-	
+	<select id="classdataselectone" parameterType="int"
+		resultType="ClassDataDto">
+		SELECT DATA_DATA FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
+	</select>
+
 	<!-- 영상추가 첫번째 페이지 -->
 	<insert id="ClassDataInsert" parameterType="ClassDataDto">
 		INSERT INTO
@@ -122,7 +118,8 @@
 	<insert id="classReviewInsertAnswer" parameterType="classReviewDto">
 		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star},
 										(SELECT REVIEW_GROUPNO FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}),
-										(SELECT REVIEW_GROUPSQ FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1, 0) 
+										(SELECT REVIEW_GROUPSQ FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1, 
+										(SELECT REVIEW_TITLETAB FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1) 
 	</insert>
 
 	<update id="classReviewUpdateAnswer" parameterType="int">
@@ -144,13 +141,15 @@
 	<delete id="classBasketDeleteOne" parameterType="int">
 		DELETE FROM BASKET WHERE CLASS_NUM = #{class_num }
 	</delete>
-	
+
 	<delete id="classBasketDelete" parameterType="int">
-		DELETE FROM BASKET WHERE USER_NUM = #{user_num }
+		DELETE FROM BASKET
+		WHERE CLASS_NUM = #{user_num }
 	</delete>
 	
 	<select id="QASelectList" parameterType="int" resultType="QADto">
-		SELECT * FROM QA WHERE CLASS_NUM = #{class_num}
+		SELECT
+		* FROM QA WHERE CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1
 	</select>
 
 	<select id="QASelectOne" parameterType="int" resultType="QADto">
@@ -173,7 +172,7 @@
 		SELECT *
 		FROM QA WHERE QA_GROUP_NO = #{qa_group_no} ORDER BY QA_GROUP_SQ
 	</select>
-	
+
 	<insert id="QAReplyInsert" parameterType="QADto">
 		INSERT INTO QA
 		VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname},
@@ -245,6 +244,7 @@
 		#{firstIndex} +
 		#{recordCountPerPage}
 	</select>
+
 
 	<select id="selectTotalCount" parameterType="map"
 		resultType="Integer">
@@ -435,7 +435,7 @@
 
 	<select id="PopularSelectList" resultType="ClassInfoDto">
 		<![CDATA[
-			SELECT * FROM QA WHERE CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1 AND ROWNUM <= 5 ORDER BY QA_GROUP_SQ DESC
+			SELECT * FROM (SELECT * FROM CLASS_INFO ORDER BY CLASS_RATING DESC) WHERE ROWNUM <= 6
 		]]>
 	</select>
 	
@@ -459,7 +459,5 @@
 	<insert id="classInsertSubscribe" parameterType="hashmap">
       INSERT INTO SUBSCRIBE VALUES(#{user_num }, #{class_num })
 	</insert>
-
-	<!-- ================== 장바구니 구매 유무 ================== -->
 
 </mapper>

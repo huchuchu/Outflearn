@@ -211,29 +211,6 @@ function deleteRoadmap(roadmap_num, roadmap_title) {
         })
 }
 
-function updateClass(class_num, class_title) {
-    Swal.fire({
-        type: 'info',
-        title: `${class_title} 수정 영역 선택`,
-        html: `<button>A</button>
-    <button>B</button>`,
-        showCancelButton: false,
-        showCloseButton: true,
-        showConfirmButton: false
-    })
-}
-
-function updateRoadmap(roadmap_num, roadmap_title) {
-    Swal.fire({
-        type: 'info',
-        title: `${roadmap_title} 수정 영역 선택`,
-        html: `<button>A</button>
-    <button>B</button>`,
-        showCancelButton: false,
-        showCloseButton: true,
-        showConfirmButton: false
-    })
-}
 
 $(function () {
     $('.configLiveRoom').on('click', function () {
