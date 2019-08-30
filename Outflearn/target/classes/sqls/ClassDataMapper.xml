@@ -441,7 +441,7 @@
 	
 	<select id="ReviewList" resultType="classReviewDto" parameterType="int">
 		<![CDATA[
-			SELECT * FROM CLASS_REVIEW WHERE CLASS_NUM = #{class_num} AND ROWNUM <= 5 ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
+			SELECT * FROM CLASS_REVIEW WHERE CLASS_NUM = #{class_num} AND REVIEW_GROUPSQ = 1 AND ROWNUM <= 5 ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
 		]]>
 	</select>
 
