@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.CommentDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
@@ -166,5 +167,26 @@ public class RoadMapBizImpl implements RoadMapBiz {
 		
 		return dao.DeleteroadConBeforeUpdate(roadNum);
 	}
+
+	@Override
+	public int addComment(CommentDto dto) {
+		
+		return dao.addComment(dto);
+	}
+
+	@Override
+	public List<CommentDto> commentList(String roadNum) {
+	
+		return dao.commentList(roadNum);
+	}
+
+	@Override
+	public int commentUpdate(String commentNum) {
+		
+		return dao.commentUpdate(commentNum);
+	}
+
+
+
 
 }

@@ -110,8 +110,6 @@ height: 100%;
 margin: auto;
 text-align: center;
 }
-
-
 </style>
 
 
@@ -263,15 +261,87 @@ text-align: center;
 		</div>			
 	</div>
 	<div class="row">
+
 		<div class="col-md-8">
-	<h1>댓글을 넣을까요 어떻게 생각하세요</h1>
-	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-		
+			  <div class="form-group">
+			      <label for="exampleTextarea">로드맵에대한 피드백을 제시해주세요</label>
+			      <textarea class="form-control" id="myComment" rows="3" ></textarea>
+			      <button class="btn btn-secondary" type="button" id="btnSave">등록</button>
+			   </div>	
+		</div>
+		<div class="col-md-8">
+			<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
+				<h6 class="border-bottom pb-2 mb-0">Reply list</h6>
+				<div id="commentList" ></div>
+
+			</div> 	
 		</div>
 	</div>
 	
 
 </div>
+
+<script type="text/javascript">
+$(function() {
+	//댓글리스트 갱신 함수
+	comment_List();
+	
+	$("#btnSave").click(function(){
+		comment_add();
+	});	
+});
+
+function comment_add(){
+	
+var roadNum = $("#roamdMapNum").val();
+var Content = $("#myComment").val();
+var userNum = $("#userNum").val();
+	
+var param = {"roadmap_num":roadNum, "comment_content":Content, "user_num":userNum}
+
+$.ajax({
+	url: "addComment",
+	type: "POST",
+	data: param,
+	success: function(data){
+		alert(data);
+		alert(data.resChk);
+		if(data.resChk==true){
+//			alert("성공!");
+			$("#myComment").val("");//저장 후 돌아오면 입력된 내용 지우기	
+			comment_List(); //댓글 목록 새로고침
+		}
+
+		
+	}
+});
+	
+}
+
+function comment_List(){
+	
+	var roadNum = $("#roamdMapNum").val();
+	
+	$.ajax({
+		url: "commentList",
+		type: "GET",
+		data: "roadnum="+roadNum,
+		success: function(msg){
+			$("#commentList").html(msg);
+		}
+	});
+	
+	
+	
+}
+
+
+
+
+
+</script>
+
+
 
 <script type="text/javascript">
 $("#basketBtn").click(function(){

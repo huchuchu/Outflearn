@@ -5,6 +5,7 @@ package com.outflearn.Outflearn;
 
 import java.util.ArrayList;
 
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -26,7 +27,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.CommentDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
@@ -176,7 +178,7 @@ public class RoadMapController {
 			model.addAttribute("roadSeq", seq);	
 			return"RoadMap/RoadMapWrite_p2";
 		}else{ 
-			return"redirect:/"; //로드맵1p 수정하기 다이렉트로 왔을 떄 (마이페이지에서 왔을 떄 리턴값)
+			return"redirect:myRoadmap"; //로드맵1p 수정하기 다이렉트로 왔을 떄 (마이페이지에서 왔을 떄 리턴값)
 		}
 		
 	}
@@ -214,7 +216,7 @@ public class RoadMapController {
 		}
 		
 		
-		return "redirect:/";
+		return "redirect:myRoadmap";
 	}
 	
 	
@@ -242,7 +244,7 @@ public class RoadMapController {
 	
 	//로드맵 2페이지 작성 후 insert
 	@RequestMapping("/roadNclass")
-	public String roadNclass(@RequestParam String[] class_num, @RequestParam String seq)  {
+	public String roadNclass(@RequestParam String[] class_num, @RequestParam String seq, Model model)  {
 		
 		System.out.println("roadNclass 입장:::::::");
 		System.out.println("roadmap 번호"+seq);	
@@ -257,8 +259,8 @@ public class RoadMapController {
 			System.out.println("인서트 성공!");	
 		}
 		
-		
-		return"redirect:/";
+		model.addAttribute("roadNum", seq);
+		return"redirect:roadMapDetail";
 	}
 	
 	//검색창 띄우기
@@ -524,5 +526,58 @@ public class RoadMapController {
 		
 		return map;
 	}
+	//코멘트 등록
+	@RequestMapping("/addComment")
+	@ResponseBody
+	public Map<String, Boolean> addComment(@ModelAttribute CommentDto dto) {
+		
+		System.out.println(dto.getComment_content());
+		System.out.println(dto.getRoadmap_num());
+		System.out.println(dto.getUser_num());
+		
+		Map<String, Boolean> map = new HashMap<String,Boolean>();
+		
+		boolean resChk = false;
+		
+		int res = biz.addComment(dto);
+		if(res>0) {
+			System.out.println("댓글등록 성공");
+			resChk = true;
+			map.put("resChk",resChk);
+		}else {
+			System.out.println("댓글등록 실패");
+			map.put("resChk",resChk);
+		}
+		
+		return map;
+	}
+	
+	//코멘트 리스트보기
+	@RequestMapping("/commentList")
+	public String commentList(@RequestParam String roadnum, Model model ) {
+		System.out.println("commentList 들어옴");
+		System.out.println("로드맵번호: "+ roadnum);
+		
+		List<CommentDto> list = new ArrayList<CommentDto>();
+		list = biz.commentList(roadnum);
+		
+		model.addAttribute("list", list);
+		return "RoadMap/CommentList";
+	}
+	//코멘트 수정
+	@RequestMapping("/commentUpdate")
+	public String commentUpdate(@RequestParam String commentNum) {
+		
+		int res = biz.commentUpdate(commentNum);
+		if(res>0) {
+			System.out.println("수정성공");
+		}
+		
+		
+		return "RoadMap/CommentList";
+	}
+	
+	
+	
 
 }

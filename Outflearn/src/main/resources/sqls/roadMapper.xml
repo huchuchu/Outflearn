@@ -218,5 +218,22 @@ UPDATE ROADMAP_INFO SET ROADMAP_TITLE =#{roadmap_title}, ROADMAP_CONTENT=#{roadm
 <delete id="DeleteroadConBeforeUpdate" parameterType="String">
 DELETE ROADMAP_CON WHERE ROADMAP_NUM = #{roadNum}
 </delete>
+
+<insert id="addComment" parameterType="CommentDto">
+INSERT INTO ROADMAP_COMMENT
+VALUES(COMMENT_NUM_SQ.NEXTVAL,#{roadmap_num}, #{user_num}, #{comment_content}, COMMENT_GROUPNO_SQ.NEXTVAL,1,0)
+</insert>
+
+<select id="commentList" parameterType="String" resultType="CommentDto">
+SELECT R.COMMENT_NUM, R.ROADMAP_NUM, R.USER_NUM, R.COMMENT_CONTENT, R.COMMENT_GROUPNO, R.COMMENT_GROUPSQ, R.COMMENT_TITLETAB, U.USER_NICKNAME
+		FROM ROADMAP_COMMENT R, USER_INFO U
+		WHERE R.USER_NUM = U.USER_NUM
+		AND R.ROADMAP_NUM=#{roadNum}
+</select>
+
+<update id="commentUpdate" parameterType="String">
+UPDATE ROADMAP_COMMENT SET COMMENT_CONTENT = '이렇게수정해조' WHERE COMMENT_NUM=#{commentNum}
+</update>
+
    
 </mapper>

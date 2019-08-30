@@ -222,8 +222,8 @@ function updateRoadmap(roadmap_num, roadmap_title) {
     Swal.fire({
         type: 'info',
         title: `${roadmap_title} 수정 영역 선택`,
-        html: `<button>A</button>
-    <button>B</button>`,
+        html: `<button onclick="location.href='Modify_P1?roadNum=${roadmap_num}'">로드맵 1p수정</button>
+        	   <button onclick="location.href='Modify_P2?roadNum=${roadmap_num}'">로드맵 2p수정</button>`,
         showCancelButton: false,
         showCloseButton: true,
         showConfirmButton: false
