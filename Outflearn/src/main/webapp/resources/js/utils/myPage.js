@@ -144,6 +144,25 @@ function handleCriticalError() {
     })
 }
 
+function handleSuccess(bool) {
+    if (bool) {
+        Swal.fire({
+            type: 'success',
+            title: '정상 처리 되셨습니다.'
+        })
+            .then((result) => {
+                location.reload()
+            })
+    } else {
+        Swal.fire({
+            type: 'error',
+            title: '처리 중에 오류가 발생했습니다.',
+            text: '다시 한번 시도해주세요.',
+            footer: '혹은 관리자에게 문의 바랍니다.'
+        })
+    }
+}
+
 function deleteClass(class_num, class_title) {
     Swal.fire({
         type: 'warning',
@@ -158,22 +177,7 @@ function deleteClass(class_num, class_title) {
                 $.ajax({
                     url: `deleteClass?class_num=${class_num}`,
                     success: function (bool) {
-                        if (bool) {
-                            Swal.fire({
-                                type: 'success',
-                                title: '정상 처리 되셨습니다.'
-                            })
-                                .then((result) => {
-                                    location.reload()
-                                })
-                        } else {
-                            Swal.fire({
-                                type: 'error',
-                                title: '처리 중에 오류가 발생했습니다.',
-                                text: '다시 한번 시도해주세요.',
-                                footer: '혹은 관리자에게 문의 바랍니다.'
-                            })
-                        }
+                        handleSuccess(bool)
                     },
                     error: function (err) {
                         handleCriticalError()
@@ -183,6 +187,53 @@ function deleteClass(class_num, class_title) {
         })
 }
 
+function deleteRoadmap(roadmap_num, roadmap_title) {
+    Swal.fire({
+        type: 'warning',
+        title: `${roadmap_title}을 정말 삭제하시겠습니까?`,
+        text: '복구는 불가능합니다.',
+        confirmButtonText: '삭제',
+        showCancelButton: true,
+        showCloseButton: true
+    })
+        .then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: `deleteRoadmap?roadmap_num=${roadmap_num}`,
+                    success: function (bool) {
+                        handleSuccess(bool)
+                    },
+                    error: function (err) {
+                        handleCriticalError()
+                    }
+                })
+            }
+        })
+}
+
+function updateClass(class_num, class_title) {
+    Swal.fire({
+        type: 'info',
+        title: `${class_title} 수정 영역 선택`,
+        html: `<button>A</button>
+    <button>B</button>`,
+        showCancelButton: false,
+        showCloseButton: true,
+        showConfirmButton: false
+    })
+}
+
+function updateRoadmap(roadmap_num, roadmap_title) {
+    Swal.fire({
+        type: 'info',
+        title: `${roadmap_title} 수정 영역 선택`,
+        html: `<button>A</button>
+    <button>B</button>`,
+        showCancelButton: false,
+        showCloseButton: true,
+        showConfirmButton: false
+    })
+}
 
 $(function () {
     $('.configLiveRoom').on('click', function () {

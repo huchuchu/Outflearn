@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
+import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.dao.myPageDao;
 
@@ -19,7 +20,6 @@ public class myPageBizImpl implements myPageBiz {
 	
 	@Autowired
 	private myPageDao dao;
-
 	@Override
 	public List<ClassInfoDto> getBasketClass(int user_num) {
 		return dao.getBasketClass(user_num);
@@ -102,6 +102,16 @@ public class myPageBizImpl implements myPageBiz {
 	@Override
 	public int deleteClass(String class_num) {
 		return dao.deleteClass(class_num);
+	}
+	
+	@Override
+	public List<RoadMapInfoDto> myRoadmap(int user_num) {
+		return dao.myRoadmap(user_num);
+	}
+	
+	@Override
+	public int deleteRoadmap(String roadmap_num) {
+		return dao.deleteRoadmap(roadmap_num);
 	}
 	
 //관리자	

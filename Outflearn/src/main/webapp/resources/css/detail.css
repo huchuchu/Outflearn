@@ -296,6 +296,9 @@ div.panel-set {
 	font-size:18px;
 	text-align:right; 
 	vertical-align:middle;
+
+ul.pagination li {
+	float: left;
 }
 
 @media (max-width: 1024px) {
@@ -333,3 +336,6 @@ div.panel-set {
    display: none;
 }
 
+#InsertAfter {
+   display: none;
+}

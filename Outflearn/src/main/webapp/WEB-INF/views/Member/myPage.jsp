@@ -60,6 +60,7 @@
             <li class="nav-item side_menu">
               <a href="void:0">로드맵</a>
               <ul class="inner_menu">
+                <li><a href="myRoadmap">게시한 로드맵</a></li>
                 <li><a href="subRoadmap">참여중인 로드맵</a></li>
               </ul>
             </li>
@@ -120,7 +121,6 @@
                 </div>
               </div>
             </sec:authorize>
-
 
             <div class="row">
               <div class="col-sm-12">

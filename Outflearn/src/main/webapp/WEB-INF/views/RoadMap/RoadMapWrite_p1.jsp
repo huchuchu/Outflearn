@@ -8,9 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 <!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 <!-- include summernote css/js-->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
@@ -19,6 +19,7 @@
 (function($){
    $(document).ready(function() {
       $('#summernote').summernote({
+    	placeholder: '로드맵에 대해 설명해주세요',
       	height: 300,
       	width:910,
     	lang: 'ko-KR' // 언어 세팅
@@ -81,7 +82,7 @@ text-align: center;
 					 <!-- hidden : 사용자 번호 -->
 					 <input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
 					 <div class="form-group cen">
-					  <input type="text" name="roadmap_title" id="roadmap_title" class="form-control" style="width: 60%;">  
+					  <input type="text" name="roadmap_title" id="roadmap_title" class="form-control" style="width: 60%;" placeholder="로드맵 제목을 입력해주세요">  
 					  <select name="main_num" class="form-control" id="main_num" style="width: 20%;">
 					   	<option value="1">서버</option>
 					  	<option value="2">웹 개발</option>
@@ -98,12 +99,53 @@ text-align: center;
 	</div>
 	<div class="row cen">
 		<div class="col-md-12" >
-				<button class="btn btn-success" type="button" onclick="document.getElementById('roadMapForm').submit();">
+				<button class="btn btn-success" type="button" id="submitBtn">
 			<span>다음 페이지</span><i class="fas fa-arrow-right" style="margin-left: 5%;"></i>
 			</button>	
 			</div>
 	</div>
 </div>
+
+
+<script type="text/javascript">
+var checkUnload = true;
+
+$(window).on("beforeunload", function(){
+	if(checkUnload) return "페이지를 벗어나면 작성된 내용은 저장되지않습니다."
+});
+
+$(function(){
+	$("#submitBtn").click(function(){
+		var title = $("input[name=roadmap_title]").val();
+		var content = $("#summernote").val();
+		
+		if(title=="" || title==null){
+			Swal.fire({
+				  type: 'error',
+				  title: '제목을 입력해주세요'
+				   
+				})
+			
+			
+		}else if(content=="" || content==null){
+			Swal.fire({
+				  type: 'error',
+				  title: '내용을 입력해주세요'
+				   
+				})
+			
+			
+		}else{
+			checkUnload = false;
+			document.getElementById('roadMapForm').submit();
+		}
+	})
+})
+
+
+
+</script>
+	
 	
 <!--footer  --> 
 <jsp:include page="../footer/Footer.jsp"></jsp:include>

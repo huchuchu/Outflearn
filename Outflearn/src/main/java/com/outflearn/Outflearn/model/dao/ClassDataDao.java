@@ -36,6 +36,7 @@ public interface ClassDataDao {
 		public List<ClassDataDto> ClassDataSelectOne(int class_num);
 		public int ClassDataInsert(ClassDataDto dto);	
 		public int ClassChapterDataInsert(ClassDataDto dto);
+		public int ClassInfoUpdateSub(int class_num);
 		
 		// 장바구니 - BASKET 테이블
 		public int classBasketInsert(ClassInfoDto dto);
@@ -59,6 +60,9 @@ public interface ClassDataDao {
 		public int selectTotalCountTwo(String txt_search, String searchOption);
 		public List<ClassInfoDto> selectListPageStream(int firstIndex, int recordCountPerPage, String txt_sesarch, String searchOption, int sub_num);
 		public int selectTotalCountStream(String txt_search, String searchOption, int sub_num);
+		
+		public int selectTotalCountQA(String txt_search, int class_num);
+		public List<QADto> selectListPageQA(int firstIndex, int recordCountPerPage, String txt_search, int class_num);
 		
 		// 주류, 부류 - MAIN_STREAM , SUB_STREAM
 		//public int mainStreamInsert(MainStreamDto dto);

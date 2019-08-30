@@ -26,12 +26,12 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script type="text/javascript">
 
-			function PageMove(page, data) {	
-				location.href = "LectureList?page=" + page + 
-								"&txt_search=" + $('input#txt_search').val() + 
-								"&searchOption=" + $('#searchOption').val() +
-								"&sub_num=" + data;
-			} 
+		function PageMove(page, data) {
+			location.href = "LectureList?page=" + page +
+				"&txt_search=" + $('input#txt_search').val() +
+				"&searchOption=" + $('#searchOption').val() +
+				"&sub_num=" + data;
+		} 
 	</script>
 
 
@@ -57,10 +57,10 @@
 									<li>
 										<c:forEach items="${subList }" var="subDto">
 											<c:if test="${mainDto.main_num eq subDto.main_num }">
-									<li><a href="SubCategory?txt_search=${txt_search }&searchOption=all&sub_num=${subDto.sub_num}"
+									<li><a href="LectureList?txt_search=${txt_search }&searchOption=all&sub_num=${subDto.sub_num}"
 											class="nav-link active sub_category">${subDto.sub_name}</a></li>
-										<input type="hidden" class="nav-link active sub_category" name="sub_category" id="sub_category"
-										value="${subDto.sub_num }" >
+									<input type="hidden" class="nav-link active sub_category" name="sub_category"
+										id="sub_category" value="${subDto.sub_num }">
 									</c:if>
 						</c:forEach>
 						</li>
@@ -144,9 +144,6 @@
 						<c:choose>
 							<c:when test="${empty classinfo }">
 								<h3>강좌 정보가 없습니다...!!</h3>
-								<sec:authorize access="hasRole('ROLE_TUTOR')">
-									<input type="button" class="btn btn-primary" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" />
-								</sec:authorize>
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${classinfo }" var="dto">
@@ -164,9 +161,6 @@
 										</div>
 									</div>
 								</c:forEach>
-								<sec:authorize access="hasRole('ROLE_TUTOR')">
-									<input type="button" class="btn btn-primary" value="강의 추가" onclick="location.href='ClassInfoInsertForm'" />
-								</sec:authorize>
 							</c:otherwise>
 						</c:choose>
 				</article>

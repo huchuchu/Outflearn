@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 
@@ -57,17 +57,21 @@
 				<p class="text-center" align="center">
 					<a href="void:0" class="btn btn-success btn-lg" role="button">학습하기</a>
 				</p>
+				
+				
+				<c:if test="${empty ClassBuyAfter  }">
 				<div id="box">
 					<div id="course">
 						<h4>${classinfo.class_price }원</h4>
-						<button type="button" class="btn-group btn-group-vertical btns">바로
-							수강신청</button>
-						<form:form action="basket" method="post">
-							<input type="hidden" name="class_num" value="${class_num }">
-							<input type="submit" value="장바구니 담기" class="btn-group btn-group-vertical btns" >
-						</form:form>
+					<div id="InsertBefore">	
+						<input type="hidden" name="class_num" value="${classinfo.class_num }" id="class_num">
+						<button class="btn-group btn-group-vertical btns" onclick="classinsert();">바로 수강신청</button>
+						<button class="btn-group btn-group-vertical btns" onclick="classinsert();">장바구니 담기</button>
 					</div>
-			
+					<div id="InsertAfter">
+						<button class="btn-group btn-group-vertical btns" onclick="location.href='basketSelect'">장바구니 이동</button>
+					</div>
+					
 					
 					<div id="course_info">
 						<div id="instructor_profile" class="text-center">${classinfo.class_author }</div>
@@ -90,8 +94,10 @@
 					</div>
 				</div>
 			</div>
+			</c:if>
 		</div>
 	</div>
+	
 	<div id="main" class="container pull-left">
 		<nav class="nav">
 			<ul class="nav nav-tabs">
@@ -101,16 +107,28 @@
 				<li class="nav-item ">
 					<a class="nav-link" href="#LectureIntroduce">강좌소개</a>
 				</li>
+				<sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_TUTOR')">
 				<li class="nav-item ">
 					<a class="nav-link" href="#review">수강후기</a>
 				</li>
-				<li class="nav-item ">
-					<a class="nav-link" href="#Question">질문&답변</a>
-				</li>
+				</sec:authorize>
+				
+				<sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_TUTOR')">
+					<li class="nav-item ">
+						<a class="nav-link" href="#Question">질문&답변</a>
+					</li>
+				</sec:authorize>
 			</ul>
 		</nav>
 	</div>
 	
+	<div class="panel panel-default">
+			<p>
+				${classIntroduce.class_content }
+			</p>
+		</div>
+	</div>
+
 	<div id="page-switch" class="nav-page">
 		<!-- 대쉬보드 -->
 		<input type="hidden" id="intro-content" value="${classIntroduce.class_content }">
@@ -230,7 +248,6 @@
 												</div>
 											</div>
 											<div class="container reply-div row">
-												
 													<form:form action="Reply" method="post">
 														<input type="hidden" name="class_num" value="${dto.class_num }">
 														<input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
@@ -403,7 +420,25 @@
 	</div>
 	
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
-
+	<script type="text/javascript">
+	var class_num = $("#class_num").val();
+	
+	function classinsert(){
+		$.ajax({
+			url : 'basket?class_num=' + class_num,
+			method : 'get',
+			success:function(data){
+				$("#InsertBefore").hide();
+		        $("#InsertAfter").show();
+			
+			},
+			error:function(){
+				alert('로그인 후 이용해주세요.')
+				location.href = "loginform"
+			}
+		})
+	}
+	</script>
 
 	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>

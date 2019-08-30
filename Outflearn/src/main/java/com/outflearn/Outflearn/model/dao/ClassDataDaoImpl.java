@@ -87,6 +87,14 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		System.out.println("여기오니??");
 		return list;
 	}
+	
+	@Override
+	public int ClassInfoUpdateSub(int class_num) {
+		
+		int res = sqlSession.update(namespace + "ClassInfoUpdateSub" , class_num); 
+		
+		return res;
+	}	
 
 
 // --------------------------------------------------- 강좌 내용(CLASS_INTRODUCE)
@@ -183,11 +191,11 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 
 	@Override
-	public int classBasketDelete(int class_num) {
+	public int classBasketDelete(int user_num) {
 		
 		int res = 0;
 		
-		res = sqlSession.delete(namespace + "classBasketDelete", class_num); 
+		res = sqlSession.delete(namespace + "classBasketDelete", user_num); 
 		
 		return res;
 	}
@@ -370,6 +378,34 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 
+	
+	@Override
+	public int selectTotalCountQA(String txt_search, int class_num) {
+		
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("txt_search", txt_search);
+		map.put("class_num", String.valueOf(class_num));
+		res = sqlSession.selectOne(namespace + "selectTotalCountQA", map);
+		
+		return res;
+	}
+
+	@Override
+	public List<QADto> selectListPageQA(int firstIndex, int recordCountPerPage, String txt_search, int class_num) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("firstIndex", String.valueOf(firstIndex));
+		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
+		map.put("txt_search", txt_search);
+		map.put("class_num", String.valueOf(class_num));
+
+		
+		List<QADto> list = sqlSession.selectList(namespace + "selectListPageQA", map);
+		return list;
+	}
+	
 	@Override
 	public int ClassReviewUpdateAnswer(int review_num) {
 

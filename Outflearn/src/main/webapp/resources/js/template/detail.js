@@ -6,13 +6,11 @@ var second_sum = 0
 $(document).ready(function () {
 
 	avg_rating($('#rating').val(), $('#rating-tag'))
-	
     var ReviewStar = document.querySelectorAll(".review-star")
     
     var classes = Array.prototype.map.call(ReviewStar, function(element) {
         return element.value
     });
-	
     for(var i = 0; i < classes.length; i++) {
         rating_star(classes[i], $('.show-star')[i])
     }
@@ -208,7 +206,7 @@ function DashboardHeader() {
     <div class='table-responsive-lg'>
     <table class='table youtube'>
     </div>`
-	)
+   )
 }
 
 function DashboardOne(video_list, playlist_id) {
@@ -230,10 +228,10 @@ function DashboardOne(video_list, playlist_id) {
         	
         	$('.youtube').append(
                 `<tr class='youtube_data'>
-                	<td><i class=\"far fa-clock\"></i></td>
-                  	<td><a href='LectureDetailView?DATA_DATA=${video_id}'>${video_title}</a></td>
-                   	<td>${duration}</td>
-                   	<td>${duration}</td>`
+                   <td><i class=\"far fa-clock\"></i></td>
+                     <td><a href='LectureDetailView?DATA_DATA=${video_id}'>${video_title}</a></td>
+                      <td>${duration}</td>
+                      <td>${duration}</td>`
             );
 
             min += parseInt(duration.split(' : ')[0]);
@@ -290,9 +288,9 @@ function DashboardList(video_list, playlist_id) {
                 min += parseInt(duration.split(' : ')[0]);
                 sec += parseInt(duration.split(' : ')[1]);
 
-                //                hour_sum = hour_sum + hour
-                //                minite_sum = minite_sum + min
-                //                second_sum = second_sum + sec
+                // hour_sum = hour_sum + hour
+                // minite_sum = minite_sum + min
+                // second_sum = second_sum + sec
 
                 if (min > 59) {
                     hour_sum++;

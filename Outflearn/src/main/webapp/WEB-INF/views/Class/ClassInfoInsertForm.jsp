@@ -46,8 +46,7 @@
 <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 
 <!-- Sweet Alert2 -->
-<link href='resources/js/sweetalert/sweetalert2.min.css'
-	rel='stylesheet' />
+<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
 <script src='resources/js/sweetalert/sweetalert2.min.js'></script>
 
 </head>
