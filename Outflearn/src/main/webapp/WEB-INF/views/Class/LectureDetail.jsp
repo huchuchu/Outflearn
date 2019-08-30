@@ -23,11 +23,11 @@
 	crossorigin="anonymous">
 
 <!-- include libraries(jQuery, bootstrap) -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
 <!-- include summernote css/js -->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 
 </head>
 
@@ -354,13 +354,29 @@
     	<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">
-					<form:form action="QuestionInsert">
+					<h1 class="text-center">리뷰 작성</h1>
+					<form:form action="LectureDetailAnswer">
+						<span class="star-input">
+							<span class="input">
+								<input type="radio" name="star-input" value="1" id="p1">
+								<label for="p1">1</label>
+								<input type="radio" name="star-input" value="2" id="p2">
+								<label for="p2">2</label>
+								<input type="radio" name="star-input" value="3" id="p3">
+								<label for="p3">3</label>
+								<input type="radio" name="star-input" value="4" id="p4">
+								<label for="p4">4</label>
+								<input type="radio" name="star-input" value="5" id="p5">
+								<label for="p5">5</label>
+							</span>
+							<output for="star-input" name="user_star"><b id="review-rating">0</b></output>						
+						</span>
 						<input type="hidden" name="class_num" value="${classinfo.class_num }">
 						<input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
 						<input type="hidden" name="user_nickname" value='<sec:authentication property="principal.user_nickname"/>'>
-						<p><textarea rows="20" cols="60" name="review_content" class="summernote"></textarea></p>
+						<p><textarea name="review_content" class="summernote"></textarea></p>
 						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-						<button type="submit" class="btn btn-default">작성</button>
+						<button type="submit" id="review-insert-btn" class="btn btn-default">작성</button>
 					</form:form>
 				</div>
 			</div>
@@ -371,12 +387,13 @@
     	<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">
+					<h1 class="text-center">질문 작성</h1>
 					<form:form action="QuestionInsert">
 						<input type="hidden" name="class_num" value="${classinfo.class_num }">
 						<input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
 						<input type="hidden" name="user_nickname" value='<sec:authentication property="principal.user_nickname"/>'>
-						<p><input type="text" placeholder="제목을 입력해주세요." name="qa_title" class="form-control summernote"></p>
-						<p><textarea rows="20" cols="60" name="qa_content"></textarea></p>
+						<p><input type="text" placeholder="제목을 입력해주세요." name="qa_title" class="form-control"></p>
+						<p><textarea rows="20" cols="60" name="qa_content" class="summernote"></textarea></p>
 						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 						<button type="submit" class="btn btn-default">작성</button>
 					</form:form>
@@ -392,7 +409,7 @@
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/js/template/detail.js"></script>
 	<script type="text/javascript" src="resources/js/ClassReview.js"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+	<script type="text/javascript" src="resources/js/template/star.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 </body>
-
 </html>
