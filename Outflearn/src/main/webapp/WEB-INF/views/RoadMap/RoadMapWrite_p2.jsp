@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,10 +49,11 @@ width: 100%;
 			<form action="roadNclass" method="post" id="classInfoForm">
 			<input type="hidden" name="seq" value="${roadSeq }">			
 			<table id="classInfoTable" class="table" >
+			
 				<tbody id="addtr">
 					<tr>
 						<td>
-						<input type="text"  name="class_title" readonly="readonly" id="real1">
+						<input type="text"  name="class_title" readonly="readonly" id="real1" >
 						<input type="hidden" name="class_num"  readonly="readonly" id="test1" >
 						</td>
 						<td>
@@ -65,24 +67,62 @@ width: 100%;
 												
 					</tr>			
 				</tbody>				
-			</table>	
-
+			</table>
 		</form>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-12" id="BTNarea">
 			 
-			<button class="btn btn-success" type="button">
+			<button class="btn btn-success" type="button" onclick="location.href='RoadMapUpdate_p1?roadNum=${roadSeq }'">
 				<i class="fas fa-arrow-left"></i><span>로드맵1p수정</span> 
 			</button> 
-			<button class="btn btn-success" onclick="document.getElementById('classInfoForm').submit();" id="submitBnt">
+			<button class="btn btn-success"  id="submitBtn">
 			<span>제출하기</span><i class="fas fa-arrow-right"></i>
 			</button>
 		</div>
 	</div>
 </div>
 
+<script type="text/javascript">
+
+var checkUnload = true;
+
+$(window).on("beforeunload", function(){
+	if(checkUnload) return "페이지를 벗어나면 작성된 내용은 저장되지않습니다."
+});
+
+
+$("#submitBtn").click(function(){
+	
+	var length = $("input[name='class_title']").length;
+	var roadNum = $("input[name='seq']").val();
+
+	
+	if(roadNum =="" || roadNum ==null){
+		Swal.fire({
+			  type: 'error',
+			  title: '로드맵 소개하기를 <br/>먼저 작성해주세요'				   
+			})	
+		return false;	
+	}
+	
+	if(length<4){
+		Swal.fire({
+			  type: 'error',
+			  title: '강의 영상을 4개이상 등록해주세요!'				   
+			})		
+	}
+	
+	var beforeChk = EmptyChk();
+	
+	if(beforeChk == true && length>=4 && roadNum !="" && roadNum !=null ){
+		checkUnload = false;
+		document.getElementById('classInfoForm').submit();
+	}
+});
+
+</script>
 <script type="text/javascript" >
 
 var Cnt = 2;
@@ -90,15 +130,8 @@ var Cnt = 2;
 function addSession(){
 //	alert("cnt="+Cnt);
 	
-	var res = Cnt-1;
-	var Chk = document.getElementById("real"+res).value;
-	
-	if(Chk == null || Chk == ""){
-		alert("이전 항목을 채워주새요");
-		
-		return false;
-	}
-	
+	var chk = EmptyChk();
+	if(chk==true){
 	
 	var tr = document.createElement("tr");
 		
@@ -119,19 +152,48 @@ function addSession(){
 	tr.innerHTML=str;	
 	document.getElementById("addtr").appendChild(tr);
 	Cnt +=1;
+	}
+}
+</script>
+
+<script type="text/javascript">
+
+function EmptyChk(){
 	
+	var length = $("input[name='class_title']").length;
+	
+	for(var i=0; i<length; i++){
+		if($("input[name='class_title']")[i].value =="" || $("input[name='class_title']")[i].value ==null){
+			Swal.fire({
+				  type: 'error',
+				  title: '항목을 모두 작성해주세요!'				   
+				})				
+				return false;
+		}
+	}	
+	
+	return true;
 }
 </script>
 
 <script type="text/javascript">
 
 function searchClass(btnId){
+	
+	var numArray = [];
+	var numLenth = $("input[name='class_num']").length;	
+	
+	for(var i=0; i<numLenth;i++){
+		numArray[i]=$("input[name='class_num']")[i].value;
+	}
+	
+		
 //	alert(btnId);
 	var url="searchWingogo";
 	
 	window.name = "parentForm";//부모창 이름
 	//window.open("open할 윈도우","자식창 이름","팝업창 옵션");
-	window.open(url+"?btnIdVal="+btnId,"searchWindow" ,"width=400,height=400,left=600");
+	window.open(url+"?btnIdVal="+btnId+"&numArray="+numArray,"searchWindow" ,"width=400,height=400,left=600");
 	
 }
 
@@ -140,7 +202,10 @@ function deleteLine(el){
 	var trCnt = $('tbody>tr').size()
 	
 	if(trCnt == 1){
-		alert("더이상 삭제할 수 없습니다");
+		Swal.fire({
+			  type: 'error',
+			  title: '더이상 삭제할 수 없습니다!'				   
+			})				
 	}else{
 		var tr = $(el).closest('tr');
 		tr.remove();
@@ -166,7 +231,6 @@ function moveBottom(el){
 	tr.closest('table').find('tr:last').after(tr);	
 }
 
-$(fun)
 
 </script>
 
