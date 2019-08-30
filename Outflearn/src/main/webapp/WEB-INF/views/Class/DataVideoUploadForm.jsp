@@ -46,6 +46,7 @@
 <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 <!-- ======================================================jQuery -->
+<<<<<<< HEAD
 <script type="text/javascript"
 	src="resources/js/template/jquery.1.11.1.js"></script>
 <script type="text/javascript"
@@ -72,6 +73,84 @@
 			
 			});
      
+=======
+<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
+<script type="text/javascript" src="https://jquery.com/download/https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<!-- Sweet Alert2 -->
+<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
+<script src='resources/js/sweetalert/sweetalert2.min.js'></script>
+
+<script type="text/javascript">
+	
+	$(document).ready(function() {
+
+		$(".success1").click(function() {
+			$(".data").remove();
+		});
+
+		$(".success2").click(function() {
+			$(".youTube").remove();
+		});
+
+	});
+
+	function Control() {
+		DataVideoMyform = document.DataVideoMyform;
+		console.log(DataVideoMyform)
+		
+		// 영상 소개에서 값이 들어가 있지 않을때
+		if (DataVideoMyform.data_subhead.value == "" || DataVideoMyform.data_sq.value == "" || 
+			DataVideoMyform.data_title.value == "" && DataVideoMyform.data_data.value == "") 
+		{
+			Swal.fire
+			({
+				type : 'error',
+				title : '실패...',
+				text : '강의 내용을 모두 입력해주세요.',
+			})
+		} 
+		
+		else if(DataVideoMyform.data_subhead.value == DataVideoMyform.data_subhead.value && DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value && 
+				DataVideoMyform.data_title.value == DataVideoMyform.data_title.value && DataVideoMyform.data_data.value == DataVideoMyform.data_data.value)
+		{	
+			if($('#file').val() == ""){
+			Swal.fire({
+				type : 'error',
+				title : '실패...',
+				text : '파일 업로드 완료 버튼을 클릭해주세요.',
+			})
+		     }
+			else{
+				alert("선옹");
+				DataVideoMyform.submit();
+			}
+			
+			
+		}
+		
+		else if(DataVideoMyform.data_subhead.value == DataVideoMyform.data_subhead.value && DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value && 
+				DataVideoMyform.data_title.value == DataVideoMyform.data_title.value && document.getElementsByName("file").value == document.getElementsByName("file").value)
+		{
+			if(DataVideoMyform.data_data.value == ""){
+			Swal.fire({
+				type : 'error',
+				title : '실패...',
+				text : '유튜브 주소 완료 버튼을 클릭해주세요.',
+				})	
+			}
+			
+		}else {
+			alert("선옹");
+			DataVideoMyform.submit();
+		}
+	
+		
+	}
+
+		
+	
+>>>>>>> parent of 36ca71b... Merge branch 'master' of https://github.com/WeeSBin/Outflearn
 </script>
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -111,6 +190,7 @@
 
 			<div class="form-group">
 					<h3>영상 업로드(유튜브 영상 링크 또는 파일 업로드 하나만 선택)</h3>
+<<<<<<< HEAD
 				<div class="youTube">
 					<input type="text" name="data_data" class="form-control" placeholder="유튜브 주소를 입력해주세요."/>
 					<input type="button" value="완료" class="success1" style="color: #6372ff;"/>
@@ -120,19 +200,41 @@
 				<div class="data">
 					<input type="file" name="file" style="color: #6372ff;"/>
 					<input type="button" value="완료" class="success2" style="color: #6372ff;"/>
+=======
+					<div class="youTube">
+						<input type="text" name="data_data" class="form-control" placeholder="유튜브 주소를 입력해주세요." /> 
+						<input type="button" value="완료" class="success1" style="color: #6372ff;" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="data">
+						<input type="file" id="file" name="file" style="color: #6372ff;" /> 
+						<input type="button" value="완료" class="success2" style="color: #6372ff;" />
+					</div>
+>>>>>>> parent of 36ca71b... Merge branch 'master' of https://github.com/WeeSBin/Outflearn
 				</div>
 			</div>
 			
 
 				<div class="form-group">
+<<<<<<< HEAD
 					<input type="submit" class="btn btn-primary" value="작성 후 클릭" onclick="clearalert();" /> 
 					<input type="button" class="btn btn-primary" value="게시판 넘기기 " onclick="location.href='LectureList'"> 
 					<input type="button" class="btn btn-primary" value="뒤로 가기" onclick="backclassinfo();" />
+=======
+					<input type="button" class="btn btn-primary" value="작성 후 클릭" onclick="Control();" /> 
+					<input type="button" value="가이드 라인" onclick="DataVideoGuideLine();" class="btn btn-primary"> 
+					<input type="button" class="btn btn-primary" value="강의 목록 " onclick="location.href='LectureList'">
+>>>>>>> parent of 36ca71b... Merge branch 'master' of https://github.com/WeeSBin/Outflearn
 				</div>
 				
 			<div class="col-sm">
 				<input type="button" value="가이드 라인" onclick="GuideLine();" class="btn btn-primary">
 			</div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 36ca71b... Merge branch 'master' of https://github.com/WeeSBin/Outflearn
 
 			</form:form>
 		</div>
@@ -147,8 +249,10 @@
 	</script>
 
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
-	<script type="text/javascript" src="resources/js/template/nivo-lightbox.js"></script>
-	<script type="text/javascript" src="resources/js/template/jqBootstrapValidation.js"></script>
+	<script type="text/javascript"
+		src="resources/js/template/nivo-lightbox.js"></script>
+	<script type="text/javascript"
+		src="resources/js/template/jqBootstrapValidation.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
 </body>
 </html>

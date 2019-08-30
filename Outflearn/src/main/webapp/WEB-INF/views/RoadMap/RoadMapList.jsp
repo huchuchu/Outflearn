@@ -28,10 +28,7 @@ float: left;
 
 <script type="text/javascript">
 function PageMove(page,data) {
-    location.href = "RoadMap?page=" + page + 
-    				"&txt_search=" + $('input#txt_search').val() + 
-    				"&searchOption=" + $('#searchOption').val() +
-    				"&main_num=" + data;
+    location.href = "RoadMap?page="+page+"&txt_search=" + $('input#txt_search').val() + "&searchOption=" + $('#searchOption').val();
  }
 
 </script>
@@ -52,15 +49,13 @@ function PageMove(page,data) {
                   <option>공유순</option>
                </select>
             </div>   
-            <div id="side_checkbox" >
+            <div id="side_checkbox">
                <ul class="nav flex-column text-center" style="clear: both">
                   <li class="lg_category nav-item text-left"><a href="void:0" id="level_btn" class="nav-link active text-left">분야별&nbsp;<i class="fas fa-chevron-down"></i></a>
                      <div id="level" class="collapse">
                         <c:forEach items="${mainList }" var="mainDto">
                            <div class="sm_category">
-                              <input id="mainNum_${mainDto.main_num }" type="checkbox" value="${mainDto.main_num }" 
-                              onclick="location.href='RoadMap?txt_search=${txt_search }&searchOption=all&main_num=${mainDto.main_num}'"><label for="mainNum_${mainDto.main_num }">${mainDto.main_name }</label>
-                             <input type="hidden" class="main_category" name="main_category" value="${mainDto.main_num }">
+                              <input id="mainNum_${mainDto.main_num }" type="checkbox" value="${mainDto.main_num }"><label for="mainNum_${mainDto.main_num }">${mainDto.main_name }</label>
                            </div>                           
                         </c:forEach>
 
@@ -102,7 +97,11 @@ function PageMove(page,data) {
                      <input type="text" class="form-control form-control-sm" name="txt_search" id="txt_search" value="${txt_search }" placeholder="검색하기">
                   </div>
                   <div>
+<<<<<<< HEAD
                      <button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch" onclick="javascript:PageMove(${pagination.pageNo}, '${main_num }');">검색</button>
+=======
+                     <button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch" onclick="javascript:PageMove(${pagination.pageNo});">검색</button>
+>>>>>>> parent of 36ca71b... Merge branch 'master' of https://github.com/WeeSBin/Outflearn
                   </div>
                </div>
                   
@@ -152,25 +151,25 @@ function PageMove(page,data) {
    
    <!-- Pagination -->
          <div class="text-center form-group form-inline" >
-            <a href="javascript:PageMove(${pagination.firstPageNo},'${main_num }')"
+            <a href="javascript:PageMove(${pagination.firstPageNo})"
                class="button previous">&laquo;</a> <a
-               href="javascript:PageMove(${pagination.prevPageNo},'${main_num }')"
+               href="javascript:PageMove(${pagination.prevPageNo})"
                class="button previous">&lt;</a>
             <div class="pages">
                <c:forEach var="i" begin="${pagination.startPageNo}" end="${pagination.endPageNo}" step="1">
                   <c:choose>
                      <c:when test="${i eq pagination.pageNo}">
-                        <a href="javascript:PageMove(${i},'${main_num }')" class="active">${i}</a>
+                        <a href="javascript:PageMove(${i})" class="active">${i}</a>
                      </c:when>
                      <c:otherwise>
-                        <a href="javascript:PageMove(${i},'${main_num }')">${i}</a>
+                        <a href="javascript:PageMove(${i})">${i}</a>
                      </c:otherwise>
                   </c:choose>
                </c:forEach>
             </div>
-            <a href="javascript:PageMove(${pagination.nextPageNo},'${main_num }')"
+            <a href="javascript:PageMove(${pagination.nextPageNo})"
                class="button_next">&gt;</a> <a
-               href="javascript:PageMove(${pagination.finalPageNo},'${main_num }')"
+               href="javascript:PageMove(${pagination.finalPageNo})"
                class="button_next">&raquo;</a>
          </div>
    <!--footer  -->

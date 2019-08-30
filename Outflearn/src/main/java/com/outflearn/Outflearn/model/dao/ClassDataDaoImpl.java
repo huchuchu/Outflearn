@@ -370,34 +370,6 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 
-	
-	@Override
-	public int selectTotalCountQA(String txt_search, int class_num) {
-		
-		int res = 0;
-		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("txt_search", txt_search);
-		map.put("class_num", String.valueOf(class_num));
-		res = sqlSession.selectOne(namespace + "selectTotalCountQA", map);
-		
-		return res;
-	}
-
-	@Override
-	public List<QADto> selectListPageQA(int firstIndex, int recordCountPerPage, String txt_search, int class_num) {
-		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("firstIndex", String.valueOf(firstIndex));
-		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
-		map.put("txt_search", txt_search);
-		map.put("class_num", String.valueOf(class_num));
-
-		
-		List<QADto> list = sqlSession.selectList(namespace + "selectListPageQA", map);
-		return list;
-	}
-	
 	@Override
 	public int ClassReviewUpdateAnswer(int review_num) {
 

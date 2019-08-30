@@ -52,12 +52,16 @@ public interface RoadMapBiz {
 
 	public List<RoadMapInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search, String searchOption);
 	
-	public int selectTotalCountRoadMap(String txt_search, String searchOption, int main_num);
+	public int selectTotalCountRoadMap(String txt_search, String searchOption);
 
 	public List<Integer> SubBaList(String userNum);
 	
 	public int AddToCart(List<String>cartArray, String userNum);
 
 	public List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
+<<<<<<< HEAD
 			String searchOption, int main_num);
+=======
+			String searchOption);
+>>>>>>> parent of 36ca71b... Merge branch 'master' of https://github.com/WeeSBin/Outflearn
 }

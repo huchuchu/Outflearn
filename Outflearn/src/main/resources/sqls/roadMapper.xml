@@ -95,7 +95,6 @@ SELECT R.ROADMAP_NUM, R.USER_NUM, R.ROADMAP_TITLE, R.ROADMAP_CONTENT, R.ROADMAP_
 		SELECT count(*)
 		FROM ROADMAP_INFO R INNER JOIN  USER_INFO U ON R.USER_NUM = U.USER_NUM
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-			<if test="main_num == 0">
 			<if test="txt_search != null">
 				<if test="searchOption == 'all'">
 				AND	upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%'
@@ -110,26 +109,6 @@ SELECT R.ROADMAP_NUM, R.USER_NUM, R.ROADMAP_TITLE, R.ROADMAP_CONTENT, R.ROADMAP_
 					AND upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%'
 					AND R.USER_NUM = U.USER_NUM
 				</if>
-			</if>
-			</if>
-			
-			<if test="main_num !=0">
-				AND MAIN_NUM = #{main_num }
-				<if test="txt_search != null">
-				<if test="searchOption == 'all'">
-				AND	upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%'
-				OR upper(USER_NICKNAME) like '%' || upper(#{txt_search}) || '%'
-				AND	R.USER_NUM = U.USER_NUM
-				</if>
-				<if test="searchOption == 'roadmap_author'">
-					AND upper(USER_NICKNAME) like '%' || upper(#{txt_search}) || '%'
-					AND R.USER_NUM = U.USER_NUM
-				</if>
-				<if test="searchOption == 'roadmap_title'">
-					AND upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%'
-					AND R.USER_NUM = U.USER_NUM
-				</if>
-			</if>
 			</if>
 		</trim>
 		
@@ -167,44 +146,21 @@ VALUES(#{userNum},#{item})
                  R.MAIN_NUM AS MAIN_NUM,
                  U.USER_NICKNAME AS USER_NICKNAME
             FROM ROADMAP_INFO R INNER JOIN  USER_INFO U ON R.USER_NUM = U.USER_NUM
-            <trim prefix="WHERE" prefixOverrides="AND|OR">
-            <if test="main_num == 0">
-            	<if test="txt_search != null">
-            		<if test="searchOption=='all'">
-              		 AND upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%' or
-             		 upper(USER_NICKNAME) like '%' || upper(#{txt_search}) || '%' and
-             	 	R.USER_NUM = U.USER_NUM
-            		</if>
-            		<if test="searchOption=='roadmap_author'">
-               		AND upper(USER_NICKNAME) like '%' || upper(#{txt_search}) || '%' and
-               		R.USER_NUM = U.USER_NUM
-            		</if>
-            		<if test="searchOption=='roadmap_title'">
-               		AND upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%' and
-               		R.USER_NUM = U.USER_NUM
-            		</if>
+            <if test="txt_search != null">
+            	<if test="searchOption=='all'">
+              	 WHERE upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%' or
+             	 upper(USER_NICKNAME) like '%' || upper(#{txt_search}) || '%' and
+             	 R.USER_NUM = U.USER_NUM
             	</if>
+            	<if test="searchOption=='roadmap_author'">
+               	WHERE upper(USER_NICKNAME) like '%' || upper(#{txt_search}) || '%' and
+               	R.USER_NUM = U.USER_NUM
+            	</if>
+            	<if test="searchOption=='roadmap_title'">
+               	WHERE upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%' and
+               	R.USER_NUM = U.USER_NUM
             </if>
-            
-            <if test="main_num !=0">
-				AND MAIN_NUM = #{main_num }
-				<if test="txt_search != null">
-					<if test="searchOption == 'all'">
-					AND	upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%'
-					OR upper(USER_NICKNAME) like '%' || upper(#{txt_search}) || '%'
-					AND	R.USER_NUM = U.USER_NUM
-					</if>
-					<if test="searchOption == 'roadmap_author'">
-					AND upper(USER_NICKNAME) like '%' || upper(#{txt_search}) || '%'
-					AND R.USER_NUM = U.USER_NUM
-					</if>
-					<if test="searchOption == 'roadmap_title'">
-					AND upper(ROADMAP_TITLE) like '%' || upper(#{txt_search}) || '%'
-					AND R.USER_NUM = U.USER_NUM
-				</if>
-			</if>
-			</if>
-			</trim>
+            </if>
          ORDER BY R.ROADMAP_NUM DESC
       ) C
       )

@@ -38,8 +38,17 @@
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
 	<!-- include summernote css/js -->
+<<<<<<< HEAD
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+=======
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+	
+	<!-- Sweet Alert2 -->
+	<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
+	<script src='resources/js/sweetalert/sweetalert2.min.js'></script>
+>>>>>>> parent of 36ca71b... Merge branch 'master' of https://github.com/WeeSBin/Outflearn
 	
 	<script type="text/javascript">
 	(function($){
@@ -78,7 +87,11 @@
 				</li>
 			</ul>
 				<div class="col-sm-6 col-el-8">
+<<<<<<< HEAD
 			<form:form action="DataVideoUploadForm" method="post" enctype="multipart/form-data">
+=======
+			<form:form name="ClassIntroduceMyform" action="DataVideoUploadForm" method="post" enctype="multipart/form-data">
+>>>>>>> parent of 36ca71b... Merge branch 'master' of https://github.com/WeeSBin/Outflearn
 			
 			<div class="input-group">
 				<h1 style="text-decoration: underline;">강의 내용 </h1>
@@ -89,14 +102,22 @@
 			</div>
 	
 			<div class="form-group">
+<<<<<<< HEAD
 				<input type="submit" class="btn btn-primary" value="다음"> 
 				<input type="button" class="btn btn-primary" onclick="location.href='LectureList'" value="취소">
+=======
+				<input type="button" class="btn btn-primary" value="다음" onclick="Control();"> 
+				<input type="button" value="가이드 라인" onclick="ClassIntroduceGuideLine();" class="btn btn-primary">
+>>>>>>> parent of 36ca71b... Merge branch 'master' of https://github.com/WeeSBin/Outflearn
 			</div>
 	</form:form>
 			</div>
 				
 			<div class="col-sm">
+<<<<<<< HEAD
 				<input type="button" value="가이드 라인" onclick="GuideLine();" class="btn btn-primary">
+=======
+>>>>>>> parent of 36ca71b... Merge branch 'master' of https://github.com/WeeSBin/Outflearn
 			</div>
 			</div>
 	
@@ -107,12 +128,36 @@
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 	
 	<script type="text/javascript">
+<<<<<<< HEAD
 		function GuideLine(){
 			 var url = "GuideLine";
 	         var name = "GuideLine";
 	         var option = "width = 800, height = 800, top = 100, left = 200, location = no"
 	         window.open(url, name, option);
 		}
+=======
+	
+	function Control() {
+		ClassIntroduceMyform = document.ClassIntroduceMyform;
+		if (ClassIntroduceMyform.class_content.value == "") {
+			Swal.fire({
+				type : 'error',
+				title : '실패...',
+				text : '강의 내용을 모두 입력해주세요.',
+			})
+		} else{
+		ClassIntroduceMyform.submit();
+		}
+	}
+	
+	
+		function ClassIntroduceGuideLine(){
+			 var url = "ClassIntroduceGuideLine";
+	         var name = "ClassIntroduceGuideLine";
+	         var option = "width = 800, height = 800, top = 100, left = 200, location = no"
+	         window.open(url, name, option);
+		}
+>>>>>>> parent of 36ca71b... Merge branch 'master' of https://github.com/WeeSBin/Outflearn
 		
 		function noEvent() {
 			if (event.keyCode == 116) {

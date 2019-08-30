@@ -54,15 +54,14 @@ public class RoadMapController {
 	//로드맵 보기
 
 	@RequestMapping("/RoadMap")
-	public String roadMapPage(Model model, String txt_search, String page, int main_num, String searchOption) {
+	public String roadMapPage(Model model, String txt_search, String page, String class_category, String searchOption) {
 			logger.info("txt서치전");
 			
 			
-			int totalCount = biz.selectTotalCountRoadMap(txt_search, searchOption, main_num);
+			int totalCount = biz.selectTotalCountRoadMap(txt_search, searchOption);
 			logger.info("검색어:"+txt_search);
 			logger.info("검색옵션:"+searchOption);
-			logger.info("컨트롤러 메인넘버:" + main_num);
-			logger.info("찾은강좌:"+totalCount);
+			logger.info(""+totalCount);
 			
 			int pageNum = (page==null)? 1:Integer.parseInt(page);
 			
@@ -79,15 +78,23 @@ public class RoadMapController {
 			pageNum = (pageNum -1) * pagination.getPageSize();
 			
 			List<MainStreamDto> mainStreamList = biz.mainStreamList();
-			List<RoadUserCombineDto> comList = biz.roadMapComList(pageNum, pagination.getPageSize(), txt_search, searchOption, main_num);
+			List<RoadUserCombineDto> comList = biz.roadMapComList(pageNum, pagination.getPageSize(), txt_search, searchOption);
 			
 			model.addAttribute("mainList", mainStreamList);
 			model.addAttribute("comList", comList);
 			model.addAttribute("pagination", pagination);
 			model.addAttribute("txt_search", txt_search);
-			model.addAttribute("main_num", main_num);
+			model.addAttribute("class_category", class_category);
 			model.addAttribute("searchOption", searchOption);
-		
+			
+				
+			if(class_category != null) {
+				System.out.println("구현중");
+			} else {
+				model.addAttribute("mainList", mainStreamList);	
+				model.addAttribute("roadList", biz.roadMapComList(pageNum, pagination.getPageSize(), txt_search, searchOption));
+			
+			}
 						
 		return"RoadMap/RoadMapList";
 	}

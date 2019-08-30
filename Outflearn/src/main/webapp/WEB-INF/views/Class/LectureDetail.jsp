@@ -218,6 +218,118 @@
 			</div>
 		</div>
 
+<<<<<<< HEAD
+=======
+		<!-- 리뷰 -->
+		<div id="review" class="">
+			<div class="panel panel-default review-container container">
+				<h1>수강 후기</h1>
+				<div>
+					<c:choose>
+						<c:when test="${empty classReview }">
+								<div>=======작성된 글이 없습니다=======</div>
+						</c:when>
+						<c:otherwise>
+							<div class="form-group row review-container">
+								<c:forEach items="${classReview }" var="dto">
+									<c:choose>
+										<c:when test="${dto.review_titletab eq '0'}">
+											<div class="row panel panel-set">
+											<div class="col-sm-1 col-md-1"></div>
+											<div class="row">
+												<div class="row">
+													<div class="col-sm-2 col-md-2 user_name">${user_nickname }</div>
+													<div class="form-group col-sm-2 col-md-2 reviews_rating"><input type="hidden" class="review_rating" value="${dto.user_star  }"></div>
+												</div>
+												<div class="col-sm-3 col-md-3"></div>
+												<div id="c" class="col-sm-3 col-md-3">
+													<div class="form-group">${dto.review_content }</div>
+												</div>
+											</div>
+											<div align="right" id="answerOfAnswer${dto.review_num  }" class="row btn-rows">
+												<div class="pull-right col-sm-12 col-md-12">
+													<form:form action="LectureDetailAnswerDelete" method="post">
+														<input type="hidden" name="class_num" value="${classinfo.class_num }">
+														<input type="hidden" name="review_num" value="${dto.review_num }">
+														<input type="submit" class="btn btn-default pull-right" value="삭제">
+													</form:form>
+													<input type="hidden" name="review_content" value="${dto.review_content }"> 
+													<input type="hidden" name="review_num" value="${dto.review_num }">
+													<button type="button" class="btn btn-default pull-right" id="b">수정</button>
+													<form:form action="ReplyForm" method="post">
+														<input type="hidden" name="review_num" value="${dto.review_num }">
+														<input type="hidden" name="class_num" value="${classinfo.class_num }">
+														<input type="hidden" name="user_star" value="${dto.user_star }">
+														<button type="button" class="btn btn-default ReviewReply pull-right">답글</button>
+													</form:form>
+												</div>
+											</div>
+											<div class="container reply-div row">
+												
+													<form:form action="Reply" method="post">
+														<input type="hidden" name="class_num" value="${dto.class_num }">
+														<input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
+														<input type="hidden" name="review_num" value="${dto.review_num }">
+														<input type="hidden" name="review_groupno" value="${dto.review_groupno }">
+														<input type="hidden" name="review_groupsq" value="${dto.review_groupsq }">
+														<div class="row">
+															<textarea class="summernote" name="review_content"></textarea>
+															<div class="col-sm-2 col-md-2 pull-right">
+																<input type="submit" class="btn btn-default" value="작 성">
+															</div>
+														</div>
+													</form:form>
+											</div>
+										</div>
+										</c:when>
+										<c:otherwise>
+										<div class="row">
+										<div class="panel panel-set col-sm-11 col-md-11 pull-right">
+											<div class="row">
+												<div class="form-group col-sm-2 col-md-2">${user_nickname }</div>
+												<div id="c">
+													<div class="form-group col-sm-10 col-md-10">${dto.review_content }</div>
+												</div>
+											</div>
+											<div id="answerOfAnswer${dto.review_num  }">
+												<div>
+													<form:form action="LectureDetailAnswerDelete" method="post">
+														<input type="hidden" name="class_num" value="${classinfo.class_num }">
+														<input type="hidden" name="review_num" value="${dto.review_num }">
+														<input type="submit" class="btn btn-default pull-right" value="삭제">
+													</form:form>
+												</div>
+												<div id="a">
+													<input type="hidden" name="review_content" value="${dto.review_content }"> 
+													<input type="hidden" name="review_num" value="${dto.review_num }">
+													<button type="button" class="btn btn-default pull-right" id="b">수정</button>
+												</div>
+											</div>
+										</div>
+										</div>
+										</c:otherwise>
+									</c:choose>
+									<tr class="row reply_group">
+										<td colspan="3" class="reply_content col-sm-10 col-md-10">
+											<c:choose>
+												<c:when test="${empty ReviewReply }">
+													<form:form action="Reply" method="post">
+														<input type="hidden" name="class_num" value="${dto.class_num }">
+														<input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
+														<input type="hidden" name="review_num" value="${dto.review_num }">
+														<input type="hidden" name="review_groupno" value="${dto.review_groupno }">
+														<input type="hidden" name="review_groupsq" value="${dto.review_groupsq }">
+														<div class="row review-reply-btn">
+															<div class="col-sm-8 col-md-8">
+																<textarea name="review_content" cols="30" rows="10"></textarea>
+															</div>
+															<div class="col-sm-2 col-md-2">
+																<input type="submit" class="btn btn-default" value="작 성">
+															</div>
+														</div>
+													</form:form>
+												</c:when>
+>>>>>>> parent of 36ca71b... Merge branch 'master' of https://github.com/WeeSBin/Outflearn
 
  <!-- 리뷰 -->
       <div id="review" class="">
@@ -427,24 +539,6 @@
 
 	
 	
-	
-	<div class="modal fade" id="QuestionForm" role="dialog">
-    	<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-					<form:form action="QuestionInsert">
-						<input type="hidden" name="class_num" value="${classinfo.class_num }">
-						<input type="hidden" name="user_num" value="${user_num }">
-						<input type="hidden" name="user_nickname" value="${user_nickname }">
-						<p><input type="text" placeholder="제목을 입력해주세요." name="qa_title" class="form-control"></p>
-						<p><textarea rows="20" cols="60" name="qa_content"></textarea></p>
-						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-						<button type="submit" class="btn btn-default">작성</button>
-					</form:form>
-				</div>
-			</div>
-		</div>
-	</div>
 	
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 	<script type="text/javascript">

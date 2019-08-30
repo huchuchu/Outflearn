@@ -165,12 +165,31 @@ input.btn, button.btn {
 	cursor: pointer;
 }
 
+<<<<<<< HEAD
 td > h4 {
 	font-size: 1.5rem;
 }
 
 ul.pagination li {
 	float: left;
+=======
+#review {
+	padding-top: 2rem;
+}
+
+.review-container {
+	max-width: 900px;
+}
+
+div.panel-set {
+	border: 1px solid #fffcca;
+	padding: 1rem;
+	margin-bottom: 1rem;
+}
+
+.review-btn-div {
+	display: inline-block;
+>>>>>>> parent of 36ca71b... Merge branch 'master' of https://github.com/WeeSBin/Outflearn
 }
 
 @media (max-width: 1024px) {
@@ -208,3 +227,9 @@ ul.pagination li {
    display: none;
 }
 
+<<<<<<< HEAD
+=======
+#InsertAfter {
+   display: none;
+}
+>>>>>>> parent of 36ca71b... Merge branch 'master' of https://github.com/WeeSBin/Outflearn
