@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -12,18 +12,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Outflearn</title>
 
-	<!-- css -->
-	<link rel="stylesheet" href="resources/css/myPage.css">
+	<!-- reference your copy Font Awesome here (from our Kits or by hosting yourself) -->
+	<script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 
 	<!-- css -->
 	<link rel="stylesheet" href="resources/css/myPage.css">
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="resources/fonts/font-awesome/css/font-awesome.css">
 
 	<!-- Stylesheet ================================================== -->
 	<link rel="stylesheet" type="text/css" href="resources/css/style.css">
-
-	<!-- Sweet Alert2 -->
-	<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
-	<script src='resources/js/sweetalert/sweetalert2.min.js'></script>
 
 	<!-- Sweet Alert2 -->
 	<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
@@ -44,10 +44,12 @@
 				<div class="side_category">
 					<ul class="nav flex-column text-center">
 
-						<li class="nav-item side_menu select"><a href="myPage">대시보드</a>
+						<li class="nav-item side_menu select">
+							<a href="myPage">대시보드</a>
 						</li>
 
-						<li class="nav-item side_menu"><a href="void:0">내 강좌</a>
+						<li class="nav-item side_menu">
+							<a href="void:0">내 강좌</a>
 							<ul class="inner_menu">
 								<sec:authorize access="hasRole('ROLE_TUTOR')">
 									<li><a href="myClass">게시한 강좌</a></li>
@@ -57,17 +59,22 @@
 							</ul>
 						</li>
 
-						<li class="nav-item side_menu"><a href="void:0">로드맵</a>
-							<ul class="inner_menu">
-								<li><a href="myRoadmap">게시한 로드맵</a></li>
-								<li><a href="subRoadmap">참여중인 로드맵</a></li>
-							</ul>
+			            <li class="nav-item side_menu">
+			              <a href="void:0">로드맵</a>
+			              <ul class="inner_menu">
+			                <sec:authorize access="hasRole('ROLE_TUTOR')">
+			                  <li><a href="myRoadmap">게시한 로드맵</a></li>
+			                </sec:authorize>
+			                <li><a href="subRoadmap">참여중인 로드맵</a></li>
+			              </ul>
+			            </li>
+
+						<li class="nav-item side_menu">
+							<a href="myQuestion">내 질문</a>
 						</li>
 
-						<li class="nav-item side_menu"><a href="myQuestion">내 질문</a>
-						</li>
-
-						<li class="nav-item side_menu"><a href="void:0">설정</a>
+						<li class="nav-item side_menu">
+							<a href="void:0">설정</a>
 							<ul class="inner_menu">
 								<li><a href="configProfile">프로필 설정</a></li>
 								<li><a href="configAlarm">알림 설정</a></li>
@@ -77,18 +84,19 @@
 					</ul>
 				</div>
 
-				<sec:authorize access="hasRole('ROLE_TUTOR')">
-					<div class="side_category live">
-						<ul class="nav flex-column text-center">
-							<li class="nav-item side_menu"><a href="void:0">LIVE</a>
-								<ul class="inner_menu">
-									<li><a class="configLiveRoom" href="void:0">방송하기</a></li>
-									<li><a id="setLiveSchedule" href="void:0">방송 스케줄</a></li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</sec:authorize>
+        <sec:authorize access="hasRole('ROLE_TUTOR')">
+          <div class="side_category live">
+            <ul class="nav flex-column text-center">
+              <li class="nav-item side_menu">
+                <a href="void:0">LIVE</a>
+                <ul class="inner_menu">
+                  <li><a class="configLiveRoom" href="void:0">방송하기</a></li>
+                  <li><a id="setLiveSchedule" href="void:0">방송 스케줄</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </sec:authorize>
 
 			</aside>
 
@@ -143,11 +151,12 @@
 																</td>
 																<td data-th="Price">₩${dto.class_price }</td>
 																<td data-th="Price">₩${dto.class_price }</td>
-																<td class="actions"><input type="hidden"
-																		name="class_num" value="${dto.class_num }"
-																		id="class_num"> <input type="button"
-																		class="btn btn-info btn-sm" value="강의 삭제"
-																		onclick="BasketDeleteOne();"></td>
+																<td class="actions">
+																	<input type="hidden" name="class_num"
+																		value="${dto.class_num }" id="class_num">
+																	<input type="button" class="btn btn-info btn-sm"
+																		value="강의 삭제" onclick="BasketDeleteOne();">
+																</td>
 															</tr>
 														</tbody>
 														<c:set var="sum" value="${sum + dto.class_price }" />
@@ -155,8 +164,8 @@
 													<tfoot>
 														<tr>
 															<td colspan="3" class="hidden-xs text-right"><strong>총합
-																	<fmt:formatNumber value="${sum}" />원
-																</strong></td>
+																	<fmt:formatNumber value="${sum}" />원</strong>
+															</td>
 															<td>
 																<form:form method="post" action="oauth">
 																	<c:forEach items="${classInfoUser }" var="dto">
@@ -194,26 +203,6 @@
 	<!-- ==================== FOOTER ==================== -->
 
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
-
-	<script type="text/javascript">
-		var class_num = $("#class_num").val();
-
-		function BasketDeleteOne() {
-
-			$.ajax({
-				url: 'basketDeleteOne?class_num=' + class_num,
-				method: 'get',
-				success: function (data) {
-					window.location.reload();
-				},
-				error: function () {
-					alert('에러 발생~~ \n')
-				}
-
-			})
-
-		}
-	</script>
 
 	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>

@@ -60,7 +60,9 @@
             <li class="nav-item side_menu">
               <a href="void:0">로드맵</a>
               <ul class="inner_menu">
-                <li><a href="myRoadmap">게시한 로드맵</a></li>
+                <sec:authorize access="hasRole('ROLE_TUTOR')">
+                  <li><a href="myRoadmap">게시한 로드맵</a></li>
+                </sec:authorize>
                 <li><a href="subRoadmap">참여중인 로드맵</a></li>
               </ul>
             </li>
@@ -105,15 +107,15 @@
               <div class="col-sm-12">
                 <div class="boardBox">
                   <h4 class="boxTitle">수강중인 강좌</h4>
-                  <c:choose>
-                    <c:when test="${empty subClass }">
-                      <h5>수강중인 강좌가 없습니다...ㅠㅠ</h5>
-                    </c:when>
-                    <c:otherwise>
-                      <c:forEach items="${subClass }" var="item">
-                        <p>강좌명 : ${item.class_title}</p>
-                      </c:forEach>
-                    </c:otherwise>
+                   <c:choose>
+                  	<c:when test="${empty subClass }">
+                  		<h5>수강중인 강좌가 없습니다...ㅠㅠ</h5>
+                  	</c:when>
+                  	<c:otherwise>
+                  		<c:forEach items="${subClass }" var="item">
+		                    <p>강좌명 : ${item.class_title}</p>
+		                </c:forEach>
+                  	</c:otherwise>
                   </c:choose>
                 </div>
               </div>

@@ -11,7 +11,6 @@ import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
-import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.dao.myPageDao;
 
 

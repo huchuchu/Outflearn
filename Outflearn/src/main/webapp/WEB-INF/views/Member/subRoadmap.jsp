@@ -60,7 +60,9 @@
             <li class="nav-item side_menu">
               <a href="void:0">로드맵</a>
               <ul class="inner_menu">
-                <li><a href="myRoadmap">게시한 로드맵</a></li>
+                <sec:authorize access="hasRole('ROLE_TUTOR')">
+                  <li><a href="myRoadmap" >게시한 로드맵</a></li>
+                </sec:authorize>
                 <li><a href="subRoadmap" class="selectMenu">참여중인 로드맵</a></li>
               </ul>
             </li>
@@ -105,16 +107,16 @@
               <div class="col-sm-12">
                 <div class="boardBox">
                   <h4 class="boxTitle">참여중인 로드맵</h4>
-                  <c:choose>
-                    <c:when test="${empty subRoadmap }">
-                      <h5>참여중인 로드맵이 없습니다...ㅠㅠ</h5>
-                    </c:when>
-                    <c:otherwise>
-                      <c:forEach items="${subRoadmap }" var="item">
-                        <p>로드맵 : ${item.roadmap_title}</p>
-                      </c:forEach>
-                    </c:otherwise>
-                  </c:choose>
+	                  <c:choose>
+	                  	<c:when test="${empty subRoadmap }">
+	                  		<h5>참여중인 로드맵이 없습니다...ㅠㅠ</h5>
+	                  	</c:when>
+	                  	<c:otherwise>
+	                  		<c:forEach items="${subRoadmap }" var="item">
+                    			<p>로드맵 : ${item.roadmap_title}</p>
+                 			 </c:forEach>
+	                  	</c:otherwise>
+	                  </c:choose>
                 </div>
               </div>
             </div>
