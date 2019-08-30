@@ -21,7 +21,6 @@ public interface myPageBiz {
 		public List<ClassInfoDto> getSubscribe(int user_num);
 		public List<RoadMapCon> getSubRoadmap(int user_num);
 		public List<QADto> getQA(int user_num);
-		public Map<String, String> qaReply(int user_num);
 		
 		public int reqLecturer(String lecturerNum, String lecturerPhone, String lecturerIntro, String lecturerClass);
 		
