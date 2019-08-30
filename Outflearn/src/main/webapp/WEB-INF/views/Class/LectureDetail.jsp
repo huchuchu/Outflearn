@@ -30,7 +30,21 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 
 </head>
+<script type="text/javascript">
 
+			function PageMoveQA(page, data) {	
+				location.href = "LectureDetail?page=" + page + 
+								"&txt_search=" + $('input#txt_search').val() +
+								"&class_num=" + $('#class_num').val() +
+								"#Question"
+			}
+			
+			function PageMoveReview(page){
+				location.href =	"LectureDetail?page=" + page;
+								
+			}
+
+</script>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
@@ -339,9 +353,10 @@
 				<h1>질문</h1>
 				<p><button id="Question-btn" class="btn btn-danger">질문작성</button></p>
 				<p class="input-group pull-right">
-						<input type="text" class="form-control" placeholder="검색하기">
+						<input type="text" class="form-control" placeholder="검색하기" id="txt_search" value="${txt_search }">
+						<input type="hidden" id="txt_search" value="${txt_search }">
 						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">검색</button>
+							<button class="btn btn-default" type="button" onclick="javascript:PageMoveQA(${pagination.pageNo}, '${txt_search }');">검색</button>
 						</span>
 					</p>
 					<c:choose>
@@ -363,6 +378,29 @@
 							</div>
 						</c:otherwise>
 					</c:choose>
+					<!-- Pagination QA-->
+					<ul class="pagination text-center text-inline">
+	
+						<li><a href="javascript:PageMoveQA(${pagination.firstPageNo}, '${txt_search}')" class="button previous">&laquo;</a></li>
+						<li><a	href="javascript:PageMoveQA(${pagination.prevPageNo}, '${txt_search}')" class="button previous">&lt;</a></li>
+						<li class="pagination">
+		
+							<c:forEach var="i" begin="${pagination.startPageNo}" end="${pagination.endPageNo}" step="1">
+								<c:choose>
+									<c:when test="${i eq pagination.pageNo}">
+										<li><a href="javascript:PageMoveQA(${i}, '${txt_search}')" class="active">${i}</a></li>
+									</c:when>
+								<c:otherwise>
+									<li><a href="javascript:PageMoveQA(${i}, '${txt_search}')">${i}</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+		
+						</li>
+						<li><a href="javascript:PageMoveQA(${pagination.nextPageNo}, '${txt_search}')" class="button_next">&gt;</a></li>
+						<li><a href="javascript:PageMoveQA(${pagination.finalPageNo}, '${txt_search}')" class="button_next">&raquo;</a></li>
+	
+					</ul>
 			</div>
 		</div>
 	</div>
