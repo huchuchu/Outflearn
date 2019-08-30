@@ -34,6 +34,7 @@ import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
+import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
@@ -144,7 +145,7 @@ public class HomeController {
 
 	// 해당 강의 보기
 	@RequestMapping("/LectureDetail")
-	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session) {
+	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session, String page, String txt_search) {
 		logger.info("/LectureDetail");
 
 		SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -166,8 +167,33 @@ public class HomeController {
 			model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
 
 			// 질문 리스트
-			model.addAttribute("classQuestion", biz.QASelectList(class_num));
+			//model.addAttribute("classQuestion", biz.QASelectList(class_num));
+			int totalCount = biz.selectTotalCountQA(txt_search, class_num);
+			logger.info("텍스트서치:" + txt_search);
+			logger.info("class_num"+class_num);
+			logger.info("" + totalCount);
 
+			int pageNum = (page == null) ? 1 : Integer.parseInt(page);
+
+			Pagination pagination = new Pagination();
+
+			// get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
+			pagination.setPageNo(pageNum);
+
+			// 한 페이지에 나오는 게시물의 개수
+			pagination.setPageSize(5);
+			pagination.setTotalCount(totalCount);
+
+			// select해오는 기준을 구함
+			pageNum = (pageNum - 1) * pagination.getPageSize();
+
+			
+			List<QADto> list = biz.selectListPageQA(pageNum, pagination.getPageSize(), txt_search, class_num);
+
+			model.addAttribute("classQuestion", list);
+			model.addAttribute("pagination", pagination);
+			model.addAttribute("txt_search", txt_search);
+			model.addAttribute("class_num", class_num);
 			// 부류, 주류
 			List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
 			List<SubStreamDto> subStreamList = Rbiz.subStreamList();
@@ -199,8 +225,33 @@ public class HomeController {
 		model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
 
 		// 질문 리스트
-		model.addAttribute("classQuestion", biz.QASelectList(class_num));
+		//model.addAttribute("classQuestion", biz.QASelectList(class_num));
+		int totalCount = biz.selectTotalCountQA(txt_search, class_num);
+		logger.info("텍스트서치:" + txt_search);
+		logger.info("class_num"+class_num);
+		logger.info("" + totalCount);
 
+		int pageNum = (page == null) ? 1 : Integer.parseInt(page);
+
+		Pagination pagination = new Pagination();
+
+		// get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
+		pagination.setPageNo(pageNum);
+
+		// 한 페이지에 나오는 게시물의 개수
+		pagination.setPageSize(5);
+		pagination.setTotalCount(totalCount);
+
+		// select해오는 기준을 구함
+		pageNum = (pageNum - 1) * pagination.getPageSize();
+
+		
+		List<QADto> list = biz.selectListPageQA(pageNum, pagination.getPageSize(), txt_search, class_num);
+
+		model.addAttribute("classQuestion", list);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("txt_search", txt_search);
+		model.addAttribute("class_num", class_num);
 		// 대쉬보드 리뷰 리스트
 		model.addAttribute("ReviewList", biz.ReviewList(class_num));
 
