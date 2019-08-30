@@ -14,10 +14,14 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
+<!-- Sweet Alert2 -->
+<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
+<script src='resources/js/sweetalert/sweetalert2.min.js'></script>
 <style type="text/css">
 
 .basket_item{
 float: left;
+margin-right: 15%;
 }
 
 #top{
@@ -30,6 +34,11 @@ font-weight: 800;
 margin-bottom: 3%;
 
 }
+
+table{
+text-align: center;
+}
+
 </style>
 </head>
 <body>
@@ -56,7 +65,7 @@ margin-bottom: 3%;
 						</optgroup>
 					</c:forEach>	
 				</select>
-				<input type="submit" value="검색"class="btn btn-secondary" style="margin-top: 2%;">
+				<input type="submit" value="검색"class="btn btn-secondary" style="margin-top: 2%;" >
 			</form>				
 		</div>
 	</div>
@@ -80,7 +89,7 @@ margin-bottom: 3%;
 							<div class="basket_item">
 								<img width="100" height="100" src="${pageContext.request.contextPath }/resources/uploadImage/${ resDto.class_img }" alt="Card image cap">
 							</div>
-							<div class="basket_item">
+							<div class="basket_item" id="classname">
 								<p>${resDto.class_title }</p>
 							</div>					
 							</div>						
@@ -100,14 +109,35 @@ margin-bottom: 3%;
 		</div>
 	</div>
 </div>
-	<script type="text/javascript">
+<script type="text/javascript">
+
+$("#filterForm").submit(function(){
 	
-		$(function() {
-			new SlimSelect({		
-				 select: '#multiple'
-			})
-			
-		});	
+	var option= $("select[name=subFilter]").val();
+	if(option=="" || option==null){	
+		Swal.fire({
+			  type: 'error',
+			  title: '값을 한개 이상 체크해주세요!'				   
+			})	
+		return false;
+	}	
+		
+});
+
+</script>
+
+<script type="text/javascript">
+	
+	$(function() {
+		new SlimSelect({		
+			 select: '#multiple'
+		})
+		
+	});	
+	
+	$("input[name=resBtn]").click(function(){
+	
+	
 	
 		$("input[name=resBtn]").click(function(){
 					
@@ -125,7 +155,18 @@ margin-bottom: 3%;
 		});
 	
 		
-	</script>
+		var returnVal = document.getElementById("please").value;
+//		alert("++++++++"+returnVal);
+		
+		opener.document.getElementById("real"+returnVal).value = document.getElementById("title"+resBtnId).value;
+		opener.document.getElementById("test"+returnVal).value = document.getElementById("num"+resBtnId).value;		
+		window.close();
+		
+		
+	});
+	
+	
+</script>
 
 <script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
 <script type="text/javascript" src="resources/js/template/bootstrap.js"></script>

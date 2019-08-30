@@ -60,9 +60,7 @@
             <li class="nav-item side_menu">
               <a href="void:0">로드맵</a>
               <ul class="inner_menu">
-                <sec:authorize access="hasRole('ROLE_TUTOR')">
-                  <li><a href="myRoadmap" class="selectMenu">게시한 로드맵</a></li>
-                </sec:authorize>
+                <li><a href="myRoadmap" class="selectMenu">게시한 로드맵</a></li>
                 <li><a href="subRoadmap">참여중인 로드맵</a></li>
               </ul>
             </li>
@@ -107,23 +105,26 @@
               <div class="col-sm-12">
                 <div class="boardBox">
                   <h4 class="boxTitle">게시한 로드맵</h4>
-                  <c:choose>
-                    <c:when test="${empty myRoadmap }">
-                      <h5>게시한 로드맵이 없습니다...ㅠㅠ</h5>
-                    </c:when>
-                    <c:otherwise>
-
-                      <table class="table table-hover table-condensed">
-                        <thead>
+                  <table class="table table-hover table-condensed">
+                    <thead>
+                      <tr>
+                        <th style="width: 60%">로드맵</th>
+                        <th style="width: 10%" class="text-center">구독</th>
+                        <th style="width: 10%" class="text-center">좋아요</th>
+                        <th style="width: 10%" class="text-center">수정</th>
+                        <th style="width: 10%" class="text-right">삭제</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <c:choose>
+                        <c:when test="${empty myRoadmap }">
                           <tr>
-                            <th style="width: 60%">로드맵</th>
-                            <th style="width: 10%" class="text-center">구독</th>
-                            <th style="width: 10%" class="text-center">좋아요</th>
-                            <th style="width: 10%" class="text-center">수정</th>
-                            <th style="width: 10%" class="text-right">삭제</th>
+                            <td colspan="5" class="text-center">
+                              <h5 class="text-center">게시한 로드맵이 없습니다...ㅠㅠ</h5>
+                            </td>
                           </tr>
-                        </thead>
-                        <tbody>
+                        </c:when>
+                        <c:otherwise>
                           <c:forEach items="${myRoadmap }" var="item">
                             <tr>
                               <td class="text-right">
@@ -131,15 +132,21 @@
                               </td>
                               <td class="text-center">${item.roadmap_subscribe}명</td>
                               <td class="text-center">${item.roadmap_like}개</td>
-                              <td class="text-center"><button>수정</button></td>
+                              <td class="text-center"><button
+                                  onclick="updateRoadmap(${item.roadmap_num}, '${item.roadmap_title}')">수정</button></td>
                               <td class="text-right"><button
                                   onclick="deleteRoadmap(${item.roadmap_num},'${item.roadmap_title}')">삭제</button></td>
                             </tr>
                           </c:forEach>
-                        </tbody>
-                      </table>
-                    </c:otherwise>
-                  </c:choose>
+                        </c:otherwise>
+                      </c:choose>
+                      <tr>
+                        <td colspan="5" class="text-center">
+                          <button onclick="location.href='RoadMapWriteP1'">로드맵 작성</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

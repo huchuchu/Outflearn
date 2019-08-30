@@ -104,6 +104,122 @@ public class RoadMapController {
 		return"RoadMap/RoadMapWrite_p2";
 	}
 	
+	//로드맵 2p에서 1페이지수정버튼 누름 
+	@RequestMapping("/RoadMapUpdate_p1")
+	public String RoadMapUpdate_p1(@RequestParam String roadNum,Model model) {
+		System.out.println("로드맵번호"+roadNum);
+		//현재 시퀀스 번호가 아닌 roadnum번호와 roadInfoDto를 갖고 넘어가야함
+		RoadMapInfoDto dto = biz.selectOneRoadMap(roadNum);	
+		
+		boolean Chk = true;
+		
+		model.addAttribute("Chk", Chk);
+		model.addAttribute("dto", dto);
+
+		
+		return"RoadMap/RoadMapUpdate_p1";
+	}
+	
+	//로드맵 1p수정 다이렉트
+	@RequestMapping("/Modify_P1")
+	public String Modify_P1(@RequestParam String roadNum,Model model) {
+		System.out.println("로드맵번호=="+roadNum);
+		
+		RoadMapInfoDto dto = biz.selectOneRoadMap(roadNum);	
+		
+		boolean Chk = false;
+		
+		model.addAttribute("Chk", Chk);
+		model.addAttribute("dto", dto);
+		return"RoadMap/RoadMapUpdate_p1";
+
+	}	
+	
+	//로드맵 2p수정 다이렉트
+	@RequestMapping("/Modify_P2")
+	public String Modify_P2(@RequestParam String roadNum,Model model) {
+		System.out.println("로드맵 번호=="+roadNum);
+		
+		//roandmap_con에서 roadmap_num으로 classnum List 받아옴 
+		List<Integer> classNumList = biz.RoadMapConList(roadNum);
+		System.out.println("classNumList+++"+classNumList);
+		System.out.println("classNumListSize=="+classNumList.size());
+		
+		//class_Num으로 class_infoList받아옴
+		List<ClassInfoDto> resList = biz.RoadClassInfoList(classNumList);
+		System.out.println("classInfoSize+++"+resList.size());
+		
+		
+		model.addAttribute("roadSeq", roadNum);
+		model.addAttribute("resList", resList);
+		return "RoadMap/RoadMapUpdate_p2";
+	}
+	
+	
+	
+	
+	//로드맵 1p 수정 후 업데이트하고 2p가기거나 홈으로 가기	
+	@RequestMapping("/roadUpdate")
+	public String roadUpdate(@ModelAttribute RoadMapInfoDto dto, Model model, @RequestParam String chkVal) {
+		int res = biz.roadMapUpdate(dto);
+			
+		
+		if(res>0) {
+			System.out.println("수정성공!!!");
+		}		
+		
+		System.out.println("======"+chkVal);	
+		
+			
+		if(chkVal.equals("submit")) { //로드맵 작성하다가 1p수정 눌렀을 때 리턴값
+			int seq = dto.getRoadmap_num();
+			model.addAttribute("roadSeq", seq);	
+			return"RoadMap/RoadMapWrite_p2";
+		}else{ 
+			return"redirect:/"; //로드맵1p 수정하기 다이렉트로 왔을 떄 (마이페이지에서 왔을 떄 리턴값)
+		}
+		
+	}
+	//roadmap2p수정
+	@RequestMapping("/roadNclassUpdate")
+	public String roadNclassUpdate(@RequestParam String[] class_num, @RequestParam String seq,@RequestParam String chkVal) {
+		
+		System.out.println("roadNclassUpdate 입장:::::::");
+		System.out.println("roadmap 번호"+seq);	
+		System.out.println("chkVal==="+chkVal);
+		
+		for(String res : class_num) {
+			System.out.println("들어온classNum"+res);
+		}	
+		
+		if(chkVal.equals("modify")) { //이미 값이 있었고 수정했을 때 : delete 후 insert하기
+			
+			int Delres = biz.DeleteroadConBeforeUpdate(seq);
+			
+			if(Delres>0) {
+				System.out.println("삭제 성공");
+				int res = biz.insertroadNclass(class_num, seq);
+				
+				if(res>0) {
+					System.out.println("인서트 성공!");	
+				}
+			}
+		}else {//처음 등록할 때 : insert만
+			
+			int res = biz.insertroadNclass(class_num, seq);
+			
+			if(res>0) {
+				System.out.println("인서트 성공!");	
+			}
+		}
+		
+		
+		return "redirect:/";
+	}
+	
+	
+	
+	
 	//로드맵 1페이지 작성 후 insert
 	@RequestMapping("/roadInsert")
 	public String roadMapInsert(@ModelAttribute RoadMapInfoDto dto, Model model) {
@@ -129,14 +245,11 @@ public class RoadMapController {
 	public String roadNclass(@RequestParam String[] class_num, @RequestParam String seq)  {
 		
 		System.out.println("roadNclass 입장:::::::");
-		System.out.println("class_num.length"+class_num.length);
-		System.out.println("roadmap 번호"+seq);
-		
+		System.out.println("roadmap 번호"+seq);	
 		
 		for(String res : class_num) {
 			System.out.println("들어온classNum"+res);
-		}
-		
+		}		
 		
 		int res = biz.insertroadNclass(class_num, seq);
 		
@@ -145,17 +258,28 @@ public class RoadMapController {
 		}
 		
 		
-		return"RoadMap/RoadMapList";
+		return"redirect:/";
 	}
 	
 	//검색창 띄우기
 	@RequestMapping("/searchWingogo")
-	public String searchWingogo(Model model, @RequestParam String btnIdVal) {
+	public String searchWingogo(Model model, @RequestParam String btnIdVal, @RequestParam String[] numArray ) {
+		
+		System.out.println("searchWingogo컨트롤러!!");
+		List<String>classNumList = new ArrayList<String>();
+		for(int i=0; i<numArray.length-1; i++) {
+			classNumList.add(numArray[i]);
+			System.out.println("array값: "+classNumList.get(i));
+		}
+		
+		
 		
 		List<MainStreamDto> mainStreamList = biz.mainStreamList();		
 		List<SubStreamDto> subStreamList = biz.subStreamList();	
 
 		//부모창으로 값 전달을 위해 부모창 번호와 같이 넘어옴(클릭한 버튼의 id값)
+		
+		model.addAttribute("classNumList", classNumList);
 		model.addAttribute("btnIdVal", btnIdVal);
 		model.addAttribute("mainList", mainStreamList);
 		model.addAttribute("subList", subStreamList);

@@ -60,9 +60,7 @@
             <li class="nav-item side_menu">
               <a href="void:0">로드맵</a>
               <ul class="inner_menu">
-                <sec:authorize access="hasRole('ROLE_TUTOR')">
-                  <li><a href="myRoadmap">게시한 로드맵</a></li>
-                </sec:authorize>
+                <li><a href="myRoadmap">게시한 로드맵</a></li>
                 <li><a href="subRoadmap">참여중인 로드맵</a></li>
               </ul>
             </li>
@@ -107,16 +105,16 @@
               <div class="col-sm-12">
                 <div class="boardBox">
                   <h4 class="boxTitle">내 질문</h4>
-                  	<c:choose>
-	                  	<c:when test="${empty myQA }">
-	                  		<h5>질문이 없습니다...ㅠㅠ</h5>
-	                  	</c:when>
-	                  	<c:otherwise>
-	                  		<c:forEach items="${myQA }" var="item">
-                    			<p>질문명 : ${item.qa_title}</p>
-                 			 </c:forEach>
-	                  	</c:otherwise>
-	                </c:choose>
+                  <c:choose>
+                    <c:when test="${empty myQA }">
+                      <h5>질문이 없습니다...ㅠㅠ</h5>
+                    </c:when>
+                    <c:otherwise>
+                      <c:forEach items="${myQA }" var="item">
+                        <p>질문명 : ${item.qa_title}</p>
+                      </c:forEach>
+                    </c:otherwise>
+                  </c:choose>
                 </div>
               </div>
             </div>

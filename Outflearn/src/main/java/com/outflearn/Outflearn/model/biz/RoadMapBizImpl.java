@@ -155,6 +155,16 @@ public class RoadMapBizImpl implements RoadMapBiz {
 		return dao.roadMapComList(firstIndex, recordCountPerPage, txt_search, searchOption, main_num);
 	}
 
+	@Override
+	public int roadMapUpdate(RoadMapInfoDto dto) {
+		
+		return dao.roadMapUpdate(dto);
+	}
 
+	@Override
+	public int DeleteroadConBeforeUpdate(String roadNum) {
+		
+		return dao.DeleteroadConBeforeUpdate(roadNum);
+	}
 
 }

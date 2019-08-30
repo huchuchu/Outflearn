@@ -50,21 +50,35 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 	//작성 버튼 눌렀을시 추가 사항이 있는지 알람
-	function clearalert() {
-		alert("추가 작성 없을시 '게시판 넘기기' 클릭");
+	function Control() {
+		DataVideoMyform = document.DataVideoMyform;
+		if (DataVideoMyform.data_sq.value == ""
+				|| DataVideoMyform.data_title.value == ""
+				|| DataVideoMyform.data_data.value == "") {
+			Swal.fire({
+				type : 'error',
+				title : '실패...',
+				text : '강의 내용을 모두 입력해주세요.',
+			})
+
+		} else {
+			alert("추가 작성 없을시 '게시판 넘기기' 클릭");
+			DataVideoMyform.submit();
+		}
+		
 	}
 
-	$(document).ready(function() {
+		$(document).ready(function() {
 
-		$(".success1").click(function() {
-			$(".data").remove();
+			$(".success1").click(function() {
+				$(".data").remove();
+			});
+
+			$(".success2").click(function() {
+				$(".youTube").remove();
+			});
+
 		});
-
-		$(".success2").click(function() {
-			$(".youTube").remove();
-		});
-
-	});
 </script>
 
 </head>
@@ -72,10 +86,6 @@
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
-
-	<div class="form-group">
-		<h1>영상 소개</h1>
-	</div>
 
 	<div class="row">
 		<ul id="side_border"
@@ -87,7 +97,7 @@
 		</ul>
 		<div class="col-sm-6 col-el-8">
 
-			<form:form action="DataVideoUploadPlus"  method="post" enctype="multipart/form-data">
+			<form:form name="DataVideoMyform" action="DataVideoUploadPlus"  method="post" enctype="multipart/form-data">
 
 
 				<div class="form-group">
@@ -104,21 +114,21 @@
 					<h3>영상 업로드(유튜브 영상 링크 또는 파일 업로드 하나만 선택)</h3>
 					<div class="youTube">
 						<input type="text" name="data_data" class="form-control" placeholder="유튜브 주소를 입력해주세요." /> 
-						<input type="button" value="완료" class="success1" />
+						<input type="button" value="완료" style="color: #6372ff;" class="success1" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="data">
 						<input type="file" name="file" style="color: #6372ff;" /> 
-						<input type="button" value="완료" class="success2" />
+						<input type="button" value="완료" style="color: #6372ff;" class="success2" />
 					</div>
 				</div>
 
 
 				<div class="form-group">
-					<input type="submit" class="btn btn-primary" value="작성 후 클릭" onclick="clearalert();" />
-					<input type="button" class="btn btn-primary" value="뒤로" onclick="location.href='BackDataVideoUploadForm'" /> 
-					<input type="button" class="btn btn-primary" value="게시판 넘기기 " onclick="location.href='LectureList'">
+					<input type="submit" class="btn btn-primary" value="작성 후 클릭" onclick="Control();" />
+					<input type="button" value="가이드 라인" onclick="DataVideoGuideLine();" class="btn btn-primary"> 
+					<input type="button" class="btn btn-primary" value="강의 목록 " onclick="location.href='LectureList'">
 				</div>
 
 			</form:form>
@@ -128,6 +138,15 @@
 
 	<!-- Footer Section -->
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
+	
+	<script type="text/javascript">
+		function DataVideoGuideLine() {
+			var url = "DataVideoGuideLine";
+			var name = "DataVideoGuideLine";
+			var option = "width = 800, height = 800, top = 100, left = 200, location = no"
+			window.open(url, name, option);
+		}
+	</script>
 
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript"

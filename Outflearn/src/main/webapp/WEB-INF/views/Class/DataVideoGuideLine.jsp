@@ -8,8 +8,8 @@
 </head>
 <body>
 	
-	<h1>강의 소개 가이드라인</h1>
-	<img src="resources/img/GuideLine1.JPG" alt="설명서1">
+	<h1>영상 소개 가이드라인</h1>
+	<img src="resources/img/DataClassCuideLine.png" alt="설명서1">
 	
 </body>
 </html>

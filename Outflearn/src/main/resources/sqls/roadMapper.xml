@@ -210,4 +210,13 @@ VALUES(#{userNum},#{item})
       )
       WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}
    </select>
+   
+<update id="roadMapUpdate" parameterType="RoadMapDto" >
+UPDATE ROADMAP_INFO SET ROADMAP_TITLE =#{roadmap_title}, ROADMAP_CONTENT=#{roadmap_content}, MAIN_NUM=#{main_num} WHERE ROADMAP_NUM=#{roadmap_num}
+</update>
+
+<delete id="DeleteroadConBeforeUpdate" parameterType="String">
+DELETE ROADMAP_CON WHERE ROADMAP_NUM = #{roadNum}
+</delete>
+   
 </mapper>
