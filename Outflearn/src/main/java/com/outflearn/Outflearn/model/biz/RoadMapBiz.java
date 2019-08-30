@@ -57,12 +57,7 @@ public interface RoadMapBiz {
 	public List<Integer> SubBaList(String userNum);
 	
 	public int AddToCart(List<String>cartArray, String userNum);
-	
-	public int roadMapUpdate(RoadMapInfoDto dto);
-	
-	public int DeleteroadConBeforeUpdate(String roadNum);
 
-	List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
+	public List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
 			String searchOption, int main_num);
-	
 }
