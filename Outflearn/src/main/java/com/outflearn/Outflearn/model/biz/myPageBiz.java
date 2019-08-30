@@ -26,7 +26,7 @@ public interface myPageBiz {
 		
 //강사
 		
-		public int setLiveSchedule(String setClass, String setTitle, String setDate, String repeatDate, String setAuthor);
+		public int setLiveSchedule(String setClass, String setTitle, String setDate, String setAuthor);
 		public List<ClassInfoDto> myClass(int user_num);
 		public int deleteClass(String class_num);
 		public List<RoadMapInfoDto> myRoadmap(int user_num);

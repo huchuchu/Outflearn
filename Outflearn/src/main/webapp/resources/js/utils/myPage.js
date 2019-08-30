@@ -26,12 +26,6 @@ function inputHtmlBuild(data) {
     // 시간 input + select
 
     html += ` <p>날짜 : <input type="date" id="setDate"></p>`
-    html += `    <p>반복 :
-        <select id="repeatDate">
-            <option value="week">매 주</option>
-            <option value="month">매 월</option>
-        </select>
-    </p>`
 
     return html
 }
@@ -41,11 +35,11 @@ function resultRes(bool) {
         location.reload(true)
     } else {
         Swal.fire({
-            type: 'error',
-            title: '에러가 발생했습니다.',
-            text: 'Q class로 문의 해주세요',
-            confirmButtonText: '확인'
-        })
+                type: 'error',
+                title: '에러가 발생했습니다.',
+                text: 'Q class로 문의 해주세요',
+                confirmButtonText: '확인'
+            })
             .then((result) => {
                 location.reload(true)
             })
@@ -78,12 +72,12 @@ function deniReq(user_num) {
 
 function userEnabled(user_num) {
     Swal.fire({
-        type: 'warning',
-        title: '해당 유저를 비활성화 시키시겠습니까?',
-        showCancelButton: true,
-        confirmButtonText: '확인',
-        cancleButtonText: '취소'
-    })
+            type: 'warning',
+            title: '해당 유저를 비활성화 시키시겠습니까?',
+            showCancelButton: true,
+            confirmButtonText: '확인',
+            cancleButtonText: '취소'
+        })
         .then((result) => {
             if (result.value) {
                 $.ajax({
@@ -101,12 +95,12 @@ function userEnabled(user_num) {
 
 function userDisabled(user_num) {
     Swal.fire({
-        type: 'warning',
-        title: '해당 유저를 활성화 시키시겠습니까?',
-        showCancelButton: true,
-        confirmButtonText: '확인',
-        cancleButtonText: '취소'
-    })
+            type: 'warning',
+            title: '해당 유저를 활성화 시키시겠습니까?',
+            showCancelButton: true,
+            confirmButtonText: '확인',
+            cancleButtonText: '취소'
+        })
         .then((result) => {
             if (result.value) {
                 $.ajax({
@@ -124,11 +118,11 @@ function userDisabled(user_num) {
 
 function handleError() {
     Swal.fire({
-        type: 'error',
-        title: 'Ooops...',
-        text: '혹시 만드신 강의가 없으신가요?',
-        confirmButtonText: '강의 만들기'
-    })
+            type: 'error',
+            title: 'Ooops...',
+            text: '혹시 만드신 강의가 없으신가요?',
+            confirmButtonText: '강의 만들기'
+        })
         .then((result) => {
             if (result.value) {
                 location.href = 'ClassInfoInsertForm'
@@ -147,9 +141,9 @@ function handleCriticalError() {
 function handleSuccess(bool) {
     if (bool) {
         Swal.fire({
-            type: 'success',
-            title: '정상 처리 되셨습니다.'
-        })
+                type: 'success',
+                title: '정상 처리 되셨습니다.'
+            })
             .then((result) => {
                 location.reload()
             })
@@ -165,13 +159,13 @@ function handleSuccess(bool) {
 
 function deleteClass(class_num, class_title) {
     Swal.fire({
-        type: 'warning',
-        title: `${class_title}을 정말 삭제하시겠습니까?`,
-        text: '복구는 불가능합니다.',
-        confirmButtonText: '삭제',
-        showCancelButton: true,
-        showCloseButton: true
-    })
+            type: 'warning',
+            title: `${class_title}을 정말 삭제하시겠습니까?`,
+            text: '복구는 불가능합니다.',
+            confirmButtonText: '삭제',
+            showCancelButton: true,
+            showCloseButton: true
+        })
         .then((result) => {
             if (result.value) {
                 $.ajax({
@@ -189,13 +183,13 @@ function deleteClass(class_num, class_title) {
 
 function deleteRoadmap(roadmap_num, roadmap_title) {
     Swal.fire({
-        type: 'warning',
-        title: `${roadmap_title}을 정말 삭제하시겠습니까?`,
-        text: '복구는 불가능합니다.',
-        confirmButtonText: '삭제',
-        showCancelButton: true,
-        showCloseButton: true
-    })
+            type: 'warning',
+            title: `${roadmap_title}을 정말 삭제하시겠습니까?`,
+            text: '복구는 불가능합니다.',
+            confirmButtonText: '삭제',
+            showCancelButton: true,
+            showCloseButton: true
+        })
         .then((result) => {
             if (result.value) {
                 $.ajax({
@@ -215,8 +209,9 @@ function updateClass(class_num, class_title) {
     Swal.fire({
         type: 'info',
         title: `${class_title} 수정 영역 선택`,
-        html: `<button>A</button>
-    <button>B</button>`,
+        html: `<button onclick="location.href='ClassIntroduceUpdateForm?class_num=${class_num}'">강의 소개</button>
+        	   <button onclick="location.href='ClassDataInsertPlus'">영상 추가</button>
+        	   <button onclick="location.href='ClassDataUpdateForm?class_num=${class_num}'">영상 수정</button>`,
         showCancelButton: false,
         showCloseButton: true,
         showConfirmButton: false
@@ -235,18 +230,20 @@ function updateRoadmap(roadmap_num, roadmap_title) {
     })
 }
 
+
+
 $(function () {
     $('.configLiveRoom').on('click', function () {
         $.ajax({
             url: 'getMyClass',
             success: function (data) {
                 Swal.fire({
-                    title: '간단하게 방 설정하기',
-                    html: selectOptionBuild(data),
-                    allowOutsideClick: false,
-                    showCancelButton: true,
-                    showCloseButton: true
-                })
+                        title: '간단하게 방 설정하기',
+                        html: selectOptionBuild(data),
+                        allowOutsideClick: false,
+                        showCancelButton: true,
+                        showCloseButton: true
+                    })
                     .then((result) => {
                         if (result.value) {
                             var room = $('#configRoom').val()
@@ -265,12 +262,12 @@ $(function () {
             url: `getMyClass`,
             success: function (data) {
                 Swal.fire({
-                    title: '라이브 스케쥴 세팅',
-                    html: inputHtmlBuild(data),
-                    allowOutsideClick: false,
-                    showCancelButton: true,
-                    showCloseButton: true
-                })
+                        title: '라이브 스케쥴 세팅',
+                        html: inputHtmlBuild(data),
+                        allowOutsideClick: false,
+                        showCancelButton: true,
+                        showCloseButton: true
+                    })
                     .then((result) => {
                         if (result.value) {
                             var setClass = $('#setClass').val()
@@ -310,4 +307,23 @@ $(function () {
             }
         })
     })
+
+    $('#setNickname').keyup(function () {
+        if ($(this).val() != $(this).attr('default')) {
+            $('#updateNickname').prop('disabled', false)
+        } else {
+            $('#updateNickname').prop('disabled', true)
+        }
+    })
+
+    $('#setEmail').keyup(function () {
+        if ($(this).val() != $(this).attr('default')) {
+            $('#updateEmail').prop('disabled', false)
+        } else {
+            $('#updateEmail').prop('disabled', true)
+        }
+    })
+
+    
+
 })

@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.outflearn.Outflearn.dto.UserInfoDto;
@@ -105,15 +106,33 @@ public class myPageController {
 		return "Member/myRoadmap";
 	}
 	
+	@RequestMapping(value="updateNickname")
+	public String updateNickname(String nickname) {
+		
+		return "";
+	}
+	
+	@RequestMapping(value = "updateEmail", method=RequestMethod.POST)
+	public String updateEmail(String email) {
+		
+		return "";
+	}
+	
+	@RequestMapping(value = "updatePw", method=RequestMethod.POST)
+	public String updatePw(String beforePw, String afterPw, String afterPwChk) {
+		
+		return "";
+	}
+	
 // 강사
 	
 	@RequestMapping("setLiveSchedule")
 	@ResponseBody
-	public boolean setLiveSchedule(String setClass, String setTitle, String setDate, String repeatDate, Authentication auth) {
+	public boolean setLiveSchedule(String setClass, String setTitle, String setDate, Authentication auth) {
 		
 		UserInfoDto userInfo = (UserInfoDto) auth.getPrincipal();
 		
-		int res = biz.setLiveSchedule(setClass, setTitle, setDate, repeatDate, userInfo.getUser_nickname());
+		int res = biz.setLiveSchedule(setClass, setTitle, setDate, userInfo.getUser_nickname());
 		
 		if(res > 0) return true;
 		return false;

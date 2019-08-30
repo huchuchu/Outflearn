@@ -55,53 +55,81 @@
 
 		});
 
-		function Control() {
-			DataVideoMyform = document.DataVideoMyform;
-			console.log(DataVideoMyform)
+	});
 
-			// 영상 소개에서 값이 들어가 있지 않을때
-			if (DataVideoMyform.data_subhead.value == "" || DataVideoMyform.data_sq.value == "" ||
-				DataVideoMyform.data_title.value == "" && DataVideoMyform.data_data.value == "") {
+	function Control() {
+		DataVideoMyform = document.DataVideoMyform;
+		var file = $('#file').val();
+		alert(file);
+		console.log(file + "선웅")
+		
+		// 영상 소개에서 값이 들어가 있지 않을때
+		if (DataVideoMyform.data_subhead.value == "" || DataVideoMyform.data_sq.value == "" || 
+			DataVideoMyform.data_title.value == "" && DataVideoMyform.data_data.value == "") 
+		{
+			Swal.fire
+			({
+				type : 'error',
+				title : '실패...',
+				text : '강의 내용을 모두 입력해주세요.',
+			})
+		}
+		
+		/* 영상 업로드 방식 2개 작성 했을시
+		else if(DataVideoMyform.data_title.value == DataVideoMyform.data_title.value || DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value || DataVideoMyform.data_data.value == DataVideoMyform.data_data.value){
+			if(file == file){
 				Swal.fire
-					({
-						type: 'error',
-						title: '실패...',
-						text: '강의 내용을 모두 입력해주세요.',
-					})
+				({
+					type : 'error',
+					title : '실패...',
+					text : '하나의 영상 업로드 방식을 선택해주세요.',
+				})
 			}
-
-			else if (DataVideoMyform.data_subhead.value == DataVideoMyform.data_subhead.value && DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value &&
-				DataVideoMyform.data_title.value == DataVideoMyform.data_title.value && DataVideoMyform.data_data.value == DataVideoMyform.data_data.value) {
-				if ($('#file').val() == "") {
-					Swal.fire({
-						type: 'error',
-						title: '실패...',
-						text: '파일 업로드 완료 버튼을 클릭해주세요.',
-					})
-				}
-				else {
-					alert("선옹");
-					DataVideoMyform.submit();
-				}
-
-
-			}
-
-			else if (DataVideoMyform.data_subhead.value == DataVideoMyform.data_subhead.value && DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value &&
-				DataVideoMyform.data_title.value == DataVideoMyform.data_title.value && document.getElementsByName("file").value == document.getElementsByName("file").value) {
-				if (DataVideoMyform.data_data.value == "") {
-					Swal.fire({
-						type: 'error',
-						title: '실패...',
-						text: '유튜브 주소 완료 버튼을 클릭해주세요.',
-					})
-				}
-
-			} else {
-				alert("선옹");
+		}
+		*/
+		
+		// 유튜브 주소 영상 작성하고 완료버튼 클릭 안했을시
+		else if(DataVideoMyform.data_subhead.value == DataVideoMyform.data_subhead.value && DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value && 
+				DataVideoMyform.data_title.value == DataVideoMyform.data_title.value)
+		{	
+			if($('#file').val() == ""){
+			Swal.fire({
+				type : 'error',
+				title : '실패...',
+				text : '영상 업로드를 작성하고 완료 버튼을 클릭해주세요.',
+			})
+		     }
+			else{
+				Swal.fire(
+						  '영상 등록 성공',
+						  '추가 사항 없으시 강의 목록 클릭',
+						  'success'
+						)
 				DataVideoMyform.submit();
 			}
-
+		
+			
+		}
+		
+		// 파일 업로드 영상 작성하고 완료버튼 클릭 안했을시
+		else if(DataVideoMyform.data_subhead.value == DataVideoMyform.data_subhead.value && DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value && 
+				DataVideoMyform.data_title.value == DataVideoMyform.data_title.value && file == file)
+		{
+			if(DataVideoMyform.data_data.value == ""){
+			Swal.fire({
+				type : 'error',
+				title : '실패...',
+				text : '영상 업로드를 작성하고 완료 버튼을 클릭해주세요.',
+				})	
+			}
+			
+		}else {
+			Swal.fire(
+					  '영상 등록 성공',
+					  '추가 사항 없으시 강의 목록 클릭',
+					  'success'
+					)
+			DataVideoMyform.submit();
 
 		}
 
@@ -168,14 +196,12 @@
 
 
 				<div class="form-group">
-					<input type="button" class="btn btn-primary" value="작성 후 클릭" onclick="Control();" />
-					<input type="button" value="가이드 라인" onclick="DataVideoGuideLine();" class="btn btn-primary">
-					<input type="button" class="btn btn-primary" value="강의 목록 " onclick="location.href='LectureList'">
-				</div>
 
-				<div class="col-sm">
-					<input type="button" value="가이드 라인" onclick="GuideLine();" class="btn btn-primary">
+					<input type="button" class="btn btn-primary" value="작성 후 클릭" onclick="Control();" /> 
+					<input type="button" value="가이드 라인" onclick="DataVideoGuideLine();" class="btn btn-primary"> 
+					<input type="button" class="btn btn-primary" value="강의 목록 " onclick="location.href='myClass'">
 				</div>
+			
 
 
 			</form:form>

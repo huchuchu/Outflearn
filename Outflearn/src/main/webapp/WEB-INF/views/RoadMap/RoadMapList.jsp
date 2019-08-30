@@ -68,8 +68,8 @@ function PageMove(page,data) {
                  <div  class="form-group ren" style="width: 40%;">
                     <input type="text" class="form-control form-control-sm" name="txt_search" id="txt_search" value="${txt_search }" placeholder="검색하기">
                  </div>                   
-                 <div class="ren" style="width: 10%;">
-                    <button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch" onclick="javascript:PageMove(${pagination.pageNo});">검색</button>
+                 <div>
+                    <button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch" onclick="javascript:PageMove(${pagination.pageNo}, '${main_num }');">검색</button>
                  </div>
               </div>     	
       	</div>      
