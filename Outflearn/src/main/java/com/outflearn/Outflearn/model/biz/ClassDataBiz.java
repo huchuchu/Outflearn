@@ -35,7 +35,6 @@ public interface ClassDataBiz {
 		public List<ClassDataDto> ClassDataSelectOne(int class_num);
 		public int ClassDataInsert(ClassDataDto dto);		
 		public int ClassChapterDataInsert(ClassDataDto dto);
-		public int ClassInfoUpdateSub(int class_num);
 		
 		// 장바구니 - BASKET 테이블
 		public int classBasketInsert(ClassInfoDto dto);
@@ -90,8 +89,7 @@ public interface ClassDataBiz {
 		public List<ClassReviewDto> ReviewList(int class_num);
 		public List<QADto> QAList(int class_num);
 		// 구독
-		// 구독 추가
 		public int classInsertSubscribe(int user_num, int class_num);
-		// 결제에 따라 장바구니 테이블 안나옴
+		// 결제 후 강의 장바구니 삭제
 		public int ClassBuyAfter(int class_num, int user_num);
 }

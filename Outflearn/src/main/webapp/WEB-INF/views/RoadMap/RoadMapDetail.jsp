@@ -186,7 +186,7 @@ text-align: center;
 			     <!-- 장바구니 -->
 			     <div class="basket_card" >
 				 <c:if test="${!empty basketList }">
-					 	<table id="basketTable" class="table" style="text-align: center;">					 	
+					 	<table id="basketTable" class="table">					 	
 					 		<c:forEach items="${basketList }" var="basketDto">					 			
 					 			<tr>
 					 				<td><input type="checkbox" name="class_num" value="${basketDto.class_num }"></td>

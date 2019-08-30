@@ -100,12 +100,6 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		
 		return dao.ClassChapterDataInsert(dto);
 	}
-	
-	@Override
-	public int ClassInfoUpdateSub(int class_num) {
-		
-		return dao.ClassInfoUpdateSub(class_num);
-	}
 
 //	-------------------------------------------------장바구니(BASKET)
 	@Override

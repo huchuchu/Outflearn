@@ -96,15 +96,6 @@ public class myPageController {
 		
 	}
 	
-	@RequestMapping("myRoadmap")
-	public String myRoadmap(Authentication auth, Model model) {
-		
-		UserInfoDto userInfo = (UserInfoDto) auth.getPrincipal();
-		model.addAttribute("myRoadmap", biz.myRoadmap(userInfo.getUser_num()));
-		
-		return "Member/myRoadmap";
-	}
-	
 // 강사
 	
 	@RequestMapping("setLiveSchedule")
@@ -137,6 +128,15 @@ public class myPageController {
 		
 		if(res > 0) return true;
 		return false;
+	}
+	
+	@RequestMapping("myRoadmap")
+	public String myRoadmap(Authentication auth, Model model) {
+		
+		UserInfoDto userInfo = (UserInfoDto) auth.getPrincipal();
+		model.addAttribute("myRoadmap", biz.myRoadmap(userInfo.getUser_num()));
+		
+		return "Member/myRoadmap";
 	}
 	
 	@RequestMapping("deleteRoadmap")
