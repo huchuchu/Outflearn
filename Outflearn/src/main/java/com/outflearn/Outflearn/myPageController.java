@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.outflearn.Outflearn.dto.UserInfoDto;
@@ -103,6 +104,24 @@ public class myPageController {
 		model.addAttribute("myRoadmap", biz.myRoadmap(userInfo.getUser_num()));
 		
 		return "Member/myRoadmap";
+	}
+	
+	@RequestMapping(value="updateNickname")
+	public String updateNickname(String nickname) {
+		
+		return "";
+	}
+	
+	@RequestMapping(value = "updateEmail", method=RequestMethod.POST)
+	public String updateEmail(String email) {
+		
+		return "";
+	}
+	
+	@RequestMapping(value = "updatePw", method=RequestMethod.POST)
+	public String updatePw(String beforePw, String afterPw, String afterPwChk) {
+		
+		return "";
 	}
 	
 // 강사

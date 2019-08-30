@@ -242,7 +242,7 @@
                         <c:forEach items="${preQA }" var="item">
                           <div class="col-sm-6">
                             <a href="QASelectOne?qa_num=${item.qa_num }&qa_group_no=${item.qa_group_no }">
-                              <div class="cardView">
+                              <div class="repl cardView">
                                 <h4 class="icon cardTitle">&nbsp${item.qa_title}</h4>
                               </div>
                             </a>

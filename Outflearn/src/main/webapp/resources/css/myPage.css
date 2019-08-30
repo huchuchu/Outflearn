@@ -166,3 +166,7 @@ input[type="checkbox"]:checked+label:before {
     font-weight: normal;
     text-decoration: inherit;
 }
+
+.repl.cardView{
+	margin-bottom: 10px;
+}

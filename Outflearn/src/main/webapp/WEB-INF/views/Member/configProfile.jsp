@@ -105,17 +105,68 @@
               <div class="col-sm-12">
                 <div class="boardBox">
                   <h4 class="boxTitle">프로필 설정</h4>
-                  <p>닉네임 : ${userInfo.user_nickname}</p>
-                  <p>이메일 : ${userInfo.user_email}</p>
-                  <p>등급 :
-                    <sec:authentication property="principal.Authorities" var="grade" />
-                    <c:if test="${grade eq '[ROLE_USER]'}"> 유저에요 </c:if>
-                    <c:if test="${grade eq '[ROLE_ADMIN]'}"> 어드민이에요 </c:if>
-                    <c:if test="${grade eq '[ROLE_TUTOR]'}"> 강사에요 </c:if>
-                  </p>
-                  <c:if test="${grade eq '[ROLE_USER]'}">
-                    <button onclick="location.href='reqLecturer'">'강사'하기</button>
-                  </c:if>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="boardBox">
+                        <h4 class="boxTitle">닉네임</h4>
+                        <form action="updateNickname">
+                          <h5><input type="text" name="nickname" id="setNickname" value="${userInfo.user_nickname}"
+                              default="${userInfo.user_nickname}"></h5>
+                          <input type="submit" id="updateNickname" value="저장하기" disabled>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="boardBox">
+                        <h4 class="boxTitle">이메일</h4>
+                        <form action="updateEmail" method="post">
+                          <h5><input type="email" name="email" id="setEmail" value="${userInfo.user_email}"
+                              dafault="${userInfo.user_email}"></h5>
+                          <input type="submit" id="updateEmail" value="저장하기" disabled>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="boardBox">
+                        <h4 class="boxTitle">등급</h4>
+                        <sec:authentication property="principal.Authorities" var="grade" />
+                        <c:if test="${grade eq '[ROLE_USER]'}">
+                          <h5>유저에요</h5>
+                        </c:if>
+                        <c:if test="${grade eq '[ROLE_ADMIN]'}">
+                          <h5>어드민이에요</h5>
+                        </c:if>
+                        <c:if test="${grade eq '[ROLE_TUTOR]'}">
+                          <h5>강사에요</h5>
+                        </c:if>
+                        <c:if test="${grade eq '[ROLE_USER]'}">
+                          <button onclick="location.href='reqLecturer'">'강사'하기</button>
+                        </c:if>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="boardBox">
+                        <h4 class="boxTitle">비밀번호</h4>
+                        <form action="updatePw" method="post">
+                          <input type="password" name="beforePw" placeholder="현재 비밀번호">
+                          <input type="password" name="afterPw" placeholder="새 비밀번호">
+                          <input type="password" name="afterPwChk" placeholder="새 비밀번호 확인">
+                          <input type="submit" id="updatePw" value="저장하기" disabled>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
