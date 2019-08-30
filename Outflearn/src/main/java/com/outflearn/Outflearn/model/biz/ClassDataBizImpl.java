@@ -112,6 +112,19 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		
 		return dao.ClassInfoUpdateSub(class_num);
 	}
+	
+	@Override
+	public int ClassDataInsertPlus(ClassDataDto dto) {
+		
+		return dao.ClassDataInsertPlus(dto);
+	}
+	
+
+	@Override
+	public int ClassNumSeq() {
+		
+		return dao.ClassNumSeq();
+	}
 
 //	-------------------------------------------------장바구니(BASKET)
 	@Override
@@ -328,6 +341,9 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int classInsertSubscribe(int user_num, int class_num) {
 		return dao.classInsertSubscribe(user_num, class_num);
 	}
+
+
+
 
 	
 }

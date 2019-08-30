@@ -191,6 +191,23 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 	
+	// 영상 추가
+	@Override
+	public int ClassDataInsertPlus(ClassDataDto dto) {
+		int res = 0;
+
+		res = sqlSession.insert(namespace + "ClassDataInsertPlus", dto);
+
+		return res;
+	}
+	
+	@Override
+	public int ClassNumSeq() {
+	
+		
+		return 0;
+	}
+	
 //	--------------------------------------------------- 장바구니(BASKET)
 	@Override
 	public int classBasketInsert(ClassInfoDto dto) {
@@ -644,6 +661,9 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	      
 	      return list;
 	}
+
+	
+
 
 
 
