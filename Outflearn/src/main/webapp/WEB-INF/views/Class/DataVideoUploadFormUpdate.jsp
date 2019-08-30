@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -164,36 +164,36 @@
 		<div class="col-sm-6 col-el-8">
 
 			<form:form name="DataVideoMyform" action="DataVideoUpload" method="post" enctype="multipart/form-data">
-
+				<c:forEach items="class_data" var="dto">
 				<div class="input-group">
 					<h1>영상 소개</h1>
 				</div>
 
 				<div class="form-group">
 					<h3>소제목</h3>
-					<input type="text" name="data_subhead" class="form-control" placeholder="소제목을 입력해주세요.">
+					<input type="text" name="data_subhead" class="form-control" placeholder="${dto.data_subhead }">
 				</div>
 
 				<div class="form-group">
 					<h3>과정 순서</h3>
-					<input type="text" name="data_sq" class="form-control" placeholder="순서에 맞게 번호를 입력해주세요.	">
+					<input type="text" name="data_sq" class="form-control" placeholder="${dto.data_sq }">
 				</div>
 
 				<div class="form-group">
 					<h3>과정 제목</h3>
-					<input type="text" name="data_title" class="form-control">
+					<input type="text" name="data_title" class="form-control" placeholder="${dto.data_title }">
 				</div>
 
 				<div class="form-group">
 					<h3>영상 업로드(유튜브 영상 링크 또는 파일 업로드 하나만 선택)</h3>
 					<div class="youTube">
-						<input type="text" name="data_data" class="form-control" placeholder="유튜브 주소를 입력해주세요." /> 
+						<input type="text" name="data_data" class="form-control" placeholder="${dto.data_data }" /> 
 						<input type="button" value="완료" class="success1" style="color: #6372ff;" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="data">
-						<input type="file" id="file" name="file" style="color: #6372ff;" /> 
+						<input type="file" id="file" name="file" style="color: #6372ff;" placeholder="${dto.data_data }"/> 
 						<input type="button" value="완료" class="success2" style="color: #6372ff;" />
 					</div>
 				</div>
@@ -205,7 +205,7 @@
 					<input type="button" class="btn btn-primary" value="강의 목록 " onclick="location.href='myClass'">
 				</div>
 			
-
+				</c:forEach>
 			</form:form>
 		</div>
 	</div>

@@ -48,37 +48,110 @@
 <script type="text/javascript"
 	src="resources/js/template/jquery.1.11.1.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script type="text/javascript">
-	//작성 버튼 눌렀을시 추가 사항이 있는지 알람
-	function Control() {
-		DataVideoMyform = document.DataVideoMyform;
-		if (DataVideoMyform.data_sq.value == ""
-				|| DataVideoMyform.data_title.value == ""
-				|| DataVideoMyform.data_data.value == "") {
-			Swal.fire({
-				type : 'error',
-				title : '실패...',
-				text : '강의 내용을 모두 입력해주세요.',
-			})
 
-		} else {
-			alert("추가 작성 없을시 '게시판 넘기기' 클릭");
-			DataVideoMyform.submit();
+<!-- Sweet Alert2 -->
+<link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
+<script src='resources/js/sweetalert/sweetalert2.min.js'></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+	$(".success1").click(function() {
+		$(".data").remove();
+	});
+
+	$(".success2").click(function() {
+		$(".youTube").remove();
+	});
+
+});
+
+function Control() {
+	DataVideoMyform = document.DataVideoMyform;
+	var file = $('#file').val();
+	alert(file);
+	console.log(file + "선웅")
+	
+	// 영상 소개에서 값이 들어가 있지 않을때
+	if (DataVideoMyform.data_title.value == "" || DataVideoMyform.data_sq.value == "" || DataVideoMyform.data_data.value == "") 
+	{
+		Swal.fire
+		({
+			type : 'error',
+			title : '실패...',
+			text : '강의 내용을 모두 입력해주세요.',
+		})
+	
+	
+	// 영상 업로드 방식 2개 작성 했을시
+	else if(DataVideoMyform.data_title.value == DataVideoMyform.data_title.value || DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value){
+		if(file == file){
+			Swal.fire
+			({
+				type : 'success',
+				title : '성공',
+				text : '추가 사항 없으면 강의 목록 클릭11111111',
+			})
+			
 		}
 		
+		else if(DataVideoMyform.data_data.value == DataVideoMyform.data_title.value == DataVideoMyform.data_title.value == DataVideoMyform.data_data.value)
+			{
+			Swal.fire
+			({
+				type : 'success',
+				title : '성공',
+				text : '추가 사항 없으면 강의 목록 클릭2222222',
+			})
+			}	
 	}
-
-		$(document).ready(function() {
-
-			$(".success1").click(function() {
-				$(".data").remove();
-			});
-
-			$(".success2").click(function() {
-				$(".youTube").remove();
-			});
-
-		});
+	
+	// 유튜브 주소 영상 작성하고 완료버튼 클릭 안했을시
+	else if(DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value && 
+			DataVideoMyform.data_title.value == DataVideoMyform.data_title.value)
+	{	
+		if($('#file').val() == ""){
+		Swal.fire({
+			type : 'error',
+			title : '실패...',
+			text : '영상 업로드를 작성하고 완료 버튼을 클릭해주세요.',
+		})
+	     }
+		else{
+			Swal.fire(
+					  '영상 등록 성공',
+					  '추가 사항 없으시 강의 목록 클릭',
+					  'success'
+					)
+			DataVideoMyform.submit();
+		}
+	
+		
+	}
+	
+	// 파일 업로드 영상 작성하고 완료버튼 클릭 안했을시
+	else if(DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value && 
+			DataVideoMyform.data_title.value == DataVideoMyform.data_title.value && file == file)
+	{
+		if(DataVideoMyform.data_data.value == ""){
+		Swal.fire({
+			type : 'error',
+			title : '실패...',
+			text : '영상 업로드를 작성하고 완료 버튼을 클릭해주세요.',
+			})	
+		}
+		
+	}else {
+		Swal.fire(
+				  '영상 등록 성공',
+				  '추가 사항 없으시 강의 목록 클릭',
+				  'success'
+				)
+		DataVideoMyform.submit();
+	}
+	
+	
+}
 </script>
 
 </head>
@@ -119,16 +192,16 @@
 				</div>
 				<div class="form-group">
 					<div class="data">
-						<input type="file" name="file" style="color: #6372ff;" /> 
+						<input type="file" id="file" name="file" style="color: #6372ff;" /> 
 						<input type="button" value="완료" style="color: #6372ff;" class="success2" />
 					</div>
 				</div>
 
 
 				<div class="form-group">
-					<input type="submit" class="btn btn-primary" value="작성 후 클릭" onclick="Control();" />
+					<input type="button" class="btn btn-primary" value="작성 후 클릭" onclick="Control();" />
 					<input type="button" value="가이드 라인" onclick="DataVideoGuideLine();" class="btn btn-primary"> 
-					<input type="button" class="btn btn-primary" value="강의 목록 " onclick="location.href='LectureList'">
+					<input type="button" class="btn btn-primary" value="강의 목록 " onclick="location.href='myClass'">
 				</div>
 
 			</form:form>

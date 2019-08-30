@@ -116,6 +116,18 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 
+	@Override
+	public int ClassIntroduceUpdate(int class_num, String class_content) {
+		
+		 HashMap<String, String> map = new HashMap<String, String>();
+		  map.put("class_num", class_num + "");
+		  map.put("class_content", class_content);
+		      
+		  int list = sqlSession.update(namespace + "ClassIntroduceUpdate", map); 
+		      
+		 return list;
+	}
+
 //	--------------------------------------------------- 강좌 데이터(CLASS_DATA)
 	@Override
 	public List<ClassDataDto> ClassDataSelectList() {
@@ -210,12 +222,8 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 	@Override
 	public ClassIntroduceDto ClassIntroduceSelectOne(int class_num) {
-		ClassIntroduceDto dto = new ClassIntroduceDto();
-
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("class_num", class_num);
-		System.out.println("daoImpl : " + class_num);
-		dto = sqlSession.selectOne(namespace + "classIntroduceselectone", map);
+		
+		ClassIntroduceDto dto = sqlSession.selectOne(namespace + "classIntroduceselectone", class_num);
 
 		return dto;
 	}
@@ -608,5 +616,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	      
 	      return list;
 	}
+
+
 
 }

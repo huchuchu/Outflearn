@@ -75,6 +75,12 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return dao.ClassIntroduceInsert(dto);
 	}
 	
+	@Override
+	public int ClassIntroduceUpdate(int class_num, String class_content) {
+		
+		return dao.ClassIntroduceUpdate(class_num, class_content);
+	}
+	
 //	--------------------------------------------------- 강좌 데이터(CLASS_DATA)
 	
 	@Override
@@ -311,4 +317,6 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int classInsertSubscribe(int user_num, int class_num) {
 		return dao.classInsertSubscribe(user_num, class_num);
 	}
+
+	
 }

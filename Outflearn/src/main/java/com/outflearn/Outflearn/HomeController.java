@@ -343,8 +343,7 @@ public class HomeController {
 			try {
 				mf.transferTo(new File(class_img_path)); // 파일 집어넣는다
 
-				res = biz.ClassInfoInsert(dto);
-
+	            res = biz.ClassInfoInsert(dto);
 			} catch (IllegalStateException e) {
 
 				e.printStackTrace();
@@ -415,12 +414,16 @@ public class HomeController {
 			for (MultipartFile mf : fileList) {
 				String originFileName = mf.getOriginalFilename(); // 원본 파일 명
 				long fileSize = mf.getSize(); // 파일 사이즈
-				String data_data_path = path + "/" + originFileName; // 경로
-				String data_data = path + originFileName; // 파일 이름
-				dto.setData_data(data_data);
+				String class_img_path = path + "/" + originFileName; // 경로
+				String class_img = path + originFileName; // 파일 이름
+				dto.setData_data(class_img);
 
 				try {
-					mf.transferTo(new File(data_data_path));
+					if(mf.getSize() == 0) {
+		 
+				}  else {
+					mf.transferTo(new File(class_img_path));              
+					}
 
 				} catch (IllegalStateException e) {
 
@@ -639,5 +642,45 @@ public class HomeController {
 	public String introOutflearn() {
 		return "introOutflearn";
 	}
+	
+	// 마이페이지에서 강의 소개 수정페이지 이동
+	@RequestMapping("ClassIntroduceUpdateForm")
+	public String ClassIntroduceUpdateForm(int class_num, Model model) {
+		
+		
+		model.addAttribute("class_num", class_num);
+		model.addAttribute("class_content", biz.ClassIntroduceSelectOne(class_num));
+		
+		return "Class/ClassIntroduceInsertFormUpdate";
+	}
+	
+	// 강의 소개 수정 이동
+	@RequestMapping("ClassIntroduceUpdate")
+	@ResponseBody
+	public int ClassIntroduceUpdate(int class_num, String class_content) {
+	
+		return biz.ClassIntroduceUpdate(class_num, class_content);
+	}
+	
+	// 마이페이지에서 영상 추가 페이지 이동
+	@RequestMapping("ClassDataInsertPlus")
+	public String ClassDataInsertPlus() {
+	
+		
+		return "Class/DataVideoUploadForm";
+	}
+	
+	// 마이페이지에서 영상 추가 수정 페이지로 이동
+	@RequestMapping("ClassDataUpdateForm")
+	public String ClassDataUpdateForm(int class_num, Model model) {
+		
+		model.addAttribute("class_data", biz.ClassDataSelectOne(class_num));
+		System.out.println(biz.ClassDataSelectOne(class_num));
+		System.out.println("강선웅!!!!");
+		return "Class/DataVideoUploadFormUpdate";
+	}
+	
+	// 영상 추가 수정 하기
+	
 
 }

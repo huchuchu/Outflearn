@@ -215,8 +215,9 @@ function updateClass(class_num, class_title) {
     Swal.fire({
         type: 'info',
         title: `${class_title} 수정 영역 선택`,
-        html: `<button>A</button>
-    <button>B</button>`,
+        html: `<button onclick="location.href='ClassIntroduceUpdateForm?class_num=${class_num}'">강의 소개</button>
+        	   <button onclick="location.href='ClassDataInsertPlus'">영상 추가</button>
+        	   <button onclick="location.href='ClassDataUpdateForm?class_num=${class_num}'">영상 수정</button>`,
         showCancelButton: false,
         showCloseButton: true,
         showConfirmButton: false

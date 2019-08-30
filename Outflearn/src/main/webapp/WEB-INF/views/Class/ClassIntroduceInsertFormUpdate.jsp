@@ -89,12 +89,13 @@
 			</div>
 			
 			<div class="form-group">
-				<textarea id="summernote" class="class_content" name="class_content"></textarea>
+				<textarea id="summernote" class="class_content" name="class_content">${class_content.class_content }</textarea>
 			</div>
 	
 			<div class="form-group">
 				<input type="hidden" class="class_num" value="${class_num }">
 				<input type="button" class="btn btn-primary" value="다음" onclick="Control();"> 
+				<input type="button" class="btn btn-primary" value="수정" onclick="ClassIntroduceUpdate();"> 
 				<input type="button" value="가이드 라인" onclick="ClassIntroduceGuideLine();" class="btn btn-primary">
 			</div>
 	</form:form>
@@ -109,7 +110,27 @@
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 	
 	<script type="text/javascript">
+	
+	function ClassIntroduceUpdate(){
 		
+		var class_content = $(".class_content").val();
+		alert(typeof class_content)
+		var class_num = $(".class_num").val();
+		
+		$.ajax({
+			url : 'ClassIntroduceUpdate?class_num=' + class_num + "&class_content=" + class_content,
+			method : 'get',
+			success : function(data) {
+				location.href= 'LectureDetail?class_num=' + class_num;
+			},
+			error : function() {
+				alert('에러 발생~~ \n')
+			}
+
+		})
+		
+	}
+	
 	function Control() {
 		ClassIntroduceMyform = document.ClassIntroduceMyform;
 		if (ClassIntroduceMyform.class_content.value == "") {
