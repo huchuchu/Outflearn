@@ -23,11 +23,11 @@
 	crossorigin="anonymous">
 
 <!-- include libraries(jQuery, bootstrap) -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
 <!-- include summernote css/js -->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 
 </head>
 <script type="text/javascript">
@@ -46,6 +46,10 @@
 
 </script>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+	<sec:authorize access="isAuthenticated()">
+		<sec:authentication var="num" property="principal.user_num"/>
+	</sec:authorize>
 
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 
@@ -111,7 +115,7 @@
 			</c:if>
 		</div>
 	</div>
-	
+	</div>
 	<div id="main" class="container pull-left">
 		<nav class="nav">
 			<ul class="nav nav-tabs">
@@ -136,13 +140,6 @@
 		</nav>
 	</div>
 	
-	<div class="panel panel-default">
-			<p>
-				${classIntroduce.class_content }
-			</p>
-		</div>
-	</div>
-
 	<div id="page-switch" class="nav-page">
 		<!-- 대쉬보드 -->
 		<input type="hidden" id="intro-content" value="${classIntroduce.class_content }">
@@ -193,7 +190,7 @@
 											<h4>${dto.qa_title }</h4>
 										</td>
 										<td>
-											<h4>${user_nickname }</h4>
+											<h4>${dto.user_nickname }</h4>
 										</td>
 									</tr>
 								</c:forEach>
@@ -245,24 +242,27 @@
 											</div>
 											<div align="right" id="answerOfAnswer${dto.review_num  }" class="row btn-rows">
 												<div class="pull-right col-sm-12 col-md-12">
-													<form:form action="LectureDetailAnswerDelete" method="post">
+													<form:form action="ReviewDelete" method="post">
 														<input type="hidden" name="class_num" value="${classinfo.class_num }">
 														<input type="hidden" name="review_num" value="${dto.review_num }">
+														<input type="hidden" name="review_groupno" value="${dto.review_groupno }">
 														<input type="submit" class="btn btn-default pull-right" value="삭제">
 													</form:form>
 													<input type="hidden" name="review_content" value="${dto.review_content }"> 
 													<input type="hidden" name="review_num" value="${dto.review_num }">
-													<button type="button" class="btn btn-default pull-right" id="b">수정</button>
-													<form:form action="ReplyForm" method="post">
-														<input type="hidden" name="review_num" value="${dto.review_num }">
-														<input type="hidden" name="class_num" value="${classinfo.class_num }">
-														<input type="hidden" name="user_star" value="${dto.user_star }">
-														<button type="button" class="btn btn-default ReviewReply pull-right">답글</button>
-													</form:form>
+													<button type="button" class="btn btn-default pull-right review-reply-update">수정</button>
+													<c:if test="${classinfo.user_num == num  }">
+														<form:form action="ReplyForm" method="post">
+															<input type="hidden" name="review_num" value="${dto.review_num }">
+															<input type="hidden" name="class_num" value="${classinfo.class_num }">
+															<input type="hidden" name="user_star" value="${dto.user_star }">
+															<button type="button" class="btn btn-default ReviewReply pull-right">답글</button>
+														</form:form>
+													</c:if>
 												</div>
 											</div>
 											<div class="container reply-div row">
-													<form:form action="Reply" method="post">
+													<form:form action="Reply" id="Reply" method="post">
 														<input type="hidden" name="class_num" value="${dto.class_num }">
 														<input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
 														<input type="hidden" name="review_num" value="${dto.review_num }">
@@ -298,7 +298,7 @@
 												<div id="a">
 													<input type="hidden" name="review_content" value="${dto.review_content }"> 
 													<input type="hidden" name="review_num" value="${dto.review_num }">
-													<button type="button" class="btn btn-default pull-right" id="b">수정</button>
+													<button type="button" class="btn btn-default pull-right review-reply-update">수정</button>
 												</div>
 											</div>
 										</div>
@@ -380,27 +380,88 @@
 					</c:choose>
 					<!-- Pagination QA-->
 					<ul class="pagination text-center text-inline">
-	
 						<li><a href="javascript:PageMoveQA(${pagination.firstPageNo}, '${txt_search}')" class="button previous">&laquo;</a></li>
 						<li><a	href="javascript:PageMoveQA(${pagination.prevPageNo}, '${txt_search}')" class="button previous">&lt;</a></li>
 						<li class="pagination">
-		
 							<c:forEach var="i" begin="${pagination.startPageNo}" end="${pagination.endPageNo}" step="1">
 								<c:choose>
 									<c:when test="${i eq pagination.pageNo}">
 										<li><a href="javascript:PageMoveQA(${i}, '${txt_search}')" class="active">${i}</a></li>
 									</c:when>
-								<c:otherwise>
-									<li><a href="javascript:PageMoveQA(${i}, '${txt_search}')">${i}</a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-		
+									<c:otherwise>
+										<li><a href="javascript:PageMoveQA(${i}, '${txt_search}')">${i}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
 						</li>
 						<li><a href="javascript:PageMoveQA(${pagination.nextPageNo}, '${txt_search}')" class="button_next">&gt;</a></li>
 						<li><a href="javascript:PageMoveQA(${pagination.finalPageNo}, '${txt_search}')" class="button_next">&raquo;</a></li>
+					</ul>						
 	
-					</ul>
+	<div class="modal fade" id="ReviewForm" role="dialog">
+    	<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h1 class="text-center">리뷰 작성</h1>
+					<form:form action="LectureDetailAnswer" id="Review">
+						<span class="star-input">
+							<span class="input">
+								<input type="radio" name="star-input" value="1" id="p1">
+								<label for="p1">1</label>
+								<input type="radio" name="star-input" value="2" id="p2">
+								<label for="p2">2</label>
+								<input type="radio" name="star-input" value="3" id="p3">
+								<label for="p3">3</label>
+								<input type="radio" name="star-input" value="4" id="p4">
+								<label for="p4">4</label>
+								<input type="radio" name="star-input" value="5" id="p5">
+								<label for="p5">5</label>
+							</span>
+							<output for="star-input" id="review-rating">0</output>
+							<input type="hidden" id="user_star" name="user_star">					
+						</span>
+						<input type="hidden" name="class_num" value="${classinfo.class_num }">
+						<input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
+						<input type="hidden" name="user_nickname" value='<sec:authentication property="principal.user_nickname"/>'>
+						<p><textarea name="review_content" class="summernote"></textarea></p>
+						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+						<button type="submit" id="review-insert-btn" class="btn btn-default">작성</button>
+					</form:form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="ReviewUpdateForm" role="dialog">
+    	<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h1 class="text-center">리뷰 수정</h1>
+					<form:form action="LectureDetailAnswer" id="ReviewUpdate">
+						<span class="star-input">
+							<span class="input">
+								<input type="radio" name="star-input" value="1" id="p1">
+								<label for="p1">1</label>
+								<input type="radio" name="star-input" value="2" id="p2">
+								<label for="p2">2</label>
+								<input type="radio" name="star-input" value="3" id="p3">
+								<label for="p3">3</label>
+								<input type="radio" name="star-input" value="4" id="p4">
+								<label for="p4">4</label>
+								<input type="radio" name="star-input" value="5" id="p5">
+								<label for="p5">5</label>
+							</span>
+							<output for="star-input" id="review-rating-update">0</output>
+							<input type="hidden" id="user_star_update" name="user_star">					
+						</span>
+						<input type="hidden" name="class_num" value="${classinfo.class_num }">
+						<input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
+						<input type="hidden" name="user_nickname" value='<sec:authentication property="principal.user_nickname"/>'>
+						<p><textarea name="review_content" class="summernote"></textarea></p>
+						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+						<button type="submit" id="review-insert-btn" class="btn btn-default">작성</button>
+					</form:form>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -443,12 +504,13 @@
     	<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">
+					<h1 class="text-center">질문 작성</h1>
 					<form:form action="QuestionInsert">
 						<input type="hidden" name="class_num" value="${classinfo.class_num }">
-						<input type="hidden" name="user_num" value="${user_num }">
-						<input type="hidden" name="user_nickname" value="${user_nickname }">
+						<input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
+						<input type="hidden" name="user_nickname" value='<sec:authentication property="principal.user_nickname"/>'>
 						<p><input type="text" placeholder="제목을 입력해주세요." name="qa_title" class="form-control"></p>
-						<p><textarea rows="20" cols="60" name="qa_content"></textarea></p>
+						<p><textarea name="qa_content" class="summernote"></textarea></p>
 						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 						<button type="submit" class="btn btn-default">작성</button>
 					</form:form>
@@ -483,7 +545,6 @@
 	<script type="text/javascript" src="resources/js/template/detail.js"></script>
 	<script type="text/javascript" src="resources/js/ClassReview.js"></script>
 	<script type="text/javascript" src="resources/js/template/star.js"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 </body>
-
 </html>

@@ -12,8 +12,6 @@ public class ClassReviewDto {
 	private int review_titletab;
 	private String user_nickname;
 	
-	
-	
 	public ClassReviewDto() {
 		super();
 	}
@@ -128,16 +126,11 @@ public class ClassReviewDto {
 		this.review_titletab = review_titletab;
 	}
 
-
-
 	public String getUser_nickname() {
 		return user_nickname;
 	}
-
-
-
+	
 	public void setUser_nickname(String user_nickname) {
 		this.user_nickname = user_nickname;
 	}
-	
 }

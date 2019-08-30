@@ -161,9 +161,9 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 
 	@Override
-	public int ClassReviewDelete(int review_num) {
+	public int ClassReviewDelete(ClassReviewDto dto) {
 		
-		return dao.ClassReviewDelete(review_num);
+		return dao.ClassReviewDelete(dto);
 	}
 
 	@Override

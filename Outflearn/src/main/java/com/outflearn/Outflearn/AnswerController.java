@@ -1,10 +1,7 @@
 package com.outflearn.Outflearn;
 
 import java.util.HashMap;
-
 import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
+import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
 
@@ -53,18 +50,16 @@ public class AnswerController {
 	   }
 	
 	
-	@RequestMapping("LectureDetailAnswerDelete")
-	public String answerDelete(int board_no, int class_num) {
-		logger.info("LectureDetailAnswerDelete");
+	@RequestMapping("ReviewDelete")
+	public String ReviewDelete(@ModelAttribute ClassReviewDto dto) {
+		logger.info("ReviewDelete");
 		
-		int res =  biz.ClassReviewDelete(board_no);
-		System.out.println(board_no + "염따");
-		System.out.println(res);
+		int res =  biz.ClassReviewDelete(dto);
 		
 		if (res > 0) {
-			return "redirect:LectureDetail?class_num=" + class_num;
+			return "redirect:LectureDetail?class_num=" + dto.getClass_num();
 		} else {
-			return "redirect:LectureDetail?class_num=" + class_num;
+			return "redirect:LectureDetail?class_num=" + dto.getClass_num();
 		}
 	}
 	
