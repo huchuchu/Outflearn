@@ -229,7 +229,8 @@ function addSession(){
 			  
 	tr.innerHTML=str;	
 	document.getElementById("addtr").appendChild(tr);
-	Cnt +=1;
+	
+//	Cnt +=1;
 	}
 }
 </script>
@@ -273,6 +274,7 @@ function searchClass(btnId){
 	//window.open("open할 윈도우","자식창 이름","팝업창 옵션");
 	window.open(url+"?btnIdVal="+btnId+"&numArray="+numArray,"searchWindow" ,"width=400,height=400,left=600");
 	
+	Cnt +=1;
 }
 
 function deleteLine(el){

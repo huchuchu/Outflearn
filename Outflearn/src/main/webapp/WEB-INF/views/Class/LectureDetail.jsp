@@ -30,7 +30,21 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 
 </head>
+<script type="text/javascript">
 
+			function PageMoveQA(page, data) {	
+				location.href = "LectureDetail?page=" + page + 
+								"&txt_search=" + $('input#txt_search').val() +
+								"&class_num=" + $('#class_num').val() +
+								"#Question"
+			}
+			
+			function PageMoveReview(page){
+				location.href =	"LectureDetail?page=" + page;
+								
+			}
+
+</script>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
 	<sec:authorize access="isAuthenticated()">
@@ -339,9 +353,10 @@
 				<h1>질문</h1>
 				<p><button id="Question-btn" class="btn btn-danger">질문작성</button></p>
 				<p class="input-group pull-right">
-						<input type="text" class="form-control" placeholder="검색하기">
+						<input type="text" class="form-control" placeholder="검색하기" id="txt_search" value="${txt_search }">
+						<input type="hidden" id="txt_search" value="${txt_search }">
 						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">검색</button>
+							<button class="btn btn-default" type="button" onclick="javascript:PageMoveQA(${pagination.pageNo}, '${txt_search }');">검색</button>
 						</span>
 					</p>
 					<c:choose>
@@ -363,9 +378,25 @@
 							</div>
 						</c:otherwise>
 					</c:choose>
-			</div>
-		</div>
-	</div>
+					<!-- Pagination QA-->
+					<ul class="pagination text-center text-inline">
+						<li><a href="javascript:PageMoveQA(${pagination.firstPageNo}, '${txt_search}')" class="button previous">&laquo;</a></li>
+						<li><a	href="javascript:PageMoveQA(${pagination.prevPageNo}, '${txt_search}')" class="button previous">&lt;</a></li>
+						<li class="pagination">
+							<c:forEach var="i" begin="${pagination.startPageNo}" end="${pagination.endPageNo}" step="1">
+								<c:choose>
+									<c:when test="${i eq pagination.pageNo}">
+										<li><a href="javascript:PageMoveQA(${i}, '${txt_search}')" class="active">${i}</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="javascript:PageMoveQA(${i}, '${txt_search}')">${i}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</li>
+						<li><a href="javascript:PageMoveQA(${pagination.nextPageNo}, '${txt_search}')" class="button_next">&gt;</a></li>
+						<li><a href="javascript:PageMoveQA(${pagination.finalPageNo}, '${txt_search}')" class="button_next">&raquo;</a></li>
+					</ul>						
 	
 	<div class="modal fade" id="ReviewForm" role="dialog">
     	<div class="modal-dialog">
@@ -435,6 +466,40 @@
 		</div>
 	</div>
 	
+	<div class="modal fade" id="ReviewForm" role="dialog">
+       <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-body">
+               <h1 class="text-center">리뷰 작성</h1>
+               <form:form action="LectureDetailAnswer" id="Review">
+                  <span class="star-input">
+                     <span class="input">
+                        <input type="radio" name="star-input" value="1" id="p1">
+                        <label for="p1">1</label>
+                        <input type="radio" name="star-input" value="2" id="p2">
+                        <label for="p2">2</label>
+                        <input type="radio" name="star-input" value="3" id="p3">
+                        <label for="p3">3</label>
+                        <input type="radio" name="star-input" value="4" id="p4">
+                        <label for="p4">4</label>
+                        <input type="radio" name="star-input" value="5" id="p5">
+                        <label for="p5">5</label>
+                     </span>
+                     <output for="star-input" id="review-rating">0</output>
+                     <input type="hidden" id="user_star" name="user_star">               
+                  </span>
+                  <input type="hidden" name="class_num" value="${classinfo.class_num }">
+                  <input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
+                  <input type="hidden" name="user_nickname" value='<sec:authentication property="principal.user_nickname"/>'>
+                  <p><textarea name="review_content" class="summernote"></textarea></p>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                  <button type="submit" id="review-insert-btn" class="btn btn-default">작성</button>
+               </form:form>
+            </div>
+         </div>
+      </div>
+   </div>
+	
 	<div class="modal fade" id="QuestionForm" role="dialog">
     	<div class="modal-dialog">
 			<div class="modal-content">
@@ -468,7 +533,7 @@
 			
 			},
 			error:function(){
-				alert('로그인 후 이용해주세요.')
+				alert('로그인 후 이용해주세요.');
 				location.href = "loginform"
 			}
 		})

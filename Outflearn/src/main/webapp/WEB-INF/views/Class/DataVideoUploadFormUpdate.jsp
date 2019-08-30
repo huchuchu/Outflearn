@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -45,79 +46,94 @@
 <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/27cb20e940.js"></script>
 <!-- ======================================================jQuery -->
-<script type="text/javascript"
-	src="resources/js/template/jquery.1.11.1.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
+<script type="text/javascript" src="https://jquery.com/download/https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <!-- Sweet Alert2 -->
 <link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
 <script src='resources/js/sweetalert/sweetalert2.min.js'></script>
 
 <script type="text/javascript">
-$(document).ready(function() {
+	
+	$(document).ready(function() {
 
-	$(".success1").click(function() {
-		$(".data").remove();
+		$(".success1").click(function() {
+			$(".data").remove();
+		});
+
+		$(".success2").click(function() {
+			$(".youTube").remove();
+		});
+
 	});
 
-	$(".success2").click(function() {
-		$(".youTube").remove();
-	});
-
-});
-
-function Control() {
-	DataVideoMyform = document.DataVideoMyform;
-	var file = $('#file').val();
-	alert(file);
-	console.log(file + "선웅")
-	
-	// 영상 소개에서 값이 들어가 있지 않을때
-	if (DataVideoMyform.data_title.value == "" || DataVideoMyform.data_sq.value == "" || DataVideoMyform.data_data.value == "") 
-	{
-		Swal.fire
-		({
-			type : 'error',
-			title : '실패...',
-			text : '강의 내용을 모두 입력해주세요.',
-		})
-	
-	
-	// 영상 업로드 방식 2개 작성 했을시
-	else if(DataVideoMyform.data_title.value == DataVideoMyform.data_title.value || DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value){
-		if(file == file){
+	function Control() {
+		DataVideoMyform = document.DataVideoMyform;
+		var file = $('#file').val();
+		alert(file);
+		console.log(file + "선웅")
+		
+		// 영상 소개에서 값이 들어가 있지 않을때
+		if (DataVideoMyform.data_subhead.value == "" || DataVideoMyform.data_sq.value == "" || 
+			DataVideoMyform.data_title.value == "" && DataVideoMyform.data_data.value == "") 
+		{
 			Swal.fire
 			({
-				type : 'success',
-				title : '성공',
-				text : '추가 사항 없으면 강의 목록 클릭11111111',
+				type : 'error',
+				title : '실패...',
+				text : '강의 내용을 모두 입력해주세요.',
 			})
+		}
+		
+		/* 영상 업로드 방식 2개 작성 했을시
+		else if(DataVideoMyform.data_title.value == DataVideoMyform.data_title.value || DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value || DataVideoMyform.data_data.value == DataVideoMyform.data_data.value){
+			if(file == file){
+				Swal.fire
+				({
+					type : 'error',
+					title : '실패...',
+					text : '하나의 영상 업로드 방식을 선택해주세요.',
+				})
+			}
+		}
+		*/
+		
+		// 유튜브 주소 영상 작성하고 완료버튼 클릭 안했을시
+		else if(DataVideoMyform.data_subhead.value == DataVideoMyform.data_subhead.value && DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value && 
+				DataVideoMyform.data_title.value == DataVideoMyform.data_title.value)
+		{	
+			if($('#file').val() == ""){
+			Swal.fire({
+				type : 'error',
+				title : '실패...',
+				text : '영상 업로드를 작성하고 완료 버튼을 클릭해주세요.',
+			})
+		     }
+			else{
+				Swal.fire(
+						  '영상 등록 성공',
+						  '추가 사항 없으시 강의 목록 클릭',
+						  'success'
+						)
+				DataVideoMyform.submit();
+			}
+		
 			
 		}
 		
-		else if(DataVideoMyform.data_data.value == DataVideoMyform.data_title.value == DataVideoMyform.data_title.value == DataVideoMyform.data_data.value)
-			{
-			Swal.fire
-			({
-				type : 'success',
-				title : '성공',
-				text : '추가 사항 없으면 강의 목록 클릭2222222',
-			})
-			}	
-	}
-	
-	// 유튜브 주소 영상 작성하고 완료버튼 클릭 안했을시
-	else if(DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value && 
-			DataVideoMyform.data_title.value == DataVideoMyform.data_title.value)
-	{	
-		if($('#file').val() == ""){
-		Swal.fire({
-			type : 'error',
-			title : '실패...',
-			text : '영상 업로드를 작성하고 완료 버튼을 클릭해주세요.',
-		})
-	     }
-		else{
+		// 파일 업로드 영상 작성하고 완료버튼 클릭 안했을시
+		else if(DataVideoMyform.data_subhead.value == DataVideoMyform.data_subhead.value && DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value && 
+				DataVideoMyform.data_title.value == DataVideoMyform.data_title.value && file == file)
+		{
+			if(DataVideoMyform.data_data.value == ""){
+			Swal.fire({
+				type : 'error',
+				title : '실패...',
+				text : '영상 업로드를 작성하고 완료 버튼을 클릭해주세요.',
+				})	
+			}
+			
+		}else {
 			Swal.fire(
 					  '영상 등록 성공',
 					  '추가 사항 없으시 강의 목록 클릭',
@@ -128,34 +144,11 @@ function Control() {
 	
 		
 	}
-	
-	// 파일 업로드 영상 작성하고 완료버튼 클릭 안했을시
-	else if(DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value && 
-			DataVideoMyform.data_title.value == DataVideoMyform.data_title.value && file == file)
-	{
-		if(DataVideoMyform.data_data.value == ""){
-		Swal.fire({
-			type : 'error',
-			title : '실패...',
-			text : '영상 업로드를 작성하고 완료 버튼을 클릭해주세요.',
-			})	
-		}
+
 		
-	}else {
-		Swal.fire(
-				  '영상 등록 성공',
-				  '추가 사항 없으시 강의 목록 클릭',
-				  'success'
-				)
-		DataVideoMyform.submit();
-	}
 	
-	
-}
 </script>
-
 </head>
-
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
@@ -165,45 +158,54 @@ function Control() {
 			class="nav flex-column col-sm-2 col-el-2 text-center">
 			<li class="nav-link active"><h3>강의 소개</h3></li>
 			<li class="nav-link active"><h3>강의 내용</h3></li>
-			<li class="nav-link active"><h3>영상 소개</h3></li>
-			<li class="list-group-item-info"><h3>영상 추가</h3></li>
+			<li class="list-group-item-info"><h3>영상 소개</h3></li>
+			<li class="nav-link active"><h3>영상 추가</h3></li>
 		</ul>
 		<div class="col-sm-6 col-el-8">
 
-			<form:form name="DataVideoMyform" action="DataVideoUploadPlus"  method="post" enctype="multipart/form-data">
-
+			<form:form name="DataVideoMyform" action="DataVideoUpload" method="post" enctype="multipart/form-data">
+				<c:forEach items="class_data" var="dto">
+				<div class="input-group">
+					<h1>영상 소개</h1>
+				</div>
 
 				<div class="form-group">
-					<h3>과정 제목</h3>
-					<input type="text" name="data_title" class="form-control" placeholder="${classdata.data_title }">
+					<h3>소제목</h3>
+					<input type="text" name="data_subhead" class="form-control" placeholder="${dto.data_subhead }">
 				</div>
 
 				<div class="form-group">
 					<h3>과정 순서</h3>
-					<input type="text" name="data_sq" class="form-control" placeholder="다음 순서를 입력해주세요.">
+					<input type="text" name="data_sq" class="form-control" placeholder="${dto.data_sq }">
+				</div>
+
+				<div class="form-group">
+					<h3>과정 제목</h3>
+					<input type="text" name="data_title" class="form-control" placeholder="${dto.data_title }">
 				</div>
 
 				<div class="form-group">
 					<h3>영상 업로드(유튜브 영상 링크 또는 파일 업로드 하나만 선택)</h3>
 					<div class="youTube">
-						<input type="text" name="data_data" class="form-control" placeholder="유튜브 주소를 입력해주세요." /> 
-						<input type="button" value="완료" style="color: #6372ff;" class="success1" />
+						<input type="text" name="data_data" class="form-control" placeholder="${dto.data_data }" /> 
+						<input type="button" value="완료" class="success1" style="color: #6372ff;" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="data">
-						<input type="file" id="file" name="file" style="color: #6372ff;" /> 
-						<input type="button" value="완료" style="color: #6372ff;" class="success2" />
+						<input type="file" id="file" name="file" style="color: #6372ff;" placeholder="${dto.data_data }"/> 
+						<input type="button" value="완료" class="success2" style="color: #6372ff;" />
 					</div>
 				</div>
 
 
 				<div class="form-group">
-					<input type="button" class="btn btn-primary" value="작성 후 클릭" onclick="Control();" />
+					<input type="button" class="btn btn-primary" value="작성 후 클릭" onclick="Control();" /> 
 					<input type="button" value="가이드 라인" onclick="DataVideoGuideLine();" class="btn btn-primary"> 
 					<input type="button" class="btn btn-primary" value="강의 목록 " onclick="location.href='myClass'">
 				</div>
-
+			
+				</c:forEach>
 			</form:form>
 		</div>
 	</div>
@@ -211,7 +213,7 @@ function Control() {
 
 	<!-- Footer Section -->
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
-	
+
 	<script type="text/javascript">
 		function DataVideoGuideLine() {
 			var url = "DataVideoGuideLine";
@@ -227,7 +229,5 @@ function Control() {
 	<script type="text/javascript"
 		src="resources/js/template/jqBootstrapValidation.js"></script>
 	<script type="text/javascript" src="resources/js/template/main.js"></script>
-
 </body>
-
 </html>

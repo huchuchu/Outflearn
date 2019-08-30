@@ -110,9 +110,17 @@
                       <h5>질문이 없습니다...ㅠㅠ</h5>
                     </c:when>
                     <c:otherwise>
-                      <c:forEach items="${myQA }" var="item">
-                        <p>질문명 : ${item.qa_title}</p>
-                      </c:forEach>
+                      <div class="row">
+                        <c:forEach items="${myQA }" var="item">
+                          <div class="col-sm-6">
+                            <a href="QASelectOne?qa_num=${item.qa_num }&qa_group_no=${item.qa_group_no }">
+                              <div class="repl cardView">
+                                <h4 class="icon cardTitle">&nbsp${item.qa_title}</h4>
+                              </div>
+                            </a>
+                          </div>
+                        </c:forEach>
+                      </div>
                     </c:otherwise>
                   </c:choose>
                 </div>

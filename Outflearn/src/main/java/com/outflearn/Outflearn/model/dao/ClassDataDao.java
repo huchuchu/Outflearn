@@ -29,6 +29,7 @@ public interface ClassDataDao {
 		// 강좌 소개 - CLASS_INTRODUCE 테이블
 		public ClassIntroduceDto ClassIntroduceSelectList(int class_num);
 		public int ClassIntroduceInsert(ClassIntroduceDto dto);
+		public int ClassIntroduceUpdate(int class_num, String class_content);
 		
 			
 		// 강좌 데이터 -  CLASS_DATA TABLE

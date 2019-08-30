@@ -28,11 +28,12 @@ public interface ClassDataBiz {
 		// 강좌 소개 - CLASS_INTRODUCE 테이블
 		public ClassIntroduceDto ClassIntroduceSelectList(int class_num);
 		public int ClassIntroduceInsert(ClassIntroduceDto dto);
+		public int ClassIntroduceUpdate(int class_num, String class_content);
 	
 		
 		// 강좌 데이터 -  CLASS_DATA 테이블
 		public List <ClassDataDto> ClassDataSelectList();
-		public List<ClassDataDto> ClassDataSelectOne(int class_num);
+		public List <ClassDataDto> ClassDataSelectOne(int class_num);
 		public int ClassDataInsert(ClassDataDto dto);		
 		public int ClassChapterDataInsert(ClassDataDto dto);
 		public int ClassInfoUpdateSub(int class_num);

@@ -110,9 +110,18 @@
                       <h5>참여중인 로드맵이 없습니다...ㅠㅠ</h5>
                     </c:when>
                     <c:otherwise>
-                      <c:forEach items="${subRoadmap }" var="item">
-                        <p>로드맵 : ${item.roadmap_title}</p>
-                      </c:forEach>
+                      <div class="row">
+                        <c:forEach items="${subRoadmap }" var="item">
+                          <div class="col-sm-3">
+                            <a href="roadMapDetail?roadNum=${item.roadmap_num }">
+                              <div class="cardView">
+                                <h4 class="cardTitle">${item.roadmap_title}</h4>
+                                <h5>${item.roadmap_subscribe}</h5>
+                              </div>
+                            </a>
+                          </div>
+                        </c:forEach>
+                      </div>
                     </c:otherwise>
                   </c:choose>
                 </div>

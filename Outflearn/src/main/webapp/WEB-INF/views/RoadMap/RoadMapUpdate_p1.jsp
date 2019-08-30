@@ -105,7 +105,7 @@ text-align: center;
 			<c:choose>
 				<c:when test="${Chk eq true }">
 					<button class="btn btn-success " type="button" id="submitBtn" >
-						<span>수정 후 강의 등록</span><i class="fas fa-arrow-right" style="margin-left: 5%;"></i>
+						<span>수정 후 강의 등록페이지로 이동</span><i class="fas fa-arrow-right" style="margin-left: 5%;"></i>
 					</button>					
 				</c:when>
 				<c:otherwise>
