@@ -109,11 +109,11 @@ public class myPageController {
 	
 	@RequestMapping("setLiveSchedule")
 	@ResponseBody
-	public boolean setLiveSchedule(String setClass, String setTitle, String setDate, String repeatDate, Authentication auth) {
+	public boolean setLiveSchedule(String setClass, String setTitle, String setDate, Authentication auth) {
 		
 		UserInfoDto userInfo = (UserInfoDto) auth.getPrincipal();
 		
-		int res = biz.setLiveSchedule(setClass, setTitle, setDate, repeatDate, userInfo.getUser_nickname());
+		int res = biz.setLiveSchedule(setClass, setTitle, setDate, userInfo.getUser_nickname());
 		
 		if(res > 0) return true;
 		return false;

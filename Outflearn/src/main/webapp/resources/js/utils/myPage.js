@@ -26,12 +26,6 @@ function inputHtmlBuild(data) {
     // 시간 input + select
 
     html += ` <p>날짜 : <input type="date" id="setDate"></p>`
-    html += `    <p>반복 :
-        <select id="repeatDate">
-            <option value="week">매 주</option>
-            <option value="month">매 월</option>
-        </select>
-    </p>`
 
     return html
 }

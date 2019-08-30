@@ -21,12 +21,13 @@ public interface myPageBiz {
 		public List<ClassInfoDto> getSubscribe(int user_num);
 		public List<RoadMapCon> getSubRoadmap(int user_num);
 		public List<QADto> getQA(int user_num);
+		public Map<String, String> qaReply(int user_num);
 		
 		public int reqLecturer(String lecturerNum, String lecturerPhone, String lecturerIntro, String lecturerClass);
 		
 //강사
 		
-		public int setLiveSchedule(String setClass, String setTitle, String setDate, String repeatDate, String setAuthor);
+		public int setLiveSchedule(String setClass, String setTitle, String setDate, String setAuthor);
 		public List<ClassInfoDto> myClass(int user_num);
 		public int deleteClass(String class_num);
 		public List<RoadMapInfoDto> myRoadmap(int user_num);

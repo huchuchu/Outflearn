@@ -109,12 +109,23 @@
                     <h4 class="boxTitle">게시한 강좌</h4>
                     <c:choose>
                       <c:when test="${empty myClass }">
-                        <h5>수강중인 강좌가 없습니다...ㅠㅠ</h5>
+                        <h5>게시한 강좌가 없습니다...ㅠㅠ</h5>
                       </c:when>
                       <c:otherwise>
-                        <c:forEach items="${myClass }" var="item">
-                          <p>강좌명 : ${item.class_title}</p>
-                        </c:forEach>
+                        <div class="row">
+                          <c:forEach items="${myClass }" var="item">
+                            <div class="col-sm-3">
+                              <a href="LectureDetail?class_num=${item.class_num }">
+                                <div class="cardView">
+                                  <img
+                                    src="${pageContext.request.contextPath }/resources/uploadImage/${item.class_img }"
+                                    alt="..." class="topImg" />
+                                  <h5 class="cardTitle">${item.class_title}</h5>
+                                </div>
+                              </a>
+                            </div>
+                          </c:forEach>
+                        </div>
                       </c:otherwise>
                     </c:choose>
                   </div>
@@ -131,9 +142,19 @@
                       <h5>수강중인 강좌가 없습니다...ㅠㅠ</h5>
                     </c:when>
                     <c:otherwise>
-                      <c:forEach items="${subClass }" var="item">
-                        <p>강좌명 : ${item.class_title}</p>
-                      </c:forEach>
+                      <div class="row">
+                        <c:forEach items="${subClass }" var="item">
+                          <div class="col-sm-3">
+                            <a href="LectureDetail?class_num=${item.class_num }">
+                              <div class="cardView">
+                                <img src="${pageContext.request.contextPath }/resources/uploadImage/${item.class_img }"
+                                  alt="..." class="topImg" />
+                                <h5 class="cardTitle">${item.class_title}</h5>
+                              </div>
+                            </a>
+                          </div>
+                        </c:forEach>
+                      </div>
                     </c:otherwise>
                   </c:choose>
                 </div>
@@ -164,9 +185,17 @@
                       <h5>장바구니가 비었습니다...ㅠㅠ</h5>
                     </c:when>
                     <c:otherwise>
-                      <c:forEach items="${basketClass }" var="item">
-                        <p>강좌명 : ${item.class_title}</p>
-                      </c:forEach>
+                      <div class="row">
+                        <c:forEach items="${basketClass }" var="item">
+                          <div class="col-sm-3">
+                            <div class="cardView">
+                              <img src="${pageContext.request.contextPath }/resources/uploadImage/${item.class_img }"
+                                alt="..." class="topImg" />
+                              <h5 class="cardTitle">${item.class_title}</h5>
+                            </div>
+                          </div>
+                        </c:forEach>
+                      </div>
                     </c:otherwise>
                   </c:choose>
                 </div>
@@ -184,9 +213,18 @@
                       <h5>참여중인 로드맵이 없습니다...ㅠㅠ</h5>
                     </c:when>
                     <c:otherwise>
-                      <c:forEach items="${subRoadmap }" var="item">
-                        <p>로드맵 : ${item.roadmap_title}</p>
-                      </c:forEach>
+                      <div class="row">
+                        <c:forEach items="${subRoadmap }" var="item">
+                          <div class="col-sm-3">
+                            <a href="roadMapDetail?roadNum=${item.roadmap_num }">
+                              <div class="cardView">
+                                <h4 class="cardTitle">${item.roadmap_title}</h4>
+                                <h5>${item.roadmap_subscribe}</h5>
+                              </div>
+                            </a>
+                          </div>
+                        </c:forEach>
+                      </div>
                     </c:otherwise>
                   </c:choose>
                 </div>
@@ -200,9 +238,17 @@
                       <h5>질문이 없습니다...ㅠㅠ</h5>
                     </c:when>
                     <c:otherwise>
-                      <c:forEach items="${preQA }" var="item">
-                        <p>질문명 : ${item.qa_title}</p>
-                      </c:forEach>
+                      <div class="row">
+                        <c:forEach items="${preQA }" var="item">
+                          <div class="col-sm-6">
+                            <a href="QASelectOne?qa_num=${item.qa_num }&qa_group_no=${item.qa_group_no }">
+                              <div class="cardView">
+                                <h4 class="icon cardTitle">&nbsp${item.qa_title}</h4>
+                              </div>
+                            </a>
+                          </div>
+                        </c:forEach>
+                      </div>
                     </c:otherwise>
                   </c:choose>
                 </div>
