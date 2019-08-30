@@ -60,6 +60,7 @@
             <li class="nav-item side_menu">
               <a href="void:0">로드맵</a>
               <ul class="inner_menu">
+                <li><a href="myRoadmap">게시한 로드맵</a></li>
                 <li><a href="subRoadmap">참여중인 로드맵</a></li>
               </ul>
             </li>
@@ -78,17 +79,19 @@
           </ul>
         </div>
 
-        <div class="side_category live">
-          <ul class="nav flex-column text-center">
-            <li class="nav-item side_menu">
-              <a href="void:0">LIVE</a>
-              <ul class="inner_menu">
-                <li><a class="configLiveRoom" href="void:0">방송하기</a></li>
-                <li><a href="void:0">방송 스케줄</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+        <sec:authorize access="hasRole('ROLE_TUTOR')">
+          <div class="side_category live">
+            <ul class="nav flex-column text-center">
+              <li class="nav-item side_menu">
+                <a href="void:0">LIVE</a>
+                <ul class="inner_menu">
+                  <li><a class="configLiveRoom" href="void:0">방송하기</a></li>
+                  <li><a id="setLiveSchedule" href="void:0">방송 스케줄</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </sec:authorize>
 
       </aside>
 
@@ -102,16 +105,16 @@
               <div class="col-sm-12">
                 <div class="boardBox">
                   <h4 class="boxTitle">내 질문</h4>
-                  	<c:choose>
-	                  	<c:when test="${empty myQA }">
-	                  		<h5>질문이 없습니다...ㅠㅠ</h5>
-	                  	</c:when>
-	                  	<c:otherwise>
-	                  		<c:forEach items="${myQA }" var="item">
-                    			<p>질문명 : ${item.qa_title}</p>
-                 			 </c:forEach>
-	                  	</c:otherwise>
-	                </c:choose>
+                  <c:choose>
+                    <c:when test="${empty myQA }">
+                      <h5>질문이 없습니다...ㅠㅠ</h5>
+                    </c:when>
+                    <c:otherwise>
+                      <c:forEach items="${myQA }" var="item">
+                        <p>질문명 : ${item.qa_title}</p>
+                      </c:forEach>
+                    </c:otherwise>
+                  </c:choose>
                 </div>
               </div>
             </div>

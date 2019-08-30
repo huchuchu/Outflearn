@@ -276,13 +276,14 @@ public class RoadMapDaoImpl implements RoadMapDao {
 	
 	
 	@Override
-	public int selectTotalCountRoadMap(String txt_search, String searchOption) {
+	public int selectTotalCountRoadMap(String txt_search, String searchOption, int main_num) {
 		
 		int res = 0;
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("searchOption", searchOption);
 		map.put("txt_search", txt_search);
+		map.put("main_num", String.valueOf(main_num));
 		res = session.selectOne(NAMESPACE + "selectTotalCountRoadMap", map);
 		
 		return res;
@@ -382,17 +383,29 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		return res;
 	}
 
+
 	@Override
 	public List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
-			String searchOption) {
+			String searchOption, int main_num) {
 
 
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("firstIndex", String.valueOf(firstIndex));
 		map.put("recordCountPerPage", String.valueOf(recordCountPerPage));
+		if(txt_search.equals("")||txt_search ==null) {
+			map.put("txt_search", null);
+		}else {
 		map.put("txt_search", txt_search);
+		}
 		map.put("searchOption", searchOption);
-
+		
+		if(main_num == 0) {
+			map.put("main_num", String.valueOf(0));
+		}else {
+			map.put("main_num", String.valueOf(main_num));
+		}
+		System.out.println("다오임플 main_num: " + main_num);
+		
 		List<RoadUserCombineDto> list = session.selectList(NAMESPACE + "roadComList", map);
 		
 		return list;
@@ -472,9 +485,5 @@ public class RoadMapDaoImpl implements RoadMapDao {
 
 
 
-
-
-	
-	
-	
+		
 }

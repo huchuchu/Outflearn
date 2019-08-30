@@ -232,7 +232,6 @@ function moveBottom(el){
 }
 
 
-
 </script>
 
 <!--footer  --> 

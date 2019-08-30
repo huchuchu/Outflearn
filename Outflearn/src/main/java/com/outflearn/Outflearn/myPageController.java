@@ -96,6 +96,15 @@ public class myPageController {
 		
 	}
 	
+	@RequestMapping("myRoadmap")
+	public String myRoadmap(Authentication auth, Model model) {
+		
+		UserInfoDto userInfo = (UserInfoDto) auth.getPrincipal();
+		model.addAttribute("myRoadmap", biz.myRoadmap(userInfo.getUser_num()));
+		
+		return "Member/myRoadmap";
+	}
+	
 // 강사
 	
 	@RequestMapping("setLiveSchedule")
@@ -125,6 +134,16 @@ public class myPageController {
 	public boolean deleteClass(String class_num) {
 		
 		int res = biz.deleteClass(class_num);
+		
+		if(res > 0) return true;
+		return false;
+	}
+	
+	@RequestMapping("deleteRoadmap")
+	@ResponseBody
+	public boolean deleteRoadmap(String roadmap_num) {
+		
+		int res = biz.deleteRoadmap(roadmap_num);
 		
 		if(res > 0) return true;
 		return false;

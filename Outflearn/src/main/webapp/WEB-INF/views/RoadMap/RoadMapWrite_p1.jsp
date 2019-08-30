@@ -97,7 +97,7 @@ text-align: center;
 				</div> 
 		</div>
 	</div>
-	<div class="row">
+	<div class="row cen">
 		<div class="col-md-12" >
 				<button class="btn btn-success" type="button" id="submitBtn">
 			<span>다음 페이지</span><i class="fas fa-arrow-right" style="margin-left: 5%;"></i>

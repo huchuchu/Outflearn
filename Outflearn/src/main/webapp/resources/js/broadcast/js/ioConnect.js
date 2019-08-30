@@ -1,6 +1,6 @@
 try {
-    // var socket = io.connect('https://192.168.10.139:3000', { rejectUnauthorized: false });
-    var socket = io.connect('https://localhost:3000', { rejectUnauthorized: false });
+    var socket = io.connect('https://192.168.10.139:3000', { rejectUnauthorized: false });
+    // var socket = io.connect('https://localhost:3000', { rejectUnauthorized: false });
 } catch (error) {
     Swal.fire({
         type: 'error',
@@ -20,8 +20,8 @@ try {
                 })
                     .then((result) => {
                         if (result.value) {
-                            // location.href = 'https://192.168.10.139:3000/certification'
-                            location.href = 'https://localhost:3000/certification'
+                            location.href = 'https://192.168.10.139:3000/certification'
+                            // location.href = 'https://localhost:3000/certification'
                         }
                     })
             } else {

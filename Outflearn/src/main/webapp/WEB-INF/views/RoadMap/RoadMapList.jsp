@@ -39,7 +39,10 @@ align-items: center;
 
 <script type="text/javascript">
 function PageMove(page,data) {
-    location.href = "RoadMap?page="+page+"&txt_search=" + $('input#txt_search').val() + "&searchOption=" + $('#searchOption').val();
+    location.href = "RoadMap?page=" + page + 
+    				"&txt_search=" + $('input#txt_search').val() + 
+    				"&searchOption=" + $('#searchOption').val() +
+    				"&main_num=" + data;
  }
 
 </script>
@@ -80,7 +83,9 @@ function PageMove(page,data) {
                      <div id="level" class="collapse">
                         <c:forEach items="${mainList }" var="mainDto">
                            <div class="sm_category">
-                              <input id="mainNum_${mainDto.main_num }" type="checkbox" value="${mainDto.main_num }"><label for="mainNum_${mainDto.main_num }">${mainDto.main_name }</label>
+                              <input id="mainNum_${mainDto.main_num }" type="checkbox" value="${mainDto.main_num }" 
+                              onclick="location.href='RoadMap?txt_search=${txt_search }&searchOption=all&main_num=${mainDto.main_num}'"><label for="mainNum_${mainDto.main_num }">${mainDto.main_name }</label>
+                             <input type="hidden" class="main_category" name="main_category" value="${mainDto.main_num }">
                            </div>                           
                         </c:forEach>
 
@@ -116,7 +121,6 @@ function PageMove(page,data) {
             </aside>
             
          <div class="col-sm-10">
-
             <article>
                <div class="page-body">
 
@@ -161,25 +165,25 @@ function PageMove(page,data) {
    
    <!-- Pagination -->
          <div class="text-center form-group form-inline" >
-            <a href="javascript:PageMove(${pagination.firstPageNo})"
+            <a href="javascript:PageMove(${pagination.firstPageNo},'${main_num }')"
                class="button previous">&laquo;</a> <a
-               href="javascript:PageMove(${pagination.prevPageNo})"
+               href="javascript:PageMove(${pagination.prevPageNo},'${main_num }')"
                class="button previous">&lt;</a>
             <div class="pages">
                <c:forEach var="i" begin="${pagination.startPageNo}" end="${pagination.endPageNo}" step="1">
                   <c:choose>
                      <c:when test="${i eq pagination.pageNo}">
-                        <a href="javascript:PageMove(${i})" class="active">${i}</a>
+                        <a href="javascript:PageMove(${i},'${main_num }')" class="active">${i}</a>
                      </c:when>
                      <c:otherwise>
-                        <a href="javascript:PageMove(${i})">${i}</a>
+                        <a href="javascript:PageMove(${i},'${main_num }')">${i}</a>
                      </c:otherwise>
                   </c:choose>
                </c:forEach>
             </div>
-            <a href="javascript:PageMove(${pagination.nextPageNo})"
+            <a href="javascript:PageMove(${pagination.nextPageNo},'${main_num }')"
                class="button_next">&gt;</a> <a
-               href="javascript:PageMove(${pagination.finalPageNo})"
+               href="javascript:PageMove(${pagination.finalPageNo},'${main_num }')"
                class="button_next">&raquo;</a>
          </div>
    <!--footer  -->

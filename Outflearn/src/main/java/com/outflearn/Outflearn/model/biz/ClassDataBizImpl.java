@@ -100,6 +100,12 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		
 		return dao.ClassChapterDataInsert(dto);
 	}
+	
+	@Override
+	public int ClassInfoUpdateSub(int class_num) {
+		
+		return dao.ClassInfoUpdateSub(class_num);
+	}
 
 //	-------------------------------------------------장바구니(BASKET)
 	@Override
@@ -196,6 +202,17 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int selectTotalCountTwo(String txt_search, String searchOption) {
 		return dao.selectTotalCountTwo(txt_search, searchOption);
 	}
+	
+	@Override
+	public int selectTotalCountQA(String txt_search, int class_num) {
+		return dao.selectTotalCountQA(txt_search, class_num);
+	}
+
+	@Override
+	public List<QADto> selectListPageQA(int firstIndex, int recordCountPerPage, String txt_search, int class_num) {
+		return dao.selectListPageQA(firstIndex, recordCountPerPage, txt_search, class_num);
+	}
+	
 	@Override
 	public List<QADto> QASelectList(int class_num) {
 		return dao.QASelectList(class_num);

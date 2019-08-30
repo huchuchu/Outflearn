@@ -31,12 +31,21 @@ public class KakaoPayController {
 		
 	}
 	
-	
 	@RequestMapping(value="oauth", method=RequestMethod.POST)
-	public String kakaoPay(String class_title, int class_price) {
-		
-		return "redirect:"+kakaopay.kakaoPayReady(class_title, class_price);
-	}
+	   public String kakaoPay(String class_title, int class_price, Authentication auth, int [] class_num) {
+	      // 회원
+	      UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
+	      int user_num = uDto.getUser_num();
+	      System.out.println(class_num.length + "111111111111");
+	      
+	   
+	      for(int i = 0; i < class_num.length;  i++) {
+	      // 구독 테이블 입력
+	      biz.classInsertSubscribe(user_num, class_num[i]);
+	      biz.ClassInfoUpdateSub(class_num[i]);
+	      }
+	      return "redirect:"+kakaopay.kakaoPayReady(class_title, class_price);
+	   }
 	
 	@RequestMapping(value="kakaoPaySuccess")
 	public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, Authentication auth) {

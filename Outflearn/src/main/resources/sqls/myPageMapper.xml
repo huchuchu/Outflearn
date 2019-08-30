@@ -10,7 +10,7 @@
 		SELECT * FROM CLASS_INFO WHERE CLASS_NUM IN(SELECT CLASS_NUM FROM SUBSCRIBE WHERE USER_NUM = #{user_num})
 	</select>
 	
-	<select id="getSubRoadmap" resultType="ClassInfoDto" parameterType="int">
+	<select id="getSubRoadmap" resultType="RoadMapDto" parameterType="int">
 		SELECT * FROM ROADMAP_INFO WHERE ROADMAP_NUM IN(SELECT ROADMAP_NUM FROM ROADMAP_SUBSCRIBE WHERE USER_NUM = #{user_num})
 	</select>
 	
@@ -84,6 +84,14 @@
 	
 	<delete id="deleteClass" parameterType="String">
 		DELETE FROM CLASS_INFO WHERE CLASS_NUM = #{class_num}
+	</delete>
+	
+	<select id="myRoadmap" parameterType="int" resultType="RoadMapDto">
+		SELECT * FROM ROADMAP_INFO WHERE USER_NUM = #{user_num}
+	</select>
+	
+	<delete id="deleteRoadmap" parameterType="String">
+		DELETE FROM ROADMAP_INFO WHERE ROADMAP_NUM = #{roadmap_num}
 	</delete>
 	
 </mapper>

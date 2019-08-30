@@ -17,7 +17,6 @@
 <!-- Sweet Alert2 -->
 <link href='resources/js/sweetalert/sweetalert2.min.css' rel='stylesheet' />
 <script src='resources/js/sweetalert/sweetalert2.min.js'></script>
-
 <style type="text/css">
 
 .basket_item{
@@ -140,8 +139,20 @@ $("#filterForm").submit(function(){
 	
 	
 	
-		var resBtnId = $(this).attr('id');
-//		alert("========"+resBtnId);
+		$("input[name=resBtn]").click(function(){
+					
+			var resBtnId = $(this).attr('id');
+//			alert("========"+resBtnId);
+			
+			var returnVal = document.getElementById("please").value;
+//			alert("++++++++"+returnVal);
+			
+			opener.document.getElementById("real"+returnVal).value = document.getElementById("title"+resBtnId).value;
+			opener.document.getElementById("test"+returnVal).value = document.getElementById("num"+resBtnId).value;		
+			window.close();
+			
+			
+		});
 	
 		
 		var returnVal = document.getElementById("please").value;

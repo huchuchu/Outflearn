@@ -6,6 +6,7 @@ import java.util.Map;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
+import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.UserInfoDto;
 
 public interface myPageBiz {
@@ -28,6 +29,8 @@ public interface myPageBiz {
 		public int setLiveSchedule(String setClass, String setTitle, String setDate, String repeatDate, String setAuthor);
 		public List<ClassInfoDto> myClass(int user_num);
 		public int deleteClass(String class_num);
+		public List<RoadMapInfoDto> myRoadmap(int user_num);
+		public int deleteRoadmap(String roadmap_num);
 		
 //관리자
 		
