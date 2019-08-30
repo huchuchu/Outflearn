@@ -109,15 +109,8 @@ function PageMove(page,data) {
                   <span>필터초기화</span>   
                   </a>
                 </div>
-                
-                <!-- 버튼 쓰고 삭제해주세요~! -->
-                <div>
-                	<button onclick="location.href='RoadMapWriteP1'">로드맵 작성</button>
-                	<button onclick="location.href='Modify_P1?roadNum=4'">로드맵 1p수정</button><!--로드맵번호같이 보내야함/ 컨트롤러에서 return"" 수정해주세요 지금은 메인으로보냄 -->
-                	<button onclick="location.href='Modify_P2?roadNum=4'">로드맵 2p수정</button><!--로드맵번호같이 보내야함/ 컨트롤러에서 return"" 수정해주세요 지금은 메인으로보냄 -->                
-                	<!-- 조건삭제의 경우: roadmapinfo와 roadmapcon을 모두 쓰지않은 글은 삭제합니당 -->
-                </div>
-                  
+            
+                      
             </aside>
             
          <div class="col-sm-10">
