@@ -17,25 +17,6 @@
 cursor: pointer;
 }
 
-.modal {
-        text-align: center;
-}
- 
-@media screen and (min-width: 768px) { 
-        .modal:before {
-                display: inline-block;
-                vertical-align: middle;
-                content: " ";
-                height: 100%;
-        }
-}
- 
-.modal-dialog {
-        display: inline-block;
-        text-align: left;
-        vertical-align: middle;
-}
-
 
 
 </style>
@@ -44,26 +25,56 @@ cursor: pointer;
 <body>
 <jsp:useBean id="now" class="java.util.Date"/>
 <fmt:formatDate value="${now }" pattern="yy-MM-dd HH:mm:ss" var="today"/>
+<sec:authorize access="isAuthenticated()">
+<sec:authentication var="num" property="principal.user_num"/>
+</sec:authorize>
 
 
-<table class="table">
 <c:forEach items="${list }" var="row">
-<tr>
-	<td>
-		<span><b>${row.user_nickname }</b></span>
-		<span><c:out value="${today }"></c:out></span>
-		<p><span>${row.comment_content }</span></p>
-		<p><a class="icon">답글달기</a></p>
-		<div id="reComment"></div>
-	</td>
-	<td>
-		<sec:authentication property="principar.user_num"/>
-		<a title="수정" class="icon" id="myBtn" ><i class="fas fa-reply"></i></a>
-		<a title="삭제" class="icon" onclick="location.href='commentDelete?commentNum=${row.comment_num}'"><i class="far fa-trash-alt"></i></a>
-	</td>
-</tr>
+<div class="media text-muted pt-3" id="rid${row.comment_num }">
+	<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">
+		<span class="d-block">
+			<strong class="text-gray-dark">${row.user_nickname }</strong>
+			<span style="padding-left: 7px; font-size: 9pt">
+				<span style="padding-right: 5px;"><c:out value="${today }"></c:out></span>
+				<a onclick="editComment(${row.comment_num},'${row.user_nickname }','${row.comment_content }');" style="padding-right: 5px;" class="icon">수정</a>
+				<a onclick="deleteComment(${row.comment_num});" class="icon">삭제</a>
+			</span>
+		</span>
+	</p>
+	<p>${row.comment_content }</p>
+</div>
 </c:forEach>
-</table>
+
+
+<script type="text/javascript">
+
+function editComment(comNum,nickName,content){
+	
+	var	htmls = "<div class='media text-muted pt-3' id='rid"+comNum+"'>"+
+				"<p class='media-body pb-3 mb-0 small lh-125 border-bottom horder-gray'>"+
+				"<span class='d-block'>"+
+				"<strong class='text-gray-dark'>"+nickName+"</strong>"+
+				"<span style='padding-left: 7px; font-size: 9pt'>"+
+				"<span style='padding-right: 5px;'><c:out value='${today }'></c:out></span>"+
+				"<a onclick='updateComment("+comNum+");' style='padding-right: 5px;' class='icon' >저장</a>"+
+				"<a onclick='back()' class='icon'>취소</a>"+
+				"</span>"+
+				"</span>"+
+				"</p>"+
+				"<p>"+
+				"<textarea class='form-control' id='editContent' rows='3' >"+
+				 content +
+				"</textarea>"+
+				"</p>"+
+				"</div>";
+		
+ 		$('#rid'+comNum).replaceWith(htmls);
+ 		$('#rid'+comNum+'#editContent').focus();
+}
+
+
+</script>
 
 
 

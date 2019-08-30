@@ -178,7 +178,7 @@ public class RoadMapController {
 			model.addAttribute("roadSeq", seq);	
 			return"RoadMap/RoadMapWrite_p2";
 		}else{ 
-			return"redirect:/"; //로드맵1p 수정하기 다이렉트로 왔을 떄 (마이페이지에서 왔을 떄 리턴값)
+			return"redirect:myRoadmap"; //로드맵1p 수정하기 다이렉트로 왔을 떄 (마이페이지에서 왔을 떄 리턴값)
 		}
 		
 	}
@@ -216,7 +216,7 @@ public class RoadMapController {
 		}
 		
 		
-		return "redirect:/";
+		return "redirect:myRoadmap";
 	}
 	
 	
@@ -244,7 +244,7 @@ public class RoadMapController {
 	
 	//로드맵 2페이지 작성 후 insert
 	@RequestMapping("/roadNclass")
-	public String roadNclass(@RequestParam String[] class_num, @RequestParam String seq)  {
+	public String roadNclass(@RequestParam String[] class_num, @RequestParam String seq, Model model)  {
 		
 		System.out.println("roadNclass 입장:::::::");
 		System.out.println("roadmap 번호"+seq);	
@@ -259,8 +259,8 @@ public class RoadMapController {
 			System.out.println("인서트 성공!");	
 		}
 		
-		
-		return"redirect:/";
+		model.addAttribute("roadNum", seq);
+		return"redirect:roadMapDetail";
 	}
 	
 	//검색창 띄우기

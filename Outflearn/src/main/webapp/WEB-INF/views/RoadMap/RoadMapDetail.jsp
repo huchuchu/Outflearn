@@ -267,11 +267,15 @@ text-align: center;
 			      <label for="exampleTextarea">로드맵에대한 피드백을 제시해주세요</label>
 			      <textarea class="form-control" id="myComment" rows="3" ></textarea>
 			      <button class="btn btn-secondary" type="button" id="btnSave">등록</button>
-			   </div>		
-
-			<div id="commentList"></div>
+			   </div>	
 		</div>
-		
+		<div class="col-md-8">
+			<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
+				<h6 class="border-bottom pb-2 mb-0">Reply list</h6>
+				<div id="commentList" ></div>
+
+			</div> 	
+		</div>
 	</div>
 	
 
