@@ -34,7 +34,6 @@ import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
-import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
@@ -67,7 +66,7 @@ public class HomeController {
 
 		return "home";
 	}
-	
+
 	@RequestMapping("basketDelete")
 	public int basketDelete(@RequestParam(name = "class_num") int class_num) {
 		logger.info("basketDelete");
@@ -75,56 +74,57 @@ public class HomeController {
 		return biz.classBasketDelete(class_num);
 	}
 
-//  ----------------- LectureList ----------------- 시작
+	// ----------------- LectureList ----------------- 시작
 
 	// 모든 강의 보기
 	@RequestMapping("LectureList")
-	   public String CLassSubName(Model model, int sub_num, String txt_search, String page, String searchOption) {
-	      logger.info("SubCategory");
-	      logger.info("txt서치전");
+	public String CLassSubName(Model model, int sub_num, String txt_search, String page, String searchOption) {
+		logger.info("SubCategory");
+		logger.info("txt서치전");
 
-	      // int totalCount = biz.selectTotalCount(txt_search);
-	      int totalCount = biz.selectTotalCountStream(txt_search, searchOption, sub_num);
-	      logger.info("sub num:"+sub_num);
-	      logger.info("텍스트서치:" + txt_search);
-	      logger.info("서치옵션:" + searchOption);
-	      logger.info("찾은 강좌수:" + totalCount);
+		// int totalCount = biz.selectTotalCount(txt_search);
+		int totalCount = biz.selectTotalCountStream(txt_search, searchOption, sub_num);
+		logger.info("sub num:" + sub_num);
+		logger.info("텍스트서치:" + txt_search);
+		logger.info("서치옵션:" + searchOption);
+		logger.info("찾은 강좌수:" + totalCount);
 
-	      int pageNum = (page == null) ? 1 : Integer.parseInt(page);
+		int pageNum = (page == null) ? 1 : Integer.parseInt(page);
 
-	      Pagination pagination = new Pagination();
+		Pagination pagination = new Pagination();
 
-	      // get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
-	      pagination.setPageNo(pageNum);
+		// get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
+		pagination.setPageNo(pageNum);
 
-	      // 한 페이지에 나오는 게시물의 개수
-	      pagination.setPageSize(9);
-	      pagination.setTotalCount(totalCount);
+		// 한 페이지에 나오는 게시물의 개수
+		pagination.setPageSize(9);
+		pagination.setTotalCount(totalCount);
 
-	      // select해오는 기준을 구함
-	      pageNum = (pageNum - 1) * pagination.getPageSize();
+		// select해오는 기준을 구함
+		pageNum = (pageNum - 1) * pagination.getPageSize();
 
-	      List<ClassInfoDto> list = biz.selectListPageStream(pageNum, pagination.getPageSize(), txt_search, searchOption, sub_num);
+		List<ClassInfoDto> list = biz.selectListPageStream(pageNum, pagination.getPageSize(), txt_search, searchOption,
+				sub_num);
 
-	      // 부류, 주류
-	      List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
-	      List<SubStreamDto> subStreamList = Rbiz.subStreamList();
+		// 부류, 주류
+		List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
+		List<SubStreamDto> subStreamList = Rbiz.subStreamList();
 
-	      logger.info("서브리스트:" + subStreamList.size());
-	      logger.info("메인리스트:" + mainStreamList.size());
+		logger.info("서브리스트:" + subStreamList.size());
+		logger.info("메인리스트:" + mainStreamList.size());
 
-	      model.addAttribute("classinfo", list);
-	      model.addAttribute("pagination", pagination);
-	      model.addAttribute("txt_search", txt_search);
-	      model.addAttribute("searchOption", searchOption);
-	      model.addAttribute("sub_num", sub_num);
+		model.addAttribute("classinfo", list);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("txt_search", txt_search);
+		model.addAttribute("searchOption", searchOption);
+		model.addAttribute("sub_num", sub_num);
 
-	      model.addAttribute("mainList", mainStreamList);
-	      model.addAttribute("subList", subStreamList);
-	      //model.addAttribute("classinfo",biz.ClassSubName(sub_num));
+		model.addAttribute("mainList", mainStreamList);
+		model.addAttribute("subList", subStreamList);
+		// model.addAttribute("classinfo",biz.ClassSubName(sub_num));
 
-	      return "Class/LectureList";
-	   }
+		return "Class/LectureList";
+	}
 
 	// 부류 카테고리 클릭하면 해당 강의 보여주기
 	@RequestMapping("SubCategory")
@@ -143,7 +143,7 @@ public class HomeController {
 	}
 
 	// 해당 강의 보기
-	@RequestMapping("/LectureDetailtwo")
+	@RequestMapping("/LectureDetail")
 	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session) {
 		logger.info("/LectureDetail");
 
@@ -201,12 +201,12 @@ public class HomeController {
 		// 질문 리스트
 		model.addAttribute("classQuestion", biz.QASelectList(class_num));
 
-	    // 대쉬보드 리뷰 리스트
-	    model.addAttribute("ReviewList", biz.ReviewList(class_num));
-	               
-	    // 대쉬보드 질문 리스트
-	    model.addAttribute("QAList", biz.QAList(class_num));
-		
+		// 대쉬보드 리뷰 리스트
+		model.addAttribute("ReviewList", biz.ReviewList(class_num));
+
+		// 대쉬보드 질문 리스트
+		model.addAttribute("QAList", biz.QAList(class_num));
+
 		// 부류, 주류
 		List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
 		List<SubStreamDto> subStreamList = Rbiz.subStreamList();
@@ -225,119 +225,52 @@ public class HomeController {
 
 		return "Class/LectureDetail";
 	}
-	
-	
-	@RequestMapping("/LectureDetail")
-	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session,
-			Authentication auth, String page, String txt_search) {
 
-		logger.info("/LectureDetail");
-		session.setAttribute("info_num", class_num);
-		model.addAttribute("class_num", class_num);
-		// 닉네임
-		// 회원 정보
-		System.out.println(auth.getPrincipal());
-		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
-		String user_nickname = uDto.getUser_nickname();
-		model.addAttribute("user_nickname", user_nickname);
-
-		// 강좌 소개
-		model.addAttribute("classinfo", biz.ClassInfoSelectOne(class_num));
-		System.out.println(biz.ClassInfoSelectOne(class_num));
-		// 댓글
-		model.addAttribute("classReview", biz.ClassReviewSelectList(class_num));
-		System.out.println(biz.ClassReviewSelectList(class_num));
-
-		// 강의 소개
-		model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
-		System.out.println(biz.ClassIntroduceSelectList(class_num));
-
-		// 질문 리스트
-		//model.addAttribute("classQuestion", biz.QASelectList(class_num));
-		System.out.println(biz.QASelectList(class_num) + " : 질문들");
-		
-		int totalCount = biz.selectTotalCountQA(txt_search, class_num);
-		logger.info("텍스트서치:" + txt_search);
-		logger.info("class_num"+class_num);
-		logger.info("" + totalCount);
-
-		int pageNum = (page == null) ? 1 : Integer.parseInt(page);
-
-		Pagination pagination = new Pagination();
-
-		// get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
-		pagination.setPageNo(pageNum);
-
-		// 한 페이지에 나오는 게시물의 개수
-		pagination.setPageSize(5);
-		pagination.setTotalCount(totalCount);
-
-		// select해오는 기준을 구함
-		pageNum = (pageNum - 1) * pagination.getPageSize();
-
-		
-		List<QADto> list = biz.selectListPageQA(pageNum, pagination.getPageSize(), txt_search, class_num);
-
-		model.addAttribute("classQuestion", list);
-		model.addAttribute("pagination", pagination);
-		model.addAttribute("txt_search", txt_search);
-		model.addAttribute("class_num", class_num);
-		
-
-	
-			model.addAttribute("classQuestion",
-					biz.selectListPageQA(pageNum, pagination.getPageSize(), txt_search, class_num));
-
-		
-		
-		return "Class/LectureDetail";
-	}
-	
 	// 장바구니 담기
 
-// ----------------- LectureList ----------------- 끝
+	// ----------------- LectureList ----------------- 끝
 
-// ----------------- LectureDetail ----------------- 시작
+	// ----------------- LectureDetail ----------------- 시작
 
-//	장바구니 구매 유무, 장바구니 입력
+	// 장바구니 구매 유무, 장바구니 입력
 	@RequestMapping("basket")
 	@ResponseBody
 	public int basket(@ModelAttribute ClassInfoDto dto, Model model, int class_num, Authentication auth) {
 		logger.info("basket");
 
 		// 닉네임
-	      // 회원 정보
-	      UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
-	      String user_nickname = uDto.getUser_nickname();
-	      int user_num = uDto.getUser_num();
-	      model.addAttribute("user_nickname", user_nickname);
+		// 회원 정보
+		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
+		String user_nickname = uDto.getUser_nickname();
+		int user_num = uDto.getUser_num();
+		model.addAttribute("user_nickname", user_nickname);
 
-	      // 강좌 소개
-	      model.addAttribute("classinfo", biz.ClassInfoSelectOne(class_num));
+		// 강좌 소개
+		model.addAttribute("classinfo", biz.ClassInfoSelectOne(class_num));
 
-	      // 댓글
-	      model.addAttribute("classReview", biz.ClassReviewSelectList(class_num));
+		// 댓글
+		model.addAttribute("classReview", biz.ClassReviewSelectList(class_num));
 
-	      // 강의 소개
-	      model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
+		// 강의 소개
+		model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
 
-	      // 질문 리스트
-	      model.addAttribute("classQuestion", biz.QASelectList(class_num));
+		// 질문 리스트
+		model.addAttribute("classQuestion", biz.QASelectList(class_num));
 
-	      dto.setUser_num(uDto.getUser_num());
-	      model.addAttribute("classInfoUser", biz.classInfoSelectListUser(user_num));
+		dto.setUser_num(uDto.getUser_num());
+		model.addAttribute("classInfoUser", biz.classInfoSelectListUser(user_num));
 
-	      // 부류, 주류
-	      List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
-	      List<SubStreamDto> subStreamList = Rbiz.subStreamList();
+		// 부류, 주류
+		List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
+		List<SubStreamDto> subStreamList = Rbiz.subStreamList();
 
-	      model.addAttribute("mainList", mainStreamList);
-	      model.addAttribute("subList", subStreamList);
+		model.addAttribute("mainList", mainStreamList);
+		model.addAttribute("subList", subStreamList);
 
-	      // 장바구니 담기
-	      model.addAttribute("classNum", dto.getClass_num());
+		// 장바구니 담기
+		model.addAttribute("classNum", dto.getClass_num());
 
-	      return biz.classBasketInsert(dto);
+		return biz.classBasketInsert(dto);
 	}
 
 	// 해당 유저 장바구니 목록을 보여준다.
@@ -361,9 +294,9 @@ public class HomeController {
 		return "Class/ClassBasket";
 	}
 
-// ----------------- LectureDetail ----------------- 끝
+	// ----------------- LectureDetail ----------------- 끝
 
-// ----------------- CLass ----------------- 시작
+	// ----------------- CLass ----------------- 시작
 	@RequestMapping("ClassInfoInsertForm")
 	public String ClassInfoInsertForm(Authentication auth, Model model) {
 		logger.info("ClassInfoInsertForm");
@@ -465,7 +398,7 @@ public class HomeController {
 
 	}
 
-// 	영상소개 작성 확인 DataVideoUploadForm.jsp
+	// 영상소개 작성 확인 DataVideoUploadForm.jsp
 	@RequestMapping("DataVideoUpload")
 	public String DataVideoUpload(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto, Model model)
 			throws FileNotFoundException {
@@ -540,10 +473,10 @@ public class HomeController {
 		}
 	}
 
-//	DataVideoUploadFormPlus - > DataVideoUploadFormPlus 한 챕터에 영상 추가
+	// DataVideoUploadFormPlus - > DataVideoUploadFormPlus 한 챕터에 영상 추가
 	@RequestMapping("DataVideoUploadPlus")
-	public String DataVideoUploadPlus(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto, Model model)
-			throws FileNotFoundException {
+	public String DataVideoUploadPlus(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto,
+			Model model) throws FileNotFoundException {
 		logger.info("DataVideoUploadPlus");
 
 		if (dto.getData_data() == null) {
@@ -617,17 +550,23 @@ public class HomeController {
 	}
 
 	// 강의 소개 가이드 라인
-	@RequestMapping("GuideLine")
-	public String GuideLine() {
+	@RequestMapping("ClassIntroduceGuideLine")
+	public String ClassIntroduceGuideLine() {
 
 		return "Class/ClassIntroduceGuideLine";
 	}
 
-// ----------------- CLass ----------------- 끝
+	@RequestMapping("DataVideoGuideLine")
+	public String DataVideoGuideLine() {
 
-// ----------------- Basket ----------------- 시작
+		return "Class//DataVideoGuideLine";
+	}
 
-//	장바구니 해당 강의 삭제
+	// ----------------- CLass ----------------- 끝
+
+	// ----------------- Basket ----------------- 시작
+
+	// 장바구니 해당 강의 삭제
 	@ResponseBody
 	@RequestMapping("basketDeleteOne")
 	public int basketDeleteOne(int class_num) {
@@ -636,30 +575,29 @@ public class HomeController {
 		return biz.classBasketDeleteOne(class_num);
 	}
 
-// ----------------- Basket ----------------- 끝
+	// ----------------- Basket ----------------- 끝
 
 	@RequestMapping("DetailDashBoard")
 	@ResponseBody
 	public String[] DetailDashBoard(Model model, HttpSession session) {
 
-			int info_num = (int) session.getAttribute("info_num");
-		
-			List<ClassDataDto> dto = biz.ClassDataSelectOne(info_num);
+		int info_num = (int) session.getAttribute("info_num");
 
-			String[] array = new String[dto.size()];
+		List<ClassDataDto> dto = biz.ClassDataSelectOne(info_num);
 
-			int size = 0;
+		String[] array = new String[dto.size()];
 
-			for (ClassDataDto temp : dto) {
+		int size = 0;
 
-				array[size++] = temp.getData_data();
-				System.out.println(temp.getData_data() + " : controller");
+		for (ClassDataDto temp : dto) {
 
-			}
+			array[size++] = temp.getData_data();
+			System.out.println(temp.getData_data() + " : controller");
 
-			return array;
 		}
 
+		return array;
+	}
 
 	@RequestMapping("Livepage")
 	public String Livepage() {
@@ -688,10 +626,10 @@ public class HomeController {
 
 		int size = 0;
 
-		for(ClassDataDto temp : data_dto){
+		for (ClassDataDto temp : data_dto) {
 			array[size++] = temp.getData_data();
 		}
-		
+
 		System.out.println(array[0]);
 
 		return array;
