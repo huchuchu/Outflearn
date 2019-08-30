@@ -190,12 +190,13 @@ $(document).ready(function () {
     $('form#Review').bind('submit', submitAction)
     $('.input').on('click', function() {
        
+    	console.log($('output').text())
        $('#user_star').attr('value', $('output').text())
        
-       if($('output > b').text() == '0') {
+       if($('output').text() == '0') {
            alert("별점을 주세요.")
            $('form#Review').bind('submit', submitAction)
-        } else if($('output > b').text() != '0') {
+        } else if($('output').text() != '0') {
            $('form#Review').unbind()
         }
     })

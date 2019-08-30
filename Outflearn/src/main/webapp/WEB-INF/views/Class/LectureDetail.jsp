@@ -235,7 +235,7 @@
 											<div class="col-sm-1 col-md-1"></div>
 											<div class="row">
 												<div class="row">
-													<div class="col-sm-2 col-md-2 user_name">${user_nickname }</div>
+													<div class="col-sm-2 col-md-2 user_name">${dto.user_nickname }</div>
 													<div class="form-group col-sm-2 col-md-2 reviews_rating"><input type="hidden" class="review_rating" value="${dto.user_star  }"></div>
 												</div>
 												<div class="col-sm-3 col-md-3"></div>
@@ -282,7 +282,7 @@
 										<div class="row">
 										<div class="panel panel-set col-sm-11 col-md-11 pull-right">
 											<div class="row">
-												<div class="form-group col-sm-2 col-md-2">${user_nickname }</div>
+												<div class="form-group col-sm-2 col-md-2">${dto.user_nickname }</div>
 												<div id="c">
 													<div class="form-group col-sm-10 col-md-10">${dto.review_content }</div>
 												</div>
@@ -369,7 +369,7 @@
 								<c:forEach items="${classQuestion }" var="dto">
 									<div class="panel student_question_panel">
 										<div id="question_content" class="form-group">
-											<p class="question_title"><h3>${dto.qa_title } ${user_nickname }</h3></p>
+											<p class="question_title"><h3>${dto.qa_title } ${dto.user_nickname }</h3></p>
 											<p>${dto.qa_content }</p>
 											<a class="question_detail_link" href="QASelectOne?qa_num=${dto.qa_num }&qa_group_no=${dto.qa_group_no }" aria-labe="여기로 이동"></a>
 										</div>
@@ -406,40 +406,38 @@
 	</div>
 	
 	<div class="modal fade" id="ReviewForm" role="dialog">
-    	<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-					<form:form action="QuestionInsert">
-						<input type="hidden" name="class_num" value="${classinfo.class_num }">
-						<input type="hidden" name="user_num" value='${user_num }'>
-						<input type="hidden" name="user_nickname" value='${user_nickname }'>
-						<p><input type="text" placeholder="제목을 입력해주세요." name="qa_title" class="form-control"></p>
-						<p><textarea rows="20" cols="60" name="qa_content"></textarea></p>
-						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-						<button type="submit" class="btn btn-default">작성</button>
-					</form:form>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="modal fade" id="QuestionForm" role="dialog">
-    	<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-					<form:form action="QuestionInsert">
-						<input type="hidden" name="class_num" value="${classinfo.class_num }">
-						<input type="hidden" name="user_num" value="${user_num }">
-						<input type="hidden" name="user_nickname" value="${user_nickname }">
-						<p><input type="text" placeholder="제목을 입력해주세요." name="qa_title" class="form-control"></p>
-						<p><textarea rows="20" cols="60" name="qa_content"></textarea></p>
-						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-						<button type="submit" class="btn btn-default">작성</button>
-					</form:form>
-				</div>
-			</div>
-		</div>
-	</div>
+       <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-body">
+               <h1 class="text-center">리뷰 작성</h1>
+               <form:form action="LectureDetailAnswer" id="Review">
+                  <span class="star-input">
+                     <span class="input">
+                        <input type="radio" name="star-input" value="1" id="p1">
+                        <label for="p1">1</label>
+                        <input type="radio" name="star-input" value="2" id="p2">
+                        <label for="p2">2</label>
+                        <input type="radio" name="star-input" value="3" id="p3">
+                        <label for="p3">3</label>
+                        <input type="radio" name="star-input" value="4" id="p4">
+                        <label for="p4">4</label>
+                        <input type="radio" name="star-input" value="5" id="p5">
+                        <label for="p5">5</label>
+                     </span>
+                     <output for="star-input" id="review-rating">0</output>
+                     <input type="hidden" id="user_star" name="user_star">               
+                  </span>
+                  <input type="hidden" name="class_num" value="${classinfo.class_num }">
+                  <input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
+                  <input type="hidden" name="user_nickname" value='<sec:authentication property="principal.user_nickname"/>'>
+                  <p><textarea name="review_content" class="summernote"></textarea></p>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                  <button type="submit" id="review-insert-btn" class="btn btn-default">작성</button>
+               </form:form>
+            </div>
+         </div>
+      </div>
+   </div>
 	
 	<div class="modal fade" id="QuestionForm" role="dialog">
     	<div class="modal-dialog">
@@ -473,7 +471,7 @@
 			
 			},
 			error:function(){
-				alert('로그인 후 이용해주세요.')
+				alert('로그인 후 이용해주세요.');
 				location.href = "loginform"
 			}
 		})
@@ -484,6 +482,7 @@
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/js/template/detail.js"></script>
 	<script type="text/javascript" src="resources/js/ClassReview.js"></script>
+	<script type="text/javascript" src="resources/js/template/star.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 </body>
 
