@@ -110,9 +110,17 @@
                       <h5>수강중인 강좌가 없습니다...ㅠㅠ</h5>
                     </c:when>
                     <c:otherwise>
-                      <c:forEach items="${subClass }" var="item">
-                        <p>강좌명 : ${item.class_title}</p>
-                      </c:forEach>
+                      <div class="row">
+                        <c:forEach items="${subClass }" var="item">
+                          <div class="col-sm-3">
+                            <div class="cardView">
+                              <img src="${pageContext.request.contextPath }/resources/uploadImage/${item.class_img }"
+                                alt="..." class="topImg" />
+                              <h5 class="cardTitle">${item.class_title}</h5>
+                            </div>
+                          </div>
+                        </c:forEach>
+                      </div>
                     </c:otherwise>
                   </c:choose>
                 </div>

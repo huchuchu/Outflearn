@@ -81,14 +81,13 @@ public class myPageBizImpl implements myPageBiz {
 //강사
 	
 	@Override
-	public int setLiveSchedule(String setClass, String setTitle, String setDate, String repeatDate, String setAuthor) {
+	public int setLiveSchedule(String setClass, String setTitle, String setDate, String setAuthor) {
 		
 		Map<String, String> map = new HashMap<String, String>();
 		
 		map.put("setClass", setClass);
 		map.put("setTitle", setTitle);
 		map.put("setDate", setDate);
-		map.put("repeatDate", repeatDate);
 		map.put("setAuthor", setAuthor);
 		
 		return dao.setLiveSchedule(map);

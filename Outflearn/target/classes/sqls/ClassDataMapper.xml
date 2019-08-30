@@ -410,12 +410,15 @@
 	<select id="selectTotalCountQA" parameterType="map"
 		resultType="Integer">
 		SELECT count(*)
-		FROM QA WHERE CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1
+		FROM QA
+		<where>
+		 CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1
 		<if test="txt_search != null">
 			AND upper(QA_TITLE) like '%' || upper(#{txt_search})
 			|| '%' or
 			upper(QA_CONTENT) like '%' || upper(#{txt_search}) || '%'
 		</if>
+		</where>
 	</select>
 	<!-- ================== 카테고리 주류, 부류 ================== -->
 	<insert id="ClassCategoryInsert" parameterType="hashmap">
