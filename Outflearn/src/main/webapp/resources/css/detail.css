@@ -332,3 +332,7 @@ div.panel-set {
 #id {
    display: none;
 }
+
+#InsertAfter{
+	display: none;
+}
