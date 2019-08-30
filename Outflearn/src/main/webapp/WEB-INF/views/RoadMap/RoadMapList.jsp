@@ -29,6 +29,10 @@ float: left;
 #btnSearch{
 float: right;
 }
+.toptop{
+text-align: center;
+align-items: center;
+}
 
 </style>
 </head>
@@ -45,37 +49,31 @@ function PageMove(page,data) {
    <jsp:include page="../header/MainHeader.jsp"></jsp:include>
    <!-- Header  -->
    <!-- 베너 -->
-   
+   	<!-- 지니야 이거 가운데로 옮겨조^.^♡ 검색창 검색버튼 select_option floating카드도^.^ㅋㅋㅋ-->
       <div class="container">
       <div class="row">
-      	<div class="col-sm-12">
-     	    <div >
-              <h1 id="page-header-content">전체 카테고리</h1>
-              <p class="input-group col-sm-4 pull-right">
-              <div class="form-group row justify-content-center">
-            
-                 <div class="form-group ren" style="width: 20%;" >
+      	<div class="col-sm-12 toptop">   
+              <h1 id="page-header-content">전체 카테고리</h1>                         
+              <div class="form-group row justify-content-center">            
+                 <div class="form-group ren" style="width: 10%;" >
                     <select class="form-control form-control-sm" name="searchOption" id="searchOption">
                        <option value="all">전체</option>
                        <option value="roadmap_title">제목</option>
                        <option value="roadmap_author">작성자</option>
                     </select>
                  </div>
-                 <div  class="form-group ren" style="width: 80%;">
+                 <div  class="form-group ren" style="width: 40%;">
                     <input type="text" class="form-control form-control-sm" name="txt_search" id="txt_search" value="${txt_search }" placeholder="검색하기">
                  </div>                   
-                 <div>
+                 <div class="ren" style="width: 10%;">
                     <button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch" onclick="javascript:PageMove(${pagination.pageNo});">검색</button>
                  </div>
-              </div>
-           </div>
-      	
+              </div>     	
       	</div>      
       </div>
       
       <div class="row">
          <aside class="col-sm-2">
-
             <div id="side_checkbox">
                <ul class="nav flex-column text-center" style="clear: both">
                   <li class="lg_category nav-item text-left"><a href="void:0" id="level_btn" class="nav-link active text-left">분야별&nbsp;<i class="fas fa-chevron-down"></i></a>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.CommentDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
@@ -65,5 +66,10 @@ public interface RoadMapBiz {
 	
 	public int DeleteroadConBeforeUpdate(String roadNum);
 	
+	public int addComment(CommentDto dto);
+	
+	public List<CommentDto> commentList(String roadNum);
+	
+	public int commentUpdate(String commentNum);
 	
 }
