@@ -468,11 +468,15 @@ public class RoadMapDaoImpl implements RoadMapDao {
 	}
 
 	@Override
-	public int commentUpdate(String commentNum) {
+	public int commentUpdate(String content, String ComNum) {
 		int res = 0;
 		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("content", content);
+		map.put("ComNum", ComNum);
+		
 		try {
-			res = session.update(NAMESPACE+"commentUpdate", commentNum);
+			res = session.update(NAMESPACE+"commentUpdate", map);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

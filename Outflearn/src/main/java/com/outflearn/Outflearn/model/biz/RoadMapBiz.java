@@ -67,7 +67,7 @@ public interface RoadMapBiz {
 	
 	public List<CommentDto> commentList(String roadNum);
 	
-	public int commentUpdate(String commentNum);
+	public int commentUpdate(String content, String ComNum);
 
 	List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
 			String searchOption, int main_num);

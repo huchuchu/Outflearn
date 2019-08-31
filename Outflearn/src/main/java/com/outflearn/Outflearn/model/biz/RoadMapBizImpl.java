@@ -181,9 +181,9 @@ public class RoadMapBizImpl implements RoadMapBiz {
 	}
 
 	@Override
-	public int commentUpdate(String commentNum) {
+	public int commentUpdate(String content, String ComNum) {
 		
-		return dao.commentUpdate(commentNum);
+		return dao.commentUpdate(content, ComNum);
 	}
 
 

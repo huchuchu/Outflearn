@@ -25,6 +25,7 @@ cursor: pointer;
 <body>
 <jsp:useBean id="now" class="java.util.Date"/>
 <fmt:formatDate value="${now }" pattern="yy-MM-dd HH:mm:ss" var="today"/>
+
 <sec:authorize access="isAuthenticated()">
 <sec:authentication var="num" property="principal.user_num"/>
 </sec:authorize>
@@ -37,9 +38,12 @@ cursor: pointer;
 			<strong class="text-gray-dark">${row.user_nickname }</strong>
 			<span style="padding-left: 7px; font-size: 9pt">
 				<span style="padding-right: 5px;"><c:out value="${today }"></c:out></span>
+				<c:if test="${row.user_num == num}">
 				<a onclick="editComment(${row.comment_num},'${row.user_nickname }','${row.comment_content }');" style="padding-right: 5px;" class="icon">수정</a>
 				<a onclick="deleteComment(${row.comment_num});" class="icon">삭제</a>
+				</c:if>
 			</span>
+			
 		</span>
 	</p>
 	<p>${row.comment_content }</p>
@@ -72,6 +76,29 @@ function editComment(comNum,nickName,content){
  		$('#rid'+comNum).replaceWith(htmls);
  		$('#rid'+comNum+'#editContent').focus();
 }
+
+
+function updateComment(comNum){
+	
+	var Content = $("#editContent").val();
+	var param = {"content":Content,"ComNum":comNum}
+	
+	$.ajax({
+		url: "commentUpdate",
+		type: "POST",
+		data: param,
+		success: function(data){
+			alert(data);
+			alert(data.res);
+			if(data.res == true){
+				alert("수정성공!");
+			}
+		}	
+	});
+		
+}
+
+
 
 
 </script>

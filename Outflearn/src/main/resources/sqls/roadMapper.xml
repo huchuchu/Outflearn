@@ -231,8 +231,8 @@ SELECT R.COMMENT_NUM, R.ROADMAP_NUM, R.USER_NUM, R.COMMENT_CONTENT, R.COMMENT_GR
 		AND R.ROADMAP_NUM=#{roadNum}
 </select>
 
-<update id="commentUpdate" parameterType="String">
-UPDATE ROADMAP_COMMENT SET COMMENT_CONTENT = '이렇게수정해조' WHERE COMMENT_NUM=#{commentNum}
+<update id="commentUpdate" parameterType="map">
+UPDATE ROADMAP_COMMENT SET COMMENT_CONTENT = #{content} WHERE COMMENT_NUM=#{ComNum}
 </update>
 
    

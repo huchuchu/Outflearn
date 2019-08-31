@@ -566,15 +566,27 @@ public class RoadMapController {
 	}
 	//코멘트 수정
 	@RequestMapping("/commentUpdate")
-	public String commentUpdate(@RequestParam String commentNum) {
+	@ResponseBody
+	public Map<String, Boolean> commentUpdate(@RequestParam String content, @RequestParam String ComNum) {
 		
-		int res = biz.commentUpdate(commentNum);
-		if(res>0) {
-			System.out.println("수정성공");
+		int cnt = biz.commentUpdate(content,ComNum);
+		
+		boolean res = false; 
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		
+		if(cnt>0) {
+			System.out.println("댓글수정성공");
+			res = true;
+			map.put("res", res);
+			
+		}else {
+			System.out.println("댓글수정실패");
+			map.put("res", res);
+			
 		}
 		
-		
-		return "RoadMap/CommentList";
+		System.out.println("res==="+res);
+		return map;
 	}
 	
 	

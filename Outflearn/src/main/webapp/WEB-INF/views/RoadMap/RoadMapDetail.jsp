@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,6 +124,7 @@ text-align: center;
 <sec:authorize access="isAuthenticated()">
 <input type="hidden" id="userNum" value='<sec:authentication property="principal.user_num"/>'>
 </sec:authorize>
+
 <input type="hidden" id="roamdMapNum" value="${roadMap.roadmap_num }">
 
 <div class="container-fluid">
@@ -281,6 +283,8 @@ text-align: center;
 
 </div>
 
+
+
 <script type="text/javascript">
 $(function() {
 	//댓글리스트 갱신 함수
@@ -301,18 +305,16 @@ var param = {"roadmap_num":roadNum, "comment_content":Content, "user_num":userNu
 
 $.ajax({
 	url: "addComment",
-	type: "POST",
+	type: "get",
 	data: param,
 	success: function(data){
 		alert(data);
 		alert(data.resChk);
 		if(data.resChk==true){
-//			alert("성공!");
+			alert("성공!");
 			$("#myComment").val("");//저장 후 돌아오면 입력된 내용 지우기	
 			comment_List(); //댓글 목록 새로고침
 		}
-
-		
 	}
 });
 	
@@ -324,9 +326,10 @@ function comment_List(){
 	
 	$.ajax({
 		url: "commentList",
-		type: "GET",
+		type: "POST",
 		data: "roadnum="+roadNum,
-		success: function(msg){
+		dataType: "json",
+		success: function(msg){				
 			$("#commentList").html(msg);
 		}
 	});
