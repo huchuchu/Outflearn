@@ -38,7 +38,6 @@ public interface ClassDataBiz {
 		public int ClassChapterDataInsert(ClassDataDto dto);
 		public int ClassInfoUpdateSub(int class_num);
 		public int ClassDataInsertPlus(ClassDataDto dto);
-		public int ClassNumSeq();
 		
 		// 장바구니 - BASKET 테이블
 		public int classBasketInsert(ClassInfoDto dto);

@@ -122,8 +122,8 @@
 		</ul>
 		<div class="col-sm-6 col-el-8">
 
-			<form:form name="DataVideoChapterInsert" action="DataVideoUpload" method="post" enctype="multipart/form-data">
-
+			<form:form name="DataVideoChapterInsert" action="DataVideoChapterInsert" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="class_num" value="${class_num }" />
 				<div class="input-group">
 					<h1>영상 소개</h1>
 				</div>
@@ -159,7 +159,7 @@
 
 
 				<div class="form-group">
-					<input type="hidden" value="${class_num }" />
+					
 					<input type="button" class="btn btn-primary" value="작성 후 클릭" onclick="Control();" />
 					<input type="button" value="가이드 라인" onclick="DataVideoGuideLine();" class="btn btn-primary">
 					<input type="button" class="btn btn-primary" value="강의 목록 " onclick="location.href='LectureList'">

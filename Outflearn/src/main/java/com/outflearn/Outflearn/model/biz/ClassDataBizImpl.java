@@ -120,11 +120,6 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 	
 
-	@Override
-	public int ClassNumSeq() {
-		
-		return dao.ClassNumSeq();
-	}
 
 //	-------------------------------------------------장바구니(BASKET)
 	@Override

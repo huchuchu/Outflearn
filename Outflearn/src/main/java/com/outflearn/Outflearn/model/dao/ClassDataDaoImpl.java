@@ -201,13 +201,7 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 	
-	@Override
-	public int ClassNumSeq() {
-	
-		
-		return 0;
-	}
-	
+
 //	--------------------------------------------------- 장바구니(BASKET)
 	@Override
 	public int classBasketInsert(ClassInfoDto dto) {

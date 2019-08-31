@@ -46,10 +46,10 @@
 	</select>
 
 	<!-- ================== CLASS_DATA 테이블 ================== -->
-
+	
 	<!-- 강좌 챕터 영상 보기 -->
 	<select id="classdataselectone" parameterType="map" resultType="ClassDataDto">
-	  SELECT * FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
+	  SELECT CLASS_INFO_SQ.CURRVAL FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
   	</select>
 	
 	<!-- 영상추가 첫번째 페이지 -->
@@ -68,7 +68,7 @@
 	
 	<!-- 영상 챕터 추가 -->
 	<insert id="ClassDataInsertPlus" parameterType="ClassDataDto">
-		INSERT INTO CLASS_DATA(CLASS_NUM, DATA_CHAPTER ,DATA_SUBHEAD, DATA_SQ, DATA_TITLE, DATA_DATA) VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.NEXTVAL ,#{data_subhead }, #{data_sq }, #{data_title}, #{data_data })
+		INSERT INTO CLASS_DATA(CLASS_NUM, DATA_CHAPTER ,DATA_SUBHEAD, DATA_SQ, DATA_TITLE, DATA_DATA) VALUES(#{class_num }, DATA_CHAPTER_SQ.NEXTVAL ,#{data_subhead }, #{data_sq }, #{data_title}, #{data_data })
 	</insert>
 	
 	<!-- ================== CLASS_INTRODUCE 테이블 ================== -->

@@ -3,6 +3,7 @@ var hour_sum = 0
 var minite_sum = 0
 var second_sum = 0
 
+
 $(document).ready(function () {
 
    avg_rating($('#rating').val(), $('#rating-tag'))
@@ -203,9 +204,13 @@ $(document).ready(function () {
 })
 
 function DashboardHeader() {
+   var sub_head = $('#subhead').val();
+
+   alert(sub_head)
    $('#playlist').html(
    `<div class='panel panel-default table-div'>
     <div class='page-header'><h1>유튜브</h1></div>
+    <h1> ` +sub_head + `<h1>
     <div class='table-responsive-lg'>
     <table class='table youtube'>
     </div>`
@@ -213,6 +218,7 @@ function DashboardHeader() {
 }
 
 function DashboardOne(video_list, playlist_id) {
+	var data = $('#data').val();
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
@@ -228,7 +234,7 @@ function DashboardOne(video_list, playlist_id) {
            var video_id = vi_list.items[0].id;
            var video_title = vi_list.items[0].snippet.title
             var duration = getVideos(video_id);
-           
+           alert(video_id + ㅇㅇ)
            $('.youtube').append(
                 `<tr class='youtube_data'>
                    <td><i class=\"far fa-clock\"></i></td>
