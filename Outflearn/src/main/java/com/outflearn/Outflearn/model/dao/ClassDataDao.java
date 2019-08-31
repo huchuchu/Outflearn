@@ -38,6 +38,7 @@ public interface ClassDataDao {
 		public int ClassDataInsert(ClassDataDto dto);	
 		public int ClassChapterDataInsert(ClassDataDto dto);
 		public int ClassInfoUpdateSub(int class_num);
+		public int ClassDataInsertPlus(ClassDataDto dto);
 		
 		// 장바구니 - BASKET 테이블
 		public int classBasketInsert(ClassInfoDto dto);
