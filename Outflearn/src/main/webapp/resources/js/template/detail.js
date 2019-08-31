@@ -5,14 +5,14 @@ var second_sum = 0
 
 $(document).ready(function () {
 
-   avg_rating($('#rating').val(), $('#rating-tag'))
-   
+	avg_rating($('#rating').val(), $('#rating-tag'))
+	
     var ReviewStar = document.querySelectorAll(".review-star")
     
     var classes = Array.prototype.map.call(ReviewStar, function(element) {
         return element.value
     });
-   
+
     for(var i = 0; i < classes.length; i++) {
         rating_star(classes[i], $('.show-star')[i])
     }
@@ -24,7 +24,7 @@ $(document).ready(function () {
     })
     
     for(var i = 0; i < ReviewRating.length; i++) {
-       rating_star(ReviewRating[i], $('.reviews_rating')[i])
+    	rating_star(ReviewRating[i], $('.reviews_rating')[i])
     }
     
     var playlist = ''
@@ -190,16 +190,89 @@ $(document).ready(function () {
     $('form#Review').bind('submit', submitAction)
     $('.input').on('click', function() {
        
+    	console.log($('output').text())
        $('#user_star').attr('value', $('output').text())
        
-       if($('output > b').text() == '0') {
+       if($('output').text() == '0') {
            alert("별점을 주세요.")
            $('form#Review').bind('submit', submitAction)
-        } else if($('output > b').text() != '0') {
+        } else if($('output').text() != '0') {
            $('form#Review').unbind()
         }
     })
     
+    var location = document.location.href;
+    
+    if(location.indexOf('#Question') !== -1) {
+    	$('.nav-tabs > li > a[href$=#Question]').css({ 'border-bottom': '2px solid #6473ff' })
+        $('.nav-tabs > li > a[href$=#Question]').parents().siblings().children().css({ 'border-bottom': '' })
+    	$('div#main nav li a').removeClass('selected')
+    	$('div#main nav li a[href$=#Question]').addClass('selected')
+        $('div#page-switch > div').hide()
+        $($('div#main nav li a[href$=#Question]').attr('href')).show()
+    } else if(location.indexOf('#review') !== -1) {
+    	$('.nav-tabs > li > a[href$=#review]').css({ 'border-bottom': '2px solid #6473ff' })
+        $('.nav-tabs > li > a[href$=#review]').parents().siblings().children().css({ 'border-bottom': '' })
+    	$('div#main nav li a').removeClass('selected')
+    	$('div#main nav li a[href$=#review]').addClass('selected')
+        $('div#page-switch > div').hide()
+        $($('div#main nav li a[href$=#review]').attr('href')).show()
+    } else if(location.indexOf('#LectureIntroduce') !== -1) {
+    	$('.nav-tabs > li > a[href$=#LectureIntroduce]').css({ 'border-bottom': '2px solid #6473ff' })
+        $('.nav-tabs > li > a[href$=#LectureIntroduce]').parents().siblings().children().css({ 'border-bottom': '' })
+    	$('div#main nav li a').removeClass('selected')
+    	$('div#main nav li a[href$=#LectureIntroduce]').addClass('selected')
+        $('div#page-switch > div').hide()
+        $($('div#main nav li a[href$=#LectureIntroduce]').attr('href')).show()
+    } else if(location.indexOf('#dashboard') !== -1){
+    	$('.nav-tabs > li > a[href$=#dashboard]').css({ 'border-bottom': '2px solid #6473ff' })
+        $('.nav-tabs > li > a[href$=#dashboard]').parents().siblings().children().css({ 'border-bottom': '' })
+    	$('div#main nav li a').removeClass('selected')
+    	$('div#main nav li a[href$=#dashboard]').addClass('selected')
+        $('div#page-switch > div').hide()
+        $($('div#main nav li a[href$=#dashboard]').attr('href')).show()
+    }
+    
+    var optionValue = document.querySelectorAll(".option_value")
+    
+    var optionStar = Array.prototype.map.call(optionValue, function(element) {
+        return element.value
+    });
+    
+    var submitAction = function(e) {
+    	e.preventDefault();
+        e.stopPropagation();
+    };
+    
+    $('form#Review').bind('submit', submitAction)
+    $('.input').on('click', function() {
+    	
+    	$('#user_star').attr('value', $('output').text())
+    	
+    	if($('output').text() == '0') {
+        	alert("별점을 주세요.")
+        	$('form#Review').bind('submit', submitAction)
+        } else if($('output').text() != '0') {
+        	$('form#Review').unbind()
+        }
+    })
+    
+    $('.review-reply-update').on('click', function() {
+    	$('#ReviewUpdateForm').modal({ backdrop: "static" })
+    })
+    
+    $('form#ReviewUpdate').bind('submit', submitAction)
+    $('.input').on('click', function() {
+    	
+    	$('#user_star-update').attr('value', $('output#review-rating-update').text())
+    	
+    	if($('output#review-rating-update').text() == '0') {
+        	alert("별점을 주세요.")
+        	$('form#ReviewUpdate').bind('submit', submitAction)
+        } else if($('output.update').text() != '0') {
+        	$('form#ReviewUpdate').unbind()
+        }
+    })
 })
 
 function DashboardHeader() {
@@ -209,7 +282,7 @@ function DashboardHeader() {
     <div class='table-responsive-lg'>
     <table class='table youtube'>
     </div>`
-   )
+	)
 }
 
 function DashboardOne(video_list, playlist_id) {
@@ -231,10 +304,10 @@ function DashboardOne(video_list, playlist_id) {
            
            $('.youtube').append(
                 `<tr class='youtube_data'>
-                   <td><i class=\"far fa-clock\"></i></td>
-                     <td><a href='LectureDetailView?DATA_DATA=${video_id}'>${video_title}</a></td>
-                      <td>${duration}</td>
-                      <td>${duration}</td>`
+                	<td><i class=\"far fa-clock\"></i></td>
+                  	<td><a href='LectureDetailView?DATA_DATA=${video_id}'>${video_title}</a></td>
+                   	<td>${duration}</td>
+                   	<td>${duration}</td>`
             );
 
             min += parseInt(duration.split(' : ')[0]);

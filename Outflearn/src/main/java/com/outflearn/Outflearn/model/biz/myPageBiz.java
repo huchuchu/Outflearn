@@ -24,6 +24,9 @@ public interface myPageBiz {
 		
 		public int reqLecturer(String lecturerNum, String lecturerPhone, String lecturerIntro, String lecturerClass);
 		
+		public int updateNickname(String nickname, int user_num);
+		
+		
 //강사
 		
 		public int setLiveSchedule(String setClass, String setTitle, String setDate, String setAuthor);

@@ -1,10 +1,7 @@
 package com.outflearn.Outflearn;
 
 import java.util.HashMap;
-
 import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
+import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.ClassDataBiz;
 
@@ -30,60 +27,39 @@ public class AnswerController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-//	댓글 입력 페이지 이동
-	@RequestMapping("LectureDetailAnswerForm")
-	public String LectureDetailAnswerForm(@ModelAttribute ClassReviewDto dto, Model model,int class_num, Authentication auth) {
-		logger.info("LectureDetailAnswerForm");
-
-//		// 강의 번호
-		model.addAttribute("class_num", dto.getClass_num());
-		System.out.println(class_num);
-
-		// 회원 정보 - 닉네임, 유저 번호
-		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
-		String user_nickname = uDto.getUser_nickname();
-		int user_num = (Integer) uDto.getUser_num();
-		model.addAttribute("user_nickname", user_nickname);
-		model.addAttribute("user_num", user_num);
-
-		return "Class/LectureDetailAnswer";
-	}
-	
 //  댓글 입력
 	@RequestMapping("LectureDetailAnswer")
-	public String LectureDetailAnswer(@ModelAttribute ClassReviewDto dto, int class_num, Model model, Authentication auth) {
-		logger.info("LectureDetailAnswer");
+	   public String LectureDetailAnswer(@ModelAttribute ClassReviewDto dto, int class_num, Model model, Authentication auth) {
+	      logger.info("LectureDetailAnswer");
 
-		// 회원 정보 - 닉네임, 유저 번호
-		UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
-		String user_nickname = uDto.getUser_nickname();
-		int user_num = (Integer) uDto.getUser_num();
-		model.addAttribute("user_nickname", user_nickname);
-		model.addAttribute("user_num", user_num);
+	      // 회원 정보 - 닉네임, 유저 번호
+	      UserInfoDto uDto = (UserInfoDto) auth.getPrincipal();
+	      String user_nickname = uDto.getUser_nickname();
+	      int user_num = (Integer) uDto.getUser_num();
+	      model.addAttribute("user_nickname", user_nickname);
+	      model.addAttribute("user_num", user_num);
+	      
+	      int res = biz.ClassReviewInsert(dto);
 
-		int res = biz.ClassReviewInsert(dto);
+	      if (res > 0) {
+	         return "redirect:LectureDetail?class_num=" + class_num;
+	      } else {
+	         return "redirect:LectureDetail?class_num=" + class_num;
+	      }
 
-		if (res > 0) {
-			return "redirect:LectureDetail?class_num=" + class_num;
-		} else {
-			return "redirect:LectureDetail?class_num=" + class_num;
-		}
-
-	}
+	   }
 	
 	
-	@RequestMapping("LectureDetailAnswerDelete")
-	public String answerDelete(int board_no, int class_num) {
-		logger.info("LectureDetailAnswerDelete");
+	@RequestMapping("ReviewDelete")
+	public String ReviewDelete(@ModelAttribute ClassReviewDto dto) {
+		logger.info("ReviewDelete");
 		
-		int res =  biz.ClassReviewDelete(board_no);
-		System.out.println(board_no + "염따");
-		System.out.println(res);
+		int res =  biz.ClassReviewDelete(dto);
 		
 		if (res > 0) {
-			return "redirect:LectureDetail?class_num=" + class_num;
+			return "redirect:LectureDetail?class_num=" + dto.getClass_num();
 		} else {
-			return "redirect:LectureDetail?class_num=" + class_num;
+			return "redirect:LectureDetail?class_num=" + dto.getClass_num();
 		}
 	}
 	

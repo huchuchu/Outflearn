@@ -110,7 +110,7 @@
                     <div class="col-sm-12">
                       <div class="boardBox">
                         <h4 class="boxTitle">닉네임</h4>
-                        <form action="updateNickname">
+                        <form action="updateNickname" onsubmit="return nickSubmit(this)">
                           <h5><input type="text" name="nickname" id="setNickname" value="${userInfo.user_nickname}"
                               default="${userInfo.user_nickname}"></h5>
                           <input type="submit" id="updateNickname" value="저장하기" disabled>

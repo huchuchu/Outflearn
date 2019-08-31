@@ -10,16 +10,16 @@ public class ClassReviewDto {
 	private int review_groupno;
 	private int review_groupsq;
 	private int review_titletab;
-	
-	
+	private String user_nickname;
 	
 	public ClassReviewDto() {
 		super();
 	}
 
 
+
 	public ClassReviewDto(int review_num, int class_num, int user_num, String review_content, int user_star,
-			int review_groupno, int review_groupsq, int review_titletab) {
+			int review_groupno, int review_groupsq, int review_titletab, String user_nickname) {
 		super();
 		this.review_num = review_num;
 		this.class_num = class_num;
@@ -29,12 +29,13 @@ public class ClassReviewDto {
 		this.review_groupno = review_groupno;
 		this.review_groupsq = review_groupsq;
 		this.review_titletab = review_titletab;
+		this.user_nickname = user_nickname;
 	}
-
 
 	public int getReview_num() {
 		return review_num;
 	}
+
 
 
 	public void setReview_num(int review_num) {
@@ -42,9 +43,11 @@ public class ClassReviewDto {
 	}
 
 
+
 	public int getClass_num() {
 		return class_num;
 	}
+
 
 
 	public void setClass_num(int class_num) {
@@ -52,9 +55,11 @@ public class ClassReviewDto {
 	}
 
 
+
 	public int getUser_num() {
 		return user_num;
 	}
+
 
 
 	public void setUser_num(int user_num) {
@@ -62,9 +67,11 @@ public class ClassReviewDto {
 	}
 
 
+
 	public String getReview_content() {
 		return review_content;
 	}
+
 
 
 	public void setReview_content(String review_content) {
@@ -72,9 +79,11 @@ public class ClassReviewDto {
 	}
 
 
+
 	public int getUser_star() {
 		return user_star;
 	}
+
 
 
 	public void setUser_star(int user_star) {
@@ -82,9 +91,11 @@ public class ClassReviewDto {
 	}
 
 
+
 	public int getReview_groupno() {
 		return review_groupno;
 	}
+
 
 
 	public void setReview_groupno(int review_groupno) {
@@ -92,9 +103,11 @@ public class ClassReviewDto {
 	}
 
 
+
 	public int getReview_groupsq() {
 		return review_groupsq;
 	}
+
 
 
 	public void setReview_groupsq(int review_groupsq) {
@@ -102,17 +115,22 @@ public class ClassReviewDto {
 	}
 
 
+
 	public int getReview_titletab() {
 		return review_titletab;
 	}
 
 
+
 	public void setReview_titletab(int review_titletab) {
 		this.review_titletab = review_titletab;
 	}
-		
 
-
+	public String getUser_nickname() {
+		return user_nickname;
+	}
 	
-	
+	public void setUser_nickname(String user_nickname) {
+		this.user_nickname = user_nickname;
+	}
 }

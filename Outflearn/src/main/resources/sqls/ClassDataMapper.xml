@@ -98,11 +98,25 @@
 	</update>
 	
 	<!-- ================== CLASS_REVIEW 테이블 ================== -->
-	<select id="classReviewSelectlist" resultType="classReviewDto" parameterType="map">
-		SELECT * FROM CLASS_REVIEW WHERE CLASS_NUM = (SELECT
-		CLASS_NUM FROM CLASS_INFO WHERE CLASS_NUM = #{class_num }) ORDER BY
-		REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
-	</select>
+	<select id="classReviewSelectlist" resultType="classReviewDto"
+      parameterType="map">
+      SELECT R.REVIEW_NUM AS REVIEW_NUM,
+            R.CLASS_NUM AS CLASS_NUM,
+            R.USER_NUM AS USER_NUM,
+            R.REVIEW_CONTENT AS REVIEW_CONTENT,
+            R.USER_STAR AS USER_STAR,
+            R.REVIEW_GROUPNO AS REVIEW_GROUPNO,
+            R.REVIEW_GROUPSQ AS REVIEW_GROUPSQ,
+            R.REVIEW_TITLETAB AS REVIEW_TITLETAB,
+            U.USER_NICKNAME AS USER_NICKNAME
+      FROM CLASS_REVIEW R JOIN USER_INFO U ON R.USER_NUM = U.USER_NUM
+      
+      WHERE CLASS_NUM = (SELECT
+      CLASS_NUM FROM CLASS_INFO WHERE CLASS_NUM = #{class_num })
+      
+      
+      ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
+   </select>
 
 	<select id="classReviewSelectOne" resultType="classReviewDto"
 		parameterType="int">
@@ -110,11 +124,12 @@
 		#{reveiw_nim }
 	</select>
 
+	
 	<insert id="classReviewInsert" parameterType="classReviewDto">
-		INSERT INTO
-		CLASS_REVIEW VALUES(REVIEW_NUM.NEXTVAL, #{class_num}, #{user_num},
-		#{review_content}, #{user_star}, REVIEW_GROUPNO.NEXTVAL, 1, 0)
-	</insert>
+      INSERT INTO
+      CLASS_REVIEW VALUES(REVIEW_NUM_SQ.NEXTVAL, #{class_num}, #{user_num},
+      #{review_content}, #{user_star}, REVIEW_GROUPNO_SQ.NEXTVAL, 1, 0)
+   </insert>
 
 	<update id="classReviewUpdate" parameterType="classReviewDto">
 		UPDATE CLASS_REVIEW
@@ -122,15 +137,15 @@
 		#{review_num }
 	</update>
 
-	<delete id="classReviewDelete" parameterType="int">
-		DELETE FROM
-		CLASS_REVIEW WHERE REVIEW_NUM = #{review_num }
+	<delete id="classReviewDelete" parameterType="classReviewDto">
+		DELETE FROM CLASS_REVIEW WHERE REVIEW_GROUPNO = #{review_groupno }
 	</delete>
 	
 	<insert id="classReviewInsertAnswer" parameterType="classReviewDto">
 		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star},
 										(SELECT REVIEW_GROUPNO FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}),
-										(SELECT REVIEW_GROUPSQ FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1, 0) 
+										(SELECT REVIEW_GROUPSQ FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1, 
+										(SELECT REVIEW_TITLETAB FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1) 
 	</insert>
 
 	<update id="classReviewUpdateAnswer" parameterType="int">
@@ -158,7 +173,8 @@
 	</delete>
 	
 	<select id="QASelectList" parameterType="int" resultType="QADto">
-		SELECT * FROM QA WHERE CLASS_NUM = #{class_num}
+		SELECT
+		* FROM QA WHERE CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1
 	</select>
 
 	<select id="QASelectOne" parameterType="int" resultType="QADto">
@@ -420,6 +436,33 @@
 		</if>
 		</where>
 	</select>
+	
+	<select id="classReviewSelectlistPagination" resultType="classReviewDto"
+		parameterType="map">
+		SELECT REVIEW_NUM, CLASS_NUM, USER_NUM, REVIEW_CONTENT, USER_STAR, 
+				REVIEW_GROUPNO, REVIEW_GROUPSQ, REVIEW_TITLETAB, USER_NICKNAME
+		FROM(
+			SELECT ROWNUM AS RNUM, C.*
+			FROM(
+				SELECT R.REVIEW_NUM AS REVIEW_NUM,
+					R.CLASS_NUM AS CLASS_NUM,
+					R.USER_NUM AS USER_NUM,
+					R.REVIEW_CONTENT AS REVIEW_CONTENT,
+					R.USER_STAR AS USER_STAR,
+					R.REVIEW_GROUPNO AS REVIEW_GROUPNO,
+					R.REVIEW_GROUPSQ AS REVIEW_GROUPSQ,
+					R.REVIEW_TITLETAB AS REVIEW_TITLETAB,
+					U.USER_NICKNAME AS USER_NICKNAME
+					FROM CLASS_REVIEW R JOIN USER_INFO U ON R.USER_NUM = U.USER_NUM
+		
+					WHERE CLASS_NUM = (SELECT
+					CLASS_NUM FROM CLASS_INFO WHERE CLASS_NUM = #{class_num })
+			
+					ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
+				) C
+				)
+				WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}		
+	</select>
 	<!-- ================== 카테고리 주류, 부류 ================== -->
 	<insert id="ClassCategoryInsert" parameterType="hashmap">
 		INSERT
@@ -452,7 +495,7 @@
 	
 	<select id="ReviewList" resultType="classReviewDto" parameterType="int">
 		<![CDATA[
-			SELECT * FROM CLASS_REVIEW WHERE CLASS_NUM = #{class_num} AND ROWNUM <= 5 ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
+			SELECT * FROM CLASS_REVIEW WHERE CLASS_NUM = #{class_num} AND REVIEW_GROUPSQ = 1 AND ROWNUM <= 5 ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
 		]]>
 	</select>
 
