@@ -453,6 +453,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		return res;
 	}
 
+	//댓글리스트 가져오기
 	@Override
 	public List<CommentDto> commentList(String roadNum) {
 		
@@ -467,6 +468,7 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		return list;
 	}
 
+	//댓글수정하기
 	@Override
 	public int commentUpdate(String content, String ComNum) {
 		int res = 0;
@@ -480,9 +482,54 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return res;
+	}
+	//댓글삭제하기
+	@Override
+	public int deleteComment(String comNum) {
+		int res = 0;
+		
+		try {
+		res = session.update(NAMESPACE+"deleteComment", comNum);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 
+	//대댓 groupsq 업뎃
+	@Override
+	public int reCommentSqUpdate(CommentDto dto) {
+		
+		int res = 0;
+		
+		try {
+			res = session.update(NAMESPACE+"reCommentSqUpdate", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return res;
+	}
+	
+	//대댓 입력
+	@Override
+	public int reCommentAdd(CommentDto dto) {
+		int res = 0;
+		
+		try {
+			res = session.insert(NAMESPACE+"reCommentAdd", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return res;
+	}
+
+	
 
 
 }

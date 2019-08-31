@@ -81,7 +81,7 @@ public class myPageBizImpl implements myPageBiz {
 	@Override
 	public int updateNickname(String nickname, int user_num) {
 		
-		Map<String, Object> map = HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("nickname", nickname);
 		map.put("user_num", user_num);

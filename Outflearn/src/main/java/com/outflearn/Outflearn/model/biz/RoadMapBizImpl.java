@@ -1,10 +1,12 @@
 package com.outflearn.Outflearn.model.biz;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
@@ -18,6 +20,9 @@ import com.outflearn.Outflearn.model.dao.RoadMapDao;
 
 @Service
 public class RoadMapBizImpl implements RoadMapBiz {
+	
+	@Inject
+	SqlSessionTemplate session;
 	
 	@Inject
 	RoadMapDao dao;
@@ -186,7 +191,26 @@ public class RoadMapBizImpl implements RoadMapBiz {
 		return dao.commentUpdate(content, ComNum);
 	}
 
+	@Override
+	public int deleteComment(String comNum) {
+		
+		return dao.deleteComment(comNum);
+	}
 
+	@Override
+	public int reCommentSqUpdate(CommentDto dto) {
+	
+		return dao.reCommentSqUpdate(dto);
+		
+	}
+
+	@Override
+	public int reCommentAdd(CommentDto dto) {
+		
+		return dao.reCommentAdd(dto);
+	}
+
+	
 
 
 }
