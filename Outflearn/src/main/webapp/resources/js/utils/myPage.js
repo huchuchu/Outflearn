@@ -305,7 +305,7 @@ function emailSubmit(form) {
 function firstChk(beforePw, afterPw, afterPwChk) {
     $.ajax({
         url: `beforePwChk?beforePw=${beforePw}`,
-        method: 'post',
+        method: 'post', 
         success: function (bool) {
             if (bool) {
                 secondChk(afterPw, afterPwChk)
