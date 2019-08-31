@@ -57,10 +57,8 @@
 									<li>
 										<c:forEach items="${subList }" var="subDto">
 											<c:if test="${mainDto.main_num eq subDto.main_num }">
-									<li><a href="LectureList?txt_search=${txt_search }&searchOption=all&sub_num=${subDto.sub_num}"
-											class="nav-link active sub_category">${subDto.sub_name}</a></li>
-									<input type="hidden" class="nav-link active sub_category" name="sub_category"
-										id="sub_category" value="${subDto.sub_num }">
+									<li><a href="LectureList?txt_search=${txt_search }&searchOption=all&sub_num=${subDto.sub_num}" class="nav-link active sub_category">${subDto.sub_name}</a></li>
+									<input type="hidden" class="nav-link active sub_category" name="sub_category" id="sub_category" value="${subDto.sub_num }">
 									</c:if>
 						</c:forEach>
 						</li>
@@ -153,6 +151,10 @@
 													class="card-img-top"
 													src="${pageContext.request.contextPath }/resources/uploadImage/${dto.class_img }"
 													alt="Card image cap">
+													
+											<video width="320"height="240" preload="metadata"  height="auto" controls>
+                               					<source src="${pageContext.request.contextPath }/resources/uploadImage/${one.freeboard_file} " />
+                            				</video>
 												<div class="card-body">
 													<h5 class="card-title">${dto.class_title }</h5>
 													<p class="card-text">${dto.class_intro }</p>

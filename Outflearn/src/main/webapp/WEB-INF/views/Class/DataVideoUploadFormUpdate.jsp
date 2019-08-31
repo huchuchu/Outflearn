@@ -164,36 +164,36 @@
 		<div class="col-sm-6 col-el-8">
 
 			<form:form name="DataVideoMyform" action="DataVideoUpload" method="post" enctype="multipart/form-data">
-				<c:forEach items="class_data" var="dto">
+			
 				<div class="input-group">
 					<h1>영상 소개</h1>
 				</div>
 
 				<div class="form-group">
 					<h3>소제목</h3>
-					<input type="text" name="data_subhead" class="form-control" placeholder="${dto.data_subhead }">
+					<input type="text" name="data_subhead" class="form-control" value="${class_data[0].data_subhead }">
 				</div>
 
 				<div class="form-group">
 					<h3>과정 순서</h3>
-					<input type="text" name="data_sq" class="form-control" placeholder="${dto.data_sq }">
+					<input type="text" name="data_sq" class="form-control" value="${class_data[0].data_sq }">
 				</div>
 
 				<div class="form-group">
 					<h3>과정 제목</h3>
-					<input type="text" name="data_title" class="form-control" placeholder="${dto.data_title }">
+					<input type="text" name="data_title" class="form-control" value="${class_data[0].data_title }">
 				</div>
 
 				<div class="form-group">
 					<h3>영상 업로드(유튜브 영상 링크 또는 파일 업로드 하나만 선택)</h3>
 					<div class="youTube">
-						<input type="text" name="data_data" class="form-control" placeholder="${dto.data_data }" /> 
+						<input type="text" name="data_data" class="form-control" value="${class_data[0].data_data }" /> 
 						<input type="button" value="완료" class="success1" style="color: #6372ff;" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="data">
-						<input type="file" id="file" name="file" style="color: #6372ff;" placeholder="${dto.data_data }"/> 
+						<input type="file" id="file" name="file" style="color: #6372ff;" value="${class_data[0].data_data }"/> 
 						<input type="button" value="완료" class="success2" style="color: #6372ff;" />
 					</div>
 				</div>
@@ -205,7 +205,7 @@
 					<input type="button" class="btn btn-primary" value="강의 목록 " onclick="location.href='myClass'">
 				</div>
 			
-				</c:forEach>
+				
 			</form:form>
 		</div>
 	</div>
