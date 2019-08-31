@@ -94,8 +94,20 @@
 		DELETE FROM ROADMAP_INFO WHERE ROADMAP_NUM = #{roadmap_num}
 	</delete>
 	
-	<update id="updateNickname" parameterType="String">
+	<update id="updateNickname" parameterType="map">
 		UPDATE USER_INFO SET USER_NICKNAME = #{user_nickname} WHERE USER_NUM = #{user_num}
+	</update>
+	
+	<update id="updateEmail" parameterType="map">
+		UPDATE USER_INFO SET USER_EMAIL = #{user_email} WHERE USER_NUM = #{user_num}
+	</update>
+	
+	<select id="checkPw" parameterType="map" resultType="map">
+		SELECT * FROM USER_INFO WHERE USER_NUM = #{user_num}
+	</select>
+	
+	<update id="updatePw" parameterType="map">
+		UPDATE USER_INFO SET USER_PW = #{afterPw} WHERE USER_NUM = #{user_num}
 	</update>
 	
 </mapper>

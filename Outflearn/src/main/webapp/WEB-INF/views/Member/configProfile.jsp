@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -123,9 +125,21 @@
                     <div class="col-sm-12">
                       <div class="boardBox">
                         <h4 class="boxTitle">이메일</h4>
-                        <form action="updateEmail" method="post">
-                          <h5><input type="email" name="email" id="setEmail" value="${userInfo.user_email}"
-                              dafault="${userInfo.user_email}"></h5>
+                        <form action="updateEmail" method="post" onsubmit="return emailSubmit(this)">
+                          <h5>
+                            <input type="text" name="emailBefore" id="setEmailBefore" class="setEmail"
+                              value="${fn:substringBefore(userInfo.user_email,'@')}"
+                              default="${fn:substringBefore(userInfo.user_email,'@')}">
+                            @
+                            <input type="text" name="emailAfter" id="setEmailAfter" class="setEmail"
+                              value="${fn:substringAfter(userInfo.user_email,'@')}"
+                              default="${fn:substringAfter(userInfo.user_email,'@')}">
+                            <select name="" id="emailSelect">
+                              <option value="naver.com">naver.com</option>
+                              <option value="gmail.com">gmail.com</option>
+                              <option value="daum.net">daum.net</option>
+                            </select>
+                          </h5>
                           <input type="submit" id="updateEmail" value="저장하기" disabled>
                         </form>
                       </div>
@@ -157,11 +171,11 @@
                     <div class="col-sm-12">
                       <div class="boardBox">
                         <h4 class="boxTitle">비밀번호</h4>
-                        <form action="updatePw" method="post">
+                        <form action="updatePw" method="post" onsubmit="return pwSubmit(this)">
                           <input type="password" name="beforePw" placeholder="현재 비밀번호">
                           <input type="password" name="afterPw" placeholder="새 비밀번호">
                           <input type="password" name="afterPwChk" placeholder="새 비밀번호 확인">
-                          <input type="submit" id="updatePw" value="저장하기" disabled>
+                          <input type="submit" id="updatePw" value="저장하기">
                         </form>
                       </div>
                     </div>
