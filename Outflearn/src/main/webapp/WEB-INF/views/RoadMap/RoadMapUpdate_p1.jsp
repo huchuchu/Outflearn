@@ -78,8 +78,9 @@ text-align: center;
 	</div>
 	<div class="row">
 		<div class="col-md-12">	
+		<input type="hidden" id="chk" value="${dto.main_num }">
 			<div id="mid_right">	
-			  	 <form action="roadUpdate" method="post" id="roadMapForm">
+			  	 <form action="roadUpdate" method="post" id="roadMapForm">			  	 
 					 <!-- hidden : 사용자 번호 -->
 					 <input type="hidden" name="roadmap_num" value="${dto.roadmap_num }">
 					 <input type="hidden" name="user_num" value='<sec:authentication property="principal.user_num"/>'>
@@ -92,7 +93,7 @@ text-align: center;
 					  	<option value="3">데이터베이스</option> 	  	
 					  </select>
 					  </div>			
-					  <div id="heyhey">
+					  <div id="heyhey">				
 					    <textarea id="summernote" name="roadmap_content" >${dto.roadmap_content }</textarea>    
 					  </div>
 				 </form>
@@ -118,6 +119,17 @@ text-align: center;
 	</div>
 </div>
 
+<script type="text/javascript">
+$(function(){
+	
+	var mainval = $("#chk").val();
+	$("#main_num").val(mainval);
+	
+	
+})
+
+</script>
+
 
 <script type="text/javascript">
 var checkUnload = true;
@@ -132,8 +144,8 @@ $(function(){
 		document.getElementById("chkVal").value="submit";
 		
 		var title = $("input[name=roadmap_title]").val();
-//		var content = $("#summernote").val();
-		var content = $(".note-editable card-block").val();
+		var content = $("#summernote").val();
+//		var content = $(".note-editable card-block").val();
 		if(title=="" || title==null){
 			Swal.fire({
 				  type: 'error',
