@@ -24,7 +24,6 @@
 	crossorigin="anonymous">
 
 <!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
@@ -34,6 +33,11 @@
 
 </head>
 <body>
+
+	<sec:authorize access="isAuthenticated()">
+		<sec:authentication var="num" property="principal.user_num"/>
+	</sec:authorize>
+	
 
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 	
@@ -54,25 +58,27 @@
 								<div class="form-group question_content">
 									<p class="question_title">작성자 : ${dto.user_nickname }</p>
 									<p class="question-content">${dto.qa_content }</p>
-									<div>
-										<div class="update-btn-div">
-											<form:form cssClass="update-complete-btn" action="QAReplyUpdate">
-												<textarea name="qa_content" class="reply-update summernote">${dto.qa_content }</textarea>
+									<c:if test="${dto.user_num == num }">
+										<div>
+											<div class="update-btn-div">
+												<form:form cssClass="update-complete-btn" action="QAReplyUpdate">
+													<textarea name="qa_content" class="reply-update summernote">${dto.qa_content }</textarea>
+													<input type="hidden" name="qa_num" value="${dto.qa_num }">
+													<input type="hidden" name="qa_group_sq" value="${dto.qa_group_sq }">
+													<input type="hidden" name="qa_group_no" value="${dto.qa_group_no }">
+													<button type="submit" class="btn btn-default qa-btn">수정 완료</button>
+													<button type="button" class="btn btn-default cancel-btn qa-btn">수정 취소</button>
+												</form:form>
+												<button type="button" class="btn btn-default update-btn qa-btn">수정</button>
+											</div>
+											<form:form action="QAReplyDelete">
 												<input type="hidden" name="qa_num" value="${dto.qa_num }">
-												<input type="hidden" name="qa_group_sq" value="${dto.qa_group_sq }">
 												<input type="hidden" name="qa_group_no" value="${dto.qa_group_no }">
-												<button type="submit" class="btn btn-default qa-btn">수정 완료</button>
-												<button type="button" class="btn btn-default cancel-btn qa-btn">수정 취소</button>
+												<input type="hidden" name="qa_group_sq" value="${dto.qa_group_sq }">
+												<button type="submit" class="btn btn-default qa-btn">삭제</button>
 											</form:form>
-											<button type="button" class="btn btn-default update-btn qa-btn">수정</button>
 										</div>
-										<form:form action="QAReplyDelete">
-											<input type="hidden" name="qa_num" value="${dto.qa_num }">
-											<input type="hidden" name="qa_group_no" value="${dto.qa_group_no }">
-											<input type="hidden" name="qa_group_sq" value="${dto.qa_group_sq }">
-											<button type="submit" class="btn btn-default qa-btn">삭제</button>
-										</form:form>
-									</div>
+									</c:if>
 								</div>
 							</div>
 							<div class="qa-line"></div>

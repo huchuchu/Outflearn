@@ -14,6 +14,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.CommentDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
@@ -437,5 +438,47 @@ public class RoadMapDaoImpl implements RoadMapDao {
 
 		return res;
 	}
+	
+	//댓글등록
+	@Override
+	public int addComment(CommentDto dto) {
+		int res = 0;
+		
+		try {
+			res = session.insert(NAMESPACE+"addComment", dto);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+
+	@Override
+	public List<CommentDto> commentList(String roadNum) {
+		
+		List<CommentDto> list = new ArrayList<CommentDto>();
+		
+		try {
+			list = session.selectList(NAMESPACE+"commentList", roadNum);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int commentUpdate(String commentNum) {
+		int res = 0;
+		
+		try {
+			res = session.update(NAMESPACE+"commentUpdate", commentNum);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+
 
 }

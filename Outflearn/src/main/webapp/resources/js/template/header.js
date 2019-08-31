@@ -15,7 +15,7 @@ $(document).ready(function () {
           $('#menu').css({
              'position': 'fixed',
              'margin-bottom': '10px',
-             'z-index': '9999'
+             'z-index': '1000'
           });
        }
     });

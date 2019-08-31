@@ -35,11 +35,11 @@ function resultRes(bool) {
         location.reload(true)
     } else {
         Swal.fire({
-                type: 'error',
-                title: '에러가 발생했습니다.',
-                text: 'Q class로 문의 해주세요',
-                confirmButtonText: '확인'
-            })
+            type: 'error',
+            title: '에러가 발생했습니다.',
+            text: 'Q class로 문의 해주세요',
+            confirmButtonText: '확인'
+        })
             .then((result) => {
                 location.reload(true)
             })
@@ -72,12 +72,12 @@ function deniReq(user_num) {
 
 function userEnabled(user_num) {
     Swal.fire({
-            type: 'warning',
-            title: '해당 유저를 비활성화 시키시겠습니까?',
-            showCancelButton: true,
-            confirmButtonText: '확인',
-            cancleButtonText: '취소'
-        })
+        type: 'warning',
+        title: '해당 유저를 비활성화 시키시겠습니까?',
+        showCancelButton: true,
+        confirmButtonText: '확인',
+        cancleButtonText: '취소'
+    })
         .then((result) => {
             if (result.value) {
                 $.ajax({
@@ -95,12 +95,12 @@ function userEnabled(user_num) {
 
 function userDisabled(user_num) {
     Swal.fire({
-            type: 'warning',
-            title: '해당 유저를 활성화 시키시겠습니까?',
-            showCancelButton: true,
-            confirmButtonText: '확인',
-            cancleButtonText: '취소'
-        })
+        type: 'warning',
+        title: '해당 유저를 활성화 시키시겠습니까?',
+        showCancelButton: true,
+        confirmButtonText: '확인',
+        cancleButtonText: '취소'
+    })
         .then((result) => {
             if (result.value) {
                 $.ajax({
@@ -118,11 +118,11 @@ function userDisabled(user_num) {
 
 function handleError() {
     Swal.fire({
-            type: 'error',
-            title: 'Ooops...',
-            text: '혹시 만드신 강의가 없으신가요?',
-            confirmButtonText: '강의 만들기'
-        })
+        type: 'error',
+        title: 'Ooops...',
+        text: '혹시 만드신 강의가 없으신가요?',
+        confirmButtonText: '강의 만들기'
+    })
         .then((result) => {
             if (result.value) {
                 location.href = 'ClassInfoInsertForm'
@@ -141,9 +141,9 @@ function handleCriticalError() {
 function handleSuccess(bool) {
     if (bool) {
         Swal.fire({
-                type: 'success',
-                title: '정상 처리 되셨습니다.'
-            })
+            type: 'success',
+            title: '정상 처리 되셨습니다.'
+        })
             .then((result) => {
                 location.reload()
             })
@@ -159,13 +159,13 @@ function handleSuccess(bool) {
 
 function deleteClass(class_num, class_title) {
     Swal.fire({
-            type: 'warning',
-            title: `${class_title}을 정말 삭제하시겠습니까?`,
-            text: '복구는 불가능합니다.',
-            confirmButtonText: '삭제',
-            showCancelButton: true,
-            showCloseButton: true
-        })
+        type: 'warning',
+        title: `${class_title}을 정말 삭제하시겠습니까?`,
+        text: '복구는 불가능합니다.',
+        confirmButtonText: '삭제',
+        showCancelButton: true,
+        showCloseButton: true
+    })
         .then((result) => {
             if (result.value) {
                 $.ajax({
@@ -183,13 +183,13 @@ function deleteClass(class_num, class_title) {
 
 function deleteRoadmap(roadmap_num, roadmap_title) {
     Swal.fire({
-            type: 'warning',
-            title: `${roadmap_title}을 정말 삭제하시겠습니까?`,
-            text: '복구는 불가능합니다.',
-            confirmButtonText: '삭제',
-            showCancelButton: true,
-            showCloseButton: true
-        })
+        type: 'warning',
+        title: `${roadmap_title}을 정말 삭제하시겠습니까?`,
+        text: '복구는 불가능합니다.',
+        confirmButtonText: '삭제',
+        showCancelButton: true,
+        showCloseButton: true
+    })
         .then((result) => {
             if (result.value) {
                 $.ajax({
@@ -222,12 +222,25 @@ function updateRoadmap(roadmap_num, roadmap_title) {
     Swal.fire({
         type: 'info',
         title: `${roadmap_title} 수정 영역 선택`,
-        html: `<button>A</button>
-    <button>B</button>`,
+        html: `<button onclick="location.href='Modify_P1?roadNum=${roadmap_num}'">로드맵 1p수정</button>
+        	   <button onclick="location.href='Modify_P2?roadNum=${roadmap_num}'">로드맵 2p수정</button>`,
         showCancelButton: false,
         showCloseButton: true,
         showConfirmButton: false
     })
+}
+
+function nickSubmit(form) {
+    $.ajax({
+        url: `updateNickname?nickname=${form.nickname.value}`,
+        success: function (bool) {
+            handleSuccess(bool)
+        },
+        error: function (err) {
+            handleCriticalError()
+        }
+    })
+    return false
 }
 
 
@@ -238,12 +251,12 @@ $(function () {
             url: 'getMyClass',
             success: function (data) {
                 Swal.fire({
-                        title: '간단하게 방 설정하기',
-                        html: selectOptionBuild(data),
-                        allowOutsideClick: false,
-                        showCancelButton: true,
-                        showCloseButton: true
-                    })
+                    title: '간단하게 방 설정하기',
+                    html: selectOptionBuild(data),
+                    allowOutsideClick: false,
+                    showCancelButton: true,
+                    showCloseButton: true
+                })
                     .then((result) => {
                         if (result.value) {
                             var room = $('#configRoom').val()
@@ -262,12 +275,12 @@ $(function () {
             url: `getMyClass`,
             success: function (data) {
                 Swal.fire({
-                        title: '라이브 스케쥴 세팅',
-                        html: inputHtmlBuild(data),
-                        allowOutsideClick: false,
-                        showCancelButton: true,
-                        showCloseButton: true
-                    })
+                    title: '라이브 스케쥴 세팅',
+                    html: inputHtmlBuild(data),
+                    allowOutsideClick: false,
+                    showCancelButton: true,
+                    showCloseButton: true
+                })
                     .then((result) => {
                         if (result.value) {
                             var setClass = $('#setClass').val()
@@ -324,6 +337,6 @@ $(function () {
         }
     })
 
-    
+
 
 })

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.CommentDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
@@ -61,6 +62,13 @@ public interface RoadMapDao {
 	public int roadMapUpdate(RoadMapInfoDto dto);
 	
 	public int DeleteroadConBeforeUpdate(String roadNum);
+	
+	public int addComment(CommentDto dto);
+	
+	public List<CommentDto> commentList(String roadNum);
+	
+	public int commentUpdate(String commentNum);
+	
 
 	List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
 			String searchOption, int main_num);
