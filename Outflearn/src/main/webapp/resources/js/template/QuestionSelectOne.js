@@ -21,5 +21,7 @@ $(document).ready(function() {
 		$(this).parents('div.update-btn-div').children('.update-btn').show()
 	})
 	
+	$('.student_question_panel:first-child').prepend('<h3>질문 제목</h3>')
+	$('.student_question_panel:first-child p:last-child').prepend('<h3>질문 내용</h3>')
   		
 })

@@ -209,9 +209,9 @@ function updateClass(class_num, class_title) {
     Swal.fire({
         type: 'info',
         title: `${class_title} 수정 영역 선택`,
-        html: `<button onclick="location.href='ClassIntroduceUpdateForm?class_num=${class_num}'">강의 소개</button>
-        	   <button onclick="location.href='ClassDataInsertPlus?class_num=${class_num}'">영상 추가</button>
-        	   <button onclick="location.href='ClassDataUpdateForm?class_num=${class_num}'">영상 수정</button>`,
+        html: `<button onclick="location.href='ClassIntroduceUpdateForm?class_num=${class_num}'" class="updateDetailBtn">강의 소개</button>
+        	   <button onclick="location.href='ClassDataInsertPlus?class_num=${class_num}'" class="updateDetailBtn">영상 추가</button>
+        	   <button onclick="location.href='ClassDataUpdateForm?class_num=${class_num}'" class="updateDetailBtn">영상 수정</button>`,
         showCancelButton: false,
         showCloseButton: true,
         showConfirmButton: false
@@ -222,8 +222,8 @@ function updateRoadmap(roadmap_num, roadmap_title) {
     Swal.fire({
         type: 'info',
         title: `${roadmap_title} 수정 영역 선택`,
-        html: `<button onclick="location.href='Modify_P1?roadNum=${roadmap_num}'">로드맵 1p수정</button>
-        	   <button onclick="location.href='Modify_P2?roadNum=${roadmap_num}'">로드맵 2p수정</button>`,
+        html: `<button onclick="location.href='Modify_P1?roadNum=${roadmap_num}'" class="updateDetailBtn">로드맵 1p수정</button>
+        	   <button onclick="location.href='Modify_P2?roadNum=${roadmap_num}'" class="updateDetailBtn">로드맵 2p수정</button>`,
         showCancelButton: false,
         showCloseButton: true,
         showConfirmButton: false
@@ -305,7 +305,7 @@ function emailSubmit(form) {
 function firstChk(beforePw, afterPw, afterPwChk) {
     $.ajax({
         url: `beforePwChk?beforePw=${beforePw}`,
-        method: 'post', 
+        method: 'post',
         success: function (bool) {
             if (bool) {
                 secondChk(afterPw, afterPwChk)
