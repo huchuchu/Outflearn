@@ -413,12 +413,13 @@
 				upper(QA_CONTENT) like '%' || upper(#{txt_search}) || '%'
 			</if>
 		</where>
-		ORDER BY CLASS_NUM DESC
+		ORDER BY ROWNUM DESC
 		) C
 		)
 		WHERE RNUM BETWEEN #{firstIndex} + 1 AND
 		#{firstIndex} +
 		#{recordCountPerPage}
+		ORDER BY ROWNUM DESC
 	</select>
 	
 	<select id="selectTotalCountQA" parameterType="map"

@@ -287,7 +287,7 @@ LIVE_TIME VARCHAR2(50)
 ----------------------------------------------
 
 
-DROP TABLE REQ_LECTURER
+DROP TABLE REQ_LECTURER;
 
 DROP SEQUENCE REQ_SQ;
 

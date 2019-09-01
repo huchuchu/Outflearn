@@ -113,3 +113,15 @@ input[type="checkbox"]:checked + label:before {
   text-shadow: 1px 1px #fff;
   border-color: #adb8c0;
 }
+
+#paging{
+	position : relative;
+	left : 50%;
+	transform : translateX(-50%);
+}
+#search{
+	
+	display : inline-flex;
+	
+	)
+}

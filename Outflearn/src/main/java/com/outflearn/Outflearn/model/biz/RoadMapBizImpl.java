@@ -210,6 +210,18 @@ public class RoadMapBizImpl implements RoadMapBiz {
 		return dao.reCommentAdd(dto);
 	}
 
+	@Override
+	public List<Integer> getSubnumList(List<Integer> list) {
+		
+		return dao.getSubnumList(list);
+	}
+
+	@Override
+	public List<String> getsubnumName(List<Integer> list) {
+		
+		return dao.getsubnumName(list);
+	}
+
 	
 
 
