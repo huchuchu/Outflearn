@@ -46,13 +46,12 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-center">
-					<li class="dropdown"><a href="void:0" class="dropdown-toggle"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">분야별
-							강좌<i class="fas fa-chevron-down"></i></a>
+					<li class="dropdown"><a href="void:0" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">분야별 강좌<i class="fas fa-chevron-down"></i></a>
+						
 							<ul class="dropdown-menu" role="menu">
+							<c:forEach items="${mainList }" var="mainDto">
 								<li id="server" class="dropdown-submenu server">
-									<a href="void:0" class="dropdown dropdown-toggle dropdown-item" data-toggle="dropdown">서버&nbsp;
-									<i class="fas fa-chevron-right pull-right"></i></a>
+									<a href="void:0" class="nav-link active">${mainDto.main_name }<i class="fas fa-chevron-right"></i></a>
 									<ul class="dropdown-menu server_list">
 										<li class="dropdown-item">
 										<c:forEach items="${subList }" var="subDto">
@@ -63,31 +62,13 @@
 									</li>
 									</ul>
 								</li>
-								<li class="dropdown-submenu server">
-									<a href="void:0" class="dropdown dropdown-toggle dropdown-item" data-toggle="dropdown">웹 개발 <i class="fas fa-chevron-right pull-right"></i></a>
-									<ul class="dropdown-menu server_list">
-										<li class="dropdown-item"><a href="void:0">Front End</a></li>
-										<li class="dropdown-item"><a href="void:0">html/css</a></li>
-										<li class="dropdown-item"><a href="void:0">javascript</a></li>
-										<li class="dropdown-item"><a href="void:0">Angular</a></li>
-										<li class="dropdown-item"><a href="void:0">Reactjs</a></li>
-										<li class="dropdown-item"><a href="void:0">Vuejs</a></li>
-									</ul>
-								</li>
-								<li class="dropdown-submenu server">
-									<a href="void:0" class="dropdown dropdown-toggle dropdown-item" data-toggle="dropdown">데이터베이스<i class="fas fa-chevron-right pull-right"></i></a>
-									<ul class="dropdown-menu server_list">
-										<li class="dropdown-item"><a href="void:0">Oracle</a></li>
-										<li class="dropdown-item"><a href="void:0">PL/SQL</a></li>
-										<li class="dropdown-item"><a href="void:0">MySQL</a></li>
-										<li class="dropdown-item"><a href="void:0">MongoDB</a></li>
-									</ul>
-								</li>
-							</ul>							
+								
+									</c:forEach>		
+							</ul>		
+									
 					</li>
-					<li><a href="void:0">로드맵 학습</a></li>
-					<li><a href="void:0">아웃프런 소개</a></li>
-					<li><a href="void:0">라이브</a></li>
+					<li><a href="RoadMap?txt_search=&searchOption=all&main_num=0">로드맵 학습</a></li>
+					<li><a href="Livepage">라이브</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<sec:authorize access="isAnonymous()">

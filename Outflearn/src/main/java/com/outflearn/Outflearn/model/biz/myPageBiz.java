@@ -25,7 +25,9 @@ public interface myPageBiz {
 		public int reqLecturer(String lecturerNum, String lecturerPhone, String lecturerIntro, String lecturerClass);
 		
 		public int updateNickname(String nickname, int user_num);
-		
+		public int updateEmail(String email, int user_num);
+		public boolean checkPw(String encryptPw, int user_num);
+		public int updatePw(String afterPw, int user_num);
 		
 //강사
 		
