@@ -1,6 +1,7 @@
 main, body{
     height: 100%;
-    width: 100%
+    width: 100%;
+    background: #232323;
 }
 
 .container{
@@ -14,6 +15,16 @@ main, body{
 
 aside{
 	padding-bottom: 25px;
+	background: #232323;
+}
+
+#side_header_container {
+	color: #fff;
+	font-size: 1.5rem;
+}
+
+.page-out, .question {
+	cursor: pointer;
 }
 
 #view_sidebar {
@@ -30,7 +41,6 @@ aside{
 
 #view_sidebar.visible{
     left: 0px;
-    background-color: #e4e4e4;
     transition: left 0.7s ease;
 }
 
@@ -42,6 +52,21 @@ aside{
     transition: left 0.5s ease;
 }
 
+#main i {
+	color: #fff;
+	font-size: 3rem;
+}
+
+.out-menu {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+#youtube-title {
+	color: #fff;
+	font-size: 2rem;
+}
 
 #content {
     display: block;

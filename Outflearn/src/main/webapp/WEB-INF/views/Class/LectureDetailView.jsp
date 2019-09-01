@@ -24,8 +24,8 @@
     <div class="row">
         <aside id="view_sidebar">
             <div id="side_header_container" class="container">
-                <h5>TEST</h5>
-                <p>THIS IS TEST</p>
+                <h5>강의제목 : ${classInfo.class_title }</h5>
+                <p>강사 : ${classInfo.class_author }</p>
             </div>
             <div id="side_content_container" class="container">
                 <ul id="sidebar" class="list-group list-unstyled">
@@ -38,12 +38,12 @@
                     <div class="pull-left">
                         <span><i class="fas fa-bars"></i></span>
                     </div>
-                    	제목입니다. 
-                    </div>
-                    <div class="pull-right">
-                        <span><i class="far fa-star"></i></span>
-                        <span><i class="far fa-times-circle"></i></span>
-                        <span><i class="far fa-question-circle"></i></span>
+                    <div id="youtube-title"></div>
+                </div>
+                    <div class="pull-right out-menu">
+                        <span><i class="far fa-times-circle page-out"></i></span>
+                        <span><i class="far fa-question-circle question"></i></span>
+                        <input type="hidden" id="class_num" value="${classInfo.class_num }">
                     </div>
             </nav>
             <div id="content">
