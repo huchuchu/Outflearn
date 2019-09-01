@@ -410,7 +410,7 @@
 		
 		<!-- 질문답변 -->
 		<div id="Question" class="nav-page">
-			<div>
+			<div id="QA">
 				<h1>질문</h1>
 				<p><button id="Question-btn" class="btn btn-danger">질문작성</button></p>
 				<p class="input-group pull-right">
@@ -441,17 +441,17 @@
 						</c:otherwise>
 					</c:choose>
 					<!-- Pagination QA-->
-					<ul class="pagination text-center text-inline">
+					<ul id="paging" class="pagination text-center text-inline" >
 						<li><a href="javascript:PageMoveQA(${pagination.firstPageNo}, '${txt_search}')" class="button previous">&laquo;</a></li>
 						<li><a	href="javascript:PageMoveQA(${pagination.prevPageNo}, '${txt_search}')" class="button previous">&lt;</a></li>
 						<li class="pagination">
 							<c:forEach var="i" begin="${pagination.startPageNo}" end="${pagination.endPageNo}" step="1">
 								<c:choose>
 									<c:when test="${i eq pagination.pageNo}">
-										<li><a href="javascript:PageMoveQA(${i}, '${txt_search}')" class="active">${i}</a></li>
+										<li class="active"><a href="javascript:PageMoveQA(${i}, '${txt_search}')" class="active">${i}</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="javascript:PageMoveQA(${i}, '${txt_search}')">${i}</a></li>
+										<li><a href="javascript:PageMoveQA(${i}, '${txt_search}')" >${i}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
