@@ -27,6 +27,9 @@ public interface myPageDao {
 	public int reqLecturer(Map<String, String> map);
 	
 	public int updateNickname(Map<String, Object> map);
+	public int updateEmail(Map<String, Object> map);
+	public Map<String, String> checkPw(Map<String, Object> map);
+	public int updatePw(Map<String, Object> map);
 	
 //강사
 	
