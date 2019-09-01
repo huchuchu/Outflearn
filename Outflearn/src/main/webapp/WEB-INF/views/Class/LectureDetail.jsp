@@ -39,11 +39,7 @@
 								"#Question"
 			}
 			
-			function PageMoveReview(page){
-				location.href =	"LectureDetail?page=" + page;
-								
-			}
-
+		
 </script>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
@@ -364,6 +360,7 @@
 				<p class="input-group pull-right">
 						<input type="text" class="form-control" placeholder="검색하기" id="txt_search" value="${txt_search }">
 						<input type="hidden" id="txt_search" value="${txt_search }">
+						<input type="hidden" id="class_num" value="${class_num }">
 						<span class="input-group-btn">
 							<button class="btn btn-default" type="button" onclick="javascript:PageMoveQA(${pagination.pageNo}, '${txt_search }');">검색</button>
 						</span>

@@ -166,7 +166,7 @@ public class HomeController {
 			//model.addAttribute("classQuestion", biz.QASelectList(class_num));
 			int totalCount = biz.selectTotalCountQA(txt_search, class_num);
 			logger.info("텍스트서치:" + txt_search);
-			logger.info("class_num"+class_num);
+			logger.info("class_num:"+class_num);
 			logger.info("" + totalCount);
 
 			int pageNum = (page == null) ? 1 : Integer.parseInt(page);
