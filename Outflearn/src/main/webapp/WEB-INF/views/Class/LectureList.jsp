@@ -151,10 +151,6 @@
 													class="card-img-top"
 													src="${pageContext.request.contextPath }/resources/uploadImage/${dto.class_img }"
 													alt="Card image cap">
-													
-											<video width="320"height="240" preload="metadata"  height="auto" controls>
-                               					<source src="${pageContext.request.contextPath }/resources/uploadImage/${one.freeboard_file} " />
-                            				</video>
 												<div class="card-body">
 													<h5 class="card-title">${dto.class_title }</h5>
 													<p class="card-text">${dto.class_intro }</p>
