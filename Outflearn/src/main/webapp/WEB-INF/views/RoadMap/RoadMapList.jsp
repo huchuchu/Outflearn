@@ -52,9 +52,8 @@ function PageMove(page,data) {
    <jsp:include page="../header/MainHeader.jsp"></jsp:include>
    <!-- Header  -->
    <!-- 베너 -->
-   	<!-- 지니야 이거 가운데로 옮겨조^.^♡ 검색창 검색버튼 select_option floating카드도^.^ㅋㅋㅋ-->
       <div class="container">
-      <div class="row">
+      <div class="row" >
       	<div class="col-sm-12 toptop">   
               <h1 id="page-header-content">전체 카테고리</h1>                         
               <div id="search" class="form-group row justify-content-center col-sm-10 col-sm-push-6">            
@@ -68,7 +67,7 @@ function PageMove(page,data) {
                  <div  class="form-group ren" style="width: 40%;">
                     <input type="text" class="form-control form-control-sm" name="txt_search" id="txt_search" value="${txt_search }" placeholder="검색하기">
                  </div>                   
-                 <div>
+                 <div class="form-group ren" style="padding-left: 3px;">
                     <button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch" onclick="javascript:PageMove(${pagination.pageNo}, '${main_num }');">검색</button>
                  </div>
               </div>     	
@@ -121,8 +120,8 @@ function PageMove(page,data) {
                      <c:when test="${empty comList }">
                         <h3>강좌 정보가 없습니다...!!</h3>
                      </c:when>
-                     <c:otherwise>
-                        <c:forEach items="${ comList }" var="roadDto">
+                     <c:otherwise>  
+                        <c:forEach items="${ comList }" var="roadDto">                       
                            <div class="card">
                               <a class="hidden_link" href="roadMapDetail?roadNum=${roadDto.roadmap_num }">
                               <div class="content_area">
