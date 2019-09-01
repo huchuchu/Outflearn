@@ -229,11 +229,30 @@ SELECT R.COMMENT_NUM, R.ROADMAP_NUM, R.USER_NUM, R.COMMENT_CONTENT, R.COMMENT_GR
 		FROM ROADMAP_COMMENT R, USER_INFO U
 		WHERE R.USER_NUM = U.USER_NUM
 		AND R.ROADMAP_NUM=#{roadNum}
+		ORDER BY R.COMMENT_GROUPNO DESC, R.COMMENT_GROUPSQ ASC
 </select>
 
-<update id="commentUpdate" parameterType="String">
-UPDATE ROADMAP_COMMENT SET COMMENT_CONTENT = '이렇게수정해조' WHERE COMMENT_NUM=#{commentNum}
+<update id="commentUpdate" parameterType="map">
+UPDATE ROADMAP_COMMENT SET COMMENT_CONTENT = #{content} WHERE COMMENT_NUM=#{ComNum}
 </update>
 
-   
+<update id="deleteComment" parameterType="String">
+UPDATE ROADMAP_COMMENT SET COMMENT_CONTENT = '=====삭제 된 댓글입니다 =====' WHERE COMMENT_NUM=#{ComNum}
+</update>
+
+<update id="reCommentSqUpdate" parameterType="CommentDto">
+UPDATE ROADMAP_COMMENT SET COMMENT_GROUPSQ = COMMENT_GROUPSQ + 1
+WHERE COMMENT_GROUPNO = (SELECT COMMENT_GROUPNO FROM ROADMAP_COMMENT WHERE COMMENT_NUM = #{comment_num})
+AND COMMENT_GROUPSQ > (SELECT COMMENT_GROUPSQ FROM ROADMAP_COMMENT WHERE COMMENT_NUM= #{comment_num})
+</update>
+
+<insert id="reCommentAdd" parameterType="CommentDto">
+INSERT INTO ROADMAP_COMMENT
+VALUES (COMMENT_NUM_SQ.NEXTVAL, #{roadmap_num} , #{user_num}, #{comment_content} ,
+		(SELECT COMMENT_GROUPNO FROM ROADMAP_COMMENT WHERE COMMENT_NUM= #{comment_num}),
+		(SELECT COMMENT_GROUPSQ FROM ROADMAP_COMMENT WHERE COMMENT_NUM=#{comment_num})+1,
+		(SELECT COMMENT_TITLETAB FROM ROADMAP_COMMENT WHERE COMMENT_NUM=#{comment_num})+1 )
+
+</insert>
+
 </mapper>
