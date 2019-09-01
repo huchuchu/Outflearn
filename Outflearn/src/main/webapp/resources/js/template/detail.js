@@ -3,6 +3,8 @@ var hour_sum = 0
 var minite_sum = 0
 var second_sum = 0
 
+var data_sq = $('#data_sq').val();
+alert(data_sq + "선웅")
 
 $(document).ready(function () {
 
@@ -277,21 +279,26 @@ $(document).ready(function () {
 })
 
 function DashboardHeader() {
-   var sub_head = $('#subhead').val();
-
-   alert(sub_head)
-   $('#playlist').html(
+	var subhead = $('#subhead').val();
+	var abc = document.querySelectorAll("#data_chapter")
+    
+    var abcd = Array.prototype.map.call(abc, function(element) {
+        return element.value
+    });
+	console.log(abcd);
+  for (var a = 0; a < abcd.length; a++){
+   $('#playlist').append(
    `<div class='panel panel-default table-div'>
     <div class='page-header'><h1>유튜브</h1></div>
-    <h1> ` +sub_head + `<h1>
+    <div><h3>` + subhead +`<h3></div>
     <div class='table-responsive-lg'>
     <table class='table youtube'>
     </div>`
 	)
+  	   }
 }
 
 function DashboardOne(video_list, playlist_id) {
-	var data = $('#data').val();
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
@@ -306,15 +313,18 @@ function DashboardOne(video_list, playlist_id) {
            
            var video_id = vi_list.items[0].id;
            var video_title = vi_list.items[0].snippet.title
-            var duration = getVideos(video_id);
-           alert(video_id + ㅇㅇ)
+           var duration = getVideos(video_id);
+         
+           
            $('.youtube').append(
                 `<tr class='youtube_data'>
                 	<td><i class=\"far fa-clock\"></i></td>
+                	<td>`+ data_sq +`</td>
                   	<td><a href='LectureDetailView?DATA_DATA=${video_id}'>${video_title}</a></td>
                    	<td>${duration}</td>
                    	<td>${duration}</td>`
             );
+       	   
 
             min += parseInt(duration.split(' : ')[0]);
             sec += parseInt(duration.split(' : ')[1]);
@@ -358,14 +368,20 @@ function DashboardList(video_list, playlist_id) {
                 var video_title = vi_list.items[i].snippet.title;
                 var video_id = vi_list.items[i].snippet.resourceId.videoId;
                 var duration = getVideos(video_id);
-
+                var class_num = $('#class_num').val();
+                
+            	for (var a = 0; a < class_num.length; a++){
                 $('.youtube').append(
+                
                     `<tr class='youtube_data'>
                        <td><i class=\"far fa-clock\"></i></td>
+                       <td>`+ data_sq +`</td>
                        <td><a href='LectureDetailView?DATA_DATA=${video_id}'>${video_title}</a></td>
                        <td>${duration}</td>
                        <td>${duration}</td>`
+                	
                 );
+            	}
 
                 min += parseInt(duration.split(' : ')[0]);
                 sec += parseInt(duration.split(' : ')[1]);

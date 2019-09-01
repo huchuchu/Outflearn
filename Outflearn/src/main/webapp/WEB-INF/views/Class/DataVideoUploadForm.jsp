@@ -103,7 +103,7 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
+	<jsp:include page="../header/MainHeader.jsp"></jsp:include>
 
 	<div class="row">
 		<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">

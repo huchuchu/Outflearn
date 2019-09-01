@@ -62,11 +62,11 @@
 	<insert id="ClassChapterDataInsert" parameterType="ClassDataDto">
 		INSERT INTO
 		CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SQ, DATA_TITLE, DATA_DATA)
-		VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.CURRVAL , #{data_sq },
+		VALUES(#{class_num }, DATA_CHAPTER_SQ.CURRVAL , #{data_sq },
 		#{data_title } , #{data_data })
 	</insert>
 	
-	<!-- 영상 챕터 추가 -->
+	<!-- 영상추가 페이지 첫번째 챕터 추가 -->
 	<insert id="ClassDataInsertPlus" parameterType="ClassDataDto">
 		INSERT INTO CLASS_DATA(CLASS_NUM, DATA_CHAPTER ,DATA_SUBHEAD, DATA_SQ, DATA_TITLE, DATA_DATA) VALUES(#{class_num }, DATA_CHAPTER_SQ.NEXTVAL ,#{data_subhead }, #{data_sq }, #{data_title}, #{data_data })
 	</insert>
@@ -82,12 +82,21 @@
 	</select>
 
 	<!-- 강좌 내용 DB추가 -->
-	<insert id="ClassIntroduceInsert"
-		parameterType="ClassIntroduceDto">
+	<insert id="ClassIntroduceInsert" parameterType="ClassIntroduceDto">
 		INSERT INTO CLASS_INTRODUCE (CLASS_NUM, CLASS_CONTENT)
 		VALUES(CLASS_INFO_SQ.CURRVAL, #{class_content })
 	</insert>
-
+	
+	<!-- 강의 소개 가져오기 -->
+	<select id="classIntroduceselectone" parameterType="int" resultType="ClassIntroduceDto">
+		SELECT CLASS_CONTENT FROM CLASS_INTRODUCE WHERE CLASS_NUM = #{class_num }
+	</select>
+	
+	<!-- 강의 내용 UPDATE -->
+	<update id="ClassIntroduceUpdate" parameterType="hashmap">
+		UPDATE CLASS_INTRODUCE SET CLASS_CONTENT = #{class_content } WHERE CLASS_NUM = #{class_num }
+	</update>
+	
 	<!-- ================== CLASS_REVIEW 테이블 ================== -->
 	<select id="classReviewSelectlist" resultType="classReviewDto"
       parameterType="map">
@@ -115,11 +124,12 @@
 		#{reveiw_nim }
 	</select>
 
+	
 	<insert id="classReviewInsert" parameterType="classReviewDto">
-		INSERT INTO
-		CLASS_REVIEW VALUES(REVIEW_NUM_SQ.NEXTVAL, #{class_num}, #{user_num},
-		#{review_content}, #{user_star}, REVIEW_GROUPNO_SQ.NEXTVAL, 1, 0)
-	</insert>
+      INSERT INTO
+      CLASS_REVIEW VALUES(REVIEW_NUM_SQ.NEXTVAL, #{class_num}, #{user_num},
+      #{review_content}, #{user_star}, REVIEW_GROUPNO_SQ.NEXTVAL, 1, 0)
+   </insert>
 
 	<update id="classReviewUpdate" parameterType="classReviewDto">
 		UPDATE CLASS_REVIEW
@@ -416,12 +426,42 @@
 	<select id="selectTotalCountQA" parameterType="map"
 		resultType="Integer">
 		SELECT count(*)
-		FROM QA WHERE CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1
+		FROM QA
+		<where>
+		 CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1
 		<if test="txt_search != null">
 			AND upper(QA_TITLE) like '%' || upper(#{txt_search})
 			|| '%' or
 			upper(QA_CONTENT) like '%' || upper(#{txt_search}) || '%'
 		</if>
+		</where>
+	</select>
+	
+	<select id="classReviewSelectlistPagination" resultType="classReviewDto"
+		parameterType="map">
+		SELECT REVIEW_NUM, CLASS_NUM, USER_NUM, REVIEW_CONTENT, USER_STAR, 
+				REVIEW_GROUPNO, REVIEW_GROUPSQ, REVIEW_TITLETAB, USER_NICKNAME
+		FROM(
+			SELECT ROWNUM AS RNUM, C.*
+			FROM(
+				SELECT R.REVIEW_NUM AS REVIEW_NUM,
+					R.CLASS_NUM AS CLASS_NUM,
+					R.USER_NUM AS USER_NUM,
+					R.REVIEW_CONTENT AS REVIEW_CONTENT,
+					R.USER_STAR AS USER_STAR,
+					R.REVIEW_GROUPNO AS REVIEW_GROUPNO,
+					R.REVIEW_GROUPSQ AS REVIEW_GROUPSQ,
+					R.REVIEW_TITLETAB AS REVIEW_TITLETAB,
+					U.USER_NICKNAME AS USER_NICKNAME
+					FROM CLASS_REVIEW R JOIN USER_INFO U ON R.USER_NUM = U.USER_NUM
+		
+					WHERE CLASS_NUM = (SELECT
+					CLASS_NUM FROM CLASS_INFO WHERE CLASS_NUM = #{class_num })
+			
+					ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
+				) C
+				)
+				WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}		
 	</select>
 	<!-- ================== 카테고리 주류, 부류 ================== -->
 	<insert id="ClassCategoryInsert" parameterType="hashmap">

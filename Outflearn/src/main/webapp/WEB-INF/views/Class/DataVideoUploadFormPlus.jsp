@@ -58,7 +58,7 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
+	<jsp:include page="../header/MainHeader.jsp"></jsp:include>
 
 	<div class="row">
 		<ul id="side_border"
@@ -71,7 +71,7 @@
 		<div class="col-sm-6 col-el-8">
 
 			<form:form name="DataVideoMyform" action="DataVideoUploadPlus"  method="post" enctype="multipart/form-data">
-
+				<input type="hidden" name="class_num" value="${class_num }" />
 
 				<div class="form-group">
 					<h3>과정 제목</h3>

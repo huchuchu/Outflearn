@@ -267,9 +267,14 @@ public class HomeController {
 		int res = biz.ClassBuyAfter(class_num, user_num);
 		System.out.println(class_num + " " + user_num);
 		System.out.println(res + "강선웅!!");
+		
+		
 		// 영상 소개
-		model.addAttribute("classdata", biz.ClassDataSelectOne(class_num));
+		
+		List <ClassDataDto> Clist = biz.ClassDataSelectOne(class_num);
+		model.addAttribute("classdata", Clist);
 		System.out.println(biz.ClassDataSelectOne(class_num) + "1111111199999999");
+		
 		if (res > 0) {
 			model.addAttribute("ClassBuyAfter", res);
 			System.out.println(res + "강선웅");
@@ -451,10 +456,12 @@ public class HomeController {
 
 	// 영상소개 작성 확인 DataVideoUploadForm.jsp
 	@RequestMapping("DataVideoUpload")
-	public String DataVideoUpload(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto, Model model)
+	public String DataVideoUpload(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto, Model model, int class_num)
 			throws FileNotFoundException {
 		logger.info("DataVideoUpload");
-
+		
+		model.addAttribute("class_num", class_num);
+		
 		if (dto.getData_data() == null) {
 			List<MultipartFile> fileList = mtfRequest.getFiles("file");
 			String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
@@ -530,9 +537,12 @@ public class HomeController {
 	// DataVideoUploadFormPlus - > DataVideoUploadFormPlus 한 챕터에 영상 추가
 	@RequestMapping("DataVideoUploadPlus")
 	public String DataVideoUploadPlus(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto,
-			Model model) throws FileNotFoundException {
+			Model model, int class_num) throws FileNotFoundException {
 		logger.info("DataVideoUploadPlus");
-
+		System.out.println(class_num + "라라라라");
+		dto.setClass_num(class_num);
+		model.addAttribute("class_num", class_num);
+		
 		if (dto.getData_data() == null) {
 			List<MultipartFile> fileList = mtfRequest.getFiles("file");
 
@@ -724,13 +734,13 @@ public class HomeController {
 	return "Class/DataVideoUploadChapterInsertForm";
 	}
 	
-	// 챕터 영상 추가
+	// 챕터 영상 추가 페이지에서 추가
 	@RequestMapping("DataVideoChapterInsert")
 	public String DataVideoChapterInsert(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto,
 			Model model, int class_num) throws FileNotFoundException {
 		logger.info("DataVideoChapterInsert");
-		dto.setClass_num(class_num);
-		System.out.println(class_num + "강선웅");
+		System.out.println("class_num");
+		model.addAttribute("class_num", class_num);
 		
 		if (dto.getData_data() == null) {
 			List<MultipartFile> fileList = mtfRequest.getFiles("file");
@@ -808,7 +818,7 @@ public class HomeController {
 		}
 	}
 	
-	// 
+	// 챕터 영상 
 	
 	// 마이페이지에서 영상 추가 수정 페이지로 이동
 	@RequestMapping("ClassDataUpdateForm")
@@ -817,6 +827,12 @@ public class HomeController {
 		model.addAttribute("class_data", biz.ClassDataSelectOne(class_num));
 		
 		return "Class/DataVideoUploadFormUpdate";
+	}
+	
+	@RequestMapping("DataVideoUploadUpdate")
+	public String DataVideoUploadUpdate(int class_num) {
+
+		return "LectureDetail?class_num=" + class_num;
 	}
 	
 

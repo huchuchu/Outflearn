@@ -1,6 +1,7 @@
 package com.outflearn.Outflearn.model.biz;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,6 @@ import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
-import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.dao.myPageDao;
 
 
@@ -78,15 +78,17 @@ public class myPageBizImpl implements myPageBiz {
 		return dao.reqLecturer(map);
 	}
 	
+	
 	@Override
 	public int updateNickname(String nickname, int user_num) {
 		
-		Map<String, Object> map = HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();	
 		
 		map.put("nickname", nickname);
 		map.put("user_num", user_num);
 		
 		return dao.updateNickname(map);
+
 	}
 	
 //강사

@@ -60,6 +60,8 @@
 	<c:forEach items="${classdata }" var="dto">
 		<input type="hidden" id="subhead" value="${dto.data_subhead }">
 		<input type="hidden" id="data" value="${dto.data_data }">
+		<input type="hidden" id="data_sq" value="${dto.data_sq }">
+		<input type="hidden" id="data_chapter" value="${dto.data_chapter }">
 	</c:forEach>
 	
 	<div class="jumbotron">
@@ -83,6 +85,9 @@
 			<div id="study_btn" class="col-md-3">
 				<p class="text-center" align="center">
 					<a href="void:0" class="btn btn-success btn-lg" role="button">학습하기</a>
+					<c:forEach items="${classdata }" var="dto">
+						${dto.data_chapter }
+					</c:forEach>
 				</p>
 				
 				

@@ -49,7 +49,6 @@
 		(function ($) {
 			$(document).ready(function () {
 				$('#summernote').summernote({
-					placeholder: 'content',
 					minHeight: 370,
 					maxHeight: null,
 					focus: true,
@@ -65,7 +64,7 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
+	<jsp:include page="../header/MainHeader.jsp"></jsp:include>
 
 	<div class="row">
 

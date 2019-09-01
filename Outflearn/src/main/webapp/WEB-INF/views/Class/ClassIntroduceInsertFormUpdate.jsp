@@ -49,7 +49,6 @@
 	(function($){
 		   $(document).ready(function() {
 		      $('#summernote').summernote({
-		             placeholder: 'content',
 		              minHeight: 370,
 		              maxHeight: null,
 		              focus: true, 
@@ -64,7 +63,7 @@
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 	
-		<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
+		<jsp:include page="../header/MainHeader.jsp"></jsp:include>
 	
 	<div class="row">
 			<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">
@@ -94,8 +93,7 @@
 	
 			<div class="form-group">
 				<input type="hidden" class="class_num" value="${class_num }">
-				<input type="button" class="btn btn-primary" value="다음" onclick="Control();"> 
-				<input type="button" class="btn btn-primary" value="수정" onclick="ClassIntroduceUpdate();"> 
+				<input type="button" class="btn btn-primary" value="수정" onclick="Control()"> 
 				<input type="button" value="가이드 라인" onclick="ClassIntroduceGuideLine();" class="btn btn-primary">
 			</div>
 	</form:form>
@@ -111,10 +109,20 @@
 	
 	<script type="text/javascript">
 	
-	function ClassIntroduceUpdate(){
+	function Control(){
+		
+		ClassIntroduceMyform = document.ClassIntroduceMyform;
+		if (ClassIntroduceMyform.class_content.value == "") {
+			Swal.fire({
+				type : 'error',
+				title : '실패...',
+				text : '강의 내용을 모두 입력해주세요.',
+			})
+		} 
+		
+		else {
 		
 		var class_content = $(".class_content").val();
-		alert(typeof class_content)
 		var class_num = $(".class_num").val();
 		
 		$.ajax({
@@ -129,20 +137,9 @@
 
 		})
 		
-	}
-	
-	function Control() {
-		ClassIntroduceMyform = document.ClassIntroduceMyform;
-		if (ClassIntroduceMyform.class_content.value == "") {
-			Swal.fire({
-				type : 'error',
-				title : '실패...',
-				text : '강의 내용을 모두 입력해주세요.',
-			})
-		} else{
-		ClassIntroduceMyform.submit();
 		}
 	}
+
 	
 	
 		function ClassIntroduceGuideLine(){
