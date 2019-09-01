@@ -52,7 +52,16 @@
 	</sec:authorize>
 
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
+	
+	<sec:authorize access="isAuthenticated()">
+		<sec:authentication var="user_nickname" property="principal.user_nickname"/>
+	</sec:authorize>
 
+	<c:forEach items="${classdata }" var="dto">
+		<input type="hidden" id="subhead" value="${dto.data_subhead }">
+		<input type="hidden" id="data" value="${dto.data_data }">
+	</c:forEach>
+	
 	<div class="jumbotron">
 		<div id="jumbo_row" class="row">
 			<img src="${pageContext.request.contextPath }/resources/uploadImage/${classinfo.class_img }" alt="썸네일" class="col-md-3">
@@ -77,7 +86,7 @@
 				</p>
 				
 				
-				<c:if test="${empty ClassBuyAfter  }">
+				<c:if test="${empty ClassBuyAfter != user_nickname == user_nickname }">
 				<div id="box">
 					<div id="course">
 						<h4>${classinfo.class_price }원</h4>

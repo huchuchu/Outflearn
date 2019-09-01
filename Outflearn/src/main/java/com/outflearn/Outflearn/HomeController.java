@@ -219,7 +219,9 @@ public class HomeController {
 
 		// 강의 소개
 		model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
-
+		
+	
+		
 		// 질문 리스트
 		//model.addAttribute("classQuestion", biz.QASelectList(class_num));
 		int totalCount = biz.selectTotalCountQA(txt_search, class_num);
@@ -265,6 +267,9 @@ public class HomeController {
 		int res = biz.ClassBuyAfter(class_num, user_num);
 		System.out.println(class_num + " " + user_num);
 		System.out.println(res + "강선웅!!");
+		// 영상 소개
+		model.addAttribute("classdata", biz.ClassDataSelectOne(class_num));
+		System.out.println(biz.ClassDataSelectOne(class_num) + "1111111199999999");
 		if (res > 0) {
 			model.addAttribute("ClassBuyAfter", res);
 			System.out.println(res + "강선웅");
@@ -464,13 +469,12 @@ public class HomeController {
 				String class_img_path = path + "/" + originFileName; // 경로
 				String class_img = path + originFileName; // 파일 이름
 				dto.setData_data(class_img);
+				System.out.println(fileSize);
+				System.out.println(class_img_path);
+				System.out.println(class_img);
 
 				try {
-					if(mf.getSize() == 0) {
-		 
-				}  else {
-					mf.transferTo(new File(class_img_path));              
-					}
+					mf.transferTo(new File(class_img_path)); // 파일 집어넣는다
 
 				} catch (IllegalStateException e) {
 
@@ -547,7 +551,7 @@ public class HomeController {
 				dto.setData_data(data_data);
 
 				try {
-					mf.transferTo(new File(data_data_path));
+					mf.transferTo(new File(data_data_path)); // 파일 집어넣는다
 
 				} catch (IllegalStateException e) {
 
@@ -558,7 +562,9 @@ public class HomeController {
 				}
 			}
 
-		} else {
+		} 
+		
+		else {
 			if (dto.getData_data().substring(0, 5).equals("https")) {
 
 				String a = dto.getData_data();
@@ -711,23 +717,109 @@ public class HomeController {
 	
 	// 마이페이지에서 영상 추가 페이지 이동
 	@RequestMapping("ClassDataInsertPlus")
-	public String ClassDataInsertPlus() {
-	
+	public String ClassDataInsertPlus(int class_num, Model model) {
 		
-		return "Class/DataVideoUploadForm";
+		model.addAttribute("class_num", class_num);
+		
+	return "Class/DataVideoUploadChapterInsertForm";
 	}
+	
+	// 챕터 영상 추가
+	@RequestMapping("DataVideoChapterInsert")
+	public String DataVideoChapterInsert(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto,
+			Model model, int class_num) throws FileNotFoundException {
+		logger.info("DataVideoChapterInsert");
+		dto.setClass_num(class_num);
+		System.out.println(class_num + "강선웅");
+		
+		if (dto.getData_data() == null) {
+			List<MultipartFile> fileList = mtfRequest.getFiles("file");
+
+			String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
+			File dir = new File(path);
+			if (!dir.isDirectory()) {
+				dir.mkdirs();
+			}
+
+			for (MultipartFile mf : fileList) {
+				String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+				long fileSize = mf.getSize(); // 파일 사이즈
+				String data_data_path = path + "/" + originFileName; // 경로
+				System.out.println("경로 " + data_data_path);
+				String data_data = path + originFileName; // 파일 이름
+				dto.setData_data(data_data);
+
+				try {
+					mf.transferTo(new File(data_data_path));
+
+				} catch (IllegalStateException e) {
+
+					e.printStackTrace();
+				} catch (IOException e) {
+
+					e.printStackTrace();
+				}
+			}
+
+		} 
+		
+		else {
+			if (dto.getData_data().substring(0, 5).equals("https")) {
+
+				String a = dto.getData_data();
+				String b = "";
+
+				if (a.contains("v=")) {
+					b = a.split("\\?")[1];
+					if (b.contains("&")) {
+						b = b.substring(0, b.indexOf("&"));
+					}
+					System.out.println(b);
+				} else if (a.contains("list=")) {
+					b = a.split("\\?")[1];
+					if (b.contains("&")) {
+						b = b.substring(0, b.indexOf("&"));
+					}
+					System.out.println(b);
+					
+				}
+
+				dto.setData_data(b);
+
+			}
+		}
+
+		// 부류, 주류
+		List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
+		List<SubStreamDto> subStreamList = Rbiz.subStreamList();
+
+		model.addAttribute("mainList", mainStreamList);
+		model.addAttribute("subList", subStreamList);
+		
+		
+		
+		int res = biz.ClassDataInsertPlus(dto);
+		
+
+		if (res > 0) {
+			return "Class/DataVideoUploadFormPlus";
+		} else {
+			return "Class/DataVideoUploadFormPlus";
+		}
+	}
+	
+	// 
 	
 	// 마이페이지에서 영상 추가 수정 페이지로 이동
 	@RequestMapping("ClassDataUpdateForm")
 	public String ClassDataUpdateForm(int class_num, Model model) {
 		
 		model.addAttribute("class_data", biz.ClassDataSelectOne(class_num));
-		System.out.println(biz.ClassDataSelectOne(class_num));
-		System.out.println("강선웅!!!!");
+		
 		return "Class/DataVideoUploadFormUpdate";
 	}
 	
-	// 영상 추가 수정 하기
+
 	
 
 }

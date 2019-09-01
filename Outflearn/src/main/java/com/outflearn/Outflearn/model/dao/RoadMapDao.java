@@ -67,7 +67,13 @@ public interface RoadMapDao {
 	
 	public List<CommentDto> commentList(String roadNum);
 	
-	public int commentUpdate(String commentNum);
+	public int commentUpdate(String content, String ComNum);
+	
+	public int deleteComment(String comNum);
+	
+	public int reCommentSqUpdate (CommentDto dto);
+	
+	public int reCommentAdd (CommentDto dto);
 	
 
 	List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,

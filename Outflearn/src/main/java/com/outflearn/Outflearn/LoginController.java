@@ -14,9 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -29,6 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.LoginBiz;
+import com.outflearn.Outflearn.model.biz.myPageBiz;
 
 @Controller
 
@@ -42,6 +46,9 @@ public class LoginController {
 	
 	@Inject
 	private LoginBiz biz;
+	
+	@Inject
+	private myPageBiz mBiz;
 	
 	private String randompassword;
 	
@@ -335,6 +342,5 @@ public class LoginController {
 		
 		return map;
 	}
-	
 	
 }

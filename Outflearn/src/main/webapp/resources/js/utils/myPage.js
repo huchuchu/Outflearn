@@ -210,7 +210,7 @@ function updateClass(class_num, class_title) {
         type: 'info',
         title: `${class_title} 수정 영역 선택`,
         html: `<button onclick="location.href='ClassIntroduceUpdateForm?class_num=${class_num}'">강의 소개</button>
-        	   <button onclick="location.href='ClassDataInsertPlus'">영상 추가</button>
+        	   <button onclick="location.href='ClassDataInsertPlus?class_num=${class_num}'">영상 추가</button>
         	   <button onclick="location.href='ClassDataUpdateForm?class_num=${class_num}'">영상 수정</button>`,
         showCancelButton: false,
         showCloseButton: true,
@@ -230,20 +230,144 @@ function updateRoadmap(roadmap_num, roadmap_title) {
     })
 }
 
+function handleProfileSuccess(bool) {
+    if (bool) {
+        Swal.fire({
+            type: 'success',
+            title: '정상 처리 되셨습니다.'
+        })
+            .then((result) => {
+                location.href = 'logout'
+            })
+    } else {
+        Swal.fire({
+            type: 'error',
+            title: '처리 중에 오류가 발생했습니다.',
+            text: '다시 한번 시도해주세요.',
+            footer: '혹은 관리자에게 문의 바랍니다.'
+        })
+    }
+}
+
 function nickSubmit(form) {
+    Swal.fire({
+        type: 'info',
+        title: '설정 변경 시 로그아웃 처리가 됩니다.',
+        text: '재로그인 해주시길 바랍니다.',
+        confirmButtonText: '변경',
+        showCancelButton: true,
+        showCloseButton: true,
+        cancelButtonText: '취소'
+    })
+        .then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: `updateNickname?nickname=${form.nickname.value}`,
+                    success: function (bool) {
+                        handleProfileSuccess(bool)
+                    },
+                    error: function (err) {
+                        handleCriticalError()
+                    }
+                })
+            }
+        })
+    return false
+}
+
+function emailSubmit(form) {
+    Swal.fire({
+        type: 'info',
+        title: '설정 변경 시 로그아웃 처리가 됩니다.',
+        text: '재로그인 해주시길 바랍니다.',
+        confirmButtonText: '변경',
+        showCancelButton: true,
+        showCloseButton: true,
+        cancelButtonText: '취소'
+    })
+        .then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: `updateEmail?emailBefore=${form.emailBefore.value}&emailAter=${form.emailAfter.value}`,
+                    method: 'post',
+                    success: function (bool) {
+                        handleProfileSuccess(bool)
+                    },
+                    error: function (err) {
+                        handleCriticalError()
+                    }
+                })
+            }
+        })
+    return false
+}
+
+function firstChk(beforePw, afterPw, afterPwChk) {
     $.ajax({
-        url: `updateNickname?nickname=${form.nickname.value}`,
+        url: `beforePwChk?beforePw=${beforePw}`,
+        method: 'post', 
         success: function (bool) {
-            handleSuccess(bool)
+            if (bool) {
+                secondChk(afterPw, afterPwChk)
+            } else {
+                Swal.fire({
+                    type: 'warning',
+                    title: '현재 비밀번호와 다릅니다.',
+                    text: '다시 한번 확인해 주세요.'
+                })
+            }
         },
         error: function (err) {
             handleCriticalError()
         }
     })
-    return false
 }
 
+function secondChk(afterPw, afterPwChk) {
+    if (afterPw.length > 7) {
+        lastChk(afterPw, afterPwChk)
+    } else {
+        Swal.fire({
+            type: 'warning',
+            title: ' 비밀번호는 8자리 이상 입력해주세요.'
+        })
+    }
+}
 
+function lastChk(afterPw, afterPwChk) {
+    if (afterPw === afterPwChk) {
+        $.ajax({
+            url: `updatePw?afterPw=${afterPw}`,
+            method: 'post',
+            success: function (bool) {
+                handleProfileSuccess(bool)
+            },
+            error: function (err) {
+                handleCriticalError()
+            }
+        })
+    } else {
+        Swal.fire({
+            type: 'warning',
+            title: '새 비밀번호를 확인해 주세요',
+            text: '비밀번호가 같지 않습니다.'
+        })
+    }
+}
+
+function handleUpdatePw(beforePw, afterPw, afterPwChk) {
+    firstChk(beforePw, afterPw, afterPwChk)
+}
+
+function pwSubmit(form) {
+    var beforePw = form.beforePw.value
+    var afterPw = form.afterPw.value
+    var afterPwChk = form.afterPwChk.value
+
+    handleUpdatePw(beforePw, afterPw, afterPwChk)
+
+    return false
+}
 
 $(function () {
     $('.configLiveRoom').on('click', function () {
@@ -329,14 +453,19 @@ $(function () {
         }
     })
 
-    $('#setEmail').keyup(function () {
-        if ($(this).val() != $(this).attr('default')) {
-            $('#updateEmail').prop('disabled', false)
-        } else {
+    $('.setEmail').keyup(function () {
+        var EBefore = $('#setEmailBefore')
+        var EAfter = $('#setEmailAfter')
+
+        if ((EBefore.val() == EBefore.attr('default')) && (EAfter.val() == EAfter.attr('default'))) {
             $('#updateEmail').prop('disabled', true)
+        } else {
+            $('#updateEmail').prop('disabled', false)
         }
     })
 
-
+    $('#emailSelect').on('change', function () {
+        $('#setEmailAfter').prop('value', $(this).val())
+    })
 
 })

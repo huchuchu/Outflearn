@@ -127,6 +127,30 @@ function fn_editReply(rid, reg_id, content){
 		$('#rid' + rid + ' #editContent').focus();
 
 	}
+	
+	
+	    $(result).each(function(){
+	                     htmls += '<div class="media text-muted pt-3" id="rid' + this.rid + '">';
+	                     htmls += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+	                     htmls += '<span class="d-block">';
+	                     htmls += '<strong class="text-gray-dark">' + this.reg_id + '</strong>';
+	                     htmls += '<span style="padding-left: 7px; font-size: 9pt">';
+	                     htmls += '<a href="javascript:void(0)" onclick="fn_editReply(' + this.rid + ', \'' + this.reg_id + '\', \'' + this.content + '\' )" style="padding-right:5px">수정</a>';
+	                     htmls += '<a href="javascript:void(0)" onclick="fn_deleteReply(' + this.rid + ')" >삭제</a>';
+	                     htmls += '</span>';
+	                     htmls += '</span>';
+	                     htmls += this.content;
+	                     htmls += '</p>';
+	                     htmls += '</div>';
+
+	                });	//each end
+
+			}
+			$("#replyList").html(htmls);
+                
+
+
+출처: https://freehoon.tistory.com/115 [초보 개발자]
 
 
 
