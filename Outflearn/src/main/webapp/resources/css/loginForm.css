@@ -38,8 +38,6 @@ margin-top: -20%;
     background: #fff;
     -webkit-appearance: none;
     background-color: white;
-
-
 }
 
  #submitBTN{ 
@@ -58,7 +56,4 @@ margin-top: -20%;
  #submitBTN:hover{ 
  	background:#fff; 
  	color:#6372ff; 
- } 
- 
-
-}
+ }

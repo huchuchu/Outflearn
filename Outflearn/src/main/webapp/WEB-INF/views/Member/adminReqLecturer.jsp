@@ -31,7 +31,7 @@
 
 <body>
 
-  <jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
+ 	<jsp:include page="../header/MainHeader.jsp"></jsp:include>
 
   <div class="container">
 
@@ -97,8 +97,8 @@
                               <td>${item.REQ_PR}</td>
                               <td>${item.REQ_CLASS}</td>
                               <td>
-                                <input type="button" onclick="acceptReq(${item.USER_NUM})" value="Y">
-                                <input type="button" onclick="deniReq(${item.USER_NUM})" value="N">
+                                <input type="button" onclick="acceptReq(${item.USER_NUM})" class="updateBtn" value="Y">
+                                <input type="button" onclick="deniReq(${item.USER_NUM})" class="deleteBtn" value="N">
                               </td>
                             </tr>
                           </c:forEach>

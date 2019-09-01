@@ -49,7 +49,6 @@
 	(function($){
 		   $(document).ready(function() {
 		      $('#summernote').summernote({
-		             placeholder: 'content',
 		              minHeight: 370,
 		              maxHeight: null,
 		              focus: true, 
@@ -64,7 +63,7 @@
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 	
-		<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
+		<jsp:include page="../header/MainHeader.jsp"></jsp:include>
 	
 	<div class="row">
 			<ul id="side_border" class="nav flex-column col-sm-2 col-el-2 text-center">
@@ -82,20 +81,19 @@
 				</li>
 			</ul>
 				<div class="col-sm-6 col-el-8">
-			<form:form name="ClassIntroduceMyform" action="DataVideoUploadForm" method="post" enctype="multipart/form-data">
+			<form:form name="ClassIntroduceMyform" action="ClassIntroduceUpdate" method="post" enctype="multipart/form-data">
 			
 			<div class="input-group">
 				<h1>강의 내용 </h1>
 			</div>
 			
 			<div class="form-group">
-				<textarea id="summernote" class="class_content" name="class_content">${class_content.class_content }</textarea>
+				<textarea id="summernote" class="class_content" name="class_content" placeholder="${class_content.class_content }"></textarea>
 			</div>
 	
 			<div class="form-group">
 				<input type="hidden" class="class_num" value="${class_num }">
-				<input type="button" class="btn btn-primary" value="다음" onclick="Control();"> 
-				<input type="button" class="btn btn-primary" value="수정" onclick="ClassIntroduceUpdate();"> 
+				<input type="button" class="btn btn-primary" value="수정" onclick="Control()"> 
 				<input type="button" value="가이드 라인" onclick="ClassIntroduceGuideLine();" class="btn btn-primary">
 			</div>
 	</form:form>
@@ -111,27 +109,9 @@
 	
 	<script type="text/javascript">
 	
-	function ClassIntroduceUpdate(){
-		
+	function Control(){
 		var class_content = $(".class_content").val();
-		alert(typeof class_content)
-		var class_num = $(".class_num").val();
-		
-		$.ajax({
-			url : 'ClassIntroduceUpdate?class_num=' + class_num + "&class_content=" + class_content,
-			method : 'get',
-			success : function(data) {
-				location.href= 'LectureDetail?class_num=' + class_num;
-			},
-			error : function() {
-				alert('에러 발생~~ \n')
-			}
-
-		})
-		
-	}
-	
-	function Control() {
+		alert(class_content)
 		ClassIntroduceMyform = document.ClassIntroduceMyform;
 		if (ClassIntroduceMyform.class_content.value == "") {
 			Swal.fire({
@@ -139,10 +119,28 @@
 				title : '실패...',
 				text : '강의 내용을 모두 입력해주세요.',
 			})
-		} else{
-		ClassIntroduceMyform.submit();
+		} 
+		
+		else {
+		
+		
+		var class_num = $(".class_num").val();
+		
+		$.ajax({
+			url : 'ClassIntroduceUpdate?class_num=' + class_num + "&class_content=" + class_content,
+			method : 'post',
+			success : function(data) {
+				location.href= 'mypage';
+			},
+			error : function() {
+				alert('에러 발생~~ \n')
+			}
+
+		})
+		
 		}
 	}
+
 	
 	
 		function ClassIntroduceGuideLine(){

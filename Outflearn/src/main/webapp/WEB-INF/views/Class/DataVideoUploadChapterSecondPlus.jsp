@@ -59,7 +59,8 @@
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
 	<jsp:include page="../header/MainHeader.jsp"></jsp:include>
-
+		
+				
 	<div class="row">
 		<ul id="side_border"
 			class="nav flex-column col-sm-2 col-el-2 text-center">
@@ -70,12 +71,16 @@
 		</ul>
 		<div class="col-sm-6 col-el-8">
 
-			<form:form name="DataVideoMyform" action="DataVideoUploadPlus"  method="post" enctype="multipart/form-data">
+			<form:form name="DataVideoMyform" action="DataVideoUploadSecondPlus"  method="post" enctype="multipart/form-data">
+				<input type="hidden" name="class_num" value="${class_num }" />
 				
-
+				<div class="input-group">
+					<h1>영상  추가페이지</h1>
+				</div>
+				
 				<div class="form-group">
 					<h3>과정 제목</h3>
-					<input type="text" name="data_title" class="form-control" >
+					<input type="text" name="data_title" class="form-control" placeholder="제목을 입력해주세요">
 				</div>
 
 				<div class="form-group">

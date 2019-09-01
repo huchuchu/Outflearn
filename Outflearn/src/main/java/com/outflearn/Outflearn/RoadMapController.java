@@ -76,8 +76,7 @@ public class RoadMapController {
 			List<MainStreamDto> mainStreamList = biz.mainStreamList();
 			List<RoadUserCombineDto> comList = biz.roadMapComList(pageNum, pagination.getPageSize(), txt_search, searchOption, main_num);
 			
-			
-			
+
 			model.addAttribute("mainList", mainStreamList);
 			model.addAttribute("comList", comList);
 			model.addAttribute("pagination", pagination);
@@ -275,7 +274,7 @@ public class RoadMapController {
 		
 		
 		List<MainStreamDto> mainStreamList = biz.mainStreamList();		
-		List<SubStreamDto> subStreamList = biz.subStreamList();	
+ 		List<SubStreamDto> subStreamList = biz.subStreamList();	
 
 		//선택된 강의 리스트도 같이 넘어감
 		//부모창으로 값 전달을 위해 부모창 번호와 같이 넘어옴(클릭한 버튼의 id값)		

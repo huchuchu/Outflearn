@@ -39,17 +39,9 @@
 								"#Question"
 			}
 			
-			function PageMoveReview(page){
-				location.href =	"LectureDetail?page=" + page;
-								
-			}
-
+		
 </script>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-
-	<sec:authorize access="isAuthenticated()">
-		<sec:authentication var="num" property="principal.user_num"/>
-	</sec:authorize>
 
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 	
@@ -59,7 +51,6 @@
 
 	<c:forEach items="${classdata }" var="dto">
 		<input type="hidden" id="subhead" value="${dto.data_subhead }">
-		<input type="hidden" id="data" value="${dto.data_data }">
 	</c:forEach>
 	
 	<div class="jumbotron">
@@ -86,7 +77,7 @@
 				</p>
 				
 				
-				<c:if test="${empty ClassBuyAfter != user_nickname == user_nickname }">
+				<c:if test="${empty ClassBuyAfter or user_nickname != user_nickname }">
 				<div id="box">
 					<div id="course">
 						<h4>${classinfo.class_price }원</h4>
@@ -208,6 +199,7 @@
 					</table>
 				</div>
 			</div>
+			<div><h1>교욱 과정</h1></div>
 			<div id="playlist"></div>
 		</div>
 
@@ -215,7 +207,7 @@
 		<div id="LectureIntroduce" class="nav-page">
 			<div class="panel panel-default">
 				<h1>강좌 소개</h1>
-				<div class="form-group">
+				<div class="form-gro	up">
 					<p>
 						${classIntroduce.class_content }
 					</p>
@@ -414,12 +406,13 @@
 		
 		<!-- 질문답변 -->
 		<div id="Question" class="nav-page">
-			<div>
+			<div id="QA">
 				<h1>질문</h1>
 				<p><button id="Question-btn" class="btn btn-danger">질문작성</button></p>
 				<p class="input-group pull-right">
 						<input type="text" class="form-control" placeholder="검색하기" id="txt_search" value="${txt_search }">
 						<input type="hidden" id="txt_search" value="${txt_search }">
+						<input type="hidden" id="class_num" value="${class_num }">
 						<span class="input-group-btn">
 							<button class="btn btn-default" type="button" onclick="javascript:PageMoveQA(${pagination.pageNo}, '${txt_search }');">검색</button>
 						</span>
@@ -444,17 +437,17 @@
 						</c:otherwise>
 					</c:choose>
 					<!-- Pagination QA-->
-					<ul class="pagination text-center text-inline">
+					<ul id="paging" class="pagination text-center text-inline" >
 						<li><a href="javascript:PageMoveQA(${pagination.firstPageNo}, '${txt_search}')" class="button previous">&laquo;</a></li>
 						<li><a	href="javascript:PageMoveQA(${pagination.prevPageNo}, '${txt_search}')" class="button previous">&lt;</a></li>
 						<li class="pagination">
 							<c:forEach var="i" begin="${pagination.startPageNo}" end="${pagination.endPageNo}" step="1">
 								<c:choose>
 									<c:when test="${i eq pagination.pageNo}">
-										<li><a href="javascript:PageMoveQA(${i}, '${txt_search}')" class="active">${i}</a></li>
+										<li class="active"><a href="javascript:PageMoveQA(${i}, '${txt_search}')" class="active">${i}</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="javascript:PageMoveQA(${i}, '${txt_search}')">${i}</a></li>
+										<li><a href="javascript:PageMoveQA(${i}, '${txt_search}')" >${i}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -519,6 +512,7 @@
 	</div>
 	</div>
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
+	
 	<script type="text/javascript">
 	var class_num = $("#class_num").val();
 	

@@ -49,7 +49,6 @@
 		(function ($) {
 			$(document).ready(function () {
 				$('#summernote').summernote({
-					placeholder: 'content',
 					minHeight: 370,
 					maxHeight: null,
 					focus: true,
@@ -65,7 +64,7 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
+	<jsp:include page="../header/MainHeader.jsp"></jsp:include>
 
 	<div class="row">
 
@@ -95,7 +94,6 @@
 			</div>
 	
 			<div class="form-group">
-				<input type="hidden" class="class_num" value="${class_num }">
 				<input type="button" class="btn btn-primary" value="다음" onclick="Control();"> 
 				<input type="button" value="가이드 라인" onclick="ClassIntroduceGuideLine();" class="btn btn-primary">
 			</div>
@@ -111,9 +109,6 @@
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 
 	<script type="text/javascript">
-
-
-
 
 		function Control() {
 			ClassIntroduceMyform = document.ClassIntroduceMyform;

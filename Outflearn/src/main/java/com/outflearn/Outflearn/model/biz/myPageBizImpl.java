@@ -84,15 +84,17 @@ public class myPageBizImpl implements myPageBiz {
 		return dao.reqLecturer(map);
 	}
 	
+	
 	@Override
 	public int updateNickname(String nickname, int user_num) {
 		
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();	
 		
 		map.put("user_nickname", nickname);
 		map.put("user_num", user_num);
 		
 		return dao.updateNickname(map);
+
 	}
 	
 	@Override

@@ -33,7 +33,7 @@
 
 <body>
 
-  <jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
+  <jsp:include page="../header/MainHeader.jsp"></jsp:include>
 
   <div class="container">
 
@@ -115,7 +115,7 @@
                         <form action="updateNickname" onsubmit="return nickSubmit(this)">
                           <h5><input type="text" name="nickname" id="setNickname" value="${userInfo.user_nickname}"
                               default="${userInfo.user_nickname}"></h5>
-                          <input type="submit" id="updateNickname" value="저장하기" disabled>
+                          <input type="submit" id="updateNickname" class="configBtn" value="저장하기" disabled>
                         </form>
                       </div>
                     </div>
@@ -140,7 +140,7 @@
                               <option value="daum.net">daum.net</option>
                             </select>
                           </h5>
-                          <input type="submit" id="updateEmail" value="저장하기" disabled>
+                          <input type="submit" id="updateEmail" class="configBtn" value="저장하기" disabled>
                         </form>
                       </div>
                     </div>
@@ -161,7 +161,7 @@
                           <h5>강사에요</h5>
                         </c:if>
                         <c:if test="${grade eq '[ROLE_USER]'}">
-                          <button onclick="location.href='reqLecturer'">'강사'하기</button>
+                          <button onclick="location.href='reqLecturer'" class="configBtn">'강사'하기</button>
                         </c:if>
                       </div>
                     </div>
@@ -175,7 +175,7 @@
                           <input type="password" name="beforePw" placeholder="현재 비밀번호">
                           <input type="password" name="afterPw" placeholder="새 비밀번호">
                           <input type="password" name="afterPwChk" placeholder="새 비밀번호 확인">
-                          <input type="submit" id="updatePw" value="저장하기">
+                          <input type="submit" id="updatePw" class="configBtn" value="저장하기">
                         </form>
                       </div>
                     </div>
