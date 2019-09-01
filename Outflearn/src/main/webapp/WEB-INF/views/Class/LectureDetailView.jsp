@@ -26,14 +26,6 @@
             <div id="side_header_container" class="container">
                 <h5>TEST</h5>
                 <p>THIS IS TEST</p>
-<!--                 <div> -->
-<!--                     <label>진도율 : | 총 ?? 강좌중 ?개 완료</label> -->
-<!--                     <div class="progress"> -->
-<!--                         <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" -->
-<!--                             aria-valuemax="100" style="width: 0%;"> -->
-<!--                         </div> -->
-<!--                     </div> -->
-<!--                 </div> -->
             </div>
             <div id="side_content_container" class="container">
                 <ul id="sidebar" class="list-group list-unstyled">
@@ -58,10 +50,6 @@
             	<p align="center" id="content-media">
             		<input type="hidden" id="video_id" value="${DATA_DATA }">
             	</p>
-            </div>
-            <div id="bookmark_group" class="text-center">
-            	<button onclick="bookmark()" style="position: relative">책갈피</button>
-            	<div id="bookmark" style="width: 100%; height: 200px; overflow-y: scroll;"></div>
             </div>
         </div>
     </div>

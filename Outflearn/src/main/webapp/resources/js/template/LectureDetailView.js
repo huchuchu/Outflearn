@@ -32,20 +32,22 @@ $(document).ready(function(){
     	type: 'GET',
     	url: 'LecturePlayList',
     	success: function(playlist) {
-    		console.log('성공!!!' + playlist)
+    		var ArrayPlayList = '' + playlist
+    		var EachPlayList = ArrayPlayList.split(',')
+    		
     		var play_id = new Array()
     		
-    		for(var i = 0; i < playlist.length; i++) {
-    			console.log(playlist[0], '1q2w3e')
-    			if(playlist[i].indexOf("v=") != -1){
-            		
-            		play_id[i] = playlist[i].split('v=', 2)[1]
+    		for(var i = 0; i < EachPlayList.length; i++) {
+    			
+    			if(EachPlayList[i].indexOf("v=") != -1){
+    				
+            		play_id[i] = EachPlayList[i].split('v=', 2)[1]
             		playlist = "https://www.googleapis.com/youtube/v3/videos?id=" + play_id[i] + "&part=contentDetails,snippet&key=AIzaSyAKpVZhMIKzF0zAD17yeVygQWNfL7MCCzc";
                 	getPlayOne(playlist)
                 	
-            	} else if(playlist[i].indexOf("list") != -1) {
+            	} else if(EachPlayList[i].indexOf("list") != -1) {
             		
-            		play_id[i] = playlist[i].split('list=', 2)[1]
+            		play_id[i] = EachPlayList[i].split('list=', 2)[1]
             		playlist = "https://www.googleapis.com/youtube/v3/playlistItems?playlistId=" + play_id[i] + "&part=contentDetails,snippet&maxResults=5&key=AIzaSyAKpVZhMIKzF0zAD17yeVygQWNfL7MCCzc";
                 	getPlayList(playlist)
                 	
@@ -87,15 +89,17 @@ $(document).ready(function(){
 })
 
 function getPlayOne(video_list) {
+	
 	$.ajax({
         type: 'GET',
         dataType: 'JSON',
         url: video_list,
         success: function (vi_list) {
-        	console.log(vi_list, "이거는 뭐꼬")
+        	
            for(var i = 0; i < vi_list.items.length; i++) {
         	   var video_title = vi_list.items[0].snippet.title
-        	   var video = vi_list.items[i].snippet.id
+        	   var video = vi_list.items[i].id
+        	   
         	   $('#sidebar').append(
         			   `<li class="list-group-item"><a class="lecturevideo" href="void:0"></a>${video_title}<input type="hidden" class="video_data" value="${video}" /></li>`
         	   );
@@ -133,15 +137,17 @@ function getPlayOne(video_list) {
 }
 
 function getPlayList(video_list) {
+	
 	$.ajax({
         type: 'GET',
         dataType: 'JSON',
         url: video_list,
         success: function (vi_list) {
-        	console.log(vi_list, "리스트는 뭐꼬")
+        	
            for(var i = 0; i < vi_list.items.length; i++) {
         	   var video_title = vi_list.items[i].snippet.title
         	   var video = vi_list.items[i].snippet.resourceId.videoId;
+        	   
         	   $('#sidebar').append(
         			   `<li class="list-group-item"><a class="lecturevideo" href="void:0"></a>${video_title}<input type="hidden" class="video_data" value="${video}" /></li>`
         	   );
@@ -156,7 +162,7 @@ function getPlayList(video_list) {
                
                
 				  player = new YT.Player('lectureyoutube', {
-				    height: '100%',            
+				    height: '100%',
 				    width: '100%',             
 				    videoId: `${video_data}`,   
 				    events: {
@@ -188,13 +194,12 @@ function onYouTubeIframeAPIReady () {
       'onStateChange': onPlayerStateChange
     },
   });
-  console.log('test')
+  
   window.ytplayer = player
 }
 
-
 function onPlayerReady (event) {
-  console.log('onPlayerReady 실행');
+  
 }
 
 var playerState;

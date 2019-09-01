@@ -191,10 +191,9 @@ $(document).ready(function () {
     $('.input').on('click', function() {
        
     	console.log($('output').text())
-       $('#user_star').attr('value', $('output').text())
+       $('#user_star').attr('value', $('output#review-rating').text())
        
        if($('output').text() == '0') {
-           alert("별점을 주세요.")
            $('form#Review').bind('submit', submitAction)
         } else if($('output').text() != '0') {
            $('form#Review').unbind()
@@ -246,8 +245,9 @@ $(document).ready(function () {
     
     $('form#Review').bind('submit', submitAction)
     $('.input').on('click', function() {
+    	var rating = $('output#review-rating').text().substr($('output#review-rating').text().length-1, 1)
     	
-    	$('#user_star').attr('value', $('output').text())
+    	$('#user_star').attr('value', rating)
     	
     	if($('output').text() == '0') {
         	alert("별점을 주세요.")
@@ -257,22 +257,31 @@ $(document).ready(function () {
         }
     })
     
+    var ReviewnumValue = document.querySelectorAll(".modal-review-num")
+    
+    var ModalReviewnum = Array.prototype.map.call(ReviewnumValue, function(element) {
+        return element.value
+    });
+    
     $('.review-reply-update').on('click', function() {
-    	$('#ReviewUpdateForm').modal({ backdrop: "static" })
+    	$(this).next().modal({ backdrop: "static" })
     })
     
-    $('form#ReviewUpdate').bind('submit', submitAction)
-    $('.input').on('click', function() {
+    $('form.ReviewUpdate').bind('submit', submitAction)
+    $('.input-update').on('click', function() {
+    	var rating = $('output#review-rating-update').text().substr($('output#review-rating-update').text().length-1, 1)
     	
-    	$('#user_star-update').attr('value', $('output#review-rating-update').text())
-    	
+    	$('.user_star_update').attr('value', rating)
+    	console.log($('.user_star_update').val(), 'test')
+    	console.log(typeof $('.user_star_update').val(), 'testtest')
     	if($('output#review-rating-update').text() == '0') {
         	alert("별점을 주세요.")
-        	$('form#ReviewUpdate').bind('submit', submitAction)
+        	$('form.ReviewUpdate').bind('submit', submitAction)
         } else if($('output.update').text() != '0') {
-        	$('form#ReviewUpdate').unbind()
+        	$('form.ReviewUpdate').unbind()
         }
     })
+    
 })
 
 function DashboardHeader() {

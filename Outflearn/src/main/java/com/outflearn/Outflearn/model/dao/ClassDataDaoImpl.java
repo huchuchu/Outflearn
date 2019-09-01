@@ -415,11 +415,9 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 	
 	@Override
-	public int ClassReviewUpdateAnswer(int review_num) {
+	public int ClassReviewReplyUpdate(ClassReviewDto dto) {
 
-		int res = 0;
-
-		res = sqlSession.update(namespace + "classReviewUpdateAnswer", review_num);
+		int res = sqlSession.update(namespace + "classReviewUpdateAnswer", dto);
 
 		return res;
 	}
@@ -430,6 +428,14 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		int res = 0;
 		
 		res = sqlSession.insert(namespace + "classReviewInsertAnswer", dto);
+		
+		return res;
+	}
+	
+	@Override
+	public int ClassReviewReplyDelete(int review_num) {
+		
+		int res = sqlSession.delete(namespace + "ReviewReplyDelete", review_num);
 		
 		return res;
 	}
