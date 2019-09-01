@@ -131,7 +131,6 @@
 		
 	}
 
-		
 	
 </script>
 </head>
@@ -150,14 +149,15 @@
 		<div class="col-sm-6 col-el-8">
 
 			<form:form name="DataVideoMyform" action="DataVideoUploadUpdate" method="post" enctype="multipart/form-data">
-			
+				<input type="hidden" name="class_num" value="${class_num }" >
+				
 				<div class="input-group">
 					<h1>영상 소개 수정</h1>
 				</div>
 
 				<div class="form-group">
 					<h3>소제목</h3>
-					<input type="text" name="data_subhead" class="form-control" placeholder="${class_data[0].data_subhead }">
+					<input type="text" name="data_subhead" class="form-control"  placeholder="${class_data[0].data_subhead }">
 				</div>
 
 				<div class="form-group">
@@ -186,9 +186,9 @@
 
 
 				<div class="form-group">
-					<input type="button" class="btn btn-primary" value="작성 후 클릭" onclick="Control();" /> 
+					<input type="button" class="btn btn-primary" value="수정" onclick="Control();" /> 
 					<input type="button" value="가이드라인" onclick="DataVideoGuideLine();" class="btn btn-primary"> 
-					<input type="button" class="btn btn-primary" value="강의 목록 " onclick="location.href='myClass'">
+					<input type="button" class="btn btn-primary" value="완료 " onclick="location.href='mypage'">
 				</div>
 			
 				

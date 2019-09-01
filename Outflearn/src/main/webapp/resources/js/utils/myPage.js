@@ -211,7 +211,7 @@ function updateClass(class_num, class_title) {
         title: `${class_title} 수정 영역 선택`,
         html: `<button onclick="location.href='ClassIntroduceUpdateForm?class_num=${class_num}'">강의 소개</button>
         	   <button onclick="location.href='ClassDataInsertPlus?class_num=${class_num}'">영상 추가</button>
-        	   <button onclick="location.href='ClassDataUpdateForm?class_num=${class_num}'">영상 수정</button>`,
+        	   <button onclick="location.href='ClassDataUpdate?class_num=${class_num}'">영상 수정</button>`,
         showCancelButton: false,
         showCloseButton: true,
         showConfirmButton: false

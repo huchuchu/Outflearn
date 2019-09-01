@@ -39,6 +39,9 @@ public interface ClassDataDao {
 		public int ClassChapterDataInsert(ClassDataDto dto);
 		public int ClassInfoUpdateSub(int class_num);
 		public int ClassDataInsertPlus(ClassDataDto dto);
+		public int DataVideoUploadUpdate(ClassDataDto dto);
+		public int DataVideoSecondInsertPlus(ClassDataDto dto);
+		public ClassDataDto videoDataOne(ClassDataDto dto);
 		
 		// 장바구니 - BASKET 테이블
 		public int classBasketInsert(ClassInfoDto dto);

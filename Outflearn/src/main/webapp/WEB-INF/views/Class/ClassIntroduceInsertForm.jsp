@@ -94,7 +94,6 @@
 			</div>
 	
 			<div class="form-group">
-				<input type="hidden" class="class_num" value="${class_num }">
 				<input type="button" class="btn btn-primary" value="다음" onclick="Control();"> 
 				<input type="button" value="가이드 라인" onclick="ClassIntroduceGuideLine();" class="btn btn-primary">
 			</div>
@@ -110,9 +109,6 @@
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
 
 	<script type="text/javascript">
-
-
-
 
 		function Control() {
 			ClassIntroduceMyform = document.ClassIntroduceMyform;

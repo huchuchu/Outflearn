@@ -38,6 +38,9 @@ public interface ClassDataBiz {
 		public int ClassChapterDataInsert(ClassDataDto dto);
 		public int ClassInfoUpdateSub(int class_num);
 		public int ClassDataInsertPlus(ClassDataDto dto);
+		public int DataVideoUploadUpdate(ClassDataDto dto);
+		public int DataVideoSecondInsertPlus(ClassDataDto dto);
+		public ClassDataDto videoDataOne(ClassDataDto dto);
 		
 		// 장바구니 - BASKET 테이블
 		public int classBasketInsert(ClassInfoDto dto);
@@ -96,4 +99,5 @@ public interface ClassDataBiz {
 		public int classInsertSubscribe(int user_num, int class_num);
 		// 결제에 따라 장바구니 테이블 안나옴
 		public int ClassBuyAfter(int class_num, int user_num);
+	
 }

@@ -81,14 +81,14 @@
 				</li>
 			</ul>
 				<div class="col-sm-6 col-el-8">
-			<form:form name="ClassIntroduceMyform" action="DataVideoUploadForm" method="post" enctype="multipart/form-data">
+			<form:form name="ClassIntroduceMyform" action="ClassIntroduceUpdate" method="post" enctype="multipart/form-data">
 			
 			<div class="input-group">
 				<h1>강의 내용 </h1>
 			</div>
 			
 			<div class="form-group">
-				<textarea id="summernote" class="class_content" name="class_content">${class_content.class_content }</textarea>
+				<textarea id="summernote" class="class_content" name="class_content" placeholder="${class_content.class_content }"></textarea>
 			</div>
 	
 			<div class="form-group">
@@ -110,7 +110,8 @@
 	<script type="text/javascript">
 	
 	function Control(){
-		
+		var class_content = $(".class_content").val();
+		alert(class_content)
 		ClassIntroduceMyform = document.ClassIntroduceMyform;
 		if (ClassIntroduceMyform.class_content.value == "") {
 			Swal.fire({
@@ -122,14 +123,14 @@
 		
 		else {
 		
-		var class_content = $(".class_content").val();
+		
 		var class_num = $(".class_num").val();
 		
 		$.ajax({
 			url : 'ClassIntroduceUpdate?class_num=' + class_num + "&class_content=" + class_content,
-			method : 'get',
+			method : 'post',
 			success : function(data) {
-				location.href= 'LectureDetail?class_num=' + class_num;
+				location.href= 'mypage';
 			},
 			error : function() {
 				alert('에러 발생~~ \n')

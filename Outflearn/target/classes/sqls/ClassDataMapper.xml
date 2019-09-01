@@ -49,9 +49,9 @@
 	
 	<!-- 강좌 챕터 영상 보기 -->
 	<select id="classdataselectone" parameterType="map" resultType="ClassDataDto">
-	  SELECT CLASS_INFO_SQ.CURRVAL FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
+	  SELECT * FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
   	</select>
-	
+  	
 	<!-- 영상추가 첫번째 페이지 -->
 	<insert id="ClassDataInsert" parameterType="ClassDataDto">
 		INSERT INTO CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SUBHEAD, DATA_SQ, DATA_TITLE,
@@ -62,26 +62,38 @@
 	<insert id="ClassChapterDataInsert" parameterType="ClassDataDto">
 		INSERT INTO
 		CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SQ, DATA_TITLE, DATA_DATA)
-		VALUES(#{class_num }, DATA_CHAPTER_SQ.CURRVAL , #{data_sq },
+		VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.CURRVAL , #{data_sq },
 		#{data_title } , #{data_data })
 	</insert>
+	
 	
 	<!-- 영상추가 페이지 첫번째 챕터 추가 -->
 	<insert id="ClassDataInsertPlus" parameterType="ClassDataDto">
 		INSERT INTO CLASS_DATA(CLASS_NUM, DATA_CHAPTER ,DATA_SUBHEAD, DATA_SQ, DATA_TITLE, DATA_DATA) VALUES(#{class_num }, DATA_CHAPTER_SQ.NEXTVAL ,#{data_subhead }, #{data_sq }, #{data_title}, #{data_data })
 	</insert>
 	
+	<!-- 영상추가 페이지 첫번째 챕터안에 내용 추가 -->
+	<insert id="DataVideoSecondInsertPlus" parameterType="ClassDataDto">
+		INSERT INTO
+		CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SQ, DATA_TITLE, DATA_DATA)
+		VALUES(#{class_num }, DATA_CHAPTER_SQ.CURRVAL , #{data_sq },
+		#{data_title } , #{data_data })
+	</insert>
+	
+	
+	<!-- 영상 소제목,과정순서, 영상 업로드 수정 -->
+	<update id="DataVideoUploadUpdate" parameterType="ClassDataDto">
+		UPDATE CLASS_DATA SET DATA_SUBHEAD =  #{data_subhead } , DATA_SQ = #{data_sq }, DATA_TITLE = #{data_title }, DATA_DATA = #{data_data } WHERE CLASS_NUM = #{class_num }
+	</update>
+	
 	<!-- ================== CLASS_INTRODUCE 테이블 ================== -->
 
 	<!-- 해당 클래스의 강좌 -->
-	<select id="classIntroduceSelectlist" parameterType="int"
-		resultType="ClassIntroduceDto">
-		SELECT CLASS_CONTENT FROM CLASS_INTRODUCE WHERE CLASS_NUM =
-		(SELECT CLASS_NUM FROM CLASS_INTRODUCE WHERE CLASS_NUM = #{class_num
-		})
+	<select id="classIntroduceSelectlist" parameterType="int" resultType="ClassIntroduceDto">
+		SELECT CLASS_CONTENT FROM CLASS_INTRODUCE WHERE CLASS_NUM = (SELECT CLASS_NUM FROM CLASS_INTRODUCE WHERE CLASS_NUM = #{class_num })
 	</select>
 
-	<!-- 강좌 내용 DB추가 -->
+	<!-- 강의 내용 DB추가 -->
 	<insert id="ClassIntroduceInsert" parameterType="ClassIntroduceDto">
 		INSERT INTO CLASS_INTRODUCE (CLASS_NUM, CLASS_CONTENT)
 		VALUES(CLASS_INFO_SQ.CURRVAL, #{class_content })

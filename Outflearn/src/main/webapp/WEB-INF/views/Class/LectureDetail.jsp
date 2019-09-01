@@ -47,10 +47,6 @@
 </script>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-	<sec:authorize access="isAuthenticated()">
-		<sec:authentication var="num" property="principal.user_num"/>
-	</sec:authorize>
-
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 	
 	<sec:authorize access="isAuthenticated()">
@@ -59,9 +55,6 @@
 
 	<c:forEach items="${classdata }" var="dto">
 		<input type="hidden" id="subhead" value="${dto.data_subhead }">
-		<input type="hidden" id="data" value="${dto.data_data }">
-		<input type="hidden" id="data_sq" value="${dto.data_sq }">
-		<input type="hidden" id="data_chapter" value="${dto.data_chapter }">
 	</c:forEach>
 	
 	<div class="jumbotron">
@@ -91,7 +84,7 @@
 				</p>
 				
 				
-				<c:if test="${empty ClassBuyAfter != user_nickname == user_nickname }">
+				<c:if test="${empty ClassBuyAfter or user_nickname == user_nickname }">
 				<div id="box">
 					<div id="course">
 						<h4>${classinfo.class_price }원</h4>
@@ -213,6 +206,7 @@
 					</table>
 				</div>
 			</div>
+			<div><h1>교욱 과정</h1></div>
 			<div id="playlist"></div>
 		</div>
 
@@ -220,7 +214,7 @@
 		<div id="LectureIntroduce" class="nav-page">
 			<div class="panel panel-default">
 				<h1>강좌 소개</h1>
-				<div class="form-group">
+				<div class="form-gro	up">
 					<p>
 						${classIntroduce.class_content }
 					</p>
@@ -534,6 +528,7 @@
 	</div>
 	
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
+	
 	<script type="text/javascript">
 	var class_num = $("#class_num").val();
 	

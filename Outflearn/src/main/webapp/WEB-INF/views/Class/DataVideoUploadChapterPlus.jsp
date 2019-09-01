@@ -161,7 +161,7 @@
 				<div class="form-group">
 					<input type="button" class="btn btn-primary" value="작성 후 클릭" onclick="Control();" />
 					<input type="button" value="가이드 라인" onclick="DataVideoGuideLine();" class="btn btn-primary">
-					<input type="button" class="btn btn-primary" value="강의 목록 " onclick="location.href='LectureList'">
+					<input type="button" class="btn btn-primary" value="완료 " onclick="location.href='mypage'">
 				</div>
 
 		

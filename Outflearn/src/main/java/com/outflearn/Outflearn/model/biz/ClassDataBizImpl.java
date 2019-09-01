@@ -119,7 +119,23 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return dao.ClassDataInsertPlus(dto);
 	}
 	
-
+	@Override
+	public int DataVideoUploadUpdate(ClassDataDto dto) {
+		
+		return dao.DataVideoUploadUpdate(dto);
+	}
+	
+	@Override
+	public int DataVideoSecondInsertPlus(ClassDataDto dto) {
+		
+		return dao.DataVideoSecondInsertPlus(dto);
+	}
+	
+	@Override
+	public ClassDataDto videoDataOne(ClassDataDto dto) {
+	
+		return dao.videoDataOne(dto);
+	}
 
 //	-------------------------------------------------장바구니(BASKET)
 	@Override
@@ -336,6 +352,12 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int classInsertSubscribe(int user_num, int class_num) {
 		return dao.classInsertSubscribe(user_num, class_num);
 	}
+
+
+
+
+
+	
 
 
 

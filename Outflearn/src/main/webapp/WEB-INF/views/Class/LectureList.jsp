@@ -151,8 +151,7 @@
 													class="card-img-top"
 													src="${pageContext.request.contextPath }/resources/uploadImage/${dto.class_img }"
 													alt="Card image cap">
-													
-											
+												
 												<div class="card-body">
 													<h5 class="card-title">${dto.class_title }</h5>
 													<p class="card-text">${dto.class_intro }</p>
