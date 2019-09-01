@@ -1,8 +1,6 @@
 package com.outflearn.Outflearn.model.biz;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.CommentDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
-import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.RoadUserCombineDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;

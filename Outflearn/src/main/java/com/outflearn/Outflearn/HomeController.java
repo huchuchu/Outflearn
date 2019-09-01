@@ -667,9 +667,12 @@ public class HomeController {
 	}
 
 	@RequestMapping("LectureDetailView")
-	public String LectureDetailView(String DATA_DATA, Model model) {
+	public String LectureDetailView(String DATA_DATA, Model model, HttpSession session) {
 
+		int info_num = (int)session.getAttribute("info_num");
+		
 		model.addAttribute("DATA_DATA", DATA_DATA);
+		model.addAttribute("classInfo", biz.ClassInfoSelectOne(info_num));
 
 		return "Class/LectureDetailView";
 	}

@@ -67,11 +67,21 @@ $(document).ready(function(){
     	$('#header, #content').css({'width': $(window).innerWidth() - $('aside').width(), 'transition': 'left 0.001s ease'})
     })
     
-    $('#content').css({'top': $('#header').height() + 'px'})
+    $('#content').css({'top': $('#header').height() + '40px'})
     
     $('#content-media').css({'height': $('#content').outerHeight()})
     
     $('#bookmark_group').css({'top': $('#header').height()*2 + $('#content').outerHeight()})
+    
+    var class_num = $('#class_num').val()
+    
+    $('.page-out').on('click', function() {
+    	location.href="LectureDetail?class_num=" + class_num + "#dashboard"
+    })
+    
+    $('.question').on('click', function() {
+    	location.href="LectureDetail?class_num=" + class_num + "#Question"
+    })
     
     // 메뉴 슬라이드 바
     $('.fa-bars').on('click', function() {
@@ -104,6 +114,7 @@ function getPlayOne(video_list) {
         			   `<li class="list-group-item"><a class="lecturevideo" href="void:0"></a>${video_title}<input type="hidden" class="video_data" value="${video}" /></li>`
         	   );
            }
+           $('#youtube-title').html(`${video_title}`)
            $('.list-group-item').on('click', function() {
     		   var video_data = $(this).children('.video_data').val()
     		   $('#content-media').html(
@@ -111,7 +122,6 @@ function getPlayOne(video_list) {
             		   	<div id="lectureyoutube"></div>
             		   </div>`
                )
-               
                
 				  player = new YT.Player('lectureyoutube', {
 				    height: '100%',            
@@ -152,6 +162,7 @@ function getPlayList(video_list) {
         			   `<li class="list-group-item"><a class="lecturevideo" href="void:0"></a>${video_title}<input type="hidden" class="video_data" value="${video}" /></li>`
         	   );
            }
+           $('#youtube-title').html(`${video_title}`)
            $('.list-group-item').on('click', function() {
     		   var video_data = $(this).children('.video_data').val()
     		   $('#content-media').html(
@@ -159,7 +170,6 @@ function getPlayList(video_list) {
             		   	<div id="lectureyoutube"></div>
             		   </div>`
                )
-               
                
 				  player = new YT.Player('lectureyoutube', {
 				    height: '100%',

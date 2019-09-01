@@ -46,7 +46,7 @@
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 	
 	<sec:authorize access="isAuthenticated()">
-		<sec:authentication var="user_nickname" property="principal.user_nickname"/>
+		<sec:authentication var="num" property="principal.user_num"/>
 	</sec:authorize>
 
 	<c:forEach items="${classdata }" var="dto">
@@ -207,7 +207,7 @@
 		<div id="LectureIntroduce" class="nav-page">
 			<div class="panel panel-default">
 				<h1>강좌 소개</h1>
-				<div class="form-gro	up">
+				<div class="form-group">
 					<p>
 						${classIntroduce.class_content }
 					</p>
