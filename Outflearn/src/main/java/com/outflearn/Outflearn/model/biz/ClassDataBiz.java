@@ -53,6 +53,8 @@ public interface ClassDataBiz {
 		
 		public int ClassReviewAnswer(ClassReviewDto dto, int parentBoard_no);
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);
+		public int ClassReviewReplyUpdate(ClassReviewDto dto);
+		public int ClassReviewReplyDelete(int review_num);
 		
 		// 주류, 부류 - MAIN_STREAM , SUB_STREAM
 		//public int mainStreamInsert(MainStreamDto dto);

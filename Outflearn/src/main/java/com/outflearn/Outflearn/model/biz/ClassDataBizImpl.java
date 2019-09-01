@@ -187,13 +187,21 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		return (ClassReviewUpdateAnswer + ClassReviewInsertAnswer);
 	}
 
-	
-
 	@Override
 	public int ClassReviewInsertAnswer(ClassReviewDto dto) {
 		return dao.ClassReviewInsertAnswer(dto);
 	}
+	
+	@Override
+	public int ClassReviewReplyUpdate(ClassReviewDto dto) {
+		return dao.ClassReviewReplyUpdate(dto);
+	}
 
+	@Override
+	public int ClassReviewReplyDelete(int review_num) {
+		return dao.ClassReviewReplyDelete(review_num);
+	}
+	
 	@Override
 	public List<ClassDataDto> ClassDataSelectList() {
 		return dao.ClassDataSelectList();
