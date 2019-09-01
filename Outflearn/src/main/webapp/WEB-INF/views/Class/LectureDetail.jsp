@@ -74,13 +74,10 @@
 			<div id="study_btn" class="col-md-3">
 				<p class="text-center" align="center">
 					<a href="void:0" class="btn btn-success btn-lg" role="button">학습하기</a>
-					<c:forEach items="${classdata }" var="dto">
-						${dto.data_chapter }
-					</c:forEach>
 				</p>
 				
 				
-				<c:if test="${empty ClassBuyAfter or user_nickname == user_nickname }">
+				<c:if test="${empty ClassBuyAfter or user_nickname != user_nickname }">
 				<div id="box">
 					<div id="course">
 						<h4>${classinfo.class_price }원</h4>
