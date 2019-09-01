@@ -207,6 +207,10 @@ div.panel-set {
    display: inline-block;
 }
 
+#rating-tag, #count-tag{
+	color: #eeeeee;
+}
+
 .star-input>.input,
 .star-input>.input>label:hover,
 .star-input>.input>input:focus+label,
