@@ -529,6 +529,45 @@ public class RoadMapDaoImpl implements RoadMapDao {
 		return res;
 	}
 
+	@Override
+	public List<Integer> getSubnumList(List<Integer> list) {
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("classlist",list);
+		List<Integer> getList = new ArrayList<Integer>();
+		
+		try {
+			getList = session.selectList(NAMESPACE+"getSubnumList", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		
+		}
+		
+		return getList;
+	}
+
+	@Override
+	public List<String> getsubnumName(List<Integer> list) {
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("subnumNameList",list);
+		List<String> getList = new ArrayList<String>();
+		
+		try {
+			getList = session.selectList(NAMESPACE+"getsubnumNameList", map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return getList;
+	}
+	
+	
+	
+	
+
 	
 
 

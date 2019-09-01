@@ -29,6 +29,7 @@ background-color:#2c2e37;
 text-align: center;
 padding-top: 2%;
 height: 100%;
+color: #e4e5ed;
 
 }
 
@@ -312,7 +313,7 @@ width: 90%;
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×</button>
+          <button type="button" class="close rn" data-dismiss="modal">×</button>
           <h4 class="modal-title"><span id="logo">Outflearn</span></h4>
         </div>
         <div class="modal-body">
@@ -320,7 +321,7 @@ width: 90%;
          <textarea rows="5" cols="78" id="modal_content"></textarea>
         </div>
         <div class="modal-footer">        
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+          <button type="button" class="btn btn-secondary rn" data-dismiss="modal" >취소하기</button>
           <button type="button" class="btn btn-primary" id="AddBtn" >댓글저장</button>          
           
         </div>
@@ -368,7 +369,13 @@ $(function(){
 		
 		})
 		
-	})
+	});
+	
+	//모달 취소눌렀을 때 내용지우기	
+	$(".rn").click(function(){		
+		$(".modal-body #modal_content").val("");	
+		$(".modal-body #numArea").val("");		
+	});
 	
 });
 
@@ -439,8 +446,10 @@ function comment_List(){
 			var htmls = "";
 			
 			if(msg.length < 1){
+				htmls += '<div class="media text-muted pt-3 commentdiv" >';
+				htmls += '<h3>===등록된 댓글이 없습니다===</h3>';
+				htmls += '</div>';
 				
-				htmls.push("등록된 댓글이 없습니다");
 			}else{
 				
                 $(msg).each(function(){    
@@ -553,42 +562,12 @@ function back(){
 }
 
 function showModal(comNum){
-	
+
 	$(".modal-body #numArea").val(comNum);
 	$("#myModal").modal('show');
 	
 }
 
-function reCommentadd(userNum){
-	
-	var content = $("#modal_content").val();
-	var comNum = $("#numArea").val();
-	var roadNum = $("#roamdMapNum").val();
-
-	
-	if(con=="" || con == null){
-		Swal.fire({
-			  type: 'error',
-			  title: '내용을 작성해주세요!'
-			})
-			return false;
-	}
-	
-	var param = {"user_num":userNum , "comment_content":content, "roadmap_num":roadNum, "comment_num":comNum}
-	
-	$.ajax({
-		url:"addReComment",
-		type:"POST",
-		data:param,
-		success: function(data){
-			
-		}
-	
-	})
-	
-	
-			
-}
 
 </script>
 
