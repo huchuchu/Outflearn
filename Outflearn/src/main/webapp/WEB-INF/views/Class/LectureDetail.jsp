@@ -86,7 +86,7 @@
 				</p>
 				
 				
-				<c:if test="${empty ClassBuyAfter != user_nickname == user_nickname }">
+				<c:if test="${empty ClassBuyAfter or user_nickname == user_nickname }">
 				<div id="box">
 					<div id="course">
 						<h4>${classinfo.class_price }원</h4>

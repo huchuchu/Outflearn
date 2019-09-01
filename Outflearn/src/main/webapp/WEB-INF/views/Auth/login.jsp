@@ -49,7 +49,7 @@
 				
 	                <input type="submit" value="Sign in" id="submitBTN" >
 					<input type="checkbox" id="remember-me" name="remember-me" style="margin-left: 2%;">
-					<span>Rmember Me</span>
+					<span>Remember Me</span>
 	
 					
 					<br/><br/>

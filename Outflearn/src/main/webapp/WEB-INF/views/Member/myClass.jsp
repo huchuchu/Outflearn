@@ -138,16 +138,16 @@
                               </td>
                               <td class="text-center">${item.class_subcount}명</td>
                               <td class="text-center"><button
-                                  onclick="updateClass(${item.class_num}, '${item.class_title }')">수정</button></td>
+                                  onclick="updateClass(${item.class_num}, '${item.class_title }')" class="updateBtn">수정</button></td>
                               <td class="text-right"><button
-                                  onclick="deleteClass(${item.class_num}, '${item.class_title }')">삭제</button></td>
+                                  onclick="deleteClass(${item.class_num}, '${item.class_title }')" class="deleteBtn">삭제</button></td>
                             </tr>
                           </c:forEach>
                         </c:otherwise>
                       </c:choose>
                       <tr>
                         <td colspan="4" class="text-center">
-                          <button onclick="location.href='ClassInfoInsertForm'">강좌 추가</button>
+                          <button onclick="location.href='ClassInfoInsertForm'" class="addBtn">강좌 추가</button>
                         </td>
                       </tr>
                     </tbody>
