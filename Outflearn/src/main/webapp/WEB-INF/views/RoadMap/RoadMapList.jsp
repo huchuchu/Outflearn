@@ -52,14 +52,13 @@ function PageMove(page,data) {
    <jsp:include page="../header/MainHeader.jsp"></jsp:include>
    <!-- Header  -->
    <!-- 베너 -->
-   	<!-- 지니야 이거 가운데로 옮겨조^.^♡ 검색창 검색버튼 select_option floating카드도^.^ㅋㅋㅋ-->
       <div class="container">
       <div class="row" >
       	<div class="col-sm-12 toptop">   
-              <h1 style="padding-bottom: 1%;" id="page-header-content">배우고 나누고, 함께 성장하세요 </h1>                         
-              <div style="padding-left: 30%;" >            
+              <h1 id="page-header-content">전체 카테고리</h1>                         
+              <div id="search" class="form-group row justify-content-center col-sm-10 col-sm-push-6">            
                  <div class="form-group ren" style="width: 10%;" >
-                    <select class="form-control form-control-sm" name="searchOption" id="searchOption">
+                    <select class="form-control form-control-sm form-group-sm" name="searchOption" id="searchOption">
                        <option value="all">전체</option>
                        <option value="roadmap_title">제목</option>
                        <option value="roadmap_author">작성자</option>
@@ -157,28 +156,24 @@ function PageMove(page,data) {
    
    
    <!-- Pagination -->
-         <div class="text-center form-group form-inline" >
-            <a href="javascript:PageMove(${pagination.firstPageNo},'${main_num }')"
-               class="button previous">&laquo;</a> <a
-               href="javascript:PageMove(${pagination.prevPageNo},'${main_num }')"
-               class="button previous">&lt;</a>
-            <div class="pages">
-               <c:forEach var="i" begin="${pagination.startPageNo}" end="${pagination.endPageNo}" step="1">
-                  <c:choose>
-                     <c:when test="${i eq pagination.pageNo}">
-                        <a href="javascript:PageMove(${i},'${main_num }')" class="active">${i}</a>
-                     </c:when>
-                     <c:otherwise>
-                        <a href="javascript:PageMove(${i},'${main_num }')">${i}</a>
-                     </c:otherwise>
-                  </c:choose>
-               </c:forEach>
-            </div>
-            <a href="javascript:PageMove(${pagination.nextPageNo},'${main_num }')"
-               class="button_next">&gt;</a> <a
-               href="javascript:PageMove(${pagination.finalPageNo},'${main_num }')"
-               class="button_next">&raquo;</a>
-         </div>
+        <ul id="paging" class="pagination text-center text-inline" >
+						<li><a href="javascript:PageMove(${pagination.firstPageNo},'${main_num }')" class="button previous">&laquo;</a></li>
+						<li><a	href="javascript:PageMove(${pagination.prevPageNo},'${main_num }'" class="button previous">&lt;</a></li>
+						<li class="pagination">
+							<c:forEach var="i" begin="${pagination.startPageNo}" end="${pagination.endPageNo}" step="1">
+								<c:choose>
+									<c:when test="${i eq pagination.pageNo}">
+										<li class="active"><a href="javascript:PageMove(${i}, '${main_num}')" class="active">${i}</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="javascript:PageMove(${i}, '${main_num}')" >${i}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</li>
+						<li><a href="javascript:PageMove(${pagination.nextPageNo}, '${main_num}')" class="button_next">&gt;</a></li>
+						<li><a href="javascript:PageMove(${pagination.finalPageNo}, '${main_num}')" class="button_next">&raquo;</a></li>
+					</ul>
    <!--footer  -->
       <jsp:include page="../footer/Footer.jsp"></jsp:include>
    

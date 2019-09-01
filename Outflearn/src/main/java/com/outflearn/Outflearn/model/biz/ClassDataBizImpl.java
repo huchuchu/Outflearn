@@ -176,15 +176,9 @@ public class ClassDataBizImpl implements ClassDataBiz {
 
 	@Override
 	public int ClassReviewAnswer(ClassReviewDto dto, int parentBoard_no) {
-		int parentboard_no = dto.getReview_num();
 		
-		  // update
-	      int ClassReviewUpdateAnswer = dao.ClassReviewUpdateAnswer(parentboard_no);
-	      
-	      // insert
-	      int ClassReviewInsertAnswer = dao.ClassReviewInsertAnswer(dto);
 		
-		return (ClassReviewUpdateAnswer + ClassReviewInsertAnswer);
+		return 0;
 	}
 
 	@Override

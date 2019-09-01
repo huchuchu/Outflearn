@@ -74,3 +74,10 @@ aside{
 #bookmark_btn {
 	position: relative;
 }
+
+#paging{
+	position : relative;
+	left : 50%;
+	transform : traslateX(-50%);
+}
+
