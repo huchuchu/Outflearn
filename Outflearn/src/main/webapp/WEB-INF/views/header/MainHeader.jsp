@@ -63,7 +63,6 @@
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 	            <li><a href="/Outflearn/adminPage">관리자페이지</a></li>
 			</sec:authorize>
-            <li><a href="/Outflearn/MemberInfoUpdateForm.do">회원정보 수정</a></li>
           <li><a href="/Outflearn/logout">로그아웃</a></li>  
           </sec:authorize>
         </ul>
