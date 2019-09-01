@@ -33,7 +33,7 @@
 
 <body>
 
-  <jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
+  <jsp:include page="../header/MainHeader.jsp"></jsp:include>
 
   <div class="container">
 

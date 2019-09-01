@@ -37,9 +37,6 @@
                 <div class="container text-center pull-right">
                     <div class="pull-left">
                         <span><i class="fas fa-bars"></i></span>
-                    </div>
-                    	제목입니다. 
-                    </div>
                     <div class="pull-right">
                         <span><i class="far fa-star"></i></span>
                         <span><i class="far fa-times-circle"></i></span>

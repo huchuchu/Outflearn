@@ -200,6 +200,34 @@ public class ClassDataDaoImpl implements ClassDataDao {
 
 		return res;
 	}
+
+	
+	@Override
+	public int DataVideoUploadUpdate(ClassDataDto dto) {
+		int res = 0;
+		
+		res = sqlSession.update(namespace + "DataVideoUploadUpdate", dto); 
+		
+		return res;
+	}
+	
+	@Override
+	public int DataVideoSecondInsertPlus(ClassDataDto dto) {
+		int res = 0;
+		
+		res = sqlSession.insert(namespace + "DataVideoSecondInsertPlus", dto); 
+		
+		return res;
+	}
+	
+	@Override
+	public ClassDataDto videoDataOne(ClassDataDto dto) {
+		
+		ClassDataDto Cdto = sqlSession.selectOne(namespace + "videoDataOne", dto);
+		
+		return Cdto;
+	}
+
 	
 
 //	--------------------------------------------------- 장바구니(BASKET)
@@ -661,6 +689,11 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	      
 	      return list;
 	}
+
+
+
+	
+
 
 	
 

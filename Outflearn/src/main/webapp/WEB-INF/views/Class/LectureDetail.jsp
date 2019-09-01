@@ -43,10 +43,6 @@
 </script>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-	<sec:authorize access="isAuthenticated()">
-		<sec:authentication var="num" property="principal.user_num"/>
-	</sec:authorize>
-
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 	
 	<sec:authorize access="isAuthenticated()">
@@ -55,7 +51,6 @@
 
 	<c:forEach items="${classdata }" var="dto">
 		<input type="hidden" id="subhead" value="${dto.data_subhead }">
-		<input type="hidden" id="data" value="${dto.data_data }">
 	</c:forEach>
 	
 	<div class="jumbotron">
@@ -79,6 +74,9 @@
 			<div id="study_btn" class="col-md-3">
 				<p class="text-center" align="center">
 					<a href="void:0" class="btn btn-success btn-lg" role="button">학습하기</a>
+					<c:forEach items="${classdata }" var="dto">
+						${dto.data_chapter }
+					</c:forEach>
 				</p>
 				
 				
@@ -204,6 +202,7 @@
 					</table>
 				</div>
 			</div>
+			<div><h1>교욱 과정</h1></div>
 			<div id="playlist"></div>
 		</div>
 
@@ -211,7 +210,7 @@
 		<div id="LectureIntroduce" class="nav-page">
 			<div class="panel panel-default">
 				<h1>강좌 소개</h1>
-				<div class="form-group">
+				<div class="form-gro	up">
 					<p>
 						${classIntroduce.class_content }
 					</p>
@@ -516,6 +515,7 @@
 	</div>
 	</div>
 	<jsp:include page="../footer/Footer.jsp"></jsp:include>
+	
 	<script type="text/javascript">
 	var class_num = $("#class_num").val();
 	

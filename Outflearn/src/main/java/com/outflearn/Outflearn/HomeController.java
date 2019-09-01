@@ -120,6 +120,7 @@ public class HomeController {
 		model.addAttribute("subList", subStreamList);
 		// model.addAttribute("classinfo",biz.ClassSubName(sub_num));
 
+
 		return "Class/LectureList";
 	}
 
@@ -200,82 +201,81 @@ public class HomeController {
 			return "Class/LectureDetail";
 		} else {
 			System.out.println("로그인된유저");
+			
+			session.setAttribute("info_num", class_num);
+			model.addAttribute("class_num", class_num);
+
+			UserInfoDto userdto = (UserInfoDto) securityContext.getAuthentication().getPrincipal();
+			String user_nickname = userdto.getUser_nickname();
+			int user_num = userdto.getUser_num();
+			model.addAttribute("user_nickname", user_nickname);
+			model.addAttribute("user_num", user_num);
+
+			// 강좌 소개
+			model.addAttribute("classinfo", biz.ClassInfoSelectOne(class_num));
+
+			// 댓글
+			model.addAttribute("classReview", biz.ClassReviewSelectList(class_num));
+
+			// 강의 소개
+			model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
+			
+		
+			
+			// 질문 리스트
+			//model.addAttribute("classQuestion", biz.QASelectList(class_num));
+			int totalCount = biz.selectTotalCountQA(txt_search, class_num);
+
+			int pageNum = (page == null) ? 1 : Integer.parseInt(page);
+
+			Pagination pagination = new Pagination();
+
+			// get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
+			pagination.setPageNo(pageNum);
+
+			// 한 페이지에 나오는 게시물의 개수
+			pagination.setPageSize(5);
+			pagination.setTotalCount(totalCount);
+
+			// select해오는 기준을 구함
+			pageNum = (pageNum - 1) * pagination.getPageSize();
+
+			
+			List<QADto> list = biz.selectListPageQA(pageNum, pagination.getPageSize(), txt_search, class_num);
+
+			model.addAttribute("classQuestion", list);
+			model.addAttribute("pagination", pagination);
+			model.addAttribute("txt_search", txt_search);
+			model.addAttribute("class_num", class_num);
+			// 대쉬보드 리뷰 리스트
+			model.addAttribute("ReviewList", biz.ReviewList(class_num));
+
+			// 대쉬보드 질문 리스트
+			model.addAttribute("QAList", biz.QAList(class_num));
+
+			// 부류, 주류
+			List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
+			List<SubStreamDto> subStreamList = Rbiz.subStreamList();
+
+			model.addAttribute("mainList", mainStreamList);
+			model.addAttribute("subList", subStreamList);
+
+			// 결제를 했으면 화면이 안나오게
+			int res = biz.ClassBuyAfter(class_num, user_num);
+			
+			// 영상 소개
+			List <ClassDataDto> Clist = biz.ClassDataSelectOne(class_num);
+			model.addAttribute("classdata", Clist);
+			
+			if (res > 0) {
+				model.addAttribute("ClassBuyAfter", res);
+				System.out.println(res + "강선웅");
+			}
+
+			return "Class/LectureDetail";
 		}
 
-		session.setAttribute("info_num", class_num);
-		model.addAttribute("class_num", class_num);
-
-		UserInfoDto userdto = (UserInfoDto) securityContext.getAuthentication().getPrincipal();
-		String user_nickname = userdto.getUser_nickname();
-		int user_num = userdto.getUser_num();
-		model.addAttribute("user_nickname", user_nickname);
-		model.addAttribute("user_num", user_num);
-
-		// 강좌 소개
-		model.addAttribute("classinfo", biz.ClassInfoSelectOne(class_num));
-
-		// 댓글
-		model.addAttribute("classReview", biz.ClassReviewSelectList(class_num));
-
-		// 강의 소개
-		model.addAttribute("classIntroduce", biz.ClassIntroduceSelectList(class_num));
 		
-	
-		
-		// 질문 리스트
-		//model.addAttribute("classQuestion", biz.QASelectList(class_num));
-		int totalCount = biz.selectTotalCountQA(txt_search, class_num);
-		logger.info("텍스트서치:" + txt_search);
-		logger.info("class_num"+class_num);
-		logger.info("" + totalCount);
-
-		int pageNum = (page == null) ? 1 : Integer.parseInt(page);
-
-		Pagination pagination = new Pagination();
-
-		// get방식의 파라미터값으로 받은page변수, 현재 페이지 번호
-		pagination.setPageNo(pageNum);
-
-		// 한 페이지에 나오는 게시물의 개수
-		pagination.setPageSize(5);
-		pagination.setTotalCount(totalCount);
-
-		// select해오는 기준을 구함
-		pageNum = (pageNum - 1) * pagination.getPageSize();
-
-		
-		List<QADto> list = biz.selectListPageQA(pageNum, pagination.getPageSize(), txt_search, class_num);
-
-		model.addAttribute("classQuestion", list);
-		model.addAttribute("pagination", pagination);
-		model.addAttribute("txt_search", txt_search);
-		model.addAttribute("class_num", class_num);
-		// 대쉬보드 리뷰 리스트
-		model.addAttribute("ReviewList", biz.ReviewList(class_num));
-
-		// 대쉬보드 질문 리스트
-		model.addAttribute("QAList", biz.QAList(class_num));
-
-		// 부류, 주류
-		List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
-		List<SubStreamDto> subStreamList = Rbiz.subStreamList();
-
-		model.addAttribute("mainList", mainStreamList);
-		model.addAttribute("subList", subStreamList);
-
-		// 결제를 했으면 화면이 안나오게
-		int res = biz.ClassBuyAfter(class_num, user_num);
-		System.out.println(class_num + " " + user_num);
-		System.out.println(res + "강선웅!!");
-		// 영상 소개
-		model.addAttribute("classdata", biz.ClassDataSelectOne(class_num));
-		System.out.println(biz.ClassDataSelectOne(class_num) + "1111111199999999");
-		if (res > 0) {
-			model.addAttribute("ClassBuyAfter", res);
-			System.out.println(res + "강선웅");
-		}
-
-		return "Class/LectureDetail";
 	}
 
 	// 장바구니 담기
@@ -375,7 +375,7 @@ public class HomeController {
 	public String ClassIntroduceInsertForm(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassInfoDto dto,
 			int main_num, int sub_num, Model model) {
 		logger.info("ClassIntroduceInsertForm");
-
+		
 		// 파일 업로드
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 
@@ -431,8 +431,10 @@ public class HomeController {
 	@RequestMapping("DataVideoUploadForm")
 	public String DataVideoUploadForm(@ModelAttribute ClassIntroduceDto dto, Model model) {
 		logger.info("DataVideoUploadForm");
+		
 
 		int res = biz.ClassIntroduceInsert(dto);
+		
 
 		// 부류, 주류
 		List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
@@ -440,7 +442,8 @@ public class HomeController {
 
 		model.addAttribute("mainList", mainStreamList);
 		model.addAttribute("subList", subStreamList);
-
+	
+		
 		if (res > 0) {
 			return "Class/DataVideoUploadForm";
 		} else {
@@ -454,7 +457,8 @@ public class HomeController {
 	public String DataVideoUpload(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto, Model model)
 			throws FileNotFoundException {
 		logger.info("DataVideoUpload");
-
+		
+		
 		if (dto.getData_data() == null) {
 			List<MultipartFile> fileList = mtfRequest.getFiles("file");
 			String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
@@ -532,7 +536,8 @@ public class HomeController {
 	public String DataVideoUploadPlus(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto,
 			Model model) throws FileNotFoundException {
 		logger.info("DataVideoUploadPlus");
-
+	
+		
 		if (dto.getData_data() == null) {
 			List<MultipartFile> fileList = mtfRequest.getFiles("file");
 
@@ -668,6 +673,7 @@ public class HomeController {
 
 		return "Class/LectureDetailView";
 	}
+	
 
 	@RequestMapping("LecturePlayList")
 	@ResponseBody
@@ -721,16 +727,16 @@ public class HomeController {
 		
 		model.addAttribute("class_num", class_num);
 		
-	return "Class/DataVideoUploadChapterInsertForm";
+	return "Class/DataVideoUploadChapterPlus";
 	}
 	
-	// 챕터 영상 추가
+	// 챕터 영상 추가 페이지에서 추가
 	@RequestMapping("DataVideoChapterInsert")
 	public String DataVideoChapterInsert(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto,
 			Model model, int class_num) throws FileNotFoundException {
 		logger.info("DataVideoChapterInsert");
-		dto.setClass_num(class_num);
-		System.out.println(class_num + "강선웅");
+		System.out.println("class_num");
+		model.addAttribute("class_num", class_num);
 		
 		if (dto.getData_data() == null) {
 			List<MultipartFile> fileList = mtfRequest.getFiles("file");
@@ -802,24 +808,116 @@ public class HomeController {
 		
 
 		if (res > 0) {
-			return "Class/DataVideoUploadFormPlus";
+			return "Class/DataVideoUploadChapterSecondPlus";
 		} else {
-			return "Class/DataVideoUploadFormPlus";
+			return "Class/DataVideoUploadChapterSecondPlus";
 		}
 	}
 	
-	// 
-	
-	// 마이페이지에서 영상 추가 수정 페이지로 이동
-	@RequestMapping("ClassDataUpdateForm")
-	public String ClassDataUpdateForm(int class_num, Model model) {
+	@RequestMapping("DataVideoUploadUpdate")
+	public String DataVideoUploadUpdate(@ModelAttribute ClassDataDto dto) {
+		int res = 0;
 		
-		model.addAttribute("class_data", biz.ClassDataSelectOne(class_num));
+		res = biz.DataVideoUploadUpdate(dto);
 		
-		return "Class/DataVideoUploadFormUpdate";
+		System.out.println("안녕");
+		
+		return "Member/myPage";
 	}
 	
+	// 마이페이지에서 영상 추가 수정 페이지로 이동
+	@RequestMapping("ClassDataUpdate")
+		public String ClassDataUpdate(int class_num, Model model) {
+			
+			model.addAttribute("class_num", class_num);
+			model.addAttribute("class_data", biz.ClassDataSelectOne(class_num));
+			
+			return "Class/DataVideoUploadFormUpdate";
+		}
+	// 마이페이지에서 영상 추가에서 chapter안에 영상들 제작
+	@RequestMapping("DataVideoUploadSecondPlus")
+	public String DataVideoUploadSecondPlus(MultipartHttpServletRequest mtfRequest, @ModelAttribute ClassDataDto dto,
+			Model model, int class_num) throws FileNotFoundException {
+		logger.info("DataVideoChapterInsert");
+	
+		
+		if (dto.getData_data() == null) {
+			List<MultipartFile> fileList = mtfRequest.getFiles("file");
 
+			String path = mtfRequest.getSession().getServletContext().getRealPath("resources/uploadImage");
+			File dir = new File(path);
+			if (!dir.isDirectory()) {
+				dir.mkdirs();
+			}
+
+			for (MultipartFile mf : fileList) {
+				String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+				long fileSize = mf.getSize(); // 파일 사이즈
+				String data_data_path = path + "/" + originFileName; // 경로
+				System.out.println("경로 " + data_data_path);
+				String data_data = path + originFileName; // 파일 이름
+				dto.setData_data(data_data);
+
+				try {
+					mf.transferTo(new File(data_data_path));
+
+				} catch (IllegalStateException e) {
+
+					e.printStackTrace();
+				} catch (IOException e) {
+
+					e.printStackTrace();
+				}
+			}
+
+		} 
+		
+		else {
+			if (dto.getData_data().substring(0, 5).equals("https")) {
+
+				String a = dto.getData_data();
+				String b = "";
+
+				if (a.contains("v=")) {
+					b = a.split("\\?")[1];
+					if (b.contains("&")) {
+						b = b.substring(0, b.indexOf("&"));
+					}
+					System.out.println(b);
+				} else if (a.contains("list=")) {
+					b = a.split("\\?")[1];
+					if (b.contains("&")) {
+						b = b.substring(0, b.indexOf("&"));
+					}
+					System.out.println(b);
+					
+				}
+
+				dto.setData_data(b);
+
+			}
+		}
+
+		// 부류, 주류
+		List<MainStreamDto> mainStreamList = Rbiz.mainStreamList();
+		List<SubStreamDto> subStreamList = Rbiz.subStreamList();
+
+		model.addAttribute("mainList", mainStreamList);
+		model.addAttribute("subList", subStreamList);
+		
+		
+		System.out.println(class_num);
+		model.addAttribute("class_num", class_num);
+		dto.setClass_num(class_num);
+		int res = biz.DataVideoSecondInsertPlus(dto);
+		
+
+		if (res > 0) {
+			return "Class/DataVideoUploadChapterSecondPlus";
+		} else {
+			return "Class/DataVideoUploadChapterSecondPlus";
+		}
+	}
 	
 
 }

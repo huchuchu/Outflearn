@@ -70,8 +70,7 @@
 	function Control() {
 		DataVideoMyform = document.DataVideoMyform;
 		var file = $('#file').val();
-		alert(file);
-		console.log(file + "선웅")
+
 		
 		// 영상 소개에서 값이 들어가 있지 않을때
 		if (DataVideoMyform.data_subhead.value == "" || DataVideoMyform.data_sq.value == "" || 
@@ -84,19 +83,6 @@
 				text : '강의 내용을 모두 입력해주세요.',
 			})
 		}
-		
-		/* 영상 업로드 방식 2개 작성 했을시
-		else if(DataVideoMyform.data_title.value == DataVideoMyform.data_title.value || DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value || DataVideoMyform.data_data.value == DataVideoMyform.data_data.value){
-			if(file == file){
-				Swal.fire
-				({
-					type : 'error',
-					title : '실패...',
-					text : '하나의 영상 업로드 방식을 선택해주세요.',
-				})
-			}
-		}
-		*/
 		
 		// 유튜브 주소 영상 작성하고 완료버튼 클릭 안했을시
 		else if(DataVideoMyform.data_subhead.value == DataVideoMyform.data_subhead.value && DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value && 
@@ -145,13 +131,12 @@
 		
 	}
 
-		
 	
 </script>
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
+	<jsp:include page="../header/MainHeader.jsp"></jsp:include>
 
 	<div class="row">
 		<ul id="side_border"
@@ -163,46 +148,47 @@
 		</ul>
 		<div class="col-sm-6 col-el-8">
 
-			<form:form name="DataVideoMyform" action="DataVideoUpload" method="post" enctype="multipart/form-data">
-			
+			<form:form name="DataVideoMyform" action="DataVideoUploadUpdate" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="class_num" value="${class_num }" >
+				
 				<div class="input-group">
-					<h1>영상 소개</h1>
+					<h1>영상 소개 수정</h1>
 				</div>
 
 				<div class="form-group">
 					<h3>소제목</h3>
-					<input type="text" name="data_subhead" class="form-control" value="${class_data[0].data_subhead }">
+					<input type="text" name="data_subhead" class="form-control"  placeholder="${class_data[0].data_subhead }">
 				</div>
 
 				<div class="form-group">
 					<h3>과정 순서</h3>
-					<input type="text" name="data_sq" class="form-control" value="${class_data[0].data_sq }">
+					<input type="text" name="data_sq" class="form-control" placeholder="${class_data[0].data_sq }">
 				</div>
 
 				<div class="form-group">
 					<h3>과정 제목</h3>
-					<input type="text" name="data_title" class="form-control" value="${class_data[0].data_title }">
+					<input type="text" name="data_title" class="form-control" placeholder="${class_data[0].data_title }">
 				</div>
 
 				<div class="form-group">
 					<h3>영상 업로드(유튜브 영상 링크 또는 파일 업로드 하나만 선택)</h3>
 					<div class="youTube">
-						<input type="text" name="data_data" class="form-control" value="${class_data[0].data_data }" /> 
+						<input type="text" name="data_data" class="form-control" placeholder="${class_data[0].data_data }" /> 
 						<input type="button" value="완료" class="success1" style="color: #6372ff;" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="data">
-						<input type="file" id="file" name="file" style="color: #6372ff;" value="${class_data[0].data_data }"/> 
+						<input type="file" id="file" name="file" style="color: #6372ff;" placeholder="${class_data[0].data_data }"/> 
 						<input type="button" value="완료" class="success2" style="color: #6372ff;" />
 					</div>
 				</div>
 
 
 				<div class="form-group">
-					<input type="button" class="btn btn-primary" value="작성 후 클릭" onclick="Control();" /> 
-					<input type="button" value="가이드 라인" onclick="DataVideoGuideLine();" class="btn btn-primary"> 
-					<input type="button" class="btn btn-primary" value="강의 목록 " onclick="location.href='myClass'">
+					<input type="button" class="btn btn-primary" value="수정" onclick="Control();" /> 
+					<input type="button" value="가이드라인" onclick="DataVideoGuideLine();" class="btn btn-primary"> 
+					<input type="button" class="btn btn-primary" value="완료 " onclick="location.href='mypage'">
 				</div>
 			
 				
