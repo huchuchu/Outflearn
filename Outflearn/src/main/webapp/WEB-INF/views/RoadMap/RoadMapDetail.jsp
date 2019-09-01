@@ -330,7 +330,6 @@ width: 90%;
   </div>
 </div>	
 
-
 <script type="text/javascript">
 
 $(function(){
@@ -397,6 +396,17 @@ var userNum = $("#userNum").val();
 	
 var param = {"roadmap_num":roadNum, "comment_content":Content, "user_num":userNum}
 
+
+if(Content =="" || Content ==null){
+	Swal.fire({
+		  type: 'error',
+		  title: '내용을 작성해주세요!'
+		})
+		
+		return false;
+}
+
+
 $.ajax({
 	url: "addComment",
 	type: "get",
@@ -429,6 +439,7 @@ function comment_List(){
 			var htmls = "";
 			
 			if(msg.length < 1){
+				
 				htmls.push("등록된 댓글이 없습니다");
 			}else{
 				
