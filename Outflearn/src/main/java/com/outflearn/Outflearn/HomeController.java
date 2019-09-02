@@ -828,7 +828,7 @@ public class HomeController {
 	}
 	
 	// 마이페이지에서 영상 추가 수정 페이지로 이동
-	@RequestMapping("ClassDataUpdate")
+	@RequestMapping("ClassDataUpdateForm")
 		public String ClassDataUpdate(int class_num, Model model) {
 			
 			model.addAttribute("class_num", class_num);
