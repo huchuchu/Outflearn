@@ -38,6 +38,10 @@ public interface ClassDataDao {
 		public int ClassDataInsert(ClassDataDto dto);	
 		public int ClassChapterDataInsert(ClassDataDto dto);
 		public int ClassInfoUpdateSub(int class_num);
+		public int ClassDataInsertPlus(ClassDataDto dto);
+		public int DataVideoUploadUpdate(ClassDataDto dto);
+		public int DataVideoSecondInsertPlus(ClassDataDto dto);
+		public ClassDataDto videoDataOne(ClassDataDto dto);
 		
 		// 장바구니 - BASKET 테이블
 		public int classBasketInsert(ClassInfoDto dto);
@@ -49,10 +53,11 @@ public interface ClassDataDao {
 		public ClassReviewDto ClassReviewSelectOne(int review_num);
 		public int ClassReviewInsert(ClassReviewDto dto);
 		public int ClassReviewUpdate(ClassReviewDto dto);
-		public int ClassReviewDelete(int review_num);
+		public int ClassReviewDelete(ClassReviewDto dto);
 			
-		public int ClassReviewUpdateAnswer(int review_num);
+		public int ClassReviewReplyUpdate(ClassReviewDto dto);
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);
+		public int ClassReviewReplyDelete(int review_num);
 		
 		//페이징
 		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search);

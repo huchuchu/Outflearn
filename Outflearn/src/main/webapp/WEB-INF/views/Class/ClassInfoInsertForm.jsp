@@ -53,7 +53,7 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
+	<jsp:include page="../header/MainHeader.jsp"></jsp:include>
 
 
 	<div class="row">
@@ -154,10 +154,8 @@
 
 
 				<div class="form-group">
-					<input type="button" class="btn btn-primary" value="다음"
-						onclick="Control();"> <input type="button"
-						class="btn btn-primary" value="취소"
-						onclick="location.href='LectureList'">
+					<input type="button" class="btn btn-primary" value="다음" onclick="Control();"> 
+					<input type="button" class="btn btn-primary" value="취소" onclick="location.href='LectureList'">
 				</div>
 			</form:form>
 		</div>

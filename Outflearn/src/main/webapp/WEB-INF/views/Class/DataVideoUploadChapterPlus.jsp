@@ -52,12 +52,12 @@
 		});
 		
 		function Control() {
-			DataVideoMyform = document.DataVideoMyform;
+			DataVideoChapterInsert = document.DataVideoChapterInsert;
 	
 			
 			// 영상 소개에서 값이 들어가 있지 않을때
-			if (DataVideoMyform.data_subhead.value == "" || DataVideoMyform.data_sq.value == "" ||
-				DataVideoMyform.data_title.value == "") {
+			if (DataVideoChapterInsert.data_subhead.value == "" || DataVideoChapterInsert.data_sq.value == "" ||
+					DataVideoChapterInsert.data_title.value == "") {
 				
 				Swal.fire
 					({
@@ -68,8 +68,8 @@
 			}
 			
 			// 영상 업로드까지 등록
-			else if (DataVideoMyform.data_subhead.value == DataVideoMyform.data_subhead.value && DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value &&
-					 DataVideoMyform.data_title.value == DataVideoMyform.data_title.value) {
+			else if (DataVideoChapterInsert.data_subhead.value == DataVideoChapterInsert.data_subhead.value && DataVideoChapterInsert.data_sq.value == DataVideoChapterInsert.data_sq.value &&
+					DataVideoChapterInsert.data_title.value == DataVideoChapterInsert.data_title.value) {
 				
 					Swal.fire({
 						type: 'success',
@@ -79,15 +79,15 @@
 					})
 					.then((result)=>{
 						if(result.value){
-							DataVideoMyform.submit();
+							DataVideoChapterInsert.submit();
 						}
 					})
 				
 				
 			}
-			else if (DataVideoMyform.data_subhead.value == DataVideoMyform.data_subhead.value && DataVideoMyform.data_sq.value == DataVideoMyform.data_sq.value &&
-				DataVideoMyform.data_title.value == DataVideoMyform.data_title.value && document.getElementsByName("file").value == document.getElementsByName("file").value) {
-				if (DataVideoMyform.data_data.value == "") {
+			else if (DataVideoChapterInsert.data_subhead.value == DataVideoChapterInsert.data_subhead.value && DataVideoChapterInsert.data_sq.value == DataVideoChapterInsert.data_sq.value &&
+					DataVideoChapterInsert.data_title.value == DataVideoChapterInsert.data_title.value && document.getElementsByName("file").value == document.getElementsByName("file").value) {
+				if (DataVideoChapterInsert.data_data.value == "") {
 					Swal.fire({
 						type: 'error',
 						title: '실패...',
@@ -95,7 +95,7 @@
 					})
 				}
 			} else {
-				DataVideoMyform.submit();
+				DataVideoChapterInsert.submit();
 			}
 		}
 	</script>
@@ -122,10 +122,10 @@
 		</ul>
 		<div class="col-sm-6 col-el-8">
 
-			<form:form name="DataVideoMyform" action="DataVideoUpload" method="post" enctype="multipart/form-data">
-				
+			<form:form name="DataVideoChapterInsert" action="DataVideoChapterInsert" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="class_num" value="${class_num }" />
 				<div class="input-group">
-					<h1>영상 소개</h1>
+					<h1>영상 소개 추가페이지</h1>
 				</div>
 
 				<div class="form-group">
@@ -161,7 +161,7 @@
 				<div class="form-group">
 					<input type="button" class="btn btn-primary" value="작성 후 클릭" onclick="Control();" />
 					<input type="button" value="가이드 라인" onclick="DataVideoGuideLine();" class="btn btn-primary">
-					<input type="button" class="btn btn-primary" value="완료 " onclick="location.href='myPage'">
+					<input type="button" class="btn btn-primary" value="완료 " onclick="location.href='mypage'">
 				</div>
 
 		

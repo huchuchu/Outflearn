@@ -4,7 +4,6 @@ package com.outflearn.Outflearn;
 
 
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -14,19 +13,15 @@ import javax.inject.Inject;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,8 +29,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.CommentDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
-import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.RoadUserCombineDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
@@ -81,6 +76,7 @@ public class RoadMapController {
 			List<MainStreamDto> mainStreamList = biz.mainStreamList();
 			List<RoadUserCombineDto> comList = biz.roadMapComList(pageNum, pagination.getPageSize(), txt_search, searchOption, main_num);
 			
+
 			model.addAttribute("mainList", mainStreamList);
 			model.addAttribute("comList", comList);
 			model.addAttribute("pagination", pagination);
@@ -176,7 +172,7 @@ public class RoadMapController {
 			model.addAttribute("roadSeq", seq);	
 			return"RoadMap/RoadMapWrite_p2";
 		}else{ 
-			return"redirect:/"; //로드맵1p 수정하기 다이렉트로 왔을 떄 (마이페이지에서 왔을 떄 리턴값)
+			return"redirect:myRoadmap"; //로드맵1p 수정하기 다이렉트로 왔을 떄 (마이페이지에서 왔을 떄 리턴값)
 		}
 		
 	}
@@ -214,7 +210,7 @@ public class RoadMapController {
 		}
 		
 		
-		return "redirect:/";
+		return "redirect:myRoadmap";
 	}
 	
 	
@@ -242,7 +238,7 @@ public class RoadMapController {
 	
 	//로드맵 2페이지 작성 후 insert
 	@RequestMapping("/roadNclass")
-	public String roadNclass(@RequestParam String[] class_num, @RequestParam String seq)  {
+	public String roadNclass(@RequestParam String[] class_num, @RequestParam String seq, Model model)  {
 		
 		System.out.println("roadNclass 입장:::::::");
 		System.out.println("roadmap 번호"+seq);	
@@ -257,29 +253,32 @@ public class RoadMapController {
 			System.out.println("인서트 성공!");	
 		}
 		
-		
-		return"redirect:/";
+		model.addAttribute("roadNum", seq);
+		return"redirect:roadMapDetail";
 	}
 	
 	//검색창 띄우기
 	@RequestMapping("/searchWingogo")
 	public String searchWingogo(Model model, @RequestParam String btnIdVal, @RequestParam String[] numArray ) {
 		
-		System.out.println("searchWingogo컨트롤러!!");
-		List<String>classNumList = new ArrayList<String>();
+		System.out.println("searchWingogo컨트롤러!!");		
+		
+		String array = "";
 		for(int i=0; i<numArray.length-1; i++) {
-			classNumList.add(numArray[i]);
-			System.out.println("array값: "+classNumList.get(i));
+			array += numArray[i]+",";		
 		}
+		
+		System.out.println("array==="+array);
+		
 		
 		
 		
 		List<MainStreamDto> mainStreamList = biz.mainStreamList();		
-		List<SubStreamDto> subStreamList = biz.subStreamList();	
+ 		List<SubStreamDto> subStreamList = biz.subStreamList();	
 
-		//부모창으로 값 전달을 위해 부모창 번호와 같이 넘어옴(클릭한 버튼의 id값)
-		
-		model.addAttribute("classNumList", classNumList);
+		//선택된 강의 리스트도 같이 넘어감
+		//부모창으로 값 전달을 위해 부모창 번호와 같이 넘어옴(클릭한 버튼의 id값)		
+		model.addAttribute("array", array);
 		model.addAttribute("btnIdVal", btnIdVal);
 		model.addAttribute("mainList", mainStreamList);
 		model.addAttribute("subList", subStreamList);
@@ -288,7 +287,7 @@ public class RoadMapController {
 	
 	//검색창에서 검색 후 값과 리턴
 	@RequestMapping("/searchFilter")
-	public String searchFilter(Model model, @RequestParam String[] subFilter, @RequestParam String please) {
+	public String searchFilter(Model model, @RequestParam String[] subFilter, @RequestParam String please, @RequestParam String array) {
 		
 		System.out.println("들어온 필터 갯수"+subFilter.length);
 		
@@ -301,6 +300,7 @@ public class RoadMapController {
 		List<MainStreamDto> mainStreamList = biz.mainStreamList();		
 		List<SubStreamDto> subStreamList = biz.subStreamList();	
 		
+		model.addAttribute("array", array);
 		model.addAttribute("btnIdVal", please);
 		model.addAttribute("mainList", mainStreamList);
 		model.addAttribute("subList", subStreamList);
@@ -319,8 +319,13 @@ public class RoadMapController {
 		List<Integer> classNumList = biz.RoadMapConList(roadNum);
 		System.out.println("classNumList+++"+classNumList);
 		
-		//class_Num으로 class_infoList받아옴
-		List<ClassInfoDto> resList = biz.RoadClassInfoList(classNumList);
+		List<ClassInfoDto> resList = new ArrayList<ClassInfoDto>();
+		
+		//강의가 있다면 classNumList로  info받아오기
+		if(classNumList.size() > 0) {
+			resList = biz.RoadClassInfoList(classNumList);
+		}
+
 		System.out.println("classInfoSize+++"+resList.size());
 		
 		//현재 주소 받기
@@ -524,5 +529,114 @@ public class RoadMapController {
 		
 		return map;
 	}
+	//코멘트 등록
+	@RequestMapping("/addComment")
+	@ResponseBody
+	public Map<String, Boolean> addComment(@ModelAttribute CommentDto dto) {
+		
+		System.out.println(dto.getComment_content());
+		System.out.println(dto.getRoadmap_num());
+		System.out.println(dto.getUser_num());
+		
+		Map<String, Boolean> map = new HashMap<String,Boolean>();
+		
+		boolean resChk = false;
+		
+		int res = biz.addComment(dto);
+		if(res>0) {
+			System.out.println("댓글등록 성공");
+			resChk = true;
+			map.put("resChk",resChk);
+		}else {
+			System.out.println("댓글등록 실패");
+			map.put("resChk",resChk);
+		}
+		
+		return map;
+	}
+	
+	//코멘트 리스트보기
+	@RequestMapping("/commentList")
+	@ResponseBody
+	public List<CommentDto> commentList(@RequestParam String roadnum, Model model ) {
+		System.out.println("commentList 들어옴");
+		System.out.println("로드맵번호: "+ roadnum);
+		
+		List<CommentDto> list = new ArrayList<CommentDto>();
+		list = biz.commentList(roadnum);
+		
+		System.out.println("댓글 갯수"+list.size());
+
+		return list;
+	}
+	//코멘트 수정
+	@RequestMapping("/commentUpdate")
+	@ResponseBody
+	public Map<String, Boolean> commentUpdate(@RequestParam String content, @RequestParam String ComNum) {
+		
+		System.out.println("댓글수정들어옴");
+		System.out.println("번호"+ComNum + "내용" + content);
+		int cnt = biz.commentUpdate(content,ComNum);
+		
+		boolean res = false; 
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		
+		if(cnt>0) {
+			System.out.println("댓글수정성공");
+			res = true;
+			map.put("res", res);
+			
+		}else {
+			System.out.println("댓글수정실패");
+			map.put("res", res);
+			
+		}
+		
+		System.out.println("res==="+res);
+		return map;
+	}
+	
+	@RequestMapping("/deleteComment")
+	@ResponseBody
+	public Map<String, Boolean> deleteComment(@RequestParam String comNum){
+		
+		
+		Map<String, Boolean> map = new HashMap<String,Boolean>();
+		int res = biz.deleteComment(comNum);
+		boolean Chk = false;
+		
+		if(res>0) {
+			System.out.println("삭제성공");
+			Chk = true;
+			map.put("Chk", Chk);
+		}else {
+			System.out.println("삭제실패");
+			map.put("Chk", Chk);
+		}		
+		
+		return map;
+	}
+	
+	@RequestMapping("/addReComment")
+	@ResponseBody
+	public Boolean addReComment(@ModelAttribute CommentDto dto){
+		
+		System.out.println("대댓추가 들어옴");
+		System.out.println(dto.getComment_content()+"//"+dto.getComment_num()+"//"+dto.getUser_num()+"//"+dto.getRoadmap_num());
+		
+		int update = biz.reCommentSqUpdate(dto);
+		int insert = biz.reCommentAdd(dto);
+		
+		System.out.println("updaet=== "+update);
+		System.out.println("insert==="+insert);
+
+		boolean Chk = true;		
+		
+		
+		return Chk;
+	}
+	
+	
+	
 
 }

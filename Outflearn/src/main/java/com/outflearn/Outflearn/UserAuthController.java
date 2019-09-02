@@ -1,9 +1,5 @@
 package com.outflearn.Outflearn;
 
-import java.math.BigInteger;
-
-import java.nio.file.AccessDeniedException;
-import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,27 +7,21 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.outflearn.Outflearn.dto.UserInfoDto;
 import com.outflearn.Outflearn.model.biz.LoginBiz;
-
 import com.outflearn.Outflearn.service.UserAuthenticationService;
 
 @Controller

@@ -155,7 +155,6 @@
 
 	<!--footer  -->
 	<jsp:include page="footer/Footer.jsp"></jsp:include>
-	<!--footer  -->
 
 	<script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>

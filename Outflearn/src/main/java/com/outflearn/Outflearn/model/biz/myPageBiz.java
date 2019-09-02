@@ -7,7 +7,6 @@ import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
-import com.outflearn.Outflearn.dto.UserInfoDto;
 
 public interface myPageBiz {
 		
@@ -23,6 +22,11 @@ public interface myPageBiz {
 		public List<QADto> getQA(int user_num);
 		
 		public int reqLecturer(String lecturerNum, String lecturerPhone, String lecturerIntro, String lecturerClass);
+		
+		public int updateNickname(String nickname, int user_num);
+		public int updateEmail(String email, int user_num);
+		public boolean checkPw(String encryptPw, int user_num);
+		public int updatePw(String afterPw, int user_num);
 		
 //강사
 		

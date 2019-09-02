@@ -56,6 +56,9 @@
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<!-- Header  -->
+   <jsp:include page="../header/MainHeader.jsp"></jsp:include>
+   <!-- Header  -->
 	<!-- ==========================================Navigation==========================================-->
 	<nav id="menu" class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -94,7 +97,6 @@
 			</div>
 		</div>
 	</nav>
-	<h1 style="color:#6372ff;" class="text-center">아이디 찾기</h1>
 	<div class="intro">
 	<div class="row">
 		<div class="col-xs-3 col-sm-3"></div>
@@ -103,7 +105,7 @@
 			<form method="post" action="${pageContext.request.contextPath}/findId.do">
          		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">	
 					<header>
-						<h3 style="color:#6372ff;" class="text-center">아이디 찾기</h3>
+						<h1 style="color:#6372ff;" class="text-center">아이디 찾기</h1>
 					</header>
 					
 					<div class="form-group">
@@ -122,87 +124,11 @@
 	</div>
 
 
-	<!-- Contact Section -->
-	<div id="contact">
-		<div class="container">
-			<div class="col-md-8">
-				<div class="row">
-					<div class="section-title">
-						<h2>Get In Touch</h2>
-						<p>Please fill out the form below to send us an email and we
-							will get back to you as soon as possible.</p>
-					</div>
-					<form name="sentMessage" id="contactForm" novalidate>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type="text" id="name" class="form-control"
-										placeholder="Name" required="required">
-									<p class="help-block text-danger"></p>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type="email" id="email" class="form-control"
-										placeholder="Email" required="required">
-									<p class="help-block text-danger"></p>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<textarea name="message" id="message" class="form-control"
-								rows="4" placeholder="Message" required></textarea>
-							<p class="help-block text-danger"></p>
-						</div>
-						<div id="success"></div>
-						<button type="submit" class="btn btn-custom btn-lg">Send
-							Message</button>
-					</form>
-				</div>
-			</div>
-			<div class="col-md-3 col-md-offset-1 contact-info">
-				<div class="contact-item">
-					<h3>Contact Info</h3>
-					<p>
-						<span><i class="fa fa-map-marker"></i> Address</span>4321
-						California St,<br> San Francisco, CA 12345
-					</p>
-				</div>
-				<div class="contact-item">
-					<p>
-						<span><i class="fa fa-phone"></i> Phone</span> +1 123 456 1234
-					</p>
-				</div>
-				<div class="contact-item">
-					<p>
-						<span><i class="fa fa-envelope-o"></i> Email</span>
-						info@company.com
-					</p>
-				</div>
-			</div>
-			<div class="col-md-12">
-				<div class="row">
-					<div class="social">
-						<ul>
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#"><i class="fa fa-youtube"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Footer Section -->
-	<div id="footer">
-		<div class="container text-center">
-			<p>
-				Shared by <i class="fa fa-love"></i><a
-					href="https://bootstrapthemes.co">BootstrapThemes</a>
-			</p>
-		</div>
-	</div>
+	<!--footer  -->
+	<jsp:include page="../footer/Footer.jsp"></jsp:include>
+	<!--footer  -->
+	
+	
 	<script type="text/javascript"
 		src="resources/js/template/jquery.1.11.1.js"></script>
 	<script type="text/javascript" src="resources/js/template/bootstrap.js"></script>

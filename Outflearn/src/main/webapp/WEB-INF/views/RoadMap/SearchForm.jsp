@@ -42,17 +42,21 @@ text-align: center;
 </style>
 </head>
 <body>
+
 <div class="container-fluid">
 	<div class="row" id="top">
 		<div class="col-md-12">
 			<h3>
 				강의 검색하기
 			</h3>
-		</div>
+			
+		</div>		
 	</div>
+	
 	<div class="row">
 		<div class="col-md-12">
 			<form action="searchFilter" method="get" id="filterForm">
+				<input type="hidden" id="array" name="array" value="${array }">
 				<input type="hidden" id="please" name="please" value="${btnIdVal }">
 				<select name="subFilter" id="multiple" multiple>
 					<c:forEach items="${mainList }" var="mainDto">
@@ -96,7 +100,7 @@ text-align: center;
 							<input type="hidden" name="resTitle" value="${resDto.class_title }" id="title${resDto.class_num }">					
 							<input type="hidden" name="resNum" value="${resDto.class_num }" id="num${resDto.class_num }">
 							</td>
-							<td><input type="button" onclick="setParentText()" value="선택" id="${resDto.class_num }" name="resBtn" class="btn btn-secondary" ></td>
+							<td><input type="button"  value="선택" id="${resDto.class_num }" name="resBtn" class="btn btn-secondary" ></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -109,6 +113,8 @@ text-align: center;
 		</div>
 	</div>
 </div>
+
+
 <script type="text/javascript">
 
 $("#filterForm").submit(function(){
@@ -134,38 +140,51 @@ $("#filterForm").submit(function(){
 		})
 		
 	});	
-	
-	$("input[name=resBtn]").click(function(){
-	
-	
-	
-		$("input[name=resBtn]").click(function(){
-					
-			var resBtnId = $(this).attr('id');
-//			alert("========"+resBtnId);
-			
-			var returnVal = document.getElementById("please").value;
-//			alert("++++++++"+returnVal);
-			
-			opener.document.getElementById("real"+returnVal).value = document.getElementById("title"+resBtnId).value;
-			opener.document.getElementById("test"+returnVal).value = document.getElementById("num"+resBtnId).value;		
-			window.close();
-			
-			
-		});
-	
 		
+</script>
+
+
+<script type="text/javascript">
+
+$(function(){
+
+	$("input[name=resBtn]").click(function(){
+		
+		var Array = document.getElementById("array").value;
+		var afterStr = Array.split(',');
+		
+		//alert("afterstr=="+afterStr.length);
+			
+		var resBtnId = $(this).attr('id');
+		
+		for(var i=0; i<afterStr.length-1; i++){
+			if(afterStr[i]==resBtnId){
+				Swal.fire({
+					  type: 'error',
+					  title: '이미 선택된 강좌입니다'				   
+					})	
+				return false;
+			}
+		}
+
+
 		var returnVal = document.getElementById("please").value;
-//		alert("++++++++"+returnVal);
 		
 		opener.document.getElementById("real"+returnVal).value = document.getElementById("title"+resBtnId).value;
 		opener.document.getElementById("test"+returnVal).value = document.getElementById("num"+resBtnId).value;		
 		window.close();
 		
 		
-	});
+	});	
+
 	
 	
+	
+});
+
+
+
+
 </script>
 
 <script type="text/javascript" src="resources/js/template/jquery.1.11.1.js"></script>

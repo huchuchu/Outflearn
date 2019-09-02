@@ -19,24 +19,24 @@ $(function () {
             $.ajax({
                 url: `liveRooms?liveRooms=${sendData}`,
                 success: function (data) {
-                    var content = '';
+                    var content = '<div class="row">';
+
                     data.forEach(item => {
                         content +=
                             `
-                        <div class="card">
-                            <div>
+                            <div class="col-sm-3">
                                 <a href="joinLive?room=${item.class_num}">
-                                    <img src="/Outflearn/resources/uploadImage/${item.class_img}" alt="what?">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${item.class_title}</h5>
-                                        <p class="card-text">${item.class_intro}</p>
+                                    <div class="cardView">
+                                        <img class="topImg" src="/Outflearn/resources/uploadImage/${item.class_img}" alt="what?">
+                                            <h5 class="cardTitle">${item.class_title}</h5>
+                                            <p class="card-text">${item.class_intro}</p>
                                     </div>
-                                </a>
+                                 </a>
                             </div>
-                        </div>
                         `
                     });
-                    // <h3><a href='joinLive?room=${item.class_num}'>${item.class_title}</a></h3>
+
+                    content += '</div>'
 
                     $('.roomTest').html(content)
                 },

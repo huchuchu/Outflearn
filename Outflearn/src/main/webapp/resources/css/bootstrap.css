@@ -3493,9 +3493,12 @@ input[type="button"].btn-block {
 .fade.in {
   opacity: 1;
 }
-/* .collapse { */
-/*   display: none; */
-/* } */
+#menu .collapse {
+	display: block;
+}
+.collapse {
+  display: none;
+}
 .collapse.in {
   display: block;
 }
@@ -4978,7 +4981,7 @@ a.badge:focus {
   padding-bottom: 30px;
   margin-bottom: 30px;
   color: inherit;
-  background-color: #eee;
+  background-color: #2c2e37;
 }
 .jumbotron h1,
 .jumbotron .h1 {

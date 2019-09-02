@@ -2,14 +2,14 @@ package com.outflearn.Outflearn.model.biz;
 
 import java.util.List;
 
-
 import javax.inject.Inject;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.CommentDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
-import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
 import com.outflearn.Outflearn.dto.RoadUserCombineDto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
@@ -17,6 +17,9 @@ import com.outflearn.Outflearn.model.dao.RoadMapDao;
 
 @Service
 public class RoadMapBizImpl implements RoadMapBiz {
+	
+	@Inject
+	SqlSessionTemplate session;
 	
 	@Inject
 	RoadMapDao dao;
@@ -166,5 +169,57 @@ public class RoadMapBizImpl implements RoadMapBiz {
 		
 		return dao.DeleteroadConBeforeUpdate(roadNum);
 	}
+
+	@Override
+	public int addComment(CommentDto dto) {
+		
+		return dao.addComment(dto);
+	}
+
+	@Override
+	public List<CommentDto> commentList(String roadNum) {
+	
+		return dao.commentList(roadNum);
+	}
+
+	@Override
+	public int commentUpdate(String content, String ComNum) {
+		
+		return dao.commentUpdate(content, ComNum);
+	}
+
+	@Override
+	public int deleteComment(String comNum) {
+		
+		return dao.deleteComment(comNum);
+	}
+
+	@Override
+	public int reCommentSqUpdate(CommentDto dto) {
+	
+		return dao.reCommentSqUpdate(dto);
+		
+	}
+
+	@Override
+	public int reCommentAdd(CommentDto dto) {
+		
+		return dao.reCommentAdd(dto);
+	}
+
+	@Override
+	public List<Integer> getSubnumList(List<Integer> list) {
+		
+		return dao.getSubnumList(list);
+	}
+
+	@Override
+	public List<String> getsubnumName(List<Integer> list) {
+		
+		return dao.getsubnumName(list);
+	}
+
+	
+
 
 }

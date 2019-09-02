@@ -14,6 +14,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.outflearn.Outflearn.dto.ClassInfoDto;
+import com.outflearn.Outflearn.dto.CommentDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.RoadMapCon;
 import com.outflearn.Outflearn.dto.RoadMapInfoDto;
@@ -437,5 +438,137 @@ public class RoadMapDaoImpl implements RoadMapDao {
 
 		return res;
 	}
+	
+	//댓글등록
+	@Override
+	public int addComment(CommentDto dto) {
+		int res = 0;
+		
+		try {
+			res = session.insert(NAMESPACE+"addComment", dto);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+
+	//댓글리스트 가져오기
+	@Override
+	public List<CommentDto> commentList(String roadNum) {
+		
+		List<CommentDto> list = new ArrayList<CommentDto>();
+		
+		try {
+			list = session.selectList(NAMESPACE+"commentList", roadNum);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	//댓글수정하기
+	@Override
+	public int commentUpdate(String content, String ComNum) {
+		int res = 0;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("content", content);
+		map.put("ComNum", ComNum);
+		
+		try {
+			res = session.update(NAMESPACE+"commentUpdate", map);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+	//댓글삭제하기
+	@Override
+	public int deleteComment(String comNum) {
+		int res = 0;
+		
+		try {
+		res = session.update(NAMESPACE+"deleteComment", comNum);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+
+	//대댓 groupsq 업뎃
+	@Override
+	public int reCommentSqUpdate(CommentDto dto) {
+		
+		int res = 0;
+		
+		try {
+			res = session.update(NAMESPACE+"reCommentSqUpdate", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return res;
+	}
+	
+	//대댓 입력
+	@Override
+	public int reCommentAdd(CommentDto dto) {
+		int res = 0;
+		
+		try {
+			res = session.insert(NAMESPACE+"reCommentAdd", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return res;
+	}
+
+	@Override
+	public List<Integer> getSubnumList(List<Integer> list) {
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("classlist",list);
+		List<Integer> getList = new ArrayList<Integer>();
+		
+		try {
+			getList = session.selectList(NAMESPACE+"getSubnumList", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		
+		}
+		
+		return getList;
+	}
+
+	@Override
+	public List<String> getsubnumName(List<Integer> list) {
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("subnumNameList",list);
+		List<String> getList = new ArrayList<String>();
+		
+		try {
+			getList = session.selectList(NAMESPACE+"getsubnumNameList", map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return getList;
+	}
+	
+	
+	
+	
+
+	
+
 
 }

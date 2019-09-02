@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     <img class="card-img" src="/Outflearn/resources/uploadImage/${data.class_img}" alt="이미지가 없어!">
                                     <p>강좌소개 : ${data.class_intro}</p>
                                     <p>가격 : ${data.class_price}</p>
-                                    <button onclick="inBasket(${data.class_num},'${data.class_title}')">장바구니</button>
+                                    <button onclick="inBasket(${data.class_num},'${data.class_title}')" class="addBtn">장바구니</button>
                                     `
                                 })
                             } else {

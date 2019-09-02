@@ -69,6 +69,28 @@ public class myPageDaoImpl implements myPageDao {
 		return sqlSession.insert(namespace + "reqLecturer", map);
 	}
 	
+	@Override
+	public int updateNickname(Map<String, Object> map) {
+		
+		return sqlSession.update(namespace + "updateNickname", map);
+	}
+	
+	@Override
+	public int updateEmail(Map<String, Object> map) {
+		return sqlSession.update(namespace +"updateEmail", map);
+	}
+	
+	@Override
+	public Map<String, String> checkPw(Map<String, Object> map) {
+		return sqlSession.selectOne(namespace + "checkPw", map);
+	}
+	
+	@Override
+	public int updatePw(Map<String, Object> map) {
+		return sqlSession.update(namespace + "updatePw", map);
+	}
+	
+	
 //강사
 	
 	@Override
@@ -148,5 +170,5 @@ public class myPageDaoImpl implements myPageDao {
 	public int userDisabled(String user_num) {
 		return sqlSession.update(namespace + "userDisabled", user_num);
 	}
-
+	
 }

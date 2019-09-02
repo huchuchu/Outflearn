@@ -1,6 +1,9 @@
 package com.outflearn.Outflearn;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,7 +22,6 @@ public class myPageController {
 
 	@Autowired
 	public myPageBiz biz;
-	
 
 	private static final Logger logger = LoggerFactory.getLogger(myPageController.class);
 
@@ -107,21 +109,49 @@ public class myPageController {
 	}
 	
 	@RequestMapping(value="updateNickname")
-	public String updateNickname(String nickname) {
+	@ResponseBody
+	public boolean updateNickname(String nickname, Authentication auth) {
 		
-		return "";
+		UserInfoDto userInfo = (UserInfoDto) auth.getPrincipal();
+		
+		int res = biz.updateNickname(nickname, userInfo.getUser_num());
+		
+		if(res > 0) return true;
+		return false;
 	}
 	
 	@RequestMapping(value = "updateEmail", method=RequestMethod.POST)
-	public String updateEmail(String email) {
+	@ResponseBody
+	public boolean updateEmail(String emailBefore, String emailAter, Authentication auth) {
 		
-		return "";
+		String email = emailBefore + "@" + emailAter;
+		UserInfoDto userInfo = (UserInfoDto) auth.getPrincipal();
+		
+		int res = biz.updateEmail(email, userInfo.getUser_num());
+		
+		if(res > 0) return true;
+		return false;
+	}
+	
+	@RequestMapping(value = "beforePwChk", method=RequestMethod.POST)
+	@ResponseBody
+	public boolean beforePwChk(String beforePw, Authentication auth) {
+		
+		UserInfoDto userInfo = (UserInfoDto) auth.getPrincipal();
+		
+		return biz.checkPw(beforePw, userInfo.getUser_num());
 	}
 	
 	@RequestMapping(value = "updatePw", method=RequestMethod.POST)
-	public String updatePw(String beforePw, String afterPw, String afterPwChk) {
+	@ResponseBody
+	public boolean updatePw(String afterPw, Authentication auth) {
 		
-		return "";
+		UserInfoDto userInfo = (UserInfoDto) auth.getPrincipal();
+		
+		int res = biz.updatePw(afterPw, userInfo.getUser_num());
+		
+		if(res > 0) return true;
+		return false;
 	}
 	
 // 강사

@@ -2,18 +2,15 @@ package com.outflearn.Outflearn.model.biz;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.outflearn.Outflearn.dto.ClassCategoryDto;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
-import com.outflearn.Outflearn.dto.MainStreamDto;
-import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.dto.QADto;
+import com.outflearn.Outflearn.dto.SubStreamDto;
 import com.outflearn.Outflearn.model.dao.ClassDataDao;
 
 
@@ -112,6 +109,30 @@ public class ClassDataBizImpl implements ClassDataBiz {
 		
 		return dao.ClassInfoUpdateSub(class_num);
 	}
+	
+	@Override
+	public int ClassDataInsertPlus(ClassDataDto dto) {
+		
+		return dao.ClassDataInsertPlus(dto);
+	}
+	
+	@Override
+	public int DataVideoUploadUpdate(ClassDataDto dto) {
+		
+		return dao.DataVideoUploadUpdate(dto);
+	}
+	
+	@Override
+	public int DataVideoSecondInsertPlus(ClassDataDto dto) {
+		
+		return dao.DataVideoSecondInsertPlus(dto);
+	}
+	
+	@Override
+	public ClassDataDto videoDataOne(ClassDataDto dto) {
+	
+		return dao.videoDataOne(dto);
+	}
 
 //	-------------------------------------------------장바구니(BASKET)
 	@Override
@@ -161,31 +182,26 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	}
 
 	@Override
-	public int ClassReviewDelete(int review_num) {
+	public int ClassReviewDelete(ClassReviewDto dto) {
 		
-		return dao.ClassReviewDelete(review_num);
+		return dao.ClassReviewDelete(dto);
 	}
-
-	@Override
-	public int ClassReviewAnswer(ClassReviewDto dto, int parentBoard_no) {
-		int parentboard_no = dto.getReview_num();
-		
-		  // update
-	      int ClassReviewUpdateAnswer = dao.ClassReviewUpdateAnswer(parentboard_no);
-	      
-	      // insert
-	      int ClassReviewInsertAnswer = dao.ClassReviewInsertAnswer(dto);
-		
-		return (ClassReviewUpdateAnswer + ClassReviewInsertAnswer);
-	}
-
-	
 
 	@Override
 	public int ClassReviewInsertAnswer(ClassReviewDto dto) {
 		return dao.ClassReviewInsertAnswer(dto);
 	}
+	
+	@Override
+	public int ClassReviewReplyUpdate(ClassReviewDto dto) {
+		return dao.ClassReviewReplyUpdate(dto);
+	}
 
+	@Override
+	public int ClassReviewReplyDelete(int review_num) {
+		return dao.ClassReviewReplyDelete(review_num);
+	}
+	
 	@Override
 	public List<ClassDataDto> ClassDataSelectList() {
 		return dao.ClassDataSelectList();
@@ -328,6 +344,5 @@ public class ClassDataBizImpl implements ClassDataBiz {
 	public int classInsertSubscribe(int user_num, int class_num) {
 		return dao.classInsertSubscribe(user_num, class_num);
 	}
-
 	
 }

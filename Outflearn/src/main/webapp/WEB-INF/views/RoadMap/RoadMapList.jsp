@@ -29,6 +29,10 @@ float: left;
 #btnSearch{
 float: right;
 }
+.toptop{
+text-align: center;
+align-items: center;
+}
 
 </style>
 </head>
@@ -48,44 +52,31 @@ function PageMove(page,data) {
    <jsp:include page="../header/MainHeader.jsp"></jsp:include>
    <!-- Header  -->
    <!-- 베너 -->
-   
       <div class="container">
-      <div class="row">
-      	<div class="col-sm-12">
-     	    <div >
-              <h1 id="page-header-content">전체 카테고리</h1>
-              <p class="input-group col-sm-4 pull-right">
-              <div class="form-group row justify-content-center">
-            
-                 <div class="form-group ren" style="width: 20%;" >
-                    <select class="form-control form-control-sm" name="searchOption" id="searchOption">
+      <div class="row" >
+      	<div class="col-sm-12 toptop">   
+              <h1 id="page-header-content">전체 카테고리</h1>                         
+              <div id="search" class="form-group row justify-content-center col-sm-10 col-sm-push-6">            
+                 <div class="form-group ren" style="width: 10%;" >
+                    <select class="form-control form-control-sm form-group-sm" name="searchOption" id="searchOption">
                        <option value="all">전체</option>
                        <option value="roadmap_title">제목</option>
                        <option value="roadmap_author">작성자</option>
                     </select>
                  </div>
-                 <div  class="form-group ren" style="width: 80%;">
+                 <div  class="form-group ren" style="width: 40%;">
                     <input type="text" class="form-control form-control-sm" name="txt_search" id="txt_search" value="${txt_search }" placeholder="검색하기">
                  </div>                   
-                 <div>
+                 <div class="form-group ren" style="padding-left: 3px;">
                     <button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch" onclick="javascript:PageMove(${pagination.pageNo}, '${main_num }');">검색</button>
                  </div>
-              </div>
-           </div>
-      	
+              </div>     	
       	</div>      
       </div>
       
       <div class="row">
          <aside class="col-sm-2">
-             <div class="form-group">
-                <select class="form-control" id="exampleSelect1">
-                  <option>학생수순</option>
-                  <option>추천순</option>
-                  <option>공유순</option>
-               </select>
-            </div>   
-            <div id="side_checkbox" >
+            <div id="side_checkbox">
                <ul class="nav flex-column text-center" style="clear: both">
                   <li class="lg_category nav-item text-left"><a href="void:0" id="level_btn" class="nav-link active text-left">분야별&nbsp;<i class="fas fa-chevron-down"></i></a>
                      <div id="level" class="collapse">
@@ -117,15 +108,8 @@ function PageMove(page,data) {
                   <span>필터초기화</span>   
                   </a>
                 </div>
-                
-                <!-- 버튼 쓰고 삭제해주세요~! -->
-                <div>
-                	<button onclick="location.href='RoadMapWriteP1'">로드맵 작성</button>
-                	<button onclick="location.href='Modify_P1?roadNum=4'">로드맵 1p수정</button><!--로드맵번호같이 보내야함/ 컨트롤러에서 return"" 수정해주세요 지금은 메인으로보냄 -->
-                	<button onclick="location.href='Modify_P2?roadNum=4'">로드맵 2p수정</button><!--로드맵번호같이 보내야함/ 컨트롤러에서 return"" 수정해주세요 지금은 메인으로보냄 -->                
-                	<!-- 조건삭제의 경우: roadmapinfo와 roadmapcon을 모두 쓰지않은 글은 삭제합니당 -->
-                </div>
-                  
+            
+                      
             </aside>
             
          <div class="col-sm-10">
@@ -136,8 +120,8 @@ function PageMove(page,data) {
                      <c:when test="${empty comList }">
                         <h3>강좌 정보가 없습니다...!!</h3>
                      </c:when>
-                     <c:otherwise>
-                        <c:forEach items="${ comList }" var="roadDto">
+                     <c:otherwise>  
+                        <c:forEach items="${ comList }" var="roadDto">                       
                            <div class="card">
                               <a class="hidden_link" href="roadMapDetail?roadNum=${roadDto.roadmap_num }">
                               <div class="content_area">
@@ -172,28 +156,24 @@ function PageMove(page,data) {
    
    
    <!-- Pagination -->
-         <div class="text-center form-group form-inline" >
-            <a href="javascript:PageMove(${pagination.firstPageNo},'${main_num }')"
-               class="button previous">&laquo;</a> <a
-               href="javascript:PageMove(${pagination.prevPageNo},'${main_num }')"
-               class="button previous">&lt;</a>
-            <div class="pages">
-               <c:forEach var="i" begin="${pagination.startPageNo}" end="${pagination.endPageNo}" step="1">
-                  <c:choose>
-                     <c:when test="${i eq pagination.pageNo}">
-                        <a href="javascript:PageMove(${i},'${main_num }')" class="active">${i}</a>
-                     </c:when>
-                     <c:otherwise>
-                        <a href="javascript:PageMove(${i},'${main_num }')">${i}</a>
-                     </c:otherwise>
-                  </c:choose>
-               </c:forEach>
-            </div>
-            <a href="javascript:PageMove(${pagination.nextPageNo},'${main_num }')"
-               class="button_next">&gt;</a> <a
-               href="javascript:PageMove(${pagination.finalPageNo},'${main_num }')"
-               class="button_next">&raquo;</a>
-         </div>
+        <ul id="paging" class="pagination text-center text-inline" >
+						<li><a href="javascript:PageMove(${pagination.firstPageNo},'${main_num }')" class="button previous">&laquo;</a></li>
+						<li><a	href="javascript:PageMove(${pagination.prevPageNo},'${main_num }'" class="button previous">&lt;</a></li>
+						<li class="pagination">
+							<c:forEach var="i" begin="${pagination.startPageNo}" end="${pagination.endPageNo}" step="1">
+								<c:choose>
+									<c:when test="${i eq pagination.pageNo}">
+										<li class="active"><a href="javascript:PageMove(${i}, '${main_num}')" class="active">${i}</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="javascript:PageMove(${i}, '${main_num}')" >${i}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</li>
+						<li><a href="javascript:PageMove(${pagination.nextPageNo}, '${main_num}')" class="button_next">&gt;</a></li>
+						<li><a href="javascript:PageMove(${pagination.finalPageNo}, '${main_num}')" class="button_next">&raquo;</a></li>
+					</ul>
    <!--footer  -->
       <jsp:include page="../footer/Footer.jsp"></jsp:include>
    

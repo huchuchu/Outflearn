@@ -46,21 +46,16 @@
 	</select>
 
 	<!-- ================== CLASS_DATA 테이블 ================== -->
-
+	
 	<!-- 강좌 챕터 영상 보기 -->
 	<select id="classdataselectone" parameterType="map" resultType="ClassDataDto">
 	  SELECT * FROM CLASS_DATA WHERE CLASS_NUM = #{class_num}
   	</select>
-	
+  	
 	<!-- 영상추가 첫번째 페이지 -->
 	<insert id="ClassDataInsert" parameterType="ClassDataDto">
-		INSERT INTO
-		CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SUBHEAD,
-		DATA_SQ, DATA_TITLE,
-		DATA_DATA) VALUES(CLASS_INFO_SQ.CURRVAL,
-		DATA_CHAPTER_SQ.NEXTVAL
-		,#{data_subhead }, #{data_sq }, #{data_title
-		}, #{data_data })
+		INSERT INTO CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SUBHEAD, DATA_SQ, DATA_TITLE,
+		DATA_DATA) VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.NEXTVAL ,#{data_subhead }, #{data_sq }, #{data_title}, #{data_data })
 	</insert>
 
 	<!-- 영상추가 두번째 페이지 챕터안에 내용 추가 -->
@@ -70,18 +65,35 @@
 		VALUES(CLASS_INFO_SQ.CURRVAL, DATA_CHAPTER_SQ.CURRVAL , #{data_sq },
 		#{data_title } , #{data_data })
 	</insert>
-
+	
+	
+	<!-- 영상추가 페이지 첫번째 챕터 추가 -->
+	<insert id="ClassDataInsertPlus" parameterType="ClassDataDto">
+		INSERT INTO CLASS_DATA(CLASS_NUM, DATA_CHAPTER ,DATA_SUBHEAD, DATA_SQ, DATA_TITLE, DATA_DATA) VALUES(#{class_num }, DATA_CHAPTER_SQ.NEXTVAL ,#{data_subhead }, #{data_sq }, #{data_title}, #{data_data })
+	</insert>
+	
+	<!-- 영상추가 페이지 첫번째 챕터안에 내용 추가 -->
+	<insert id="DataVideoSecondInsertPlus" parameterType="ClassDataDto">
+		INSERT INTO
+		CLASS_DATA (CLASS_NUM, DATA_CHAPTER ,DATA_SQ, DATA_TITLE, DATA_DATA)
+		VALUES(#{class_num }, DATA_CHAPTER_SQ.CURRVAL , #{data_sq },
+		#{data_title } , #{data_data })
+	</insert>
+	
+	
+	<!-- 영상 소제목,과정순서, 영상 업로드 수정 -->
+	<update id="DataVideoUploadUpdate" parameterType="ClassDataDto">
+		UPDATE CLASS_DATA SET DATA_SUBHEAD =  #{data_subhead } , DATA_SQ = #{data_sq }, DATA_TITLE = #{data_title }, DATA_DATA = #{data_data } WHERE CLASS_NUM = #{class_num }
+	</update>
+	
 	<!-- ================== CLASS_INTRODUCE 테이블 ================== -->
 
 	<!-- 해당 클래스의 강좌 -->
-	<select id="classIntroduceSelectlist" parameterType="int"
-		resultType="ClassIntroduceDto">
-		SELECT CLASS_CONTENT FROM CLASS_INTRODUCE WHERE CLASS_NUM =
-		(SELECT CLASS_NUM FROM CLASS_INTRODUCE WHERE CLASS_NUM = #{class_num
-		})
+	<select id="classIntroduceSelectlist" parameterType="int" resultType="ClassIntroduceDto">
+		SELECT CLASS_CONTENT FROM CLASS_INTRODUCE WHERE CLASS_NUM = (SELECT CLASS_NUM FROM CLASS_INTRODUCE WHERE CLASS_NUM = #{class_num })
 	</select>
 
-	<!-- 강좌 내용 DB추가 -->
+	<!-- 강의 내용 DB추가 -->
 	<insert id="ClassIntroduceInsert" parameterType="ClassIntroduceDto">
 		INSERT INTO CLASS_INTRODUCE (CLASS_NUM, CLASS_CONTENT)
 		VALUES(CLASS_INFO_SQ.CURRVAL, #{class_content })
@@ -98,11 +110,25 @@
 	</update>
 	
 	<!-- ================== CLASS_REVIEW 테이블 ================== -->
-	<select id="classReviewSelectlist" resultType="classReviewDto" parameterType="map">
-		SELECT * FROM CLASS_REVIEW WHERE CLASS_NUM = (SELECT
-		CLASS_NUM FROM CLASS_INFO WHERE CLASS_NUM = #{class_num }) ORDER BY
-		REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
-	</select>
+	<select id="classReviewSelectlist" resultType="classReviewDto"
+      parameterType="map">
+      SELECT R.REVIEW_NUM AS REVIEW_NUM,
+            R.CLASS_NUM AS CLASS_NUM,
+            R.USER_NUM AS USER_NUM,
+            R.REVIEW_CONTENT AS REVIEW_CONTENT,
+            R.USER_STAR AS USER_STAR,
+            R.REVIEW_GROUPNO AS REVIEW_GROUPNO,
+            R.REVIEW_GROUPSQ AS REVIEW_GROUPSQ,
+            R.REVIEW_TITLETAB AS REVIEW_TITLETAB,
+            U.USER_NICKNAME AS USER_NICKNAME
+      FROM CLASS_REVIEW R JOIN USER_INFO U ON R.USER_NUM = U.USER_NUM
+      
+      WHERE CLASS_NUM = (SELECT
+      CLASS_NUM FROM CLASS_INFO WHERE CLASS_NUM = #{class_num })
+      
+      
+      ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
+   </select>
 
 	<select id="classReviewSelectOne" resultType="classReviewDto"
 		parameterType="int">
@@ -110,38 +136,37 @@
 		#{reveiw_nim }
 	</select>
 
+	
 	<insert id="classReviewInsert" parameterType="classReviewDto">
-		INSERT INTO
-		CLASS_REVIEW VALUES(REVIEW_NUM.NEXTVAL, #{class_num}, #{user_num},
-		#{review_content}, #{user_star}, REVIEW_GROUPNO.NEXTVAL, 1, 0)
-	</insert>
+      INSERT INTO
+      CLASS_REVIEW VALUES(REVIEW_NUM_SQ.NEXTVAL, #{class_num}, #{user_num},
+      #{review_content}, #{user_star}, REVIEW_GROUPNO_SQ.NEXTVAL, 1, 0)
+   </insert>
 
 	<update id="classReviewUpdate" parameterType="classReviewDto">
 		UPDATE CLASS_REVIEW
-		SET REVIEW_CONTENT = #{review_content } WHERE REVIEW_NUM =
-		#{review_num }
+			SET REVIEW_CONTENT = #{review_content }, USER_STAR = #{user_star} WHERE REVIEW_NUM = #{review_num }
 	</update>
 
-	<delete id="classReviewDelete" parameterType="int">
-		DELETE FROM
-		CLASS_REVIEW WHERE REVIEW_NUM = #{review_num }
+	<delete id="classReviewDelete" parameterType="classReviewDto">
+		DELETE FROM CLASS_REVIEW WHERE REVIEW_GROUPNO = #{review_groupno }
 	</delete>
 	
 	<insert id="classReviewInsertAnswer" parameterType="classReviewDto">
 		INSERT INTO CLASS_REVIEW VALUES(REVIEW_NUM.NEXTVAL, #{class_num}, #{user_num}, #{review_content}, #{user_star},
 										(SELECT REVIEW_GROUPNO FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}),
-										(SELECT REVIEW_GROUPSQ FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1, 0) 
+										(SELECT REVIEW_GROUPSQ FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1, 
+										(SELECT REVIEW_TITLETAB FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1) 
 	</insert>
 
-	<update id="classReviewUpdateAnswer" parameterType="int">
+	<update id="classReviewUpdateAnswer" parameterType="classReviewDto">
 		UPDATE
-		CLASS_REVIEW SET QA_GROUPSQ = QA_GROUPSQ + 1
-		WHERE QA_GROUPSQ = (SELECT
-		QA_GROUPNO FROM CLASS_REVIEW WHERE BOARD_NO = #{board_no })
-		AND
-		QA_GROUPSQ > (SELECT QA_GROUPSQ FROM CLASS_REVIEW WHERE BOARD_NO =
-		#{board_no })
+		CLASS_REVIEW SET REVIEW_CONTENT = #{review_content} WHERE REVIEW_NUM = #{review_num}
 	</update>
+	
+	<delete id="ReviewReplyDelete" parameterType="int">
+		DELETE FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}
+	</delete>
 
 	<!-- ================== Basket 테이블 ======================== -->
 	<insert id="classBasketInsert" parameterType="ClassInfoDto">
@@ -158,7 +183,8 @@
 	</delete>
 	
 	<select id="QASelectList" parameterType="int" resultType="QADto">
-		SELECT * FROM QA WHERE CLASS_NUM = #{class_num}
+		SELECT
+		* FROM QA WHERE CLASS_NUM = #{class_num} AND QA_GROUP_SQ = 1
 	</select>
 
 	<select id="QASelectOne" parameterType="int" resultType="QADto">
@@ -171,7 +197,7 @@
 		VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname},
 		#{qa_title}, #{qa_content}, QA_GROUP_NO_SQ.NEXTVAL, '1')
 	</insert>
-
+ 
 	<delete id="QADelete" parameterType="int">
 		DELETE FROM QA WHERE
 		QA_GROUP_NO = #{qa_group_no}
@@ -399,12 +425,13 @@
 				upper(QA_CONTENT) like '%' || upper(#{txt_search}) || '%'
 			</if>
 		</where>
-		ORDER BY CLASS_NUM DESC
+		ORDER BY ROWNUM DESC
 		) C
 		)
 		WHERE RNUM BETWEEN #{firstIndex} + 1 AND
 		#{firstIndex} +
 		#{recordCountPerPage}
+		ORDER BY ROWNUM DESC
 	</select>
 	
 	<select id="selectTotalCountQA" parameterType="map"
@@ -419,6 +446,33 @@
 			upper(QA_CONTENT) like '%' || upper(#{txt_search}) || '%'
 		</if>
 		</where>
+	</select>
+	
+	<select id="classReviewSelectlistPagination" resultType="classReviewDto"
+		parameterType="map">
+		SELECT REVIEW_NUM, CLASS_NUM, USER_NUM, REVIEW_CONTENT, USER_STAR, 
+				REVIEW_GROUPNO, REVIEW_GROUPSQ, REVIEW_TITLETAB, USER_NICKNAME
+		FROM(
+			SELECT ROWNUM AS RNUM, C.*
+			FROM(
+				SELECT R.REVIEW_NUM AS REVIEW_NUM,
+					R.CLASS_NUM AS CLASS_NUM,
+					R.USER_NUM AS USER_NUM,
+					R.REVIEW_CONTENT AS REVIEW_CONTENT,
+					R.USER_STAR AS USER_STAR,
+					R.REVIEW_GROUPNO AS REVIEW_GROUPNO,
+					R.REVIEW_GROUPSQ AS REVIEW_GROUPSQ,
+					R.REVIEW_TITLETAB AS REVIEW_TITLETAB,
+					U.USER_NICKNAME AS USER_NICKNAME
+					FROM CLASS_REVIEW R JOIN USER_INFO U ON R.USER_NUM = U.USER_NUM
+		
+					WHERE CLASS_NUM = (SELECT
+					CLASS_NUM FROM CLASS_INFO WHERE CLASS_NUM = #{class_num })
+			
+					ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
+				) C
+				)
+				WHERE RNUM BETWEEN #{firstIndex} + 1 AND #{firstIndex} + #{recordCountPerPage}		
 	</select>
 	<!-- ================== 카테고리 주류, 부류 ================== -->
 	<insert id="ClassCategoryInsert" parameterType="hashmap">
@@ -452,8 +506,23 @@
 	
 	<select id="ReviewList" resultType="classReviewDto" parameterType="int">
 		<![CDATA[
-			SELECT * FROM CLASS_REVIEW WHERE CLASS_NUM = #{class_num} AND ROWNUM <= 5 ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
-		]]>
+			SELECT R.REVIEW_NUM AS REVIEW_NUM,
+            R.CLASS_NUM AS CLASS_NUM,
+            R.USER_NUM AS USER_NUM,
+            R.REVIEW_CONTENT AS REVIEW_CONTENT,
+            R.USER_STAR AS USER_STAR,
+            R.REVIEW_GROUPNO AS REVIEW_GROUPNO,
+            R.REVIEW_GROUPSQ AS REVIEW_GROUPSQ,
+            R.REVIEW_TITLETAB AS REVIEW_TITLETAB,
+            U.USER_NICKNAME AS USER_NICKNAME
+      FROM CLASS_REVIEW R JOIN USER_INFO U ON R.USER_NUM = U.USER_NUM
+      
+      WHERE CLASS_NUM = (SELECT
+      CLASS_NUM FROM CLASS_INFO WHERE CLASS_NUM = #{class_num })
+      AND ROWNUM <= 5
+      
+      ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
+	  ]]>
 	</select>
 
 	<!-- ================== 장바구니 구매 유무 ================== -->

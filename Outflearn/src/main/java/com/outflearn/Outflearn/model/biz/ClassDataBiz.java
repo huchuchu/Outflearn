@@ -2,16 +2,11 @@ package com.outflearn.Outflearn.model.biz;
 
 import java.util.List;
 
-import com.outflearn.Outflearn.dto.ClassCategoryDto;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
-import com.outflearn.Outflearn.dto.QADto;
-import com.outflearn.Outflearn.dto.LiveDto;
-import com.outflearn.Outflearn.dto.connectUserClass;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
-import com.outflearn.Outflearn.dto.LiveDto;
-import com.outflearn.Outflearn.dto.MainStreamDto;
+import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
 
 public interface ClassDataBiz {
@@ -37,6 +32,10 @@ public interface ClassDataBiz {
 		public int ClassDataInsert(ClassDataDto dto);		
 		public int ClassChapterDataInsert(ClassDataDto dto);
 		public int ClassInfoUpdateSub(int class_num);
+		public int ClassDataInsertPlus(ClassDataDto dto);
+		public int DataVideoUploadUpdate(ClassDataDto dto);
+		public int DataVideoSecondInsertPlus(ClassDataDto dto);
+		public ClassDataDto videoDataOne(ClassDataDto dto);
 		
 		// 장바구니 - BASKET 테이블
 		public int classBasketInsert(ClassInfoDto dto);
@@ -48,10 +47,11 @@ public interface ClassDataBiz {
 		public ClassReviewDto ClassReviewSelectOne(int review_num);
 		public int ClassReviewInsert(ClassReviewDto dto);
 		public int ClassReviewUpdate(ClassReviewDto dto);
-		public int ClassReviewDelete(int review_num);
+		public int ClassReviewDelete(ClassReviewDto dto);
 		
-		public int ClassReviewAnswer(ClassReviewDto dto, int parentBoard_no);
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);
+		public int ClassReviewReplyUpdate(ClassReviewDto dto);
+		public int ClassReviewReplyDelete(int review_num);
 		
 		// 주류, 부류 - MAIN_STREAM , SUB_STREAM
 		//public int mainStreamInsert(MainStreamDto dto);
@@ -95,4 +95,5 @@ public interface ClassDataBiz {
 		public int classInsertSubscribe(int user_num, int class_num);
 		// 결제에 따라 장바구니 테이블 안나옴
 		public int ClassBuyAfter(int class_num, int user_num);
+	
 }

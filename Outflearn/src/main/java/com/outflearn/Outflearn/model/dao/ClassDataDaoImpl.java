@@ -191,6 +191,45 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		return res;
 	}
 	
+	// 영상 추가
+	@Override
+	public int ClassDataInsertPlus(ClassDataDto dto) {
+		int res = 0;
+
+		res = sqlSession.insert(namespace + "ClassDataInsertPlus", dto);
+
+		return res;
+	}
+
+	
+	@Override
+	public int DataVideoUploadUpdate(ClassDataDto dto) {
+		int res = 0;
+		
+		res = sqlSession.update(namespace + "DataVideoUploadUpdate", dto); 
+		
+		return res;
+	}
+	
+	@Override
+	public int DataVideoSecondInsertPlus(ClassDataDto dto) {
+		int res = 0;
+		
+		res = sqlSession.insert(namespace + "DataVideoSecondInsertPlus", dto); 
+		
+		return res;
+	}
+	
+	@Override
+	public ClassDataDto videoDataOne(ClassDataDto dto) {
+		
+		ClassDataDto Cdto = sqlSession.selectOne(namespace + "videoDataOne", dto);
+		
+		return Cdto;
+	}
+
+	
+
 //	--------------------------------------------------- 장바구니(BASKET)
 	@Override
 	public int classBasketInsert(ClassInfoDto dto) {
@@ -274,11 +313,11 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 
 	@Override
-	public int ClassReviewDelete(int review_num) {
+	public int ClassReviewDelete(ClassReviewDto dto) {
 
 		int res = 0;
 
-		res = sqlSession.delete(namespace + "classReviewDelete", review_num);
+		res = sqlSession.delete(namespace + "classReviewDelete", dto);
 
 		return res;
 	}
@@ -415,11 +454,9 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	}
 	
 	@Override
-	public int ClassReviewUpdateAnswer(int review_num) {
+	public int ClassReviewReplyUpdate(ClassReviewDto dto) {
 
-		int res = 0;
-
-		res = sqlSession.update(namespace + "classReviewUpdateAnswer", review_num);
+		int res = sqlSession.update(namespace + "classReviewUpdateAnswer", dto);
 
 		return res;
 	}
@@ -430,6 +467,14 @@ public class ClassDataDaoImpl implements ClassDataDao {
 		int res = 0;
 		
 		res = sqlSession.insert(namespace + "classReviewInsertAnswer", dto);
+		
+		return res;
+	}
+	
+	@Override
+	public int ClassReviewReplyDelete(int review_num) {
+		
+		int res = sqlSession.delete(namespace + "ReviewReplyDelete", review_num);
 		
 		return res;
 	}
@@ -644,6 +689,14 @@ public class ClassDataDaoImpl implements ClassDataDao {
 	      
 	      return list;
 	}
+
+
+
+	
+
+
+	
+
 
 
 

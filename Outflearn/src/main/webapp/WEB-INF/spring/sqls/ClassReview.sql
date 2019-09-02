@@ -2,6 +2,7 @@
 DROP TABLE CLASS_REVIEW;
 --글 번호 시퀀스(일반적인 번호)
 DROP SEQUENCE REVIEW_NUM_SQ;
+
 --그룹번호 시퀀스(답글이 달렸을 때 )
 DROP SEQUENCE REVIEW_GROUPNO_SQ;
 

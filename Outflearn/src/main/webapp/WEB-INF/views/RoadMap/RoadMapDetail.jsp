@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +29,7 @@ background-color:#2c2e37;
 text-align: center;
 padding-top: 2%;
 height: 100%;
+color: #e4e5ed;
 
 }
 
@@ -38,11 +40,6 @@ padding-bottom: 2%;
 
 }
 
-
-.roadMapInfo{
-text-align: center;
-
-}
 
 .floating_card{ 
 position: fixed; 
@@ -71,6 +68,8 @@ border-color: #6372ff;
 background-color: #fff;
 color: #6372ff;
 }
+
+
 
 .enroll{
 width: 100%;
@@ -105,13 +104,28 @@ margin-top: 5%;
 }
 
 #classTable{
-width: 60%;
+/*width: 60%;*/
 height: 100%;
 margin: auto;
 text-align: center;
 }
 
+.icon{
+cursor: pointer;
+}
+#logo{
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #6372ff;
+    text-transform: uppercase;
+    text-align: center;
 
+}
+.ysk{
+width: 90%;
+
+}
 </style>
 
 
@@ -124,9 +138,9 @@ text-align: center;
 <!-- Header  -->
 <sec:authorize access="isAuthenticated()">
 <input type="hidden" id="userNum" value='<sec:authentication property="principal.user_num"/>'>
+<sec:authentication var="num" property="principal.user_num"/>
 </sec:authorize>
 <input type="hidden" id="roamdMapNum" value="${roadMap.roadmap_num }">
-
 <div class="container-fluid">
 	<div class="row">
 		<header class="roadmap_detail_header">
@@ -140,18 +154,18 @@ text-align: center;
 				<i class="fas fa-user" style="margin-right:5px;"></i>:<span class="social_cnt" style="margin-left: 5px; margin-right:1%; ">${roadMap.roadmap_subscribe }</span>			
 				</span>
 				<span title="포함된 강좌 수 " style="cursor: pointer;">
-				<i class="fas fa-book" style="margin-right:5px;"></i>:<span style="margin-left: 5px;"><c:out value="${fn:length(resList) }"/></span>		
+				<i class="fas fa-book" style="margin-right:5px;"></i>:<span style="margin-left: 5px; margin-right:1%;"><c:out value="${fn:length(resList) }"/></span>		
 				</span>
 			</div>
 		</header>
 	</div>
-	<div class="row">
-		<div class="col-md-8" >
+	<div class="row" style="margin: 1%;">
+		<div class="col-md-8 ysk" style="padding-left: 10%;">
 			<div class="roadMapInfo">
 			${roadMap.roadmap_content }	
 			</div>
 		</div>
-		<div class="col-md-4">
+		<aside class="col-md-4">
 			<div class="floating_card"> 			
 			<div style="margin-bottom: 12%;">
 				<!-- 구독취소/구독하기 -->
@@ -215,13 +229,18 @@ text-align: center;
 						<button type="button" class="kakao_share">
 						<i class="fas fa-comment"></i>
 						</button>
-						</a>							
+						</a>
+							
 				</div>
 				</div>
 			</div>
-		</div>
+		</aside>
 	</div>
-	<div class="row">
+
+	<div class="row" >
+	<div class="ysk" style="padding-left: 10%;">
+		<c:if test="${!empty resList }">
+		<article  >
 		<div class="col-md-8" id="classDetail">
 		<table class="table" id="classTable">	
 	
@@ -260,18 +279,299 @@ text-align: center;
 			</tr>
 			</c:forEach>	
 		</table>
-		</div>			
-	</div>
-	<div class="row">
-		<div class="col-md-8">
-	<h1>댓글을 넣을까요 어떻게 생각하세요</h1>
-	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-		
 		</div>
+		</article>
+		</c:if>			
+	</div>
 	</div>
 	
+	<div class="row" style="margin-bottom: 1%;">
+	<div style="padding-left: 10%;" class="ysk">
+	<sec:authorize access="isAuthenticated()">
+		<div class="col-md-8">
+			  <div class="form-group">
+			      <label for="exampleTextarea">로드맵에대한 피드백을 제시해주세요</label>
+			      <textarea class="form-control" id="myComment" rows="3" ></textarea>
+			      <button class="btn btn-secondary" type="button" id="btnSave">등록</button>
+			   </div>	
+		</div>
+	</sec:authorize>	
+		<div class="col-md-8">
+			<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
+				
+				<div id="commentList" ></div>
 
-</div>
+			</div> 	
+		</div>
+
+	</div>
+	</div>
+	
+<!-- 댓글의 답댓글 모달창 -->	
+ <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close rn" data-dismiss="modal">×</button>
+          <h4 class="modal-title"><span id="logo">Outflearn</span></h4>
+        </div>
+        <div class="modal-body">
+         <input type="hidden" id="numArea" value="">
+         <textarea rows="5" cols="78" id="modal_content"></textarea>
+        </div>
+        <div class="modal-footer">        
+          <button type="button" class="btn btn-secondary rn" data-dismiss="modal" >취소하기</button>
+          <button type="button" class="btn btn-primary" id="AddBtn" >댓글저장</button>          
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>	
+
+<script type="text/javascript">
+
+$(function(){
+	
+	$("#AddBtn").click(function(){
+		
+		var content = $("#modal_content").val();
+		var comNum = $("#numArea").val();
+		var roadNum = $("#roamdMapNum").val();
+		var userNum = $("#userNum").val();
+		
+		var param = {"user_num":userNum , "comment_content":content, "roadmap_num":roadNum, "comment_num":comNum}
+		
+		if(content=="" || content == null){
+			Swal.fire({
+				  type: 'error',
+				  title: '내용을 작성해주세요!'
+				})
+				return false;
+		}
+				
+		$.ajax({
+			url:"addReComment",
+			type:"POST",
+			data:param,
+			success: function(data){
+	//			alert(data);
+				if(data == true){
+					$(".modal-body #modal_content").val("");	
+					$(".modal-body #numArea").val("");
+					$("#myModal").modal('hide');
+					comment_List();
+				}
+				
+			}
+		
+		})
+		
+	});
+	
+	//모달 취소눌렀을 때 내용지우기	
+	$(".rn").click(function(){		
+		$(".modal-body #modal_content").val("");	
+		$(".modal-body #numArea").val("");		
+	});
+	
+});
+
+
+</script>
+
+
+
+<script type="text/javascript">
+
+$(function() {
+	//댓글리스트 갱신 함수
+	comment_List();
+	
+	$("#btnSave").click(function(){
+		comment_add();
+	});	
+});
+
+function comment_add(){
+
+var roadNum = $("#roamdMapNum").val();
+var Content = $("#myComment").val();
+var userNum = $("#userNum").val();
+	
+var param = {"roadmap_num":roadNum, "comment_content":Content, "user_num":userNum}
+
+
+if(Content =="" || Content ==null){
+	Swal.fire({
+		  type: 'error',
+		  title: '내용을 작성해주세요!'
+		})
+		
+		return false;
+}
+
+
+$.ajax({
+	url: "addComment",
+	type: "get",
+	data: param,
+	success: function(data){
+//		alert(data);
+//		alert(data.resChk);
+		if(data.resChk==true){
+//			alert("성공!");
+			$("#myComment").val("");//저장 후 돌아오면 입력된 내용 지우기	
+			comment_List(); //댓글 목록 새로고침
+		}
+	}
+});
+	
+}
+
+function comment_List(){
+
+	var roadNum = $("#roamdMapNum").val();
+	var userNum = $("#userNum").val();
+	
+	$.ajax({
+		url: "commentList",
+		type: "POST",
+		data: "roadnum="+roadNum,
+		dataType: "json",
+		success: function(msg){	
+			
+			var htmls = "";
+			
+			if(msg.length < 1){
+				htmls += '<div class="media text-muted pt-3 commentdiv" >';
+				htmls += '<h3>===등록된 댓글이 없습니다===</h3>';
+				htmls += '</div>';
+				
+			}else{
+				
+                $(msg).each(function(){    
+                             	               	
+                    htmls += '<div class="media text-muted pt-3 commentdiv" id="rid' + this.comment_num + '">';
+                    htmls += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+                    htmls += '<span class="d-block">';
+                    htmls += '<strong class="text-gray-dark">' + this.user_nickname + '</strong>';
+                    htmls += '<span style="padding-left: 7px; font-size: 9pt">';
+
+					if(userNum != null && this.user_num == userNum && this.comment_content != '=====삭제 된 댓글입니다 ====='  ) {
+                    htmls += '<a onclick="editComment(' + this.comment_num + ', \'' + this.user_nickname + '\', \'' + this.comment_content + '\' )" style="padding-right:5px" class="icon">수정</a>';
+                    htmls += '<a onclick="deleteComment(' + this.comment_num + ')" class="icon" >삭제</a>';
+					}
+					
+                    htmls += '</span>';
+                    htmls += '</span>';
+                    htmls += '</p>';
+                    if(this.comment_titletab>0){
+                    htmls += '<p><i class="far fa-hand-point-right"></i>';
+                    htmls += this.comment_content;
+                    htmls += '</p>';                    	
+                    	
+                    }else{
+                    htmls += '<p>';
+                    htmls += this.comment_content;
+                    htmls += '</p>';                    	
+                    	
+                    }
+
+                    if(this.comment_content != '=====삭제 된 댓글입니다 =====' ){
+                    htmls += '<p>';
+                    htmls += '<sec:authorize access="isAuthenticated()">';
+                    htmls += '<a class="icon" onclick="showModal('+this.comment_num+')" >답글달기</a>';
+                    htmls += '</sec:authorize>';
+                    htmls += '</p>';
+                    }
+                    htmls += '</div>';
+
+               });
+			}			
+			$("#commentList").html(htmls);
+		}
+	});
+	
+}
+
+function editComment(comNum,nickName,content){
+	var	htmls = "<div class='media text-muted pt-3' id='rid"+comNum+"'>"+
+	"<p class='media-body pb-3 mb-0 small lh-125 border-bottom horder-gray'>"+
+	"<span class='d-block'>"+
+	"<strong class='text-gray-dark'>"+nickName+"</strong>"+
+	"<span style='padding-left: 7px; font-size: 9pt'>"+
+	"<span style='padding-right: 5px;'><c:out value='${today }'></c:out></span>"+
+	"<a onclick='updateComment("+comNum+");' style='padding-right: 5px;' class='icon' >저장</a>"+
+	"<a onclick='back()' class='icon'>취소</a>"+
+	"</span>"+
+	"</span>"+
+	"</p>"+
+	"<p>"+
+	"<textarea class='form-control' id='editContent' rows='3' >"+
+	 content +
+	"</textarea>"+
+	"</p>"+
+	"</div>";
+
+$('#rid'+comNum).replaceWith(htmls);
+$('#rid'+comNum+'#editContent').focus();
+}
+
+function updateComment(comNum){
+	
+	var Content = $("#editContent").val();
+	var param = {"content":Content,"ComNum":comNum}
+	
+	$.ajax({
+		url: "commentUpdate",
+		type: "POST",
+		data: param,
+		success: function(data){
+//			alert(data);
+//			alert(data.res);
+			if(data.res == true){
+				comment_List();
+			}
+		}	
+	});
+		
+}
+
+function deleteComment(comnum){
+	
+	
+	$.ajax({
+		url:"deleteComment",
+		type:"POST",
+		data:"comNum="+comnum,
+		success: function(data){
+			
+			if(data.Chk == true){
+			
+				comment_List();
+			}
+		}
+	});
+}
+
+function back(){
+	comment_List();
+}
+
+function showModal(comNum){
+
+	$(".modal-body #numArea").val(comNum);
+	$("#myModal").modal('show');
+	
+}
+
+
+</script>
+
+
 
 <script type="text/javascript">
 $("#basketBtn").click(function(){
@@ -446,7 +746,7 @@ function roadmap_subscribe(){
 		success:function(data){
 
 			if(data.res==true){
-			window.location.reload();//이렇게 새로고침을 넣어야 하는건지 잘 모르겠음!!!	
+			window.location.reload();
 			}
 		},
 		error:function(){
