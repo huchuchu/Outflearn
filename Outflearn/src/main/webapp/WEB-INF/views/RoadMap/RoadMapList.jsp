@@ -64,7 +64,7 @@ function PageMove(page,data) {
                        <option value="roadmap_author">작성자</option>
                     </select>
                  </div>
-                 <div  class="form-group ren" style="width: 40%;">
+                 <div  class="form-group ren" style="width: 20%;">
                     <input type="text" class="form-control form-control-sm" name="txt_search" id="txt_search" value="${txt_search }" placeholder="검색하기">
                  </div>                   
                  <div class="form-group ren" style="padding-left: 3px;">

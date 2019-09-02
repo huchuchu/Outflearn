@@ -6,22 +6,18 @@
 				    Kakao.Auth.createLoginButton({
 				      container: '#kakao-login-btn',
 				      success: function(authObj) {
-//	 				        alert(JSON.stringify(authObj));	
 
 				    	  Kakao.API.request({
 				    		 url: '/v1/user/me',
 				    		 success: function(res){
 				    			 
-//				    			alert(res);				    			 
 				    			res.id += "@k";	
-//				    			alert(res.id);
 
 				    			
 				    			$.ajax({
 				    				url: "idChk.do",
 				    				data: "id="+res.id,
 				    				success: function(data){
-//				    					alert(data.idChk);
 				    				
 				    					if(data.idChk==true){ //비회원이면 가입 후 로그인
 				    						
@@ -43,7 +39,6 @@
 				    						 var kakaoid = res.id;
 				    						 var idChk = false;
 				    						 
-				    						 alert("비회원로그인 ㄱㄱ");
 				    						 
 				    						 document.write('<form action="/Outflearn/snsLogin" id="sub_form" method="post">'+
 				    				                        '<input type="hidden" name="id" value="'+kakaoid+'">'+

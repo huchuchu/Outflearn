@@ -32,25 +32,21 @@
 	window.addEventListener('load', function () {
 		naverLogin.getLoginStatus(function (status) {
 			
-			alert(status);
 			
 			if (status) {
 				
 				var uniqId = naverLogin.user.getId();
 				uniqId +="@n";
 				console.log(uniqId);
-				alert(uniqId);
 				
 				$.ajax({
     				url: "idChk.do",
     				method:"POST",
     				data: "id="+uniqId,
     				success: function(data){
-    					alert("data.idChk= "+data.idChk);
     					
     					if(data.idChk==true){
     						alert("회원가입을 진행합니다");
- //   						alert(data.idChk);
     						
     						var param = {"id":uniqId , "idCheck":data.idChk}
     						
@@ -66,8 +62,6 @@
     						
     						
     					}else{
-    						alert("회원로그인");
-    						alert(data.idChk);
     						
     						var param = {"id":uniqId , "idCheck":data.idChk}
     						

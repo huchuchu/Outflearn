@@ -809,7 +809,6 @@ public class HomeController {
 		
 		int res = biz.ClassDataInsertPlus(dto);
 		
-
 		if (res > 0) {
 			return "Class/DataVideoUploadChapterSecondPlus";
 		} else {

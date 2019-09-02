@@ -25,7 +25,7 @@
 		<intercept-url pattern="/tutor/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_TUTOR')"/>
 		<intercept-url pattern="/user/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_TUTOR', 'ROLE_USER')"/>
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/**" access="permitAll"/>
+		<intercept-url pattern="/**" access="permitAll" />
 		
 		<!-- 로그인 관련 설정 -->
 		<form-login
