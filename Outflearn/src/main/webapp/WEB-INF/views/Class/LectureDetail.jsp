@@ -49,8 +49,9 @@
 
 	<jsp:include page="../header/LectureListHeader.jsp"></jsp:include>
 	
+	
 	<sec:authorize access="isAuthenticated()">
-		<sec:authentication var="user_nickname" property="principal.user_nickname"/>
+		<sec:authentication var="Auser_num" property="principal.user_num"/>
 	</sec:authorize>
 
 	<c:forEach items="${classdata }" var="dto">
@@ -84,7 +85,7 @@
 				</p>
 				
 				
-				<c:if test="${empty ClassBuyAfter or user_nickname == user_nickname }">
+				<c:if test="${empty ClassBuyAfter or Auser_num == user_num }">
 				<div id="box">
 					<div id="course">
 						<h4>${classinfo.class_price }원</h4>

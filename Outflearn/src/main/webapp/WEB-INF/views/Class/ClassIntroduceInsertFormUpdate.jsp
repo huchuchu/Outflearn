@@ -111,7 +111,7 @@
 	
 	function Control(){
 		var class_content = $(".class_content").val();
-		alert(class_content)
+	
 		ClassIntroduceMyform = document.ClassIntroduceMyform;
 		if (ClassIntroduceMyform.class_content.value == "") {
 			Swal.fire({
@@ -127,10 +127,10 @@
 		var class_num = $(".class_num").val();
 		
 		$.ajax({
-			url : 'ClassIntroduceUpdate?class_num=' + class_num + "&class_content=" + class_content,
-			method : 'post',
+			url : 'ClassIntroduceUpdate?class_num=' + class_num + "&class_content=" + encodeURI(class_content),
+			method : 'get',
 			success : function(data) {
-				location.href= 'mypage';
+				location.href= 'myPage';
 			},
 			error : function() {
 				alert('에러 발생~~ \n')

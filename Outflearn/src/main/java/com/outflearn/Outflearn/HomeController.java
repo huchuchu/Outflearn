@@ -3,7 +3,6 @@ package com.outflearn.Outflearn;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,7 +27,6 @@ import com.outflearn.Outflearn.dto.ClassCategoryDto;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
-import com.outflearn.Outflearn.dto.ClassReviewDto;
 import com.outflearn.Outflearn.dto.MainStreamDto;
 import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
@@ -144,16 +142,18 @@ public class HomeController {
 	@RequestMapping("/LectureDetail")
 	public String LectureDetail(@ModelAttribute ClassInfoDto Dto, int class_num, Model model, HttpSession session, String page, String txt_search) {
 		logger.info("/LectureDetail");
-
+		
+		model.addAttribute("user_num", Dto.getUser_num());
+		
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 
 		if (securityContext.getAuthentication().getPrincipal() == "anonymousUser") {
-			String Unuser_nickname = (String) securityContext.getAuthentication().getPrincipal();
+			
 
 			session.setAttribute("info_num", class_num);
 			model.addAttribute("class_num", class_num);
 
-			model.addAttribute("user_nickname", Unuser_nickname);
+			
 			// 강좌 소개
 			model.addAttribute("classinfo", biz.ClassInfoSelectOne(class_num));
 
@@ -200,6 +200,7 @@ public class HomeController {
 
 			return "Class/LectureDetail";
 		} else {
+			
 			System.out.println("로그인된유저");
 			
 			session.setAttribute("info_num", class_num);
