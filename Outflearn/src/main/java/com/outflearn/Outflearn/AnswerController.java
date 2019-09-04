@@ -1,6 +1,7 @@
 package com.outflearn.Outflearn;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.outflearn.Outflearn.dto.ClassReviewDto;
@@ -64,30 +66,15 @@ public class AnswerController {
 	}
 	
 	@RequestMapping("AnswerUpdate")
-	@ResponseBody
-	public Map<String,Object> AnswerUpdate(@ModelAttribute ClassReviewDto dto, int review_num, String review_content) {
-		System.out.println("게시판번호"+review_num);
-		System.out.println("댓글내용"+review_content);
-		
-		Boolean updatechk = false;
-		Map<String,Object> map = new HashMap<String, Object>();
-		
-	
-		dto.setReview_num(review_num);
-		dto.setReview_content(review_content);
+	public String AnswerUpdate(@ModelAttribute ClassReviewDto dto) {
 		
 		int res = biz.ClassReviewUpdate(dto);
-		System.out.println(res);
 		
 		if (res > 0) {
-			updatechk=true;
-			map.put("content", review_content);
-			map.put("updatechk", updatechk);
+			return "redirect:LectureDetail?class_num=" + dto.getClass_num();
 		}else {
-			map.put("updatechk", updatechk);
+			return "redirect:LectureDetail?class_num=" + dto.getClass_num();
 		}
-		System.out.println(updatechk);
-		return map;
 	}
 	
 //	대댓글
@@ -98,6 +85,30 @@ public class AnswerController {
 		model.addAttribute("ReviewReply", biz.ClassReviewInsertAnswer(dto));
 		
 		return "redirect: LectureDetail?class_num=" + dto.getClass_num();
+	}
+	
+	@RequestMapping("ReviewReplyUpdate")
+	public String ReviewReplyUpdate(@ModelAttribute ClassReviewDto dto) {
+		
+		int res = biz.ClassReviewReplyUpdate(dto);
+		
+		if (res > 0) {
+			return "redirect:LectureDetail?class_num=" + dto.getClass_num();
+		}else {
+			return "redirect:LectureDetail?class_num=" + dto.getClass_num();
+		}
+	}
+	
+	@RequestMapping("ReviewReplyDelete")
+	public String ReviewReplyDelete(int review_num, int class_num) {
+		
+		int res = biz.ClassReviewReplyDelete(review_num);
+		
+		if (res > 0) {
+			return "redirect:LectureDetail?class_num=" + class_num;
+		}else {
+			return "redirect:LectureDetail?class_num=" + class_num;
+		}
 	}
 	
 	@RequestMapping("QuestionInsert")

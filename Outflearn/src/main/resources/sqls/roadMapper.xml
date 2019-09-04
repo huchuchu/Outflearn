@@ -255,4 +255,22 @@ VALUES (COMMENT_NUM_SQ.NEXTVAL, #{roadmap_num} , #{user_num}, #{comment_content}
 
 </insert>
 
+<select id="getSubnumList" parameterType="map" resultType="java.lang.Integer">
+SELECT SUB_NUM FROM CLASS_CATEGORY WHERE CLASS_NUM IN
+<foreach collection="classlist" item="item" open="(" separator="," close=")">
+#{item}
+</foreach>
+
+</select>
+
+<select id="getsubnumNameList" parameterType="map" resultType="String">
+SELECT SUB_NAME FROM SUB_STREAM WHERE SUB_NUM IN
+<foreach collection="subnumNameList" item="item" open="(" separator="," close=")">
+#{item}
+</foreach>
+
+</select>
+
+
+
 </mapper>

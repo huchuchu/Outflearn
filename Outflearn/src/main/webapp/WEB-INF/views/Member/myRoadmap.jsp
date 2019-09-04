@@ -133,16 +133,18 @@
                               <td class="text-center">${item.roadmap_subscribe}명</td>
                               <td class="text-center">${item.roadmap_like}개</td>
                               <td class="text-center"><button
-                                  onclick="updateRoadmap(${item.roadmap_num}, '${item.roadmap_title}')">수정</button></td>
+                                  onclick="updateRoadmap(${item.roadmap_num}, '${item.roadmap_title}')"
+                                  class="updateBtn">수정</button></td>
                               <td class="text-right"><button
-                                  onclick="deleteRoadmap(${item.roadmap_num},'${item.roadmap_title}')">삭제</button></td>
+                                  onclick="deleteRoadmap(${item.roadmap_num},'${item.roadmap_title}')"
+                                  class="deleteBtn">삭제</button></td>
                             </tr>
                           </c:forEach>
                         </c:otherwise>
                       </c:choose>
                       <tr>
                         <td colspan="5" class="text-center">
-                          <button onclick="location.href='RoadMapWriteP1'">로드맵 작성</button>
+                          <button onclick="location.href='RoadMapWriteP1'" class="addBtn">로드맵 작성</button>
                         </td>
                       </tr>
                     </tbody>

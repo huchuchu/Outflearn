@@ -75,6 +75,9 @@ public interface RoadMapDao {
 	
 	public int reCommentAdd (CommentDto dto);
 	
+	public List<Integer> getSubnumList(List<Integer> list);
+	
+	public List<String> getsubnumName(List<Integer> list);
 
 	List<RoadUserCombineDto> roadMapComList(int firstIndex, int recordCountPerPage, String txt_search,
 			String searchOption, int main_num);

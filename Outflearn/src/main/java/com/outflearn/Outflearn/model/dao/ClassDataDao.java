@@ -55,8 +55,9 @@ public interface ClassDataDao {
 		public int ClassReviewUpdate(ClassReviewDto dto);
 		public int ClassReviewDelete(ClassReviewDto dto);
 			
-		public int ClassReviewUpdateAnswer(int review_num);
+		public int ClassReviewReplyUpdate(ClassReviewDto dto);
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);
+		public int ClassReviewReplyDelete(int review_num);
 		
 		//페이징
 		public List<ClassInfoDto> selectListPage(int firstIndex, int recordCountPerPage, String txt_search);

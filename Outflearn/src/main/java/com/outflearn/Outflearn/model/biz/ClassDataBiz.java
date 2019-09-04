@@ -2,16 +2,11 @@ package com.outflearn.Outflearn.model.biz;
 
 import java.util.List;
 
-import com.outflearn.Outflearn.dto.ClassCategoryDto;
 import com.outflearn.Outflearn.dto.ClassDataDto;
 import com.outflearn.Outflearn.dto.ClassInfoDto;
 import com.outflearn.Outflearn.dto.ClassIntroduceDto;
-import com.outflearn.Outflearn.dto.QADto;
-import com.outflearn.Outflearn.dto.LiveDto;
-import com.outflearn.Outflearn.dto.connectUserClass;
 import com.outflearn.Outflearn.dto.ClassReviewDto;
-import com.outflearn.Outflearn.dto.LiveDto;
-import com.outflearn.Outflearn.dto.MainStreamDto;
+import com.outflearn.Outflearn.dto.QADto;
 import com.outflearn.Outflearn.dto.SubStreamDto;
 
 public interface ClassDataBiz {
@@ -54,8 +49,9 @@ public interface ClassDataBiz {
 		public int ClassReviewUpdate(ClassReviewDto dto);
 		public int ClassReviewDelete(ClassReviewDto dto);
 		
-		public int ClassReviewAnswer(ClassReviewDto dto, int parentBoard_no);
 		public int ClassReviewInsertAnswer(ClassReviewDto dto);
+		public int ClassReviewReplyUpdate(ClassReviewDto dto);
+		public int ClassReviewReplyDelete(int review_num);
 		
 		// 주류, 부류 - MAIN_STREAM , SUB_STREAM
 		//public int mainStreamInsert(MainStreamDto dto);

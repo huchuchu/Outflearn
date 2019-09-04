@@ -126,8 +126,6 @@ CLASS_NUM NUMBER REFERENCES CLASS_INFO(CLASS_NUM) ON DELETE CASCADE NOT NULL,
 CLASS_CONTENT CLOB NOT NULL
 )
 
-SELECT * FROM CLASS_INTRODUCE;
-
 ----------------------------------------------
 --------------------------------------QA
 ----------------------------------------------

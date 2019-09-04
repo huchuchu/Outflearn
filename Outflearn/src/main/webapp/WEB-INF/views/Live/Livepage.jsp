@@ -55,6 +55,7 @@
 
 	<script type="text/javascript" src="resources/js/fullcalendar/liveCalendar.js"></script>
 	<link rel="stylesheet" href="resources/js/broadcast/css/main.css" />
+	<link rel="stylesheet" href="resources/css/myPage.css">
 
 </head>
 
@@ -66,9 +67,6 @@
 	<div class="container">
 		<div class="page-header">
 			<h1 class="float-left">방송</h1>
-			<h3 class="m-0">
-				<span class="label bg-danger">LIVE</span> <a href="/Outflearn/casterRoom"></a>
-			</h3>
 		</div>
 
 		<h2><a class="reloadRoom" href="void:0">새로고침</a></h2>

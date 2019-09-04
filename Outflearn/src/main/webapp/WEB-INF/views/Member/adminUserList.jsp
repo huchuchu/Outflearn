@@ -99,8 +99,8 @@
                                 <c:if test="${item.USER_AUTHORITY eq 'ROLE_TUTOR'}"> 강사에요 </c:if>
                               </td>
                               <td>
-                                <c:if test="${item.USER_ENABLED eq '1' }"><button onclick="userDisabled(${item.USER_NUM})">Y</button></c:if>
-                                <c:if test="${item.USER_ENABLED eq '0' }"><button onclick="userEnabled(${item.USER_NUM})">N</button></c:if>
+                                <c:if test="${item.USER_ENABLED eq '1' }"><button onclick="userDisabled(${item.USER_NUM})" class="updateBtn">Y</button></c:if>
+                                <c:if test="${item.USER_ENABLED eq '0' }"><button onclick="userEnabled(${item.USER_NUM})" class="deleteBtn">N</button></c:if>
                               </td>
                             </tr>
                           </c:forEach>

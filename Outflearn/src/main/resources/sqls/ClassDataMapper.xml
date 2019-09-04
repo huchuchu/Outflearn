@@ -145,8 +145,7 @@
 
 	<update id="classReviewUpdate" parameterType="classReviewDto">
 		UPDATE CLASS_REVIEW
-		SET REVIEW_CONTENT = #{review_content } WHERE REVIEW_NUM =
-		#{review_num }
+			SET REVIEW_CONTENT = #{review_content }, USER_STAR = #{user_star} WHERE REVIEW_NUM = #{review_num }
 	</update>
 
 	<delete id="classReviewDelete" parameterType="classReviewDto">
@@ -160,15 +159,14 @@
 										(SELECT REVIEW_TITLETAB FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}) + 1) 
 	</insert>
 
-	<update id="classReviewUpdateAnswer" parameterType="int">
+	<update id="classReviewUpdateAnswer" parameterType="classReviewDto">
 		UPDATE
-		CLASS_REVIEW SET QA_GROUPSQ = QA_GROUPSQ + 1
-		WHERE QA_GROUPSQ = (SELECT
-		QA_GROUPNO FROM CLASS_REVIEW WHERE BOARD_NO = #{board_no })
-		AND
-		QA_GROUPSQ > (SELECT QA_GROUPSQ FROM CLASS_REVIEW WHERE BOARD_NO =
-		#{board_no })
+		CLASS_REVIEW SET REVIEW_CONTENT = #{review_content} WHERE REVIEW_NUM = #{review_num}
 	</update>
+	
+	<delete id="ReviewReplyDelete" parameterType="int">
+		DELETE FROM CLASS_REVIEW WHERE REVIEW_NUM = #{review_num}
+	</delete>
 
 	<!-- ================== Basket 테이블 ======================== -->
 	<insert id="classBasketInsert" parameterType="ClassInfoDto">
@@ -199,7 +197,7 @@
 		VALUES(QA_NUM_SQ.NEXTVAL, #{class_num}, #{user_num}, #{user_nickname},
 		#{qa_title}, #{qa_content}, QA_GROUP_NO_SQ.NEXTVAL, '1')
 	</insert>
-
+ 
 	<delete id="QADelete" parameterType="int">
 		DELETE FROM QA WHERE
 		QA_GROUP_NO = #{qa_group_no}
@@ -427,12 +425,13 @@
 				upper(QA_CONTENT) like '%' || upper(#{txt_search}) || '%'
 			</if>
 		</where>
-		ORDER BY CLASS_NUM DESC
+		ORDER BY ROWNUM DESC
 		) C
 		)
 		WHERE RNUM BETWEEN #{firstIndex} + 1 AND
 		#{firstIndex} +
 		#{recordCountPerPage}
+		ORDER BY ROWNUM DESC
 	</select>
 	
 	<select id="selectTotalCountQA" parameterType="map"
@@ -507,8 +506,23 @@
 	
 	<select id="ReviewList" resultType="classReviewDto" parameterType="int">
 		<![CDATA[
-			SELECT * FROM CLASS_REVIEW WHERE CLASS_NUM = #{class_num} AND REVIEW_GROUPSQ = 1 AND ROWNUM <= 5 ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
-		]]>
+			SELECT R.REVIEW_NUM AS REVIEW_NUM,
+            R.CLASS_NUM AS CLASS_NUM,
+            R.USER_NUM AS USER_NUM,
+            R.REVIEW_CONTENT AS REVIEW_CONTENT,
+            R.USER_STAR AS USER_STAR,
+            R.REVIEW_GROUPNO AS REVIEW_GROUPNO,
+            R.REVIEW_GROUPSQ AS REVIEW_GROUPSQ,
+            R.REVIEW_TITLETAB AS REVIEW_TITLETAB,
+            U.USER_NICKNAME AS USER_NICKNAME
+      FROM CLASS_REVIEW R JOIN USER_INFO U ON R.USER_NUM = U.USER_NUM
+      
+      WHERE CLASS_NUM = (SELECT
+      CLASS_NUM FROM CLASS_INFO WHERE CLASS_NUM = #{class_num })
+      AND ROWNUM <= 5
+      
+      ORDER BY REVIEW_GROUPNO DESC, REVIEW_GROUPSQ
+	  ]]>
 	</select>
 
 	<!-- ================== 장바구니 구매 유무 ================== -->

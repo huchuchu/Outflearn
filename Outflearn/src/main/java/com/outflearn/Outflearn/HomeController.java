@@ -167,7 +167,7 @@ public class HomeController {
 			//model.addAttribute("classQuestion", biz.QASelectList(class_num));
 			int totalCount = biz.selectTotalCountQA(txt_search, class_num);
 			logger.info("텍스트서치:" + txt_search);
-			logger.info("class_num"+class_num);
+			logger.info("class_num:"+class_num);
 			logger.info("" + totalCount);
 
 			int pageNum = (page == null) ? 1 : Integer.parseInt(page);
@@ -668,9 +668,12 @@ public class HomeController {
 	}
 
 	@RequestMapping("LectureDetailView")
-	public String LectureDetailView(String DATA_DATA, Model model) {
+	public String LectureDetailView(String DATA_DATA, Model model, HttpSession session) {
 
+		int info_num = (int)session.getAttribute("info_num");
+		
 		model.addAttribute("DATA_DATA", DATA_DATA);
+		model.addAttribute("classInfo", biz.ClassInfoSelectOne(info_num));
 
 		return "Class/LectureDetailView";
 	}
@@ -807,7 +810,6 @@ public class HomeController {
 		
 		int res = biz.ClassDataInsertPlus(dto);
 		
-
 		if (res > 0) {
 			return "Class/DataVideoUploadChapterSecondPlus";
 		} else {
@@ -827,7 +829,7 @@ public class HomeController {
 	}
 	
 	// 마이페이지에서 영상 추가 수정 페이지로 이동
-	@RequestMapping("ClassDataUpdate")
+	@RequestMapping("ClassDataUpdateForm")
 		public String ClassDataUpdate(int class_num, Model model) {
 			
 			model.addAttribute("class_num", class_num);
