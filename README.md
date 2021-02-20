@@ -1,7 +1,7 @@
 # Outflearn ( KH_academy_Qclass_Finalproject )
 
 앱 이름 : Outflearn
-팀원 : 위성빈, 강선웅, 문희수, 송윤회, 유슬기
+팀원 : 위성빈, 강선웅, 문희수, 송윤회, 유슬기(유다현)
 
 # TARGET
 
@@ -23,3 +23,8 @@
  - 구현 언어 : Java, Java Scrpit, jQuery, HTML5, CSS3, Jsp/Sevlet
  - 사용 기술 : Ajax, 결제 API ( kakao ), 로그인 API ( kakao, google ), webRTC API
  - 사용 도구 : Eclipse, Oracle11g, Visual Studio Code, MyBatis, Spring, BootStrap3
+
+## ERD
+![캡처](https://user-images.githubusercontent.com/58330668/108584198-bc7a3380-7382-11eb-93f3-f91d4bfd5a53.png)
+
+#####https://www.erdcloud.com/d/yNZTy79XEqxKJz6k4
