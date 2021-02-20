@@ -88,6 +88,7 @@
 10. 구독취소하기 버튼을 눌러도 장바구니에서는 삭제되지않는다
 
 ![roadmap_detail6](https://user-images.githubusercontent.com/58330668/108584820-9c00a800-7387-11eb-8df2-2166de0ec474.png)
+
 11. 강의 중 일부만 장바구니에 담았을 경우 담기지 않은 강의들은 그대로 표시된다
 
 
