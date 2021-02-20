@@ -1,7 +1,7 @@
 # Outflearn ( KH_academy_Qclass_Finalproject )
 
 앱 이름 : Outflearn
-팀원 : 위성빈, 강선웅, 문희수, 송윤회, __유슬기(유다현)__
+팀원 : 위성빈, 강선웅, 문희수, 송윤회,` __유슬기(유다현)__`
 
 # TARGET
 
