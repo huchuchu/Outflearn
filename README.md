@@ -24,7 +24,17 @@
  - 사용 기술 : Ajax, 결제 API ( kakao ), 로그인 API ( kakao, google ), webRTC API
  - 사용 도구 : Eclipse, Oracle11g, Visual Studio Code, MyBatis, Spring, BootStrap3
 
-## ERD
+# ERD
 ![캡처](https://user-images.githubusercontent.com/58330668/108584198-bc7a3380-7382-11eb-93f3-f91d4bfd5a53.png)
+##### https://www.erdcloud.com/d/yNZTy79XEqxKJz6k4
 
-#####https://www.erdcloud.com/d/yNZTy79XEqxKJz6k4
+# 로그인 페이지
+![캡처](https://user-images.githubusercontent.com/58330668/108584470-20056080-7385-11eb-88e4-d3e1a6ee2da4.PNG)
+
+1. Spring security와 소셜 로그인API를 이용하여 로그인을 구현 함
+2. 소셜 로그인 시 회원가입이 필요한 경우 추가 기입없이 바로 회원가입 후 로그인 진행
+3. Spring security의 기능 중 하나인 remember me 를 이용하여, 체크박스를 체크하면 화면을 껐다가 다시 접속해도 계속 로그인상태를 유지하도록 설정
+4. 로그인 실패 시 화면에 에러 메세지를 출력함
+
+
+
