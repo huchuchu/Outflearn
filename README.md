@@ -53,7 +53,10 @@
 5. 팝업창에서는 카테고리 별 강의 목록을 확인할 수 있고, 원하는 강의를 선택하면 강의 등록하기 페이지의 해당 영역에 강의 제목이 출력된다
 6. 강의 대분류는 Slim Select(multiselect plugin)를 활용하였다
 
+# 로드맵 수정&삭제
+![roadmap3](https://user-images.githubusercontent.com/58330668/108584669-9c4c7380-7386-11eb-9b40-72ffbf69858a.png)
 
+1. 로드맵 수정 및 삭제는 마이페이지/로드맵 페이지에서 가능하다
 
 
 
